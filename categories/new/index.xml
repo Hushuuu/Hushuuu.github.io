@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>New on Example Site</title>
+    <link>https://hushuuu.github.io/categories/new/</link>
+    <description>Recent content in New on Example Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 11 Mar 2021 09:45:07 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/new/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>second post</title>
+      <link>https://hushuuu.github.io/2021/03/11/second-post/</link>
+      <pubDate>Thu, 11 Mar 2021 09:45:07 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/11/second-post/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

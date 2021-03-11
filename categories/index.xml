@@ -5,6 +5,25 @@
     <link>https://hushuuu.github.io/categories/</link>
     <description>Recent content in Categories on Example Site</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Thu, 11 Mar 2021 09:45:07 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>New</title>
+      <link>https://hushuuu.github.io/categories/new/</link>
+      <pubDate>Thu, 11 Mar 2021 09:45:07 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/new/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Older</title>
+      <link>https://hushuuu.github.io/categories/older/</link>
+      <pubDate>Thu, 11 Mar 2021 09:25:07 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/older/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
