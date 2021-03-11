@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Example Site</title>
+    <link>https://hushuuu.github.io/posts/</link>
+    <description>Recent content in Posts on Example Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://hushuuu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://hushuuu.github.io/posts/my-fist-post/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hushuuu.github.io/posts/my-fist-post/</guid>
+      <description>title: &amp;ldquo;用 Hugo 建立部落格 / 網站，每步都有詳細教學&amp;rdquo; subtitle: &amp;ldquo;Wordpress、Blogger 以外的第三方案，設計彈性更高，並且免費，適合願意學寫程式的人。&amp;rdquo; description: &amp;ldquo;自從去年學了程式，並開始工作以後，就有想建立部落格，寫下工程師日常的想法。在&amp;rdquo; date: 2021-03-01T12:48:21+08:00 author: &amp;ldquo;Siddharam&amp;rdquo; cover: &amp;quot;&amp;quot; image: &amp;quot;&amp;quot; tags: [&amp;ldquo;test&amp;rdquo;, &amp;ldquo;Hugo&amp;rdquo;, &amp;ldquo;部落格&amp;rdquo;] categories: [&amp;ldquo;筆記&amp;rdquo; ] keywords:
+ test Hugo 部落格 draft: false  </description>
+    </item>
+    
+  </channel>
+</rss>
