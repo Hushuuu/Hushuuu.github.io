@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>New on The Site</title>
+    <link>https://hushuuu.github.io/categories/new/</link>
+    <description>Recent content in New on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 12 Mar 2021 16:42:54 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/new/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Twopost</title>
+      <link>https://hushuuu.github.io/2021/03/12/twopost/</link>
+      <pubDate>Fri, 12 Mar 2021 16:42:54 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/12/twopost/</guid>
+      <description>前言 asdasddasdad
+主要內容 asdasdsadasdad.
+&amp;lt;table&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;/table&amp;gt; 小結 asdasdsadasdsadsad
+參考連結   url1 url2   </description>
+    </item>
+    
+  </channel>
+</rss>

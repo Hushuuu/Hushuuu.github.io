@@ -3,8 +3,43 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://hushuuu.github.io/tags/blog/</loc>
+    <lastmod>2021-03-12T16:42:54+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://hushuuu.github.io/categories/</loc>
-    <lastmod>2021-03-12T15:16:07+08:00</lastmod>
+    <lastmod>2021-03-12T16:42:54+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hushuuu.github.io/tags/hugo/</loc>
+    <lastmod>2021-03-12T16:42:54+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hushuuu.github.io/categories/new/</loc>
+    <lastmod>2021-03-12T16:42:54+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hushuuu.github.io/post/</loc>
+    <lastmod>2021-03-12T16:42:54+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hushuuu.github.io/tags/</loc>
+    <lastmod>2021-03-12T16:42:54+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hushuuu.github.io/</loc>
+    <lastmod>2021-03-12T16:42:54+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hushuuu.github.io/2021/03/12/twopost/</loc>
+    <lastmod>2021-03-12T16:42:54+08:00</lastmod>
   </url>
   
   <url>
@@ -13,17 +48,7 @@
   </url>
   
   <url>
-    <loc>https://hushuuu.github.io/post/</loc>
-    <lastmod>2021-03-12T15:16:07+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://hushuuu.github.io/categories/test/</loc>
-    <lastmod>2021-03-12T15:16:07+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://hushuuu.github.io/</loc>
     <lastmod>2021-03-12T15:16:07+08:00</lastmod>
   </url>
   
@@ -69,11 +94,6 @@
   
   <url>
     <loc>https://hushuuu.github.io/categories/syntax/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://hushuuu.github.io/tags/</loc>
     <lastmod>2019-03-11T00:00:00+00:00</lastmod>
   </url>
   
