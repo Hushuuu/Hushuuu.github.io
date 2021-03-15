@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Excel on The Site</title>
+    <link>https://hushuuu.github.io/tags/excel/</link>
+    <description>Recent content in Excel on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Mar 2021 17:15:18 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/excel/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MVC-產出Excel</title>
+      <link>https://hushuuu.github.io/2021/03/15/mvc-%E7%94%A2%E5%87%BAexcel/</link>
+      <pubDate>Mon, 15 Mar 2021 17:15:18 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/15/mvc-%E7%94%A2%E5%87%BAexcel/</guid>
+      <description>前言 介紹NPOI及EPPlus套件來將資料產出成Excel。
+主要內容 NPOI的方式產出報表，XSSFWorkbook為.xlsx格式HSSF則為較舊的.xls
+public ActionResult getExcel() { var result = List&amp;lt;Data&amp;gt;;//資料  //建立Excel  XSSFWorkbook xssfworkbook = new XSSFWorkbook(); //建立活頁簿  ISheet sheet = xssfworkbook.CreateSheet(&amp;#34;sheet&amp;#34;); //建立sheet  //設定樣式  ICellStyle headerStyle = xssfworkbook.CreateCellStyle(); IFont headerfont = xssfworkbook.CreateFont(); headerStyle.Alignment = HorizontalAlignment.Center; //水平置中  headerStyle.VerticalAlignment = VerticalAlignment.Center; //垂直置中  headerfont.FontName = &amp;#34;微軟正黑體&amp;#34;; headerfont.FontHeightInPoints = 20; headerStyle.SetFont(headerfont); //新增標題列  sheet.CreateRow(0); //需先用CreateRow建立,才可通过GetRow取得該欄位  sheet.GetRow(0).CreateCell(0).SetCellValue(&amp;#34;商品清單&amp;#34;); sheet.AddMergedRegion(new CellRangeAddress(0, 0, 0, 2)); //合併A~C欄儲存格  sheet.GetRow(0).GetCell(0).CellStyle = headerStyle; //套用樣式  sheet.</description>
+    </item>
+    
+  </channel>
+</rss>

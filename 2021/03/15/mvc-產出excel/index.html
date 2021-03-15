@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='介紹幾種產出Excel的方式(NPOI,EPPlus)'><title>MVC-產出Excel</title>
+
+<link rel='canonical' href='https://hushuuu.github.io/2021/03/15/mvc-%E7%94%A2%E5%87%BAexcel/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='MVC-產出Excel'>
+<meta property='og:description' content='介紹幾種產出Excel的方式(NPOI,EPPlus)'>
+<meta property='og:url' content='https://hushuuu.github.io/2021/03/15/mvc-%E7%94%A2%E5%87%BAexcel/'>
+<meta property='og:site_name' content='The Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Excel' /><meta property='article:published_time' content='2021-03-15T17:15:18&#43;08:00'/><meta property='article:modified_time' content='2021-03-15T17:15:18&#43;08:00'/>
+<meta name="twitter:title" content="MVC-產出Excel">
+<meta name="twitter:description" content="介紹幾種產出Excel的方式(NPOI,EPPlus)">
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切換菜單">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h2 class="site-description">For Practice And Note Everythings In Life.</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首頁</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>關於</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>封存</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜尋</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>深色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://hushuuu.github.io/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/mvc/" >
+                MVC
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/2021/03/15/mvc-%E7%94%A2%E5%87%BAexcel/">MVC-產出Excel</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        介紹幾種產出Excel的方式(NPOI,EPPlus)
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">2021-03-15</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="前言">前言</h2>
+<p>介紹NPOI及EPPlus套件來將資料產出成Excel。</p>
+<h2 id="主要內容">主要內容</h2>
+<p>NPOI的方式產出報表，XSSFWorkbook為.xlsx格式HSSF則為較舊的.xls</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="n">ActionResult</span> <span class="n">getExcel</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Data</span><span class="p">&gt;;</span><span class="c1">//資料
+</span><span class="c1"></span>    <span class="c1">//建立Excel
+</span><span class="c1"></span>    <span class="n">XSSFWorkbook</span> <span class="n">xssfworkbook</span> <span class="p">=</span> <span class="k">new</span> <span class="n">XSSFWorkbook</span><span class="p">();</span> <span class="c1">//建立活頁簿
+</span><span class="c1"></span>    <span class="n">ISheet</span> <span class="n">sheet</span> <span class="p">=</span> <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">CreateSheet</span><span class="p">(</span><span class="s">&#34;sheet&#34;</span><span class="p">);</span> <span class="c1">//建立sheet
+</span><span class="c1"></span>
+    <span class="c1">//設定樣式
+</span><span class="c1"></span>    <span class="n">ICellStyle</span> <span class="n">headerStyle</span> <span class="p">=</span> <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">CreateCellStyle</span><span class="p">();</span>
+    <span class="n">IFont</span> <span class="n">headerfont</span> <span class="p">=</span> <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">CreateFont</span><span class="p">();</span>
+    <span class="n">headerStyle</span><span class="p">.</span><span class="n">Alignment</span> <span class="p">=</span> <span class="n">HorizontalAlignment</span><span class="p">.</span><span class="n">Center</span><span class="p">;</span> <span class="c1">//水平置中
+</span><span class="c1"></span>    <span class="n">headerStyle</span><span class="p">.</span><span class="n">VerticalAlignment</span> <span class="p">=</span> <span class="n">VerticalAlignment</span><span class="p">.</span><span class="n">Center</span><span class="p">;</span> <span class="c1">//垂直置中
+</span><span class="c1"></span>    <span class="n">headerfont</span><span class="p">.</span><span class="n">FontName</span> <span class="p">=</span> <span class="s">&#34;微軟正黑體&#34;</span><span class="p">;</span>
+    <span class="n">headerfont</span><span class="p">.</span><span class="n">FontHeightInPoints</span> <span class="p">=</span> <span class="m">20</span><span class="p">;</span>
+    <span class="n">headerStyle</span><span class="p">.</span><span class="n">SetFont</span><span class="p">(</span><span class="n">headerfont</span><span class="p">);</span>
+
+    <span class="c1">//新增標題列
+</span><span class="c1"></span>    <span class="n">sheet</span><span class="p">.</span><span class="n">CreateRow</span><span class="p">(</span><span class="m">0</span><span class="p">);</span> <span class="c1">//需先用CreateRow建立,才可通过GetRow取得該欄位
+</span><span class="c1"></span>    <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;商品清單&#34;</span><span class="p">);</span>
+    <span class="n">sheet</span><span class="p">.</span><span class="n">AddMergedRegion</span><span class="p">(</span><span class="k">new</span> <span class="n">CellRangeAddress</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="p">));</span> <span class="c1">//合併A~C欄儲存格
+</span><span class="c1"></span>    <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">GetCell</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">CellStyle</span> <span class="p">=</span> <span class="n">headerStyle</span><span class="p">;</span> <span class="c1">//套用樣式
+</span><span class="c1"></span>    <span class="n">sheet</span><span class="p">.</span><span class="n">CreateRow</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;商品編號&#34;</span><span class="p">);</span>
+    <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;商品名&#34;</span><span class="p">);</span>
+    <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">2</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;單價&#34;</span><span class="p">);</span>
+    <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">3</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;庫存&#34;</span><span class="p">);</span>
+    <span class="c1">//填入資料
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">rowIndex</span> <span class="p">=</span> <span class="m">2</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">row</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">row</span> <span class="p">&lt;</span> <span class="n">result</span><span class="p">.</span><span class="n">Count</span><span class="p">();</span> <span class="n">row</span><span class="p">++)</span>
+    <span class="p">{</span>
+        <span class="n">sheet</span><span class="p">.</span><span class="n">CreateRow</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">row</span><span class="p">].</span><span class="n">pro_id</span><span class="p">);</span>
+        <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">row</span><span class="p">].</span><span class="n">pro_name</span><span class="p">);</span>
+        <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">2</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="n">Convert</span><span class="p">.</span><span class="n">ToDouble</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">row</span><span class="p">].</span><span class="n">price</span><span class="p">));</span>
+        <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">3</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="n">Convert</span><span class="p">.</span><span class="n">ToDouble</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">row</span><span class="p">].</span><span class="n">qty</span><span class="p">));</span>
+        <span class="n">rowIndex</span><span class="p">++;</span>
+    <span class="p">}</span>
+
+    <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">MemoryStream</span> <span class="n">ms</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">MemoryStream</span><span class="p">();</span>
+    <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">ms</span><span class="p">);</span>
+    <span class="kt">string</span> <span class="n">handle</span> <span class="p">=</span> <span class="n">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="p">().</span><span class="n">ToString</span><span class="p">();</span>
+    <span class="n">TempData</span><span class="p">[</span><span class="n">handle</span><span class="p">]</span> <span class="p">=</span> <span class="n">ms</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">Json</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="k">new</span> <span class="p">{</span> <span class="n">FileGuid</span> <span class="p">=</span> <span class="n">handle</span><span class="p">,</span> <span class="n">FileName</span> <span class="p">=</span> <span class="s">&#34;商品清單.xlsx&#34;</span> <span class="p">})</span> <span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>因為是透過AJAX方式進後端，回傳這部分將檔案的<code>MemoryStream Array</code>利用<code>TempData</code>傳回<br>
+並取得一個Guid來當這資料的KEY，回傳KEY和檔案名稱回View。<br>
+Ajax回傳至前端後，利用iframe的方式實現下載(打下載的Action)</p>
+<h3 id="ajax完成回傳的ata">Ajax完成回傳的ata</h3>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript">    <span class="kd">var</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+    <span class="c1">//iframe
+</span><span class="c1"></span>    <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#ifrm&#34;</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">ifrm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;iframe&#34;</span><span class="p">);</span>
+    <span class="nx">ifrm</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&#34;src&#34;</span><span class="p">,</span> <span class="s1">&#39;/Product/Download?fileGuid=&#39;</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">FileGuid</span>
+        <span class="o">+</span> <span class="s1">&#39;&amp;filename=&#39;</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">FileName</span><span class="p">);</span>
+    <span class="nx">ifrm</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&#34;none&#34;</span><span class="p">;</span>
+    <span class="nx">ifrm</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&#34;ifrm&#34;</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">dv</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;&lt;div&gt;&lt;/div&gt;&#34;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">ifrm</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">dv</span><span class="p">);</span>
+</code></pre></div><h3 id="下載部分">下載部分</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c#" data-lang="c#"><span class="na">    [HttpGet]</span>
+    <span class="k">public</span> <span class="k">virtual</span> <span class="n">ActionResult</span> <span class="n">Download</span><span class="p">(</span><span class="kt">string</span> <span class="n">fileGuid</span><span class="p">,</span> <span class="kt">string</span> <span class="n">fileName</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">TempData</span><span class="p">[</span><span class="n">fileGuid</span><span class="p">]</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">byte</span><span class="p">[]</span> <span class="n">data</span> <span class="p">=</span> <span class="n">TempData</span><span class="p">[</span><span class="n">fileGuid</span><span class="p">]</span> <span class="k">as</span> <span class="kt">byte</span><span class="p">[];</span>
+            <span class="k">return</span> <span class="n">File</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s">&#34;application/vnd.ms-excel&#34;</span><span class="p">,</span> <span class="n">fileName</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="n">EmptyResult</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div><p>不過有另一種更簡明易懂的方式<br>
+<code>Action</code>可以直接回傳<code>File Result</code>就可以實現下載<br>
+使用<code>Form Post</code>的方法並開新頁<code>target=&quot;_blank&quot;</code> 直接回傳檔案型別</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#">    <span class="k">public</span> <span class="n">ActionResult</span> <span class="n">getExcel2</span><span class="p">(</span><span class="n">IWorkbook</span> <span class="n">workbook</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">MemoryStream</span> <span class="n">ms</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">MemoryStream</span><span class="p">();</span>
+        <span class="n">workbook</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">ms</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">File</span><span class="p">(</span><span class="n">ms</span><span class="p">.</span><span class="n">ToArray</span><span class="p">(),</span> <span class="s">&#34;application/vnd.ms-excel&#34;</span><span class="p">,</span> <span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">$&#34;商品清單.xlsx&#34;</span><span class="p">));</span>
+    <span class="p">}</span>       
+</code></pre></div><h2 id="小結">小結</h2>
+<p>產生Excel之後，也可以選擇先產生存在Server端，Client端再去取得Server端檔案路徑進行下載。<br>
+本文的方式都不會在Server端產生檔案。可以節省Server端空間也不用有清除歷史檔案的需求。<br>
+不過也有需在Server端產檔的可能，再另外做調整。</p>
+<h2 id="參考連結">參考連結</h2>
+<blockquote>
+<ul>
+<li><a class="link" href="https://t.codebug.vip/questions-986624.htm"  target="_blank" rel="noopener"
+    >url1</a></li>
+<li><a class="link" href="https://www.tpisoftware.com/tpu/articleDetails/1654"  target="_blank" rel="noopener"
+    >url2</a></li>
+</ul>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/excel/">Excel</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相關文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/2021/03/15/mvc-%E8%B3%87%E6%96%99%E5%AD%98%E5%8F%96dataaccess/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-資料存取(DataAccess)</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/15/mvc-%E7%99%BB%E5%85%A5%E9%A9%97%E8%AD%89/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC 登入驗證</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/15/asp.net-mvc-%E5%BE%8C%E7%AB%AFmodel%E6%AC%84%E4%BD%8D%E9%A9%97%E8%AD%89/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">asp.net MVC 後端Model欄位驗證</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 The Site
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='從資料庫連線到查詢及執行，將行為寫成方法，將方法封裝成類別'><title>MVC-資料存取(DataAccess)</title>
+
+<link rel='canonical' href='https://hushuuu.github.io/2021/03/15/mvc-%E8%B3%87%E6%96%99%E5%AD%98%E5%8F%96dataaccess/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='MVC-資料存取(DataAccess)'>
+<meta property='og:description' content='從資料庫連線到查詢及執行，將行為寫成方法，將方法封裝成類別'>
+<meta property='og:url' content='https://hushuuu.github.io/2021/03/15/mvc-%E8%B3%87%E6%96%99%E5%AD%98%E5%8F%96dataaccess/'>
+<meta property='og:site_name' content='The Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SQL' /><meta property='article:published_time' content='2021-03-15T11:32:53&#43;08:00'/><meta property='article:modified_time' content='2021-03-15T11:32:53&#43;08:00'/>
+<meta name="twitter:title" content="MVC-資料存取(DataAccess)">
+<meta name="twitter:description" content="從資料庫連線到查詢及執行，將行為寫成方法，將方法封裝成類別">
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切換菜單">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h2 class="site-description">For Practice And Note Everythings In Life.</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首頁</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>關於</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>封存</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜尋</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>深色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://hushuuu.github.io/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/mvc/" >
+                MVC
+            </a>
+        
+            <a href="/categories/sql/" >
+                SQL
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/2021/03/15/mvc-%E8%B3%87%E6%96%99%E5%AD%98%E5%8F%96dataaccess/">MVC-資料存取(DataAccess)</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        從資料庫連線到查詢及執行，將行為寫成方法，將方法封裝成類別
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">2021-03-15</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="前言">前言</h2>
+<p>在開發時與資料庫間的連線橋梁，較常見的為ADO.NET或是EF的方式，此篇只介紹ADO.NET<br>
+使用ADO.NET最基本就是開啟SqlConnection連線建立SqlCommand操作</p>
+<h2 id="第一步">第一步</h2>
+<p>直接連線並查詢出結果的範例</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="kt">string</span> <span class="n">connStr</span> <span class="p">=</span> <span class="s">&#34;連線字串&#34;</span><span class="p">;</span>
+<span class="kt">string</span> <span class="n">sql</span> <span class="p">=</span> <span class="s">&#34;SELECT * FROM Product Where id=@id&#34;</span><span class="p">;</span>
+<span class="n">SqlConnection</span> <span class="n">Conn</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SqlConnection</span><span class="p">(</span><span class="n">connStr</span><span class="p">);</span>
+<span class="n">Conn</span><span class="p">.</span><span class="n">Open</span><span class="p">();</span>
+<span class="n">SqlCommand</span> <span class="n">Cmd</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SqlCommand</span><span class="p">(</span><span class="n">sql</span><span class="p">);</span>
+<span class="n">Cmd</span><span class="p">.</span><span class="n">Connection</span> <span class="p">=</span> <span class="n">Conn</span><span class="p">;</span>
+<span class="n">Cmd</span><span class="p">.</span><span class="n">Parameters</span><span class="p">.</span><span class="n">Clear</span><span class="p">();</span>
+<span class="n">Cmd</span><span class="p">.</span><span class="n">Parameters</span><span class="p">.</span><span class="n">AddWithValue</span><span class="p">(</span><span class="s">&#34;id&#34;</span><span class="p">,</span><span class="s">&#34;1&#34;</span><span class="p">);</span>
+<span class="n">using</span><span class="p">(</span><span class="n">SqlDataReader</span> <span class="n">sdr</span> <span class="p">=</span> <span class="n">Cmd</span><span class="p">.</span><span class="n">ExecuteReader</span><span class="p">()){</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">sdr</span><span class="p">.</span><span class="n">Read</span><span class="p">()){</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">sdr</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="m">0</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">Conn</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</code></pre></div><p>但若是每個資料庫的操作都需要打上這一大段的Code程式碼不僅變得冗長且難以統一維護<br>
+這時候就可以利用封裝的概念將code包起來</p>
+<p>先建立一個新類別檔<code>DataAccess.cs</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"> <span class="k">public</span> <span class="k">class</span> <span class="nc">DataAccess</span>
+    <span class="p">{</span>
+       <span class="k">public</span> <span class="kt">string</span> <span class="n">ConnectionString</span> <span class="p">{</span><span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;}</span>
+       <span class="k">public</span> <span class="n">SqlConnection</span> <span class="n">Conn</span> <span class="p">{</span><span class="k">get</span><span class="p">;</span><span class="k">set</span><span class="p">;}</span>
+       <span class="k">protected</span> <span class="n">SqlCommand</span> <span class="n">Cmd</span> <span class="p">{</span><span class="k">get</span><span class="p">;</span><span class="k">set</span><span class="p">;}</span>
+       <span class="k">public</span> <span class="n">DataAccess</span><span class="p">(</span><span class="n">SqlConnection</span> <span class="n">Conn</span><span class="p">){</span>
+           <span class="k">this</span><span class="p">.</span><span class="n">Conn</span> <span class="p">=</span> <span class="n">Conn</span><span class="p">;</span>
+           <span class="k">this</span><span class="p">.</span><span class="n">ConnectionString</span> <span class="p">=</span> <span class="n">Conn</span><span class="p">.</span><span class="n">ConnectionString</span><span class="p">;</span>
+           <span class="n">InitCmd</span><span class="p">();</span>
+       <span class="p">}</span>
+       <span class="k">protected</span> <span class="k">void</span> <span class="n">InitCmd</span><span class="p">(){</span>
+           <span class="k">if</span><span class="p">(</span><span class="n">Cmd</span> <span class="p">==</span> <span class="k">null</span><span class="p">){</span>
+               <span class="n">Cmd</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SqlCommand</span><span class="p">();</span>
+               <span class="n">Cmd</span><span class="p">.</span><span class="n">Connection</span> <span class="p">=</span> <span class="n">Conn</span><span class="p">;</span>
+           <span class="p">}</span>
+       <span class="p">}</span>
+       <span class="k">protected</span> <span class="k">void</span> <span class="n">OpenConnIfClosed</span><span class="p">(){</span>
+           <span class="k">if</span><span class="p">(</span><span class="n">Conn</span><span class="p">.</span><span class="n">State</span> <span class="p">==</span> <span class="n">ConnectionState</span><span class="p">.</span><span class="n">Closed</span><span class="p">){</span>
+               <span class="n">Conn</span><span class="p">.</span><span class="n">Open</span><span class="p">();</span>
+           <span class="p">}</span>
+       <span class="p">}</span>
+       <span class="k">protected</span> <span class="k">void</span> <span class="n">CloseConn</span><span class="p">(){</span>
+           <span class="n">Conn</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+       <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div><p>將對資料庫的<code>Connection</code>及<code>Command</code>初始化行為建立在類別中。<br>
+可以根據<code>Transaction</code>需求及<code>Query</code>再擴展</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"> <span class="k">protected</span> <span class="n">SqlTransaction</span> <span class="n">Transaction</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>  
+ <span class="k">private</span> <span class="kt">bool</span> <span class="n">UseTransaction</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+ <span class="c1">//SQL查詢
+</span><span class="c1"></span> <span class="k">protected</span> <span class="n">T</span> <span class="n">SqlQuery_result</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="kt">string</span> <span class="n">strSql</span><span class="p">,</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">object</span><span class="p">&gt;</span> <span class="n">parameters</span><span class="p">=</span><span class="k">null</span><span class="p">,</span><span class="n">CommandType</span> <span class="n">cmdType</span> <span class="p">=</span> <span class="n">CommandType</span><span class="p">.</span><span class="n">Text</span>
+            <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">T</span> <span class="n">tobj</span> <span class="p">=</span> <span class="k">default</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
+        <span class="k">try</span>
+        <span class="p">{</span>
+            <span class="n">OpenConnIfClosed</span><span class="p">();</span>
+            <span class="n">Cmd</span><span class="p">.</span><span class="n">CommandType</span> <span class="p">=</span> <span class="n">cmdType</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">UseTransaction</span> <span class="p">&amp;&amp;</span> <span class="n">Transaction</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">Cmd</span><span class="p">.</span><span class="n">Transaction</span> <span class="p">=</span> <span class="n">Transaction</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">Cmd</span><span class="p">.</span><span class="n">CommandText</span> <span class="p">=</span> <span class="n">strSql</span><span class="p">;</span>
+            <span class="n">Cmd</span><span class="p">.</span><span class="n">Parameters</span><span class="p">.</span><span class="n">Clear</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">parameters</span> <span class="p">!=</span> <span class="k">null</span> <span class="p">&amp;&amp;</span> <span class="n">parameters</span><span class="p">.</span><span class="n">Count</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">item</span> <span class="k">in</span> <span class="n">parameters</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">item</span><span class="p">.</span><span class="n">Value</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+                        <span class="n">Cmd</span><span class="p">.</span><span class="n">Parameters</span><span class="p">.</span><span class="n">AddWithValue</span><span class="p">(</span><span class="n">item</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span> <span class="n">DBNull</span><span class="p">.</span><span class="n">Value</span><span class="p">);</span>
+                    <span class="k">else</span>
+                        <span class="n">Cmd</span><span class="p">.</span><span class="n">Parameters</span><span class="p">.</span><span class="n">AddWithValue</span><span class="p">(</span><span class="n">item</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span> <span class="n">item</span><span class="p">.</span><span class="n">Value</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">using</span> <span class="p">(</span><span class="n">SqlDataReader</span> <span class="n">odr</span> <span class="p">=</span> <span class="n">Cmd</span><span class="p">.</span><span class="n">ExecuteReader</span><span class="p">())</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">odr</span><span class="p">.</span><span class="n">HasRows</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">odr</span><span class="p">.</span><span class="n">Read</span><span class="p">();</span>
+                    <span class="n">Type</span> <span class="n">y</span> <span class="p">=</span> <span class="n">odr</span><span class="p">[</span><span class="m">0</span><span class="p">].</span><span class="n">GetType</span><span class="p">();</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="p">==</span> <span class="n">y</span><span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="n">tobj</span> <span class="p">=</span> <span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="n">Convert</span><span class="p">.</span><span class="n">ChangeType</span><span class="p">(</span><span class="n">odr</span><span class="p">[</span><span class="m">0</span><span class="p">],</span><span class="k">typeof</span><span class="p">(</span><span class="n">T</span><span class="p">));</span>
+                    <span class="p">}</span>
+                    <span class="k">else</span>
+                    <span class="p">{</span>
+                        <span class="n">tobj</span> <span class="p">=</span> <span class="k">default</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">Cmd</span><span class="p">.</span><span class="n">Parameters</span><span class="p">.</span><span class="n">Clear</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(!</span><span class="n">UseTransaction</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">CloseConn</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">tobj</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">e</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(!</span><span class="n">UseTransaction</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">Dispose</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">throw</span> <span class="n">e</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>  
+</code></pre></div><p><code>SqlQuery_result</code>有使用泛型<code>T</code>，可不事先決定這Function回傳的資料型態。<br>
+但此方法只可以查詢單筆單個欄位，如果想要查詢<code>Select * from Product</code>這種結果的話就要再調整。
+可以利用<code>Reflection</code>反射，來對應泛型的屬性。此篇先不多提。</p>
+<p>除了Query之外還有執行的需求，也一樣擴充我們的類別</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">protected</span> <span class="kt">int</span> <span class="n">ExecuteSqlCommand</span><span class="p">(</span><span class="kt">string</span> <span class="n">strSQL</span><span class="p">,</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">object</span><span class="p">&gt;</span> <span class="n">parameters</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span> <span class="n">CommandType</span> <span class="n">cmdType</span> <span class="p">=</span> <span class="n">CommandType</span><span class="p">.</span><span class="n">Text</span>
+            <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">effectRows</span> <span class="p">=</span> <span class="p">-</span><span class="m">1</span><span class="p">;</span>
+        <span class="k">try</span>
+        <span class="p">{</span>
+            <span class="n">OpenConnIfClosed</span><span class="p">();</span>
+            <span class="n">Cmd</span><span class="p">.</span><span class="n">CommandType</span> <span class="p">=</span> <span class="n">cmdType</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">UseTransaction</span> <span class="p">&amp;&amp;</span> <span class="n">Transaction</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">Cmd</span><span class="p">.</span><span class="n">Transaction</span> <span class="p">=</span> <span class="n">Transaction</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">Cmd</span><span class="p">.</span><span class="n">CommandText</span> <span class="p">=</span> <span class="n">strSQL</span><span class="p">;</span>
+            <span class="n">Cmd</span><span class="p">.</span><span class="n">Parameters</span><span class="p">.</span><span class="n">Clear</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">parameters</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">item</span> <span class="k">in</span> <span class="n">parameters</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">Cmd</span><span class="p">.</span><span class="n">Parameters</span><span class="p">.</span><span class="n">AddWithValue</span><span class="p">(</span><span class="n">item</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span> <span class="n">item</span><span class="p">.</span><span class="n">Value</span> <span class="p">==</span> <span class="k">null</span> <span class="p">?</span> <span class="n">DBNull</span><span class="p">.</span><span class="n">Value</span> <span class="p">:</span> <span class="n">item</span><span class="p">.</span><span class="n">Value</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">effectRows</span> <span class="p">=</span> <span class="n">Cmd</span><span class="p">.</span><span class="n">ExecuteNonQuery</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(!</span><span class="n">UseTransaction</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">CloseConn</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">e</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(!</span><span class="n">UseTransaction</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">Dispose</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">throw</span> <span class="n">e</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">effectRows</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div><h2 id="再簡化">再簡化</h2>
+<p>到這裡已經把初始化連線、建立Command、查詢及執行都封裝成一個類別了！<br>
+但方法的存取修飾詞為什麼是<code>protected</code>?<br>
+使用<code>DataAccess</code>類別時，需要在<code>Controller</code>中<code>new</code>連線物件並寫增刪修查語法後Call物件的方法。<br>
+如果要更加的簡化<code>Controller</code>裡的Code，可以再將增刪修查的動作提取出來，使得<code>Controller</code>結構一目了然</p>
+<p>舉例資料表<code>User</code>，建立一個類別檔<code>UserDB.cs</code><br>
+繼承<code>DataAccess</code>類別來建立增刪修查的方法<br>
+*父類別<code>protected</code>的屬性或方法為了限制給繼承<code>DataAcess</code>的類別可使用</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">class</span> <span class="nc">UserDB</span> <span class="p">:</span> <span class="n">DataAccess</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">UserDB</span><span class="p">(</span><span class="n">SqlConnection</span> <span class="n">Conn</span><span class="p">)</span> <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="n">Conn</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;</span> <span class="n">ListUser</span><span class="p">(</span><span class="kt">string</span> <span class="n">Qid</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span> <span class="kt">string</span> <span class="n">Qname</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span> <span class="kt">string</span> <span class="n">Qaccount</span> <span class="p">=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">object</span><span class="p">&gt;</span> <span class="n">parameters</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">object</span><span class="p">&gt;();</span>
+        <span class="kt">string</span> <span class="n">sql</span> <span class="p">=</span> <span class="s">&#34;select * from [User] where 1=1 &#34;</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">Qid</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">sql</span> <span class="p">+=</span> <span class="s">&#34; and id=@qid &#34;</span><span class="p">;</span>
+            <span class="n">parameters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;qid&#34;</span><span class="p">,</span> <span class="n">Qid</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Qname</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">sql</span> <span class="p">+=</span> <span class="s">&#34; and name=@qname &#34;</span><span class="p">;</span>
+            <span class="n">parameters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;qname&#34;</span><span class="p">,</span> <span class="n">Qname</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Qaccount</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">sql</span> <span class="p">+=</span> <span class="s">&#34; and account=@qaccount &#34;</span><span class="p">;</span>
+            <span class="n">parameters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;qaccount&#34;</span><span class="p">,</span> <span class="n">Qaccount</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">List</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="n">SqlQuery</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;(</span><span class="n">sql</span><span class="p">,</span><span class="n">parameters</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">list</span><span class="p">;</span>
+    <span class="p">}</span>              
+    <span class="k">public</span> <span class="k">void</span> <span class="n">CreateUser</span><span class="p">(</span><span class="kt">string</span> <span class="n">id</span><span class="p">,</span><span class="kt">string</span> <span class="n">name</span><span class="p">,</span><span class="kt">string</span> <span class="n">account</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">object</span><span class="p">&gt;</span> <span class="n">parameters</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">object</span><span class="p">&gt;();</span>
+        <span class="kt">string</span> <span class="n">sql</span> <span class="p">=</span> <span class="s">@&#34; insert into [User] (id,name,account) 
+</span><span class="s">                values(@id,@name,@account) &#34;</span><span class="p">;</span>
+        <span class="n">parameters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;id&#34;</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+        <span class="n">parameters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+        <span class="n">parameters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;account&#34;</span><span class="p">,</span> <span class="n">account</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">x</span> <span class="p">=</span> <span class="n">ExecuteSqlCommand</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">parameters</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="實際使用">實際使用</h2>
+<p>這樣就把<code>List</code>和<code>Create</code>的部分也包起來了。<br>
+實際在<code>Controller</code>使用只要數行就可以解決</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="kt">string</span> <span class="n">connString</span> <span class="p">=</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
+<span class="n">UserDB</span> <span class="n">_UserDB</span>  <span class="p">=</span> <span class="k">new</span> <span class="n">UserDB</span><span class="p">(</span><span class="n">connString</span><span class="p">);</span>
+<span class="n">List</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;</span> <span class="n">users</span> <span class="p">=</span> <span class="n">_UserDB</span><span class="p">.</span><span class="n">ListUser</span><span class="p">();</span>
+<span class="c1">//Create
+</span><span class="c1"></span><span class="n">_UserDB</span><span class="p">.</span><span class="n">CreateUser</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">account</span><span class="p">);</span>
+</code></pre></div><h2 id="小結">小結</h2>
+<p>感謝同事大神提供非常大的協助。一開始對物件及封裝的概念非常不清楚，對於資料的存取也只會傻傻地硬拚。<br>
+多次的摸索後，看同樣的東西每一次都能有不太一樣的理解跟體悟。<br>
+若使用EF的方式來存取，可節省掉寫Sql語句的部分可以說是方便很多。<br>
+但EF在使用上會有些看不見的地雷或不方便。得實際遇到不同情況再想辦法解決了。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/sql/">SQL</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相關文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/2021/03/15/mvc-%E7%94%A2%E5%87%BAexcel/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-產出Excel</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/15/mvc-%E7%99%BB%E5%85%A5%E9%A9%97%E8%AD%89/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC 登入驗證</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/15/asp.net-mvc-%E5%BE%8C%E7%AB%AFmodel%E6%AC%84%E4%BD%8D%E9%A9%97%E8%AD%89/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">asp.net MVC 後端Model欄位驗證</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 The Site
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

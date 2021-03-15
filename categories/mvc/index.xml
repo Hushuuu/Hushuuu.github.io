@@ -6,7 +6,33 @@
     <description>Recent content in MVC on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Mar 2021 09:26:53 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/mvc/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Mar 2021 17:15:18 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/mvc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MVC-產出Excel</title>
+      <link>https://hushuuu.github.io/2021/03/15/mvc-%E7%94%A2%E5%87%BAexcel/</link>
+      <pubDate>Mon, 15 Mar 2021 17:15:18 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/15/mvc-%E7%94%A2%E5%87%BAexcel/</guid>
+      <description>前言 介紹NPOI及EPPlus套件來將資料產出成Excel。
+主要內容 NPOI的方式產出報表，XSSFWorkbook為.xlsx格式HSSF則為較舊的.xls
+public ActionResult getExcel() { var result = List&amp;lt;Data&amp;gt;;//資料  //建立Excel  XSSFWorkbook xssfworkbook = new XSSFWorkbook(); //建立活頁簿  ISheet sheet = xssfworkbook.CreateSheet(&amp;#34;sheet&amp;#34;); //建立sheet  //設定樣式  ICellStyle headerStyle = xssfworkbook.CreateCellStyle(); IFont headerfont = xssfworkbook.CreateFont(); headerStyle.Alignment = HorizontalAlignment.Center; //水平置中  headerStyle.VerticalAlignment = VerticalAlignment.Center; //垂直置中  headerfont.FontName = &amp;#34;微軟正黑體&amp;#34;; headerfont.FontHeightInPoints = 20; headerStyle.SetFont(headerfont); //新增標題列  sheet.CreateRow(0); //需先用CreateRow建立,才可通过GetRow取得該欄位  sheet.GetRow(0).CreateCell(0).SetCellValue(&amp;#34;商品清單&amp;#34;); sheet.AddMergedRegion(new CellRangeAddress(0, 0, 0, 2)); //合併A~C欄儲存格  sheet.GetRow(0).GetCell(0).CellStyle = headerStyle; //套用樣式  sheet.</description>
+    </item>
+    
+    <item>
+      <title>MVC-資料存取(DataAccess)</title>
+      <link>https://hushuuu.github.io/2021/03/15/mvc-%E8%B3%87%E6%96%99%E5%AD%98%E5%8F%96dataaccess/</link>
+      <pubDate>Mon, 15 Mar 2021 11:32:53 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/15/mvc-%E8%B3%87%E6%96%99%E5%AD%98%E5%8F%96dataaccess/</guid>
+      <description>前言 在開發時與資料庫間的連線橋梁，較常見的為ADO.NET或是EF的方式，此篇只介紹ADO.NET
+使用ADO.NET最基本就是開啟SqlConnection連線建立SqlCommand操作
+第一步 直接連線並查詢出結果的範例
+string connStr = &amp;#34;連線字串&amp;#34;; string sql = &amp;#34;SELECT * FROM Product Where id=@id&amp;#34;; SqlConnection Conn = new SqlConnection(connStr); Conn.Open(); SqlCommand Cmd = new SqlCommand(sql); Cmd.Connection = Conn; Cmd.Parameters.Clear(); Cmd.Parameters.AddWithValue(&amp;#34;id&amp;#34;,&amp;#34;1&amp;#34;); using(SqlDataReader sdr = Cmd.ExecuteReader()){ while(sdr.Read()){ Console.WriteLine(sdr.GetString(0)); } } Conn.Close(); 但若是每個資料庫的操作都需要打上這一大段的Code程式碼不僅變得冗長且難以統一維護
+這時候就可以利用封裝的概念將code包起來
+先建立一個新類別檔DataAccess.cs
+public class DataAccess { public string ConnectionString {get; set;} public SqlConnection Conn {get;set;} protected SqlCommand Cmd {get;set;} public DataAccess(SqlConnection Conn){ this.Conn = Conn; this.ConnectionString = Conn.</description>
+    </item>
+    
     <item>
       <title>MVC 登入驗證</title>
       <link>https://hushuuu.github.io/2021/03/15/mvc-%E7%99%BB%E5%85%A5%E9%A9%97%E8%AD%89/</link>
