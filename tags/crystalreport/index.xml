@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CrystalReport on The Site</title>
+    <link>https://hushuuu.github.io/tags/crystalreport/</link>
+    <description>Recent content in CrystalReport on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Mar 2021 10:58:27 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/crystalreport/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>無法轉換類型為CrystalDecisions.ReportAppServer.Controllers.ReportSourceClass</title>
+      <link>https://hushuuu.github.io/2021/03/15/%E7%84%A1%E6%B3%95%E8%BD%89%E6%8F%9B%E9%A1%9E%E5%9E%8B%E7%82%BAcrystaldecisions.reportappserver.controllers.reportsourceclass/</link>
+      <pubDate>Mon, 15 Mar 2021 10:58:27 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/15/%E7%84%A1%E6%B3%95%E8%BD%89%E6%8F%9B%E9%A1%9E%E5%9E%8B%E7%82%BAcrystaldecisions.reportappserver.controllers.reportsourceclass/</guid>
+      <description>前言 較舊之Winfrom專案，有些報表是用SAP的CrystalReport來產生報表。
+若使用VS2019的環境必須先至SAP下載安裝相關之Runtime或是專門給開發人員的CRforVisualStudio
+安裝完畢後可能還會遇到套件版本不相容之問題需另解決。
+主要內容 若是在產生報表時出現錯誤訊息的話，試試在Webconfig/Appconfig 下增加此段
+並調整 oldVersion 和 newVersion 之版本號多嘗試幾次
+&amp;lt;runtime&amp;gt; &amp;lt;assemblyBinding xmlns=&amp;#34;urn:schemas-microsoft-com:asm.v1&amp;#34;&amp;gt; &amp;lt;dependentAssembly&amp;gt; &amp;lt;assemblyIdentity name=&amp;#34;CrystalDecisions.CrystalReports.Engine&amp;#34; publicKeyToken=&amp;#34;692fbea5521e1304&amp;#34; culture=&amp;#34;neutral&amp;#34;/&amp;gt; &amp;lt;bindingRedirect oldVersion=&amp;#34;13.0.2000.0&amp;#34; newVersion=&amp;#34;13.0.3500.0&amp;#34;/&amp;gt; &amp;lt;/dependentAssembly&amp;gt; &amp;lt;dependentAssembly&amp;gt; &amp;lt;assemblyIdentity name=&amp;#34;CrystalDecisions.ReportSource&amp;#34; publicKeyToken=&amp;#34;692fbea5521e1304&amp;#34; culture=&amp;#34;neutral&amp;#34;/&amp;gt; &amp;lt;bindingRedirect oldVersion=&amp;#34;13.0.2000.0&amp;#34; newVersion=&amp;#34;13.0.3500.0&amp;#34;/&amp;gt; &amp;lt;/dependentAssembly&amp;gt; &amp;lt;dependentAssembly&amp;gt; &amp;lt;assemblyIdentity name=&amp;#34;CrystalDecisions.Shared&amp;#34; publicKeyToken=&amp;#34;692fbea5521e1304&amp;#34; culture=&amp;#34;neutral&amp;#34;/&amp;gt; &amp;lt;bindingRedirect oldVersion=&amp;#34;13.0.2000.0&amp;#34; newVersion=&amp;#34;13.0.3500.0&amp;#34;/&amp;gt; &amp;lt;/dependentAssembly&amp;gt; &amp;lt;dependentAssembly&amp;gt; &amp;lt;assemblyIdentity name=&amp;#34;CrystalDecisions.Web&amp;#34; publicKeyToken=&amp;#34;692fbea5521e1304&amp;#34; culture=&amp;#34;neutral&amp;#34;/&amp;gt; &amp;lt;bindingRedirect oldVersion=&amp;#34;13.0.2000.0&amp;#34; newVersion=&amp;#34;13.0.3500.0&amp;#34;/&amp;gt; &amp;lt;/dependentAssembly&amp;gt; &amp;lt;dependentAssembly&amp;gt; &amp;lt;assemblyIdentity name=&amp;#34;CrystalDecisions.Windows.Forms&amp;#34; publicKeyToken=&amp;#34;692fbea5521e1304&amp;#34; culture=&amp;#34;neutral&amp;#34;/&amp;gt; &amp;lt;bindingRedirect oldVersion=&amp;#34;13.0.2000.0&amp;#34; newVersion=&amp;#34;13.0.3500.0&amp;#34;/&amp;gt; &amp;lt;/dependentAssembly&amp;gt; &amp;lt;dependentAssembly&amp;gt; &amp;lt;assemblyIdentity name=&amp;#34;CrystalDecisions.ReportAppServer.ClientDoc&amp;#34; publicKeyToken=&amp;#34;692fbea5521e1304&amp;#34; culture=&amp;#34;neutral&amp;#34;/&amp;gt; &amp;lt;bindingRedirect oldVersion=&amp;#34;13.0.2000.0&amp;#34; newVersion=&amp;#34;13.0.3500.0&amp;#34;/&amp;gt; &amp;lt;/dependentAssembly&amp;gt; &amp;lt;dependentAssembly&amp;gt; &amp;lt;assemblyIdentity name=&amp;#34;CrystalDecisions.</description>
+    </item>
+    
+  </channel>
+</rss>

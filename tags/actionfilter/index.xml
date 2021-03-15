@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ActionFilter on The Site</title>
+    <link>https://hushuuu.github.io/tags/actionfilter/</link>
+    <description>Recent content in ActionFilter on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Mar 2021 09:26:53 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/actionfilter/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MVC 登入驗證</title>
+      <link>https://hushuuu.github.io/2021/03/15/mvc-%E7%99%BB%E5%85%A5%E9%A9%97%E8%AD%89/</link>
+      <pubDate>Mon, 15 Mar 2021 09:26:53 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/15/mvc-%E7%99%BB%E5%85%A5%E9%A9%97%E8%AD%89/</guid>
+      <description>前言 關於過濾器，可以提前了解一下Asp.net MVC的生命週期。
+可透過放在不同週期階段的過濾器來達成不同的需求。
+有關生命週期相關可參考此連結
+本文主要介紹Action Filter
+主要內容 我們可在專案底下新增一個ActionFilters的資料夾
+在裡面新增一個LoginFilter.cs檔
+裡面就可以寫自定義的Filter
+繼承ActionFilterAttribute並複寫OnActionExecuting方法
+這邊條件我拿一個登入後設定的Seesion來做判斷。
+不通過則filterContext.Result設定導向回登入頁
+public class LoginFilter: ActionFilterAttribute { public override void OnActionExecuting(ActionExecutingContext filterContext) { if (HttpContext.Current.Session[&amp;#34;Login_id&amp;#34;] == null) { filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = &amp;#34;Home&amp;#34;, action = &amp;#34;Login&amp;#34; })); } } } 掛上Filter 建立好自定義的Filter後，使用的方式可根據想套用的範圍大小來掛上Filter。
+可以在Action上頭掛上[LoginFilter]，或者是掛在Controller上來套用整個控制器的Action</description>
+    </item>
+    
+  </channel>
+</rss>

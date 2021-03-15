@@ -6,7 +6,71 @@
     <description>Recent content in Posts on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 Mar 2021 16:42:54 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Mar 2021 10:58:27 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>無法轉換類型為CrystalDecisions.ReportAppServer.Controllers.ReportSourceClass</title>
+      <link>https://hushuuu.github.io/2021/03/15/%E7%84%A1%E6%B3%95%E8%BD%89%E6%8F%9B%E9%A1%9E%E5%9E%8B%E7%82%BAcrystaldecisions.reportappserver.controllers.reportsourceclass/</link>
+      <pubDate>Mon, 15 Mar 2021 10:58:27 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/15/%E7%84%A1%E6%B3%95%E8%BD%89%E6%8F%9B%E9%A1%9E%E5%9E%8B%E7%82%BAcrystaldecisions.reportappserver.controllers.reportsourceclass/</guid>
+      <description>前言 較舊之Winfrom專案，有些報表是用SAP的CrystalReport來產生報表。
+若使用VS2019的環境必須先至SAP下載安裝相關之Runtime或是專門給開發人員的CRforVisualStudio
+安裝完畢後可能還會遇到套件版本不相容之問題需另解決。
+主要內容 若是在產生報表時出現錯誤訊息的話，試試在Webconfig/Appconfig 下增加此段
+並調整 oldVersion 和 newVersion 之版本號多嘗試幾次
+&amp;lt;runtime&amp;gt; &amp;lt;assemblyBinding xmlns=&amp;#34;urn:schemas-microsoft-com:asm.v1&amp;#34;&amp;gt; &amp;lt;dependentAssembly&amp;gt; &amp;lt;assemblyIdentity name=&amp;#34;CrystalDecisions.CrystalReports.Engine&amp;#34; publicKeyToken=&amp;#34;692fbea5521e1304&amp;#34; culture=&amp;#34;neutral&amp;#34;/&amp;gt; &amp;lt;bindingRedirect oldVersion=&amp;#34;13.0.2000.0&amp;#34; newVersion=&amp;#34;13.0.3500.0&amp;#34;/&amp;gt; &amp;lt;/dependentAssembly&amp;gt; &amp;lt;dependentAssembly&amp;gt; &amp;lt;assemblyIdentity name=&amp;#34;CrystalDecisions.ReportSource&amp;#34; publicKeyToken=&amp;#34;692fbea5521e1304&amp;#34; culture=&amp;#34;neutral&amp;#34;/&amp;gt; &amp;lt;bindingRedirect oldVersion=&amp;#34;13.0.2000.0&amp;#34; newVersion=&amp;#34;13.0.3500.0&amp;#34;/&amp;gt; &amp;lt;/dependentAssembly&amp;gt; &amp;lt;dependentAssembly&amp;gt; &amp;lt;assemblyIdentity name=&amp;#34;CrystalDecisions.Shared&amp;#34; publicKeyToken=&amp;#34;692fbea5521e1304&amp;#34; culture=&amp;#34;neutral&amp;#34;/&amp;gt; &amp;lt;bindingRedirect oldVersion=&amp;#34;13.0.2000.0&amp;#34; newVersion=&amp;#34;13.0.3500.0&amp;#34;/&amp;gt; &amp;lt;/dependentAssembly&amp;gt; &amp;lt;dependentAssembly&amp;gt; &amp;lt;assemblyIdentity name=&amp;#34;CrystalDecisions.Web&amp;#34; publicKeyToken=&amp;#34;692fbea5521e1304&amp;#34; culture=&amp;#34;neutral&amp;#34;/&amp;gt; &amp;lt;bindingRedirect oldVersion=&amp;#34;13.0.2000.0&amp;#34; newVersion=&amp;#34;13.0.3500.0&amp;#34;/&amp;gt; &amp;lt;/dependentAssembly&amp;gt; &amp;lt;dependentAssembly&amp;gt; &amp;lt;assemblyIdentity name=&amp;#34;CrystalDecisions.Windows.Forms&amp;#34; publicKeyToken=&amp;#34;692fbea5521e1304&amp;#34; culture=&amp;#34;neutral&amp;#34;/&amp;gt; &amp;lt;bindingRedirect oldVersion=&amp;#34;13.0.2000.0&amp;#34; newVersion=&amp;#34;13.0.3500.0&amp;#34;/&amp;gt; &amp;lt;/dependentAssembly&amp;gt; &amp;lt;dependentAssembly&amp;gt; &amp;lt;assemblyIdentity name=&amp;#34;CrystalDecisions.ReportAppServer.ClientDoc&amp;#34; publicKeyToken=&amp;#34;692fbea5521e1304&amp;#34; culture=&amp;#34;neutral&amp;#34;/&amp;gt; &amp;lt;bindingRedirect oldVersion=&amp;#34;13.0.2000.0&amp;#34; newVersion=&amp;#34;13.0.3500.0&amp;#34;/&amp;gt; &amp;lt;/dependentAssembly&amp;gt; &amp;lt;dependentAssembly&amp;gt; &amp;lt;assemblyIdentity name=&amp;#34;CrystalDecisions.</description>
+    </item>
+    
+    <item>
+      <title>EntityFramework查詢結果回傳DataTable</title>
+      <link>https://hushuuu.github.io/2021/03/15/entityframework%E6%9F%A5%E8%A9%A2%E7%B5%90%E6%9E%9C%E5%9B%9E%E5%82%B3datatable/</link>
+      <pubDate>Mon, 15 Mar 2021 09:55:01 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/15/entityframework%E6%9F%A5%E8%A9%A2%E7%B5%90%E6%9E%9C%E5%9B%9E%E5%82%B3datatable/</guid>
+      <description>前言 以DatabaseFirst來說不管是查詢還是更改的動作都是和資料庫綁定的實體資料模型Model進行交流
+查詢的結果會是模型的類別，如果結果要為DataTable，EF也可以使用Command的方式。
+主要內容 查詢結果回傳DataSet方法
+傳入sql CommandText 以及數組KeyValuePair參數
+public DataSet EF_SQL_DS(string sql,Dictionary&amp;lt;string,object&amp;gt; parameters) { XXXXEntities Db = new XXXXEntities();//更改為自己的Entities  DataSet ds = new DataSet(); DbCommand cmd = Db.Database.Connection.CreateCommand(); cmd.CommandText = sql; foreach(KeyValuePair&amp;lt;string,object&amp;gt; p in parameters) { DbParameter dbp = cmd.CreateParameter(); dbp.ParameterName = p.Key; if (p.Value != null) { dbp.Value = p.Value; } else { dbp.Value = DBNull.Value; } cmd.Parameters.Add(dbp); } Db.Database.Connection.Open(); var reader = cmd.ExecuteReader(); var tb = new DataTable(); tb.</description>
+    </item>
+    
+    <item>
+      <title>MVC 登入驗證</title>
+      <link>https://hushuuu.github.io/2021/03/15/mvc-%E7%99%BB%E5%85%A5%E9%A9%97%E8%AD%89/</link>
+      <pubDate>Mon, 15 Mar 2021 09:26:53 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/15/mvc-%E7%99%BB%E5%85%A5%E9%A9%97%E8%AD%89/</guid>
+      <description>前言 關於過濾器，可以提前了解一下Asp.net MVC的生命週期。
+可透過放在不同週期階段的過濾器來達成不同的需求。
+有關生命週期相關可參考此連結
+本文主要介紹Action Filter
+主要內容 我們可在專案底下新增一個ActionFilters的資料夾
+在裡面新增一個LoginFilter.cs檔
+裡面就可以寫自定義的Filter
+繼承ActionFilterAttribute並複寫OnActionExecuting方法
+這邊條件我拿一個登入後設定的Seesion來做判斷。
+不通過則filterContext.Result設定導向回登入頁
+public class LoginFilter: ActionFilterAttribute { public override void OnActionExecuting(ActionExecutingContext filterContext) { if (HttpContext.Current.Session[&amp;#34;Login_id&amp;#34;] == null) { filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = &amp;#34;Home&amp;#34;, action = &amp;#34;Login&amp;#34; })); } } } 掛上Filter 建立好自定義的Filter後，使用的方式可根據想套用的範圍大小來掛上Filter。
+可以在Action上頭掛上[LoginFilter]，或者是掛在Controller上來套用整個控制器的Action</description>
+    </item>
+    
+    <item>
+      <title>asp.net MVC 後端Model欄位驗證</title>
+      <link>https://hushuuu.github.io/2021/03/15/asp.net-mvc-%E5%BE%8C%E7%AB%AFmodel%E6%AC%84%E4%BD%8D%E9%A9%97%E8%AD%89/</link>
+      <pubDate>Mon, 15 Mar 2021 09:03:12 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/15/asp.net-mvc-%E5%BE%8C%E7%AB%AFmodel%E6%AC%84%E4%BD%8D%E9%A9%97%E8%AD%89/</guid>
+      <description>前言 說明幾種Model Binding驗證欄位的方法。
+包含正則式，長度限制，必填，自訂驗證。
+主要內容 以下面例子 account 的欄位的驗證
+StringLength() 長度限制
+RegularExpression() 利用正則式
+Required 必要欄位
+CheckAccount 則為自訂的驗證
+[Display(Name = &amp;#34;帳號&amp;#34;)] [StringLength(20)] [RegularExpression(@&amp;#34;[a-zA-Z0-9]*$&amp;#34;, ErrorMessage = &amp;#34;帳號僅能有英文或數字&amp;#34;)] [Required] [CheckAccount(ErrorMessage = &amp;#34;重複&amp;#34;)] public string account { get; set; } 自訂驗證部分可以建立一個類別繼承ValidationAttribute，再複寫 `IsValid方法
+public class CheckAccountAttribute : ValidationAttribute { protected override ValidationResult IsValid(object value, ValidationContext validationContext) { //return base.IsValid(value, validationContext);  if (value != null) { if (/*條件式*/) { return new ValidationResult(FormatErrorMessage(validationContext.DisplayName)); } else { return ValidationResult.</description>
+    </item>
+    
     <item>
       <title>Iphone的螢幕比安卓的容易裂開?</title>
       <link>https://hushuuu.github.io/2021/03/12/iphone%E7%9A%84%E8%9E%A2%E5%B9%95%E6%AF%94%E5%AE%89%E5%8D%93%E7%9A%84%E5%AE%B9%E6%98%93%E8%A3%82%E9%96%8B/</link>

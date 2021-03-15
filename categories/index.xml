@@ -6,7 +6,43 @@
     <description>Recent content in Categories on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 Mar 2021 16:42:54 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Mar 2021 10:58:27 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CrystalReport</title>
+      <link>https://hushuuu.github.io/categories/crystalreport/</link>
+      <pubDate>Mon, 15 Mar 2021 10:58:27 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/crystalreport/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>EntityFramework</title>
+      <link>https://hushuuu.github.io/categories/entityframework/</link>
+      <pubDate>Mon, 15 Mar 2021 09:55:01 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/entityframework/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sql</title>
+      <link>https://hushuuu.github.io/categories/sql/</link>
+      <pubDate>Mon, 15 Mar 2021 09:55:01 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/sql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MVC</title>
+      <link>https://hushuuu.github.io/categories/mvc/</link>
+      <pubDate>Mon, 15 Mar 2021 09:26:53 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/mvc/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>New</title>
       <link>https://hushuuu.github.io/categories/new/</link>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>EntityFramework on The Site</title>
+    <link>https://hushuuu.github.io/categories/entityframework/</link>
+    <description>Recent content in EntityFramework on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Mar 2021 09:55:01 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/entityframework/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>EntityFramework查詢結果回傳DataTable</title>
+      <link>https://hushuuu.github.io/2021/03/15/entityframework%E6%9F%A5%E8%A9%A2%E7%B5%90%E6%9E%9C%E5%9B%9E%E5%82%B3datatable/</link>
+      <pubDate>Mon, 15 Mar 2021 09:55:01 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/15/entityframework%E6%9F%A5%E8%A9%A2%E7%B5%90%E6%9E%9C%E5%9B%9E%E5%82%B3datatable/</guid>
+      <description>前言 以DatabaseFirst來說不管是查詢還是更改的動作都是和資料庫綁定的實體資料模型Model進行交流
+查詢的結果會是模型的類別，如果結果要為DataTable，EF也可以使用Command的方式。
+主要內容 查詢結果回傳DataSet方法
+傳入sql CommandText 以及數組KeyValuePair參數
+public DataSet EF_SQL_DS(string sql,Dictionary&amp;lt;string,object&amp;gt; parameters) { XXXXEntities Db = new XXXXEntities();//更改為自己的Entities  DataSet ds = new DataSet(); DbCommand cmd = Db.Database.Connection.CreateCommand(); cmd.CommandText = sql; foreach(KeyValuePair&amp;lt;string,object&amp;gt; p in parameters) { DbParameter dbp = cmd.CreateParameter(); dbp.ParameterName = p.Key; if (p.Value != null) { dbp.Value = p.Value; } else { dbp.Value = DBNull.Value; } cmd.Parameters.Add(dbp); } Db.Database.Connection.Open(); var reader = cmd.ExecuteReader(); var tb = new DataTable(); tb.</description>
+    </item>
+    
+  </channel>
+</rss>
