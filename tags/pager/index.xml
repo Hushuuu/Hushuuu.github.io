@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pager on The Site</title>
+    <link>https://hushuuu.github.io/tags/pager/</link>
+    <description>Recent content in pager on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 16 Mar 2021 14:43:46 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/pager/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MVC-Table排序與分頁</title>
+      <link>https://hushuuu.github.io/2021/03/16/mvc-table%E6%8E%92%E5%BA%8F%E8%88%87%E5%88%86%E9%A0%81/</link>
+      <pubDate>Tue, 16 Mar 2021 14:43:46 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/16/mvc-table%E6%8E%92%E5%BA%8F%E8%88%87%E5%88%86%E9%A0%81/</guid>
+      <description>前言 前端有很多實用的table套件如DataTable.js可以直接實現排序換頁搜尋
+本篇主要練習如何手動刻出類似的功能。
+分頁 分頁的概念為設定一頁需顯示幾筆，再將資料分為幾等分來決定
+要顯示第幾頁的資料，根據資料庫的種類用 Rownum Limit等
+還可以用LinQ Skip() Take()
+var list = query.Skip(startIndex).Take(pageSize).toList(); //舉例一頁顯示10筆，要顯示第3頁的資料  //Skip前兩頁的資料 =&amp;gt; 10*2  //Skip 20筆 Take 10筆 分頁導覽列 傳回前端的資料除了這十筆，也需要將分頁的資訊傳入進行判斷
+page當前頁數 EndPage最後頁 TotalItemCount總筆數等
+建立導覽列
+if (page == 1) { &amp;lt;a class=&amp;#34;btn-default btn-sm disabled&amp;#34; id=&amp;#34;last_btn&amp;#34;&amp;gt;上頁&amp;lt;/a&amp;gt; } else { int nextnum = page - 1; &amp;lt;a class=&amp;#34;btn-default btn-sm&amp;#34; id=&amp;#34;last_btn&amp;#34; href=&amp;#34;@url?page=@nextnum&amp;#34;&amp;gt;上頁&amp;lt;/a&amp;gt; } if (page == Endpage) { &amp;lt;a class=&amp;#34;btn-default btn-sm disabled&amp;#34; id=&amp;#34;next_btn&amp;#34;&amp;gt;下頁&amp;lt;/a&amp;gt; } else { int nextnum = page + 1; &amp;lt;a class=&amp;#34;btn-default btn-sm&amp;#34; id=&amp;#34;next_btn&amp;#34; href=&amp;#34;@url?</description>
+    </item>
+    
+  </channel>
+</rss>

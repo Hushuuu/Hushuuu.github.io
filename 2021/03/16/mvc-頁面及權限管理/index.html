@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='利用資料表建立頁面間父子關係，再用群組的概念將頁面做權限管控'><title>MVC-頁面及權限管理</title>
+
+<link rel='canonical' href='https://hushuuu.github.io/2021/03/16/mvc-%E9%A0%81%E9%9D%A2%E5%8F%8A%E6%AC%8A%E9%99%90%E7%AE%A1%E7%90%86/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='MVC-頁面及權限管理'>
+<meta property='og:description' content='利用資料表建立頁面間父子關係，再用群組的概念將頁面做權限管控'>
+<meta property='og:url' content='https://hushuuu.github.io/2021/03/16/mvc-%E9%A0%81%E9%9D%A2%E5%8F%8A%E6%AC%8A%E9%99%90%E7%AE%A1%E7%90%86/'>
+<meta property='og:site_name' content='The Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2021-03-16T08:49:37&#43;08:00'/><meta property='article:modified_time' content='2021-03-16T08:49:37&#43;08:00'/>
+<meta name="twitter:title" content="MVC-頁面及權限管理">
+<meta name="twitter:description" content="利用資料表建立頁面間父子關係，再用群組的概念將頁面做權限管控">
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切換菜單">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h2 class="site-description">For Practice And Note Everythings In Life.</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首頁</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>關於</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>封存</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜尋</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>深色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://hushuuu.github.io/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/mvc/" >
+                MVC
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/2021/03/16/mvc-%E9%A0%81%E9%9D%A2%E5%8F%8A%E6%AC%8A%E9%99%90%E7%AE%A1%E7%90%86/">MVC-頁面及權限管理</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        利用資料表建立頁面間父子關係，再用群組的概念將頁面做權限管控
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">2021-03-16</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="前言">前言</h2>
+<p>此篇根據頁面資料表間的父子關係，利用遞迴來產生Menu的選單<br>
+並透過群組來進行頁面權限的管控</p>
+<h2 id="主要內容">主要內容</h2>
+<p>基本的頁面資料表結構，重要的是<code>parent_id</code>代表此頁面父階層頁面的<code>page_id</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">class</span> <span class="nc">PageModel</span>
+<span class="p">{</span>
+<span class="na">    [Display(Name = &#34;頁號&#34;)]</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">page_id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="na">    [Display(Name = &#34;頁面名稱&#34;)]</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">page_name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="na">    [Display(Name = &#34;Controller&#34;)]</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">controller</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="na">    [Display(Name = &#34;Action&#34;)]</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">action</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="na">    [Display(Name = &#34;父頁面&#34;)]</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">parent_id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>產生選單的部分使用<code>bootstrap</code>的<code>navbar</code><br>
+並透過<code>Partial View</code>的方式來載入管控的頁面</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="p">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;container&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;navbar-header&#34;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="n">button</span> <span class="n">type</span><span class="p">=</span><span class="s">&#34;button&#34;</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;navbar-toggle&#34;</span> <span class="n">data</span><span class="p">-</span><span class="n">toggle</span><span class="p">=</span><span class="s">&#34;collapse&#34;</span> <span class="n">data</span><span class="p">-</span><span class="n">target</span><span class="p">=</span><span class="s">&#34;.navbar-collapse&#34;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="n">span</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;icon-bar&#34;</span><span class="p">&gt;&lt;/</span><span class="n">span</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="n">span</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;icon-bar&#34;</span><span class="p">&gt;&lt;/</span><span class="n">span</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="n">span</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;icon-bar&#34;</span><span class="p">&gt;&lt;/</span><span class="n">span</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="n">button</span><span class="p">&gt;</span>
+        <span class="n">@Html</span><span class="p">.</span><span class="n">ActionLink</span><span class="p">(</span><span class="s">&#34;Home&#34;</span><span class="p">,</span> <span class="s">&#34;Index&#34;</span><span class="p">,</span> <span class="s">&#34;Home&#34;</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">area</span> <span class="p">=</span> <span class="s">&#34;&#34;</span> <span class="p">},</span> <span class="k">new</span> <span class="p">{</span> <span class="n">@class</span> <span class="p">=</span> <span class="s">&#34;navbar-brand&#34;</span> <span class="p">})</span>
+    <span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;navbar-collapse collapse&#34;</span><span class="p">&gt;</span>
+        <span class="n">@Html</span><span class="p">.</span><span class="n">Partial</span><span class="p">(</span><span class="s">&#34;_MenuPart&#34;</span><span class="p">)</span>
+    <span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span>
+</code></pre></div><p>需先在登入後產生<code>Menu</code>前將<code>Page</code>的資料List放進<code>Session</code><br>
+<code>Partial View</code>使用遞迴尋找父子關係來產生節點</p>
+<div class="highlight"><pre class="chroma"><code class="language-c#" data-lang="c#"><span class="err">@</span><span class="p">{</span>
+    <span class="n">List</span><span class="p">&lt;</span><span class="n">PageModel</span><span class="p">&gt;</span> <span class="n">nodeList</span> <span class="p">=</span> <span class="n">Session</span><span class="p">[</span><span class="s">&#34;page_list&#34;</span><span class="p">]</span> <span class="k">as</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">PageModel</span><span class="p">&gt;;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">nodeList</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">nodeList</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">PageModel</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">@TopMenu</span><span class="p">(</span><span class="n">nodeList</span><span class="p">)</span>
+<span class="n">@helper</span> <span class="n">TopMenu</span><span class="p">(</span><span class="n">List</span><span class="p">&lt;</span><span class="n">PageModel</span><span class="p">&gt;</span> <span class="n">nodeList</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="c1">//沒有父節點代表最上方MENU
+</span><span class="c1"></span>     <span class="kt">var</span> <span class="n">NoParentList</span> <span class="p">=</span> <span class="n">nodeList</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">parent_id</span> <span class="p">==</span> <span class="k">null</span> <span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
+    <span class="p">&lt;</span><span class="n">ul</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;nav navbar-nav&#34;</span><span class="p">&gt;</span>
+        <span class="n">@foreach</span> <span class="p">(</span><span class="n">GroupLoginDtl</span> <span class="n">node</span> <span class="k">in</span> <span class="n">NoParentList</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">//此節點沒有孩子代表自身為連結
+</span><span class="c1"></span>            <span class="k">if</span> <span class="p">(!</span><span class="n">nodeList</span><span class="p">.</span><span class="n">Any</span><span class="p">(</span><span class="n">z</span> <span class="p">=&gt;</span> <span class="n">z</span><span class="p">.</span><span class="n">parent_id</span> <span class="p">==</span> <span class="n">node</span><span class="p">.</span><span class="n">page_id</span> <span class="p">))</span>
+            <span class="p">{</span>
+                <span class="kt">string</span> <span class="n">url</span> <span class="p">=</span> <span class="s">&#34;https://&#34;</span> <span class="p">+</span> <span class="n">Request</span><span class="p">.</span><span class="n">Url</span><span class="p">.</span><span class="n">Authority</span> <span class="p">+</span> <span class="s">&#34;/&#34;</span> <span class="p">+</span> <span class="n">node</span><span class="p">.</span><span class="n">controller</span> <span class="p">+</span> <span class="s">&#34;/&#34;</span> <span class="p">+</span> <span class="n">node</span><span class="p">.</span><span class="n">action</span><span class="p">;</span>
+                <span class="p">&lt;</span><span class="n">li</span><span class="p">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="p">=</span><span class="s">&#34;@url&#34;</span><span class="p">&gt;</span><span class="n">@node</span><span class="p">.</span><span class="n">page_name</span><span class="p">&lt;/</span><span class="n">a</span><span class="p">&gt;&lt;/</span><span class="n">li</span><span class="p">&gt;</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="c1">//找到所有孩子產生一個dropdown以自身為觸發點
+</span><span class="c1"></span>                <span class="kt">var</span> <span class="n">childrenList</span> <span class="p">=</span> <span class="n">nodeList</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">parent_id</span> <span class="p">==</span> <span class="n">node</span><span class="p">.</span><span class="n">page_id</span> <span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
+                <span class="p">&lt;</span><span class="n">li</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;dropdown&#34;</span><span class="p">&gt;&lt;</span><span class="n">a</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;dropdown-toggle&#34;</span> <span class="n">data</span><span class="p">-</span><span class="n">toggle</span><span class="p">=</span><span class="s">&#34;dropdown&#34;</span> <span class="n">href</span><span class="p">=</span><span class="s">&#34;#&#34;</span><span class="p">&gt;</span><span class="n">@node</span><span class="p">.</span><span class="n">page_name</span> <span class="p">&lt;</span><span class="n">b</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;caret&#34;</span><span class="p">&gt;&lt;/</span><span class="n">b</span><span class="p">&gt;&lt;/</span><span class="n">a</span><span class="p">&gt;</span><span class="n">@DropDownMenu</span><span class="p">(</span><span class="n">childrenList</span><span class="p">,</span> <span class="n">nodeList</span><span class="p">)&lt;/</span><span class="n">li</span><span class="p">&gt;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">&lt;/</span><span class="n">ul</span><span class="p">&gt;</span>
+<span class="p">}</span>
+<span class="n">@helper</span> <span class="n">DropDownMenu</span><span class="p">(</span><span class="n">List</span><span class="p">&lt;</span><span class="n">GroupLoginDtl</span><span class="p">&gt;</span> <span class="n">childrenList</span><span class="p">,</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">GroupLoginDtl</span><span class="p">&gt;</span> <span class="n">nodeList</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="p">&lt;</span><span class="n">ul</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;dropdown-menu&#34;</span><span class="p">&gt;</span>
+        <span class="n">@foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">node</span> <span class="k">in</span> <span class="n">childrenList</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">//孩子若沒有孩子就是連結
+</span><span class="c1"></span>            <span class="kt">string</span> <span class="n">url</span> <span class="p">=</span> <span class="s">&#34;https://&#34;</span> <span class="p">+</span> <span class="n">Request</span><span class="p">.</span><span class="n">Url</span><span class="p">.</span><span class="n">Authority</span><span class="p">+</span><span class="s">&#34;/&#34;</span><span class="p">+</span><span class="n">node</span><span class="p">.</span><span class="n">controller</span> <span class="p">+</span> <span class="s">&#34;/&#34;</span> <span class="p">+</span> <span class="n">node</span><span class="p">.</span><span class="n">action</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(!</span><span class="n">nodeList</span><span class="p">.</span><span class="n">Any</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">parent_id</span> <span class="p">==</span> <span class="n">node</span><span class="p">.</span><span class="n">page_id</span> <span class="p">))</span>
+            <span class="p">{</span>
+                <span class="p">&lt;</span><span class="n">li</span><span class="p">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="p">=</span><span class="s">&#34;@url&#34;</span><span class="p">&gt;</span><span class="n">@node</span><span class="p">.</span><span class="n">page_name</span><span class="p">&lt;/</span><span class="n">a</span><span class="p">&gt;&lt;/</span><span class="n">li</span><span class="p">&gt;</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="c1">//找到孩子的孩子們以自身為觸發點產生submenu並遞迴產生ul dropdown-menu
+</span><span class="c1"></span>                <span class="kt">var</span> <span class="n">childrenList2</span> <span class="p">=</span> <span class="n">nodeList</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">parent_id</span> <span class="p">==</span> <span class="n">node</span><span class="p">.</span><span class="n">page_id</span> <span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
+                <span class="p">&lt;</span><span class="n">li</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;dropdown-submenu&#34;</span><span class="p">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="p">=</span><span class="s">&#34;#&#34;</span><span class="p">&gt;</span><span class="n">@node</span><span class="p">.</span><span class="n">page_name</span><span class="p">&lt;/</span><span class="n">a</span><span class="p">&gt;</span><span class="n">@DropDownMenu</span><span class="p">(</span><span class="n">childrenList2</span><span class="p">,</span> <span class="n">nodeList</span><span class="p">)&lt;/</span><span class="n">li</span><span class="p">&gt;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">&lt;/</span><span class="n">ul</span><span class="p">&gt;</span>
+<span class="p">}</span>
+</code></pre></div><p>因此篇為引入<code>bootstrap3</code> 多層選單子節點的部分需要做<code>css</code>的調整</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"> <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+    <span class="c">/*多層下拉選單設定*/</span>
+    <span class="p">.</span><span class="nc">dropdown-submenu</span> <span class="p">{</span>
+        <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">.</span><span class="nc">dropdown-submenu</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">dropdown-menu</span> <span class="p">{</span>
+        <span class="k">top</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">left</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+        <span class="k">margin-top</span><span class="p">:</span> <span class="mi">-6</span><span class="kt">px</span><span class="p">;</span>
+        <span class="k">margin-left</span><span class="p">:</span> <span class="mi">-1</span><span class="kt">px</span><span class="p">;</span>
+        <span class="kp">-webkit-</span><span class="k">border-radius</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">6</span><span class="kt">px</span> <span class="mi">6</span><span class="kt">px</span> <span class="mi">6</span><span class="kt">px</span><span class="p">;</span>
+        <span class="kp">-moz-</span><span class="k">border-radius</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">6</span><span class="kt">px</span> <span class="mi">6</span><span class="kt">px</span> <span class="mi">6</span><span class="kt">px</span><span class="p">;</span>
+        <span class="k">border-radius</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">6</span><span class="kt">px</span> <span class="mi">6</span><span class="kt">px</span> <span class="mi">6</span><span class="kt">px</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">.</span><span class="nc">dropdown-submenu</span><span class="p">:</span><span class="nd">hover</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">dropdown-menu</span> <span class="p">{</span>
+        <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">.</span><span class="nc">dropdown-submenu</span> <span class="o">&gt;</span> <span class="nt">a</span><span class="p">:</span><span class="nd">after</span> <span class="p">{</span>
+        <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+        <span class="k">content</span><span class="p">:</span> <span class="s2">&#34; &#34;</span><span class="p">;</span>
+        <span class="k">float</span><span class="p">:</span> <span class="kc">right</span><span class="p">;</span>
+        <span class="k">width</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">height</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">border-color</span><span class="p">:</span> <span class="kc">transparent</span><span class="p">;</span>
+        <span class="k">border-style</span><span class="p">:</span> <span class="kc">solid</span><span class="p">;</span>
+        <span class="k">border-width</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span> <span class="mi">0</span> <span class="mi">5</span><span class="kt">px</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+        <span class="k">border-left-color</span><span class="p">:</span> <span class="mh">#cccccc</span><span class="p">;</span>
+        <span class="k">margin-top</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+        <span class="k">margin-right</span><span class="p">:</span> <span class="mi">-10</span><span class="kt">px</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">.</span><span class="nc">dropdown-submenu</span><span class="p">:</span><span class="nd">hover</span> <span class="o">&gt;</span> <span class="nt">a</span><span class="p">:</span><span class="nd">after</span> <span class="p">{</span>
+        <span class="k">border-left-color</span><span class="p">:</span> <span class="mh">#ffffff</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">.</span><span class="nc">dropdown-submenu</span><span class="p">.</span><span class="nc">pull-left</span> <span class="p">{</span>
+        <span class="k">float</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</code></pre></div><h3 id="權限群組">權限群組</h3>
+<p>做好頁面管理後，可以建立群組資料表來將每個群組賦予不同的權限<br>
+每個群組的明細為所有頁面，調整此頁是否可進入/可出現在Menu<br>
+做好群組後，只需要調整<code>Session</code>為該登入者群組明細<br>
+並在<code>Partial View</code>增加判斷是否需產生此節點。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">class</span> <span class="nc">GroupM</span>
+<span class="p">{</span>
+<span class="na">    [Display(Name = &#34;群組編號&#34;)]</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">group_id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="na">    [Display(Name = &#34;群組名稱&#34;)]</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">group_name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GroupD</span>
+<span class="p">{</span>
+<span class="na">    [Display(Name = &#34;可看&#34;)]</span>
+    <span class="k">public</span> <span class="kt">bool</span> <span class="n">can_see</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="na">    [Display(Name = &#34;可進入&#34;)]</span>
+    <span class="k">public</span> <span class="kt">bool</span> <span class="n">can_enter</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>  
+<span class="na">    [Display(Name = &#34;頁號&#34;)]</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">page_id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="na">    [Display(Name = &#34;頁面名稱&#34;)]</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">page_name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="na">    [Display(Name = &#34;Controller&#34;)]</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">controller</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="na">    [Display(Name = &#34;Action&#34;)]</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">action</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="na">    [Display(Name = &#34;父頁面&#34;)]</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">parent_id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>   
+<span class="p">}</span>
+</code></pre></div><h3 id="訪問權限">訪問權限</h3>
+<p>雖然在<code>Menu</code>上是看不到不被允許的頁面節點<br>
+但仍可以透過網址來訪問該頁<br>
+所以當做好群組權限設定後，在進<code>Action</code>之前就檔掉不被允許的訪問<br>
+利用<a class="link" href="%22https://hushuuu.github.io/2021/03/15/mvc-%E7%99%BB%E5%85%A5%E9%A9%97%E8%AD%89/%22" >此篇</a>介紹的<code>Filter</code>來達成</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"> <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">OnActionExecuting</span><span class="p">(</span><span class="n">ActionExecutingContext</span> <span class="n">filterContext</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">string</span> <span class="n">controller</span> <span class="p">=</span> <span class="n">filterContext</span><span class="p">.</span><span class="n">ActionDescriptor</span><span class="p">.</span><span class="n">ControllerDescriptor</span><span class="p">.</span><span class="n">ControllerName</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="n">action</span> <span class="p">=</span> <span class="n">filterContext</span><span class="p">.</span><span class="n">ActionDescriptor</span><span class="p">.</span><span class="n">ActionName</span><span class="p">;</span>
+    <span class="n">List</span><span class="p">&lt;</span><span class="n">PageModel</span><span class="p">&gt;</span> <span class="n">groupList</span> <span class="p">=</span> <span class="n">HttpContext</span><span class="p">.</span><span class="n">Current</span><span class="p">.</span><span class="n">Session</span><span class="p">[</span><span class="s">&#34;PageModel&#34;</span><span class="p">]</span> <span class="k">as</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">PageModel</span><span class="p">&gt;;</span>
+    <span class="k">if</span><span class="p">(!</span><span class="n">groupList</span><span class="p">.</span><span class="n">Any</span><span class="p">(</span><span class="n">z</span><span class="p">=&gt;</span><span class="n">z</span><span class="p">.</span><span class="n">can_enter</span><span class="p">==</span><span class="k">true</span> <span class="p">&amp;&amp;</span> <span class="n">z</span><span class="p">.</span><span class="n">controller</span><span class="p">==</span><span class="n">controller</span> <span class="p">&amp;&amp;</span> <span class="n">z</span><span class="p">.</span><span class="n">action</span> <span class="p">==</span> <span class="n">action</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">filterContext</span><span class="p">.</span><span class="n">Result</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RedirectToRouteResult</span><span class="p">(</span><span class="k">new</span> <span class="n">RouteValueDictionary</span><span class="p">(</span><span class="k">new</span>
+        <span class="p">{</span>
+            <span class="n">controller</span> <span class="p">=</span> <span class="s">&#34;Home&#34;</span><span class="p">,</span>
+            <span class="n">action</span> <span class="p">=</span> <span class="s">&#34;Index&#34;</span>
+        <span class="p">}));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="小結">小結</h2>
+<p>頁面權限的管控有很多種方式，也可以透過不同權限載入不同<code>Layout</code>的方式<br>
+<code>子選單</code>顯示的部分，<code>bootstrap</code>較新版本或是其他方式應也可達成需求<br>
+總結在有父子關聯的處理上，使用遞迴的概念是非常實用的。</p>
+<h2 id="參考連結">參考連結</h2>
+<blockquote>
+<ul>
+<li><a class="link" href="https://blog.sig.tw/2014/04/bootstrap-add-submenu.html"  target="_blank" rel="noopener"
+    >url1</a></li>
+</ul>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相關文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/2021/03/16/mvc-%E5%8C%85%E5%90%AB%E6%98%8E%E7%B4%B0%E7%9A%84%E5%84%B2%E5%AD%98/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-包含明細的儲存</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/16/mvc-table%E6%8E%92%E5%BA%8F%E8%88%87%E5%88%86%E9%A0%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-Table排序與分頁</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/15/mvc-%E7%94%A2%E5%87%BAexcel/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-產出Excel</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/15/mvc-%E8%B3%87%E6%96%99%E5%AD%98%E5%8F%96dataaccess/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-資料存取(DataAccess)</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/15/mvc-%E7%99%BB%E5%85%A5%E9%A9%97%E8%AD%89/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC 登入驗證</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 The Site
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linq on The Site</title>
+    <link>https://hushuuu.github.io/categories/linq/</link>
+    <description>Recent content in Linq on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 16 Mar 2021 16:46:20 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/linq/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linq常用的語法與基本介紹</title>
+      <link>https://hushuuu.github.io/2021/03/16/linq%E5%B8%B8%E7%94%A8%E7%9A%84%E8%AA%9E%E6%B3%95%E8%88%87%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/</link>
+      <pubDate>Tue, 16 Mar 2021 16:46:20 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/16/linq%E5%B8%B8%E7%94%A8%E7%9A%84%E8%AA%9E%E6%B3%95%E8%88%87%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/</guid>
+      <description>前言 LINQ在資料的過濾以及查詢方面非常方便，不只可以在EF中轉為SQL語句
+也能對平常的List型別進行過濾查詢。
+主要內容 Linq有兩種表示式，有一種是使用Lambda表示式
+var p = from t in products where t.Name == &amp;#34;牙膏&amp;#34; select t; //Lambda var p2 = products.Where(t =&amp;gt; t.Name == &amp;#34;牙膏&amp;#34;); JOIN //left join linq var q = from e in Db.Page_M orderby e.page_stack join s in ( from s in Db.Group_D where s.group_id==group_id select s) on new { page_id = e.page_id } equals new { page_id = s.page_id } into subGrp from s in subGrp.</description>
+    </item>
+    
+  </channel>
+</rss>

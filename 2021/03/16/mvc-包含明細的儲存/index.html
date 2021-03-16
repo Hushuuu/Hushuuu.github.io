@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='一對多一次Post至後端的儲存'><title>MVC-包含明細的儲存</title>
+
+<link rel='canonical' href='https://hushuuu.github.io/2021/03/16/mvc-%E5%8C%85%E5%90%AB%E6%98%8E%E7%B4%B0%E7%9A%84%E5%84%B2%E5%AD%98/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='MVC-包含明細的儲存'>
+<meta property='og:description' content='一對多一次Post至後端的儲存'>
+<meta property='og:url' content='https://hushuuu.github.io/2021/03/16/mvc-%E5%8C%85%E5%90%AB%E6%98%8E%E7%B4%B0%E7%9A%84%E5%84%B2%E5%AD%98/'>
+<meta property='og:site_name' content='The Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='html' /><meta property='article:published_time' content='2021-03-16T15:50:53&#43;08:00'/><meta property='article:modified_time' content='2021-03-16T15:50:53&#43;08:00'/>
+<meta name="twitter:title" content="MVC-包含明細的儲存">
+<meta name="twitter:description" content="一對多一次Post至後端的儲存">
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切換菜單">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h2 class="site-description">For Practice And Note Everythings In Life.</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首頁</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>關於</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>封存</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜尋</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>深色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://hushuuu.github.io/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/mvc/" >
+                MVC
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/2021/03/16/mvc-%E5%8C%85%E5%90%AB%E6%98%8E%E7%B4%B0%E7%9A%84%E5%84%B2%E5%AD%98/">MVC-包含明細的儲存</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        一對多一次Post至後端的儲存
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">2021-03-16</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="前言">前言</h2>
+<p>在一對多的資料表下，一個表頭會對應好幾筆的明細<br>
+開發儲存明細時，該如何實現。</p>
+<h2 id="主要內容">主要內容</h2>
+<p>若要新增資料要包含新增多筆明細。<br>
+可以在新增頁上建立一個<code>Table</code><br>
+並進行新增一筆及刪除一筆的行為<br>
+最後儲存時在將<code>table</code>進行post回去的處理</p>
+<p>一種方法是在畫面上讓使用者挑選輸入明細<br>
+輸入完畢塞一筆進<code>html</code>的<code>table</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;&lt;</span><span class="n">h4</span><span class="p">&gt;</span><span class="err">訂單明細</span><span class="p">&lt;/</span><span class="n">h4</span><span class="p">&gt;&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;choseProd&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;col-md-12&#34;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;col-md-2&#34;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="n">h5</span><span class="p">&gt;</span><span class="err">選擇商品至明細</span><span class="p">&lt;/</span><span class="n">h5</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;col-md-2&#34;</span><span class="p">&gt;</span>
+            <span class="n">@Html</span><span class="p">.</span><span class="n">DropDownList</span><span class="p">(</span><span class="s">&#34;ChoseProd&#34;</span><span class="p">,</span> <span class="n">Model</span><span class="p">.</span><span class="n">AllProducts</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">@class</span> <span class="p">=</span> <span class="s">&#34;form-control&#34;</span> <span class="p">})</span>
+        <span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;col-md-1&#34;</span><span class="p">&gt;</span>
+            <span class="n">@Html</span><span class="p">.</span><span class="n">EditorFor</span><span class="p">(</span><span class="n">m</span> <span class="p">=&gt;</span> <span class="n">m</span><span class="p">.</span><span class="n">QtyForSel</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">htmlAttributes</span> <span class="p">=</span> <span class="k">new</span> <span class="p">{</span> <span class="n">@class</span> <span class="p">=</span> <span class="s">&#34;form-control&#34;</span><span class="p">,</span> <span class="n">@Min</span> <span class="p">=</span> <span class="s">&#34;0&#34;</span> <span class="p">}</span> <span class="p">})</span>
+        <span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;col-md-4&#34;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="n">button</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;btn btn-default&#34;</span> <span class="n">id</span><span class="p">=</span><span class="s">&#34;addBtn&#34;</span> <span class="n">type</span><span class="p">=</span><span class="s">&#34;button&#34;</span><span class="p">&gt;</span><span class="err">新增</span><span class="p">&lt;/</span><span class="n">button</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span>
+</code></pre></div><p>新增按鈕呼叫<code>applist()</code>AJAX POST查詢商品價格後回傳<br>
+串接HTML(顯示欄位+隱藏的Input欄位)<br>
+<code>Append</code>到明細<code>Table</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">function</span> <span class="n">applist</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">var</span> <span class="n">chosepod</span> <span class="p">=</span> <span class="err">$</span><span class="p">(</span><span class="s">&#34;#ChoseProd&#34;</span><span class="p">).</span><span class="n">val</span><span class="p">();</span>
+    <span class="kt">var</span> <span class="n">qtyforsel</span> <span class="p">=</span> <span class="err">$</span><span class="p">(</span><span class="s">&#34;#QtyForSel&#34;</span><span class="p">).</span><span class="n">val</span><span class="p">();</span>
+    <span class="kt">var</span> <span class="n">price</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+    <span class="err">$</span><span class="p">.</span><span class="n">ajax</span><span class="p">({</span>
+        <span class="n">type</span><span class="p">:</span> <span class="s">&#34;POST&#34;</span><span class="p">,</span>
+        <span class="n">url</span><span class="p">:</span> <span class="s">&#34;@Url.Action(&#34;</span><span class="n">GetProdPrice</span><span class="s">&#34;, &#34;</span><span class="n">Order</span><span class="s">&#34;)&#34;</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="p">{</span>
+            <span class="n">prod_id</span><span class="p">:</span> <span class="n">chosepod</span>
+        <span class="p">},</span>
+        <span class="n">success</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">jo</span> <span class="p">=</span> <span class="n">JSON</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+            <span class="n">price</span> <span class="p">=</span> <span class="n">jo</span><span class="p">.</span><span class="n">price</span><span class="p">;</span>
+            <span class="kt">var</span> <span class="n">chosepod</span> <span class="p">=</span> <span class="err">$</span><span class="p">(</span><span class="s">&#34;#ChoseProd&#34;</span><span class="p">).</span><span class="n">val</span><span class="p">();</span>
+            <span class="kt">var</span> <span class="n">chosepod_text</span> <span class="p">=</span> <span class="err">$</span><span class="p">(</span><span class="s">&#34;#ChoseProd option:selected&#34;</span><span class="p">).</span><span class="n">text</span><span class="p">();</span>
+            <span class="kt">var</span> <span class="n">qtyforsel</span> <span class="p">=</span> <span class="err">$</span><span class="p">(</span><span class="s">&#34;#QtyForSel&#34;</span><span class="p">).</span><span class="n">val</span><span class="p">();</span>
+
+            <span class="kt">var</span> <span class="n">tb_append</span> <span class="p">=</span> <span class="err">&#39;</span><span class="p">&lt;</span><span class="n">tr</span><span class="p">&gt;&lt;</span><span class="n">td</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;pro_name&#34;</span><span class="p">&gt;</span><span class="err">&#39;</span> <span class="p">+</span> <span class="n">chosepod_text</span> <span class="p">+</span> <span class="err">&#39;</span><span class="p">&lt;</span><span class="n">input</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;pro_name&#34;</span> <span class="k">value</span><span class="p">=</span><span class="s">&#34;&#39; + chosepod_text + &#39;&#34;</span> <span class="n">hidden</span><span class="p">/&gt;</span><span class="err">&#39;</span>
+                <span class="p">+</span> <span class="err">&#39;</span><span class="p">&lt;/</span><span class="n">td</span><span class="p">&gt;&lt;</span><span class="n">td</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;price&#34;</span><span class="p">&gt;</span><span class="err">&#39;</span> <span class="p">+</span> <span class="n">price</span> <span class="p">+</span> <span class="err">&#39;</span><span class="p">&lt;</span><span class="n">input</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;pirce&#34;</span> <span class="k">value</span><span class="p">=</span><span class="s">&#34;&#39; + price + &#39;&#34;</span> <span class="n">hidden</span><span class="p">/&gt;&lt;/</span><span class="n">td</span><span class="p">&gt;&lt;</span><span class="n">td</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;qty&#34;</span><span class="p">&gt;</span><span class="err">&#39;</span>
+                <span class="p">+</span> <span class="n">qtyforsel</span> <span class="p">+</span> <span class="err">&#39;</span><span class="p">&lt;</span><span class="n">input</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;qty&#34;</span> <span class="k">value</span><span class="p">=</span><span class="s">&#34;&#39; + qtyforsel + &#39;&#34;</span> <span class="n">hidden</span><span class="p">/&gt;&lt;/</span><span class="n">td</span><span class="p">&gt;&lt;</span><span class="n">td</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;pro_id&#34;</span> <span class="n">hidden</span><span class="p">&gt;</span><span class="err">&#39;</span> <span class="p">+</span> <span class="n">chosepod</span>
+                <span class="p">+</span> <span class="err">&#39;</span><span class="p">&lt;</span><span class="n">input</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;pro_id&#34;</span> <span class="k">value</span><span class="p">=</span><span class="s">&#34;&#39; + chosepod + &#39;&#34;</span> <span class="n">hidden</span><span class="p">/&gt;&lt;/</span><span class="n">td</span><span class="p">&gt;</span><span class="err">&#39;</span>
+                <span class="p">+</span> <span class="err">&#39;</span><span class="p">&lt;</span><span class="n">td</span><span class="p">&gt;&lt;</span><span class="n">a</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;btn btn-danger btn-sm deltr&#34;</span> <span class="n">onclick</span><span class="p">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span><span class="n">X</span><span class="p">&lt;/</span><span class="n">a</span><span class="p">&gt;&lt;/</span><span class="n">td</span><span class="p">&gt;&lt;/</span><span class="n">tr</span><span class="p">&gt;</span><span class="err">&#39;</span>
+            <span class="err">$</span><span class="p">(</span><span class="err">&#39;#</span><span class="n">tb1</span><span class="err">&#39;</span><span class="p">).</span><span class="n">append</span><span class="p">(</span><span class="n">tb_append</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div><p>後端Action</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="n">ActionResult</span> <span class="n">GetProdPrice</span><span class="p">(</span><span class="kt">string</span> <span class="n">prod_id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">prod</span> <span class="p">=</span> <span class="n">Db</span><span class="p">.</span><span class="n">Product</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span><span class="p">=&gt;</span><span class="n">x</span><span class="p">.</span><span class="n">pro_id</span><span class="p">==</span><span class="n">prod_id</span><span class="p">).</span><span class="n">Select</span><span class="p">(</span><span class="n">x</span><span class="p">=&gt;</span><span class="k">new</span> <span class="p">{</span> <span class="n">pro_id</span><span class="p">=</span><span class="n">x</span><span class="p">.</span><span class="n">pro_id</span><span class="p">,</span><span class="n">pro_name</span><span class="p">=</span><span class="n">x</span><span class="p">.</span><span class="n">pro_name</span><span class="p">,</span><span class="n">price</span><span class="p">=</span><span class="n">x</span><span class="p">.</span><span class="n">price</span><span class="p">}).</span><span class="n">Single</span><span class="p">();</span>
+    <span class="kt">string</span> <span class="n">result</span> <span class="p">=</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">SerializeObject</span><span class="p">(</span><span class="n">prod</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">Json</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="儲存行為處理">儲存行為處理</h3>
+<p>後端接收明細的參數資料型態應為<code>List&lt;&gt;</code><br>
+故在POST之前需每一筆的<code>input</code>欄位要做<code>name</code>的調整<br>
+<code>Array</code>的話需要改成<code>arr[0]</code> <code>arr[1]</code>後端才辨識的出來</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s2">&#34;input&#34;</span><span class="p">).</span><span class="nx">eq</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="s2">&#34;orderdtllist[&#34;</span> <span class="o">+</span> <span class="nx">j</span> <span class="o">+</span> <span class="s2">&#34;].pro_id&#34;</span><span class="p">);</span>
+</code></pre></div><h2 id="小結">小結</h2>
+<p>一對多的儲存上較為複雜一些<br>
+也可以在明細增加編輯功能來修改單筆就好<br>
+要注意的是明細與表頭的關聯<br>
+還有後端Binding參數的正確於否</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/html/">html</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相關文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/2021/03/16/mvc-table%E6%8E%92%E5%BA%8F%E8%88%87%E5%88%86%E9%A0%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-Table排序與分頁</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/16/mvc-%E9%A0%81%E9%9D%A2%E5%8F%8A%E6%AC%8A%E9%99%90%E7%AE%A1%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-頁面及權限管理</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/15/mvc-%E7%94%A2%E5%87%BAexcel/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-產出Excel</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/15/mvc-%E8%B3%87%E6%96%99%E5%AD%98%E5%8F%96dataaccess/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-資料存取(DataAccess)</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/15/mvc-%E7%99%BB%E5%85%A5%E9%A9%97%E8%AD%89/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC 登入驗證</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 The Site
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
