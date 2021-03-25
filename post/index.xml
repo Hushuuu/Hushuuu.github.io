@@ -6,7 +6,39 @@
     <description>Recent content in Posts on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 16 Mar 2021 16:46:20 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 Mar 2021 11:15:44 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MVC-上傳檔案轉為Base64String</title>
+      <link>https://hushuuu.github.io/2021/03/25/mvc-%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E8%BD%89%E7%82%BAbase64string/</link>
+      <pubDate>Thu, 25 Mar 2021 11:15:44 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/25/mvc-%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E8%BD%89%E7%82%BAbase64string/</guid>
+      <description>前言 Html的Img標籤可以將src設為轉換後的Base64 String也可以顯示出圖片
+若WebApi需要交流檔案也可以將檔案轉換為Base64進行溝通
+Post前轉換 建立一個按鈕事件將轉換後的base64String``Post至後端
+$(document).on(&amp;#39;click&amp;#39;, &amp;#39;#subBtn&amp;#39;, function () { demo().then((obj) =&amp;gt; { $.ajax({ url: &amp;#34;../&amp;#34;, // url位置  type: &amp;#34;POST&amp;#34;, contentType: &amp;#34;application/json&amp;#34;, data: JSON.stringify(obj),// 輸入的資料  success: function (response) { }//  }); }); }); 使用FileReader來讀取上傳的檔案
+因為readAsDataURL是非同步讀取
+若不做非同步等待處理
+檔案還未處理完就會被Post出去造成傳遞不到正確資料
+故需將函式套上async並await等候所有檔案都處理完
+const demo = async () =&amp;gt; { var obj = {}; var filearray = []; var file_name = []; let files = $(&amp;#34;input[name=upload_file]&amp;#34;)[0].files; for (let i = 0; i &amp;lt; files.</description>
+    </item>
+    
+    <item>
+      <title>MVC-檔案上傳Post</title>
+      <link>https://hushuuu.github.io/2021/03/25/mvc-%E6%AA%94%E6%A1%88%E4%B8%8A%E5%82%B3post/</link>
+      <pubDate>Thu, 25 Mar 2021 10:44:23 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/25/mvc-%E6%AA%94%E6%A1%88%E4%B8%8A%E5%82%B3post/</guid>
+      <description>FormPost 如果要用FormPost的方式上傳檔案
+注意將Form的Content-Type 設定為enctype=&amp;quot;multipart/form-data&amp;quot;
+&amp;lt;input type=&amp;quot;file&amp;quot; accept=&amp;quot;.png, .jpg, .jpeg&amp;quot; name=&amp;quot;Filedata&amp;quot; class=&amp;quot;btn btn-default&amp;quot; /&amp;gt;
+FormDataPost到後端後可以這樣來接收
+public ActionResult Create(HttpPostedFileBase Filedata) { //可利用正則式過濾副檔名 if (Filedata != null &amp;amp;&amp;amp; Regex.IsMatch(Path.GetExtension(Filedata.FileName), &amp;#34;^[.](jpg|png|jpeg|gif|bmp)$&amp;#34;, RegexOptions.IgnoreCase)) { //存到資料夾  string tmpPath1 = Server.MapPath(&amp;#34;~/Images/&amp;#34;); if (!Directory.Exists(tmpPath1)) Directory.CreateDirectory(tmpPath1); var FileName = Path.GetFileName(Filedata.FileName); var FilePath = Path.Combine(Server.MapPath(&amp;#34;~/Images/&amp;#34;), FileName); Filedata.SaveAs(FilePath); string save_path = &amp;#34;/Images/&amp;#34; + FileName; pcm.pic_path = save_path; } } XMLHttpRequest上傳 建立FormData利用XMLHttpRequest發出請求
+監聽上傳事件可顯示出上傳進度
+//上傳檔案 var file = null; $(&amp;#39;#Filedata1&amp;#39;)[0].addEventListener(&amp;#39;change&amp;#39;, readFile, false); function readFile() { file = this.</description>
+    </item>
+    
     <item>
       <title>Linq常用的語法與基本介紹</title>
       <link>https://hushuuu.github.io/2021/03/16/linq%E5%B8%B8%E7%94%A8%E7%9A%84%E8%AA%9E%E6%B3%95%E8%88%87%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/</link>
