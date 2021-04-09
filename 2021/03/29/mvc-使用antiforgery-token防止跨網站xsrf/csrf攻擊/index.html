@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 MVC本身可在Form Post前使用AntiForgeryToken
+在Action上掛上[ValidateAntiForgeryToken]來檢查驗證
+如果要在Ajax使用可以自行建立驗證
+內建的AntiForgeryToken @using (Html.BeginForm()) { @Html.AntiForgeryToken() } 後端掛在動作上驗證
+[ValidateAntiForgeryToken] public ActionResult Create(){ } Ajax套用自行建立驗證 產生AntiForgeryToken
+@functions{ public static string GetAntiForgery() { string cookieToken, formToken; AntiForgery.GetTokens(null, out cookieToken, out formToken); return String.Concat(cookieToken, &amp;#34;@.@&amp;#34;, formToken); } } function deleteUser() { var token = $(&amp;#39;@Html.AntiForgeryToken()&amp;#39;).val(); //防偽標記放入headers  //也可以將防偽標記放入data  $.ajax({ type: &amp;#39;POST&amp;#39;, url: &amp;#34;/User/Delete&amp;#34;, headers: { &amp;#39;__RequestVerificationToken&amp;#39;: token }, cache: false, data: { &amp;#34;id&amp;#34;: $(&amp;#34;#delid&amp;#34;).val()}, complete: function (data) { alert(data.'><title>MVC-使用AntiForgery Token防止跨網站(XSRF/CSRF)攻擊</title>
+
+<link rel='canonical' href='https://hushuuu.github.io/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='MVC-使用AntiForgery Token防止跨網站(XSRF/CSRF)攻擊'>
+<meta property='og:description' content='前言 MVC本身可在Form Post前使用AntiForgeryToken
+在Action上掛上[ValidateAntiForgeryToken]來檢查驗證
+如果要在Ajax使用可以自行建立驗證
+內建的AntiForgeryToken @using (Html.BeginForm()) { @Html.AntiForgeryToken() } 後端掛在動作上驗證
+[ValidateAntiForgeryToken] public ActionResult Create(){ } Ajax套用自行建立驗證 產生AntiForgeryToken
+@functions{ public static string GetAntiForgery() { string cookieToken, formToken; AntiForgery.GetTokens(null, out cookieToken, out formToken); return String.Concat(cookieToken, &amp;#34;@.@&amp;#34;, formToken); } } function deleteUser() { var token = $(&amp;#39;@Html.AntiForgeryToken()&amp;#39;).val(); //防偽標記放入headers  //也可以將防偽標記放入data  $.ajax({ type: &amp;#39;POST&amp;#39;, url: &amp;#34;/User/Delete&amp;#34;, headers: { &amp;#39;__RequestVerificationToken&amp;#39;: token }, cache: false, data: { &amp;#34;id&amp;#34;: $(&amp;#34;#delid&amp;#34;).val()}, complete: function (data) { alert(data.'>
+<meta property='og:url' content='https://hushuuu.github.io/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/'>
+<meta property='og:site_name' content='The Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='CSRF' /><meta property='article:published_time' content='2021-03-29T15:56:17&#43;08:00'/><meta property='article:modified_time' content='2021-03-29T15:56:17&#43;08:00'/>
+<meta name="twitter:title" content="MVC-使用AntiForgery Token防止跨網站(XSRF/CSRF)攻擊">
+<meta name="twitter:description" content="前言 MVC本身可在Form Post前使用AntiForgeryToken
+在Action上掛上[ValidateAntiForgeryToken]來檢查驗證
+如果要在Ajax使用可以自行建立驗證
+內建的AntiForgeryToken @using (Html.BeginForm()) { @Html.AntiForgeryToken() } 後端掛在動作上驗證
+[ValidateAntiForgeryToken] public ActionResult Create(){ } Ajax套用自行建立驗證 產生AntiForgeryToken
+@functions{ public static string GetAntiForgery() { string cookieToken, formToken; AntiForgery.GetTokens(null, out cookieToken, out formToken); return String.Concat(cookieToken, &amp;#34;@.@&amp;#34;, formToken); } } function deleteUser() { var token = $(&amp;#39;@Html.AntiForgeryToken()&amp;#39;).val(); //防偽標記放入headers  //也可以將防偽標記放入data  $.ajax({ type: &amp;#39;POST&amp;#39;, url: &amp;#34;/User/Delete&amp;#34;, headers: { &amp;#39;__RequestVerificationToken&amp;#39;: token }, cache: false, data: { &amp;#34;id&amp;#34;: $(&amp;#34;#delid&amp;#34;).val()}, complete: function (data) { alert(data.">
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切換菜單">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h2 class="site-description">紀錄一些筆記。</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首頁</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>關於</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>封存</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜尋</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>深色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://hushuuu.github.io/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/mvc/" >
+                MVC
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/">MVC-使用AntiForgery Token防止跨網站(XSRF/CSRF)攻擊</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">2021-03-29</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="前言">前言</h2>
+<p>MVC本身可在<code>Form Post</code>前使用<code>AntiForgeryToken</code><br>
+在<code>Action</code>上掛上<code>[ValidateAntiForgeryToken]</code>來檢查驗證<br>
+如果要在<code>Ajax</code>使用可以自行建立驗證</p>
+<h2 id="內建的antiforgerytoken">內建的AntiForgeryToken</h2>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">@using</span> <span class="p">(</span><span class="n">Html</span><span class="p">.</span><span class="n">BeginForm</span><span class="p">())</span>
+<span class="p">{</span>
+    <span class="n">@Html</span><span class="p">.</span><span class="n">AntiForgeryToken</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div><p>後端掛在動作上驗證</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="na">[ValidateAntiForgeryToken]</span>
+<span class="k">public</span> <span class="n">ActionResult</span> <span class="n">Create</span><span class="p">(){</span> 
+<span class="p">}</span>
+</code></pre></div><h2 id="ajax套用自行建立驗證">Ajax套用自行建立驗證</h2>
+<p>產生AntiForgeryToken</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">@functions</span><span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">string</span> <span class="n">GetAntiForgery</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kt">string</span> <span class="n">cookieToken</span><span class="p">,</span> <span class="n">formToken</span><span class="p">;</span>
+        <span class="n">AntiForgery</span><span class="p">.</span><span class="n">GetTokens</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="k">out</span> <span class="n">cookieToken</span><span class="p">,</span> <span class="k">out</span> <span class="n">formToken</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="n">Concat</span><span class="p">(</span><span class="n">cookieToken</span><span class="p">,</span> <span class="s">&#34;@.@&#34;</span><span class="p">,</span> <span class="n">formToken</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">deleteUser</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;@Html.AntiForgeryToken()&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+    <span class="c1">//防偽標記放入headers
+</span><span class="c1"></span>    <span class="c1">//也可以將防偽標記放入data
+</span><span class="c1"></span>    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="s2">&#34;/User/Delete&#34;</span><span class="p">,</span>
+        <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;__RequestVerificationToken&#39;</span><span class="o">:</span> <span class="nx">token</span> <span class="p">},</span>
+        <span class="nx">cache</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">data</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&#34;id&#34;</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#delid&#34;</span><span class="p">).</span><span class="nx">val</span><span class="p">()},</span>
+        <span class="nx">complete</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">alert</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">responseJSON</span><span class="p">[</span><span class="s2">&#34;Data&#34;</span><span class="p">]);</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="s2">&#34;/User/Index&#34;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div><p>後端自行建立<code>Attribute</code>驗證</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">class</span> <span class="nc">MyValidateAntiForgeryToken</span> <span class="p">:</span> <span class="n">AuthorizeAttribute</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">OnAuthorization</span><span class="p">(</span><span class="n">AuthorizationContext</span> <span class="n">filterContext</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">request</span> <span class="p">=</span> <span class="n">filterContext</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">Request</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">HttpMethod</span> <span class="p">==</span> <span class="n">WebRequestMethods</span><span class="p">.</span><span class="n">Http</span><span class="p">.</span><span class="n">Post</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">IsAjaxRequest</span><span class="p">())</span>
+                <span class="p">{</span>
+                    <span class="kt">var</span> <span class="n">antiForgeryCookie</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="n">Cookies</span><span class="p">[</span><span class="n">AntiForgeryConfig</span><span class="p">.</span><span class="n">CookieName</span><span class="p">];</span>
+                    <span class="kt">var</span> <span class="n">cookieValue</span> <span class="p">=</span> <span class="n">antiForgeryCookie</span> <span class="p">!=</span> <span class="k">null</span>
+                    <span class="p">?</span> <span class="n">antiForgeryCookie</span><span class="p">.</span><span class="n">Value</span>
+                    <span class="p">:</span> <span class="k">null</span><span class="p">;</span>
+                    <span class="c1">//從cookies 和 Headers 中 驗證防偽標記
+</span><span class="c1"></span>                    <span class="c1">//這裡可以加try-catch
+</span><span class="c1"></span>                    <span class="n">AntiForgery</span><span class="p">.</span><span class="n">Validate</span><span class="p">(</span><span class="n">cookieValue</span><span class="p">,</span> <span class="n">request</span><span class="p">.</span><span class="n">Headers</span><span class="p">[</span><span class="s">&#34;__RequestVerificationToken&#34;</span><span class="p">]);</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="p">{</span>
+                    <span class="k">new</span> <span class="n">ValidateAntiForgeryTokenAttribute</span><span class="p">()</span>
+                    <span class="p">.</span><span class="n">OnAuthorization</span><span class="p">(</span><span class="n">filterContext</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="na">[MyValidateAntiForgeryToken]</span>
+    <span class="k">public</span> <span class="n">ActionResult</span> <span class="n">Delete</span><span class="p">(</span><span class="kt">string</span> <span class="n">id</span><span class="p">){}</span>
+</code></pre></div><h2 id="參考連結">參考連結</h2>
+<blockquote>
+<ul>
+<li><a class="link" href="https://codertw.com/%E5%89%8D%E7%AB%AF%E9%96%8B%E7%99%BC/386205/"  target="_blank" rel="noopener"
+    >url1</a></li>
+</ul>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/csrf/">CSRF</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相關文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/2021/03/25/mvc-%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E8%BD%89%E7%82%BAbase64string/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-上傳檔案轉為Base64String</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/25/mvc-%E6%AA%94%E6%A1%88%E4%B8%8A%E5%82%B3post/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-檔案上傳Post</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/16/mvc-%E5%8C%85%E5%90%AB%E6%98%8E%E7%B4%B0%E7%9A%84%E5%84%B2%E5%AD%98/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-包含明細的儲存</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/16/mvc-table%E6%8E%92%E5%BA%8F%E8%88%87%E5%88%86%E9%A0%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-Table排序與分頁</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/03/16/mvc-%E9%A0%81%E9%9D%A2%E5%8F%8A%E6%AC%8A%E9%99%90%E7%AE%A1%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-頁面及權限管理</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 The Site
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

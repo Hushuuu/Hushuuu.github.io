@@ -219,7 +219,7 @@
 <p><code>Html</code>的<code>Img</code>標籤可以將<code>src</code>設為轉換後的<code>Base64 String</code>也可以顯示出圖片<br>
 若<code>WebApi</code>需要交流檔案也可以將檔案轉換為<code>Base64</code>進行溝通</p>
 <h2 id="post前轉換">Post前轉換</h2>
-<p>建立一個按鈕事件將轉換後的<code>base64String``Post</code>至後端</p>
+<p>建立一個按鈕事件將轉換後的<code>base64String</code> <code>Post</code>至後端</p>
 <div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="s1">&#39;#subBtn&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
         <span class="nx">demo</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">obj</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
             <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
@@ -273,7 +273,7 @@
     <span class="kt">string</span> <span class="n">basestr</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToBase64String</span><span class="p">(</span><span class="n">btarr</span><span class="p">);</span> 
 <span class="p">}</span>
 </code></pre></div><h2 id="小結">小結</h2>
-<p><code>async``await``Promise</code>這些非同步相關的使用上需要花點時間理解<br>
+<p><code>async</code> <code>await</code> <code>Promise</code>這些非同步相關的使用上需要花點時間理解<br>
 主要目的為實現等待：檔案非同步讀取完全做完才上傳出去</p>
 <h2 id="參考連結">參考連結</h2>
 <blockquote>
@@ -337,6 +337,18 @@
                 
                     
 <article class="">
+    <a href="/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MVC-使用AntiForgery Token防止跨網站(XSRF/CSRF)攻擊</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
     <a href="/2021/03/16/mvc-%E5%8C%85%E5%90%AB%E6%98%8E%E7%B4%B0%E7%9A%84%E5%84%B2%E5%AD%98/">
         
         
@@ -367,18 +379,6 @@
 
         <div class="article-details">
             <h2 class="article-title">MVC-頁面及權限管理</h2>
-        </div>
-    </a>
-</article>
-                
-                    
-<article class="">
-    <a href="/2021/03/15/mvc-%E7%94%A2%E5%87%BAexcel/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">MVC-產出Excel</h2>
         </div>
     </a>
 </article>

@@ -15,7 +15,7 @@
       <guid>https://hushuuu.github.io/2021/03/25/mvc-%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E8%BD%89%E7%82%BAbase64string/</guid>
       <description>前言 Html的Img標籤可以將src設為轉換後的Base64 String也可以顯示出圖片
 若WebApi需要交流檔案也可以將檔案轉換為Base64進行溝通
-Post前轉換 建立一個按鈕事件將轉換後的base64String``Post至後端
+Post前轉換 建立一個按鈕事件將轉換後的base64String Post至後端
 $(document).on(&amp;#39;click&amp;#39;, &amp;#39;#subBtn&amp;#39;, function () { demo().then((obj) =&amp;gt; { $.ajax({ url: &amp;#34;../&amp;#34;, // url位置  type: &amp;#34;POST&amp;#34;, contentType: &amp;#34;application/json&amp;#34;, data: JSON.stringify(obj),// 輸入的資料  success: function (response) { }//  }); }); }); 使用FileReader來讀取上傳的檔案
 因為readAsDataURL是非同步讀取
 若不做非同步等待處理

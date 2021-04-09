@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='初步設定及使用'><title>EntityFramework Core開始使用</title>
+
+<link rel='canonical' href='https://hushuuu.github.io/2021/04/09/entityframework-core%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='EntityFramework Core開始使用'>
+<meta property='og:description' content='初步設定及使用'>
+<meta property='og:url' content='https://hushuuu.github.io/2021/04/09/entityframework-core%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/'>
+<meta property='og:site_name' content='The Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Net Core' /><meta property='article:tag' content='EntityFramework Core' /><meta property='article:published_time' content='2021-04-09T10:17:00&#43;08:00'/><meta property='article:modified_time' content='2021-04-09T10:17:00&#43;08:00'/>
+<meta name="twitter:title" content="EntityFramework Core開始使用">
+<meta name="twitter:description" content="初步設定及使用">
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切換菜單">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h2 class="site-description">紀錄一些筆記。</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首頁</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>關於</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>封存</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜尋</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>深色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://hushuuu.github.io/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/net-core/" >
+                Net Core
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/2021/04/09/entityframework-core%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/">EntityFramework Core開始使用</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        初步設定及使用
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">2021-04-09</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="前言">前言</h2>
+<p>.NetCore(net5)<br>
+Entity Framework Core<br>
+紀錄如何初始化</p>
+<h2 id="主要內容">主要內容</h2>
+<p>使用<code>PackageManager</code>安裝</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span>
+<span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">Design</span>
+<span class="n">EntityFrameworkCore</span>
+<span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span><span class="p">.</span><span class="n">Tools</span>
+</code></pre></div><p>建立 DB模型cs</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">class</span> <span class="nc">Blog</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>建立<code>DbContext.cs</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"> <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Test2021Context</span> <span class="p">:</span> <span class="n">DbContext</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="n">Test2021Context</span><span class="p">()</span>
+        <span class="p">{</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="n">Test2021Context</span><span class="p">(</span><span class="n">DbContextOptions</span><span class="p">&lt;</span><span class="n">Test2021Context</span><span class="p">&gt;</span> <span class="n">options</span><span class="p">)</span>
+            <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="p">{</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">virtual</span> <span class="n">DbSet</span><span class="p">&lt;</span><span class="n">Blog</span><span class="p">&gt;</span> <span class="n">Blogs</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="c1">//相依注入後此方法可註解掉
+</span><span class="c1"></span>        <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="n">OnConfiguring</span><span class="p">(</span><span class="n">DbContextOptionsBuilder</span> <span class="n">optionsBuilder</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(!</span><span class="n">optionsBuilder</span><span class="p">.</span><span class="n">IsConfigured</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">optionsBuilder</span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="s">&#34;Server=.\\sqlexpress;Database=Test2021;Trusted_Connection=True;MultipleActiveResultSets=true&#34;</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+</code></pre></div><p>進行<code>Mirgration</code>及同步資料庫</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">PM</span><span class="p">&gt;</span> <span class="n">Add</span><span class="p">-</span><span class="n">Migration</span> <span class="n">InitialCreate</span>
+<span class="n">PM</span><span class="p">&gt;</span> <span class="n">Update</span><span class="p">-</span><span class="n">Database</span> <span class="p">-</span><span class="n">V</span>
+<span class="c1">//若不要直接更新要產出SQL
+</span><span class="c1"></span><span class="n">PM</span><span class="p">&gt;</span> <span class="n">Migration</span><span class="p">-</span><span class="n">Script</span>
+<span class="c1">//可手動調整Migration出來的cs檔再做Update
+</span></code></pre></div><p><code>DbContext</code>和模型也可以透過逆向工程來產生<br>
+<code>-force</code>覆寫現有的檔案<br>
+<code>-outputdir</code>產出資料夾
+<code>-context</code>名稱預設為dbnameContext.cs</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">Scaffold</span><span class="p">-</span><span class="n">DbContext</span> <span class="err">&#39;</span><span class="n">Server</span><span class="p">=.</span><span class="err">\</span><span class="n">sqlexpress</span><span class="p">;</span><span class="n">Database</span><span class="p">=</span><span class="n">Test1202</span><span class="p">;</span><span class="n">Trusted_Connection</span><span class="p">=</span><span class="n">True</span><span class="p">;</span><span class="n">MultipleActiveResultSets</span><span class="p">=</span><span class="k">true</span><span class="err">&#39;</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span> <span class="p">-</span><span class="n">OutputDir</span> <span class="n">Data</span> <span class="p">-</span><span class="n">Force</span>
+</code></pre></div><p>將連線字串放進<code>appsettings.json</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="s">&#34;ConnectionStrings&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s">&#34;DefaultConnection&#34;</span><span class="p">:</span> <span class="s">&#34;Server=localhost\\SQLEXPRESS;Database=Test2021;Trusted_Connection=True&#34;</span>
+  <span class="p">}</span>
+</code></pre></div><h3 id="相依注入">相依注入</h3>
+<p><code>Startup.cs</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">void</span> <span class="n">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">services</span><span class="p">.</span><span class="n">AddControllersWithViews</span><span class="p">();</span>
+            <span class="n">services</span><span class="p">.</span><span class="n">AddDbContext</span><span class="p">&lt;</span><span class="n">Test2021Context</span><span class="p">&gt;(</span><span class="n">options</span> <span class="p">=&gt;</span>
+            <span class="p">{</span>
+                <span class="c1">//啟用 Logging 觀察 SQL 指令
+</span><span class="c1"></span>                <span class="c1">//連參數一起顯示
+</span><span class="c1"></span>                <span class="n">options</span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="n">Configuration</span><span class="p">.</span><span class="n">GetConnectionString</span><span class="p">(</span><span class="s">&#34;DefaultConnection&#34;</span><span class="p">))</span>
+                <span class="p">.</span><span class="n">UseLoggerFactory</span><span class="p">(</span><span class="n">LoggerFactory</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">builder</span> <span class="p">=&gt;</span> <span class="n">builder</span><span class="p">.</span><span class="n">AddConsole</span><span class="p">()</span>
+                            <span class="p">.</span><span class="n">AddDebug</span><span class="p">()</span>
+                            <span class="p">.</span><span class="n">AddFilter</span><span class="p">(</span><span class="n">level</span><span class="p">=&gt;</span><span class="n">level</span><span class="p">==</span><span class="n">LogLevel</span><span class="p">.</span><span class="n">Information</span><span class="p">)));</span> <span class="c1">//LoggerFactory方式
+</span><span class="c1"></span>                <span class="p">.</span><span class="n">LogTo</span><span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">,</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="n">DbLoggerCategory</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">Name</span> <span class="p">},</span> <span class="n">LogLevel</span><span class="p">.</span><span class="n">Information</span><span class="p">)</span> <span class="c1">//LogTo的方式
+</span><span class="c1"></span>                <span class="p">.</span><span class="n">EnableSensitiveDataLogging</span><span class="p">();</span>
+            <span class="p">});</span>
+        <span class="p">}</span>
+
+<span class="k">public</span> <span class="k">void</span> <span class="n">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IWebHostEnvironment</span> <span class="n">env</span><span class="p">,</span><span class="n">Test2021Context</span> <span class="n">dbContext</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// 建立資料庫            
+</span><span class="c1"></span>    <span class="n">dbContext</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">EnsureCreated</span><span class="p">();</span>
+    <span class="c1">//略
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><p><code>Controller</code>可以套用範本直接產生出CRUD再微調，效率好很多<br>
+範本也會幫忙建立建構子及注入</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">class</span> <span class="nc">BlogController</span> <span class="p">:</span> <span class="n">Controller</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">Test2021Context</span> <span class="n">_context</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="n">BlogController</span><span class="p">(</span><span class="n">Test2021Context</span> <span class="n">context</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_context</span> <span class="p">=</span> <span class="n">context</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="小結">小結</h2>
+<p>紀錄指令</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//逆向工程產生DbContext及模型
+</span><span class="c1"></span><span class="n">Scaffold</span><span class="p">-</span><span class="n">DbContext</span> <span class="err">&#39;</span><span class="n">Server</span><span class="p">=.</span><span class="err">\</span><span class="n">sqlexpress</span><span class="p">;</span><span class="n">Database</span><span class="p">=</span><span class="n">Test1202</span><span class="p">;</span><span class="n">Trusted_Connection</span><span class="p">=</span><span class="n">True</span><span class="p">;</span><span class="n">MultipleActiveResultSets</span><span class="p">=</span><span class="k">true</span><span class="err">&#39;</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span> <span class="p">-</span><span class="n">OutputDir</span> <span class="n">Data</span> <span class="p">-</span><span class="n">Force</span>
+<span class="c1">//CodeFirst
+</span><span class="c1"></span><span class="n">Add</span><span class="p">-</span><span class="n">Migration</span> <span class="n">InitialCreate</span>
+<span class="n">Add</span><span class="p">-</span><span class="n">Migration</span> <span class="n">InitialCreate</span>
+<span class="n">Update</span><span class="p">-</span><span class="n">Database</span> <span class="p">-</span><span class="n">V</span>
+<span class="c1">//若不要直接更新要產出SQL
+</span><span class="c1"></span><span class="n">Script</span><span class="p">-</span><span class="n">Migration</span> 
+<span class="c1">//可手動調整Migration出來的cs檔再做Update
+</span></code></pre></div><h2 id="參考連結">參考連結</h2>
+<blockquote>
+<ul>
+<li><a class="link" href="https://blog.darkthread.net/blog/efcore-notes-1/"  target="_blank" rel="noopener"
+    >url1</a></li>
+<li><a class="link" href="http://greens2314.blogspot.com/2018/09/aspnet-core-2-api-entity-framework-core.html"  target="_blank" rel="noopener"
+    >url2</a></li>
+<li><a class="link" href="https://blog.miniasp.com/post/2020/12/12/Logging-in-Entity-Framework-Core"  target="_blank" rel="noopener"
+    >url3</a></li>
+</ul>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/net-core/">Net Core</a>
+        
+            <a href="/tags/entityframework-core/">EntityFramework Core</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 The Site
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

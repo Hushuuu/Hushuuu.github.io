@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CSRF on The Site</title>
+    <link>https://hushuuu.github.io/tags/csrf/</link>
+    <description>Recent content in CSRF on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 29 Mar 2021 15:56:17 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/csrf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MVC-使用AntiForgery Token防止跨網站(XSRF/CSRF)攻擊</title>
+      <link>https://hushuuu.github.io/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/</link>
+      <pubDate>Mon, 29 Mar 2021 15:56:17 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/</guid>
+      <description>前言 MVC本身可在Form Post前使用AntiForgeryToken
+在Action上掛上[ValidateAntiForgeryToken]來檢查驗證
+如果要在Ajax使用可以自行建立驗證
+內建的AntiForgeryToken @using (Html.BeginForm()) { @Html.AntiForgeryToken() } 後端掛在動作上驗證
+[ValidateAntiForgeryToken] public ActionResult Create(){ } Ajax套用自行建立驗證 產生AntiForgeryToken
+@functions{ public static string GetAntiForgery() { string cookieToken, formToken; AntiForgery.GetTokens(null, out cookieToken, out formToken); return String.Concat(cookieToken, &amp;#34;@.@&amp;#34;, formToken); } } function deleteUser() { var token = $(&amp;#39;@Html.AntiForgeryToken()&amp;#39;).val(); //防偽標記放入headers  //也可以將防偽標記放入data  $.ajax({ type: &amp;#39;POST&amp;#39;, url: &amp;#34;/User/Delete&amp;#34;, headers: { &amp;#39;__RequestVerificationToken&amp;#39;: token }, cache: false, data: { &amp;#34;id&amp;#34;: $(&amp;#34;#delid&amp;#34;).val()}, complete: function (data) { alert(data.</description>
+    </item>
+    
+  </channel>
+</rss>

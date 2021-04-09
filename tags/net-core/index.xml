@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Net Core on The Site</title>
+    <link>https://hushuuu.github.io/tags/net-core/</link>
+    <description>Recent content in Net Core on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 09 Apr 2021 10:17:00 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/net-core/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>EntityFramework Core開始使用</title>
+      <link>https://hushuuu.github.io/2021/04/09/entityframework-core%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Fri, 09 Apr 2021 10:17:00 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/04/09/entityframework-core%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/</guid>
+      <description>前言 .NetCore(net5)
+Entity Framework Core
+紀錄如何初始化
+主要內容 使用PackageManager安裝
+EntityFrameworkCore.SqlServer EntityFrameworkCore.Design EntityFrameworkCore EntityFrameworkCore.SqlServer.Tools 建立 DB模型cs
+public class Blog { public int Id { get; set; } public string Name { get; set; } } 建立DbContext.cs
+public partial class Test2021Context : DbContext { public Test2021Context() { } public Test2021Context(DbContextOptions&amp;lt;Test2021Context&amp;gt; options) : base(options) { } public virtual DbSet&amp;lt;Blog&amp;gt; Blogs { get; set; } //相依注入後此方法可註解掉  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { if (!optionsBuilder.IsConfigured) { optionsBuilder.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,7 +6,34 @@
     <description>Recent content in Tags on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Mar 2021 11:15:44 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 09 Apr 2021 10:17:00 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>EntityFramework Core</title>
+      <link>https://hushuuu.github.io/tags/entityframework-core/</link>
+      <pubDate>Fri, 09 Apr 2021 10:17:00 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/tags/entityframework-core/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Net Core</title>
+      <link>https://hushuuu.github.io/tags/net-core/</link>
+      <pubDate>Fri, 09 Apr 2021 10:17:00 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/tags/net-core/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CSRF</title>
+      <link>https://hushuuu.github.io/tags/csrf/</link>
+      <pubDate>Mon, 29 Mar 2021 15:56:17 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/tags/csrf/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>file</title>
       <link>https://hushuuu.github.io/tags/file/</link>
