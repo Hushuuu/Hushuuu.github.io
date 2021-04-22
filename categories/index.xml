@@ -6,7 +6,25 @@
     <description>Recent content in Categories on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 Apr 2021 10:17:00 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Apr 2021 17:50:19 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NetCore</title>
+      <link>https://hushuuu.github.io/categories/netcore/</link>
+      <pubDate>Wed, 21 Apr 2021 17:50:19 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/netcore/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>EntityFramework Core</title>
+      <link>https://hushuuu.github.io/categories/entityframework-core/</link>
+      <pubDate>Mon, 12 Apr 2021 15:00:25 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/entityframework-core/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Net Core</title>
       <link>https://hushuuu.github.io/categories/net-core/</link>

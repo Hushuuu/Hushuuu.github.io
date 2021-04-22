@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NLog on The Site</title>
+    <link>https://hushuuu.github.io/tags/nlog/</link>
+    <description>Recent content in NLog on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 12 Apr 2021 15:00:25 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/nlog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>EntityFramework Core使用NLlog紀錄Sql</title>
+      <link>https://hushuuu.github.io/2021/04/12/entityframework-core%E4%BD%BF%E7%94%A8nllog%E7%B4%80%E9%8C%84sql/</link>
+      <pubDate>Mon, 12 Apr 2021 15:00:25 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/04/12/entityframework-core%E4%BD%BF%E7%94%A8nllog%E7%B4%80%E9%8C%84sql/</guid>
+      <description>前言 EF Core5.0之後增加 LogTo 可使用StramWriter的方式寫在DBContext.cs裡
+但沒試出寫在Startup.cs ConfigureServices
+private readonly StreamWriter _logStream = new StreamWriter(&amp;#34;mylog.txt&amp;#34;, append: true); protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =&amp;gt; optionsBuilder.LogTo(_logStream.WriteLine); public override void Dispose() { base.Dispose(); _logStream.Dispose(); } public override async ValueTask DisposeAsync() { await base.DisposeAsync(); await _logStream.DisposeAsync(); } 普通的Console.Write方法
+services.AddDbContext&amp;lt;YourContext&amp;gt;(options =&amp;gt; { options.UseSqlServer(Configuration.GetConnectionString(&amp;#34;DefaultConnection&amp;#34;)) .EnableSensitiveDataLogging(); //顯示敏感資料(參數)  options.LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Name }, LogLevel.Information); }); NLog來記錄 先打開Nuget安裝 NLog NLog.Web.AspNetCore
+Program.cs
+public static void Main(string[] args) { var logger = NLogBuilder.</description>
+    </item>
+    
+  </channel>
+</rss>

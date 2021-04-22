@@ -6,7 +6,34 @@
     <description>Recent content in Tags on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 Apr 2021 10:17:00 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Apr 2021 17:50:19 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ViewComponent</title>
+      <link>https://hushuuu.github.io/tags/viewcomponent/</link>
+      <pubDate>Wed, 21 Apr 2021 17:50:19 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/tags/viewcomponent/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NetCore</title>
+      <link>https://hushuuu.github.io/tags/netcore/</link>
+      <pubDate>Mon, 12 Apr 2021 15:00:25 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/tags/netcore/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NLog</title>
+      <link>https://hushuuu.github.io/tags/nlog/</link>
+      <pubDate>Mon, 12 Apr 2021 15:00:25 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/tags/nlog/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>EntityFramework Core</title>
       <link>https://hushuuu.github.io/tags/entityframework-core/</link>
