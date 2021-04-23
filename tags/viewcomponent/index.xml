@@ -18,11 +18,11 @@
 主要內容 1.在專案底下新增資料夾ViewComponents
 2.新增一個XXXXViewComponent.cs檔案
 3.檔案內容須符合相關規則(可只擇一規則)才會被辨認為ViewComponent
-//規則:檔名為XXXXViewComponent [Microsoft.AspNetCore.Mvc.ViewComponent] //規則: 類別掛上[ViewComponent] Attribute public class PkindComponent : Microsoft.AspNetCore.Mvc.ViewComponent //規則: 類別繼承ViewComponent { public PkindComponent() { } public IViewComponentResult Invoke() { return View(); } } View模板預設路徑要放在 Views/Shared/Components/XXXX/Default.cshtml
+//規則:檔名為XXXXViewComponent [Microsoft.AspNetCore.Mvc.ViewComponent] //規則: 類別掛上[ViewComponent] Attribute public class PkindViewComponent : Microsoft.AspNetCore.Mvc.ViewComponent //規則: 類別繼承ViewComponent { public PkindViewComponent() { } public IViewComponentResult Invoke() { return View(); } } View模板預設路徑要放在 Views/Shared/Components/XXXX/Default.cshtml
 就可以開始設計View
 如何使用 在需要呼叫ViewComponent 的檢視下加上
-@addTagHelper *, 專案名稱 //再打上&amp;lt;vc 就會自動跑出選項代表成功了 &amp;lt;vc:XXXX&amp;gt;&amp;lt;/vc:XXXX&amp;gt; 應用 也有非同步調用方法InvokeAsync 和含有參數往資料庫撈資料的變化
-[Microsoft.AspNetCore.Mvc.ViewComponent] public class HotSaleComponent : Microsoft.AspNetCore.Mvc.ViewComponent { private Test2021Context _context; public HotSaleComponent(Test2021Context context) { _context = context; } public async Task&amp;lt;IViewComponentResult&amp;gt; InvokeAsync() { var list = await _context.</description>
+@addTagHelper *, 專案名稱 再打上vc 就會自動跑出選項代表成功了 &amp;lt;div&amp;gt; &amp;lt;vc:XXXX&amp;gt;&amp;lt;/vc:XXXX&amp;gt; &amp;lt;/div&amp;gt; 應用 也有非同步調用方法InvokeAsync 和含有參數往資料庫撈資料的變化
+[Microsoft.AspNetCore.Mvc.ViewComponent] public class HotSaleComponent : Microsoft.AspNetCore.Mvc.ViewComponent { private Test2021Context _context; public HotSaleComponent(Test2021Context context) { _context = context; } public async Task&amp;lt;IViewComponentResult&amp;gt; InvokeAsync(string ddd) { var list = await _context.</description>
     </item>
     
   </channel>

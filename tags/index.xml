@@ -6,7 +6,25 @@
     <description>Recent content in Tags on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 21 Apr 2021 17:50:19 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Apr 2021 10:39:28 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Session</title>
+      <link>https://hushuuu.github.io/tags/session/</link>
+      <pubDate>Fri, 23 Apr 2021 10:39:28 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/tags/session/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ModelBinding</title>
+      <link>https://hushuuu.github.io/tags/modelbinding/</link>
+      <pubDate>Fri, 23 Apr 2021 10:04:41 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/tags/modelbinding/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>ViewComponent</title>
       <link>https://hushuuu.github.io/tags/viewcomponent/</link>

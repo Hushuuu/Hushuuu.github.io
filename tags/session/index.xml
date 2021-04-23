@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Session on The Site</title>
+    <link>https://hushuuu.github.io/tags/session/</link>
+    <description>Recent content in Session on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 23 Apr 2021 10:39:28 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/session/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NetCore 啟用Session</title>
+      <link>https://hushuuu.github.io/2021/04/23/netcore-%E5%95%9F%E7%94%A8session/</link>
+      <pubDate>Fri, 23 Apr 2021 10:39:28 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/04/23/netcore-%E5%95%9F%E7%94%A8session/</guid>
+      <description>前言 安裝套件 Microsoft.AspNetCore.Session
+Startup.cs &amp;gt; ConfigureServices中加入
+// 將 Session 存在 ASP.NET Core 記憶體中 services.AddDistributedMemoryCache(); services.AddSession(options =&amp;gt; { options.Cookie.HttpOnly = true; //防止XSS攻擊者存取Cookies }); Startup &amp;gt; Configure中加入
+// SessionMiddleware 加入 Pipeline app.UseSession(); 開始使用 //設定Session HttpContext.Session.SetString(&amp;#34;SessionKey&amp;#34;, &amp;#34;SessionValue&amp;#34;); //取得Session string sVal = HttpContext.Session.GetString(&amp;#34;SessionKey&amp;#34;); Session如果需要存物件進去就需要寫擴充的方法來實現 新增SessionExtensions.cs
+//HttpContext.Session.GetObject&amp;lt;T&amp;gt;(&amp;#34;SessionKey&amp;#34;);  //HttpContext.Session.SetObject&amp;lt;T&amp;gt;(&amp;#34;SessionKey&amp;#34;,object);  public static class SessionExtensions { public static void SetObject&amp;lt;T&amp;gt;(this ISession session, string key, T value) { session.SetString(key, JsonConvert.SerializeObject(value)); } public static T GetObject&amp;lt;T&amp;gt;(this ISession session, string key) { var value = session.</description>
+    </item>
+    
+  </channel>
+</rss>

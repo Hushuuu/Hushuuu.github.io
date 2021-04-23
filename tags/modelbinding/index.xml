@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ModelBinding on The Site</title>
+    <link>https://hushuuu.github.io/tags/modelbinding/</link>
+    <description>Recent content in ModelBinding on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 23 Apr 2021 10:04:41 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/modelbinding/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NetCore 更改預設ModelBinding ErrorMessage</title>
+      <link>https://hushuuu.github.io/2021/04/23/netcore-%E6%9B%B4%E6%94%B9%E9%A0%90%E8%A8%ADmodelbinding-errormessage/</link>
+      <pubDate>Fri, 23 Apr 2021 10:04:41 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/04/23/netcore-%E6%9B%B4%E6%94%B9%E9%A0%90%E8%A8%ADmodelbinding-errormessage/</guid>
+      <description>前言 NetCore就算更改了Local Language若沒做多國語言資源，似乎沒有預設中文的樣板
+除了可以在Attribue裡面自定義錯誤訊息來改成中文但共用屬性每個都改太麻煩了 可以使用自訂義類別實作 IValidationMetadataProvider介面來實現更改預設訊息
+主要內容 建立cs檔
+public void CreateValidationMetadata(ValidationMetadataProviderContext context) { if (context == null) { throw new ArgumentNullException(); } var validators = context.ValidationMetadata.ValidatorMetadata; // add [Required] for value-types (int/DateTime etc)  // to set ErrorMessage before asp.net does it  var theType = context.Key.ModelType; var underlyingType = Nullable.GetUnderlyingType(theType); if (theType.IsValueType &amp;amp;&amp;amp; underlyingType == null &amp;amp;&amp;amp; // not nullable type  validators.Where(m =&amp;gt; m.GetType() == typeof(RequiredAttribute)).Count() == 0) { validators.</description>
+    </item>
+    
+  </channel>
+</rss>
