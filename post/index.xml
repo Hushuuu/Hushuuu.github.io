@@ -6,7 +6,30 @@
     <description>Recent content in Posts on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 23 Apr 2021 10:39:28 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 29 Apr 2021 14:15:05 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Net Core 使用 SignalR實現即時通訊</title>
+      <link>https://hushuuu.github.io/2021/04/29/net-core-%E4%BD%BF%E7%94%A8-signalr%E5%AF%A6%E7%8F%BE%E5%8D%B3%E6%99%82%E9%80%9A%E8%A8%8A/</link>
+      <pubDate>Thu, 29 Apr 2021 14:15:05 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/04/29/net-core-%E4%BD%BF%E7%94%A8-signalr%E5%AF%A6%E7%8F%BE%E5%8D%B3%E6%99%82%E9%80%9A%E8%A8%8A/</guid>
+      <description>前言 在使用SignalR之前可以先行了解WebSocket的原理
+Websocket是一個持久化的協議，長期保持連線
+若需要回應時再進行回應。
+而除了WebSocket，也有long poll或利用AjaxLoop
+的方式來實現即時通訊。但另外兩種方式相較之下較為消耗資源。
+初始步驟 Nuget尋找並安裝SignalR相關套件
+如Microsoft.AspNetCore.SignalR.Core
+用戶端程式庫 在 [方案總管] 中，以滑鼠右鍵按一下專案，然後選取 [新增][用戶端程式庫] &amp;gt; 。
+在 [新增用戶端程式庫] 對話方塊中，針對 [提供者] 選取 [unpkg]。
+針對 [程式庫]，輸入 @microsoft/signalr
+選取 [選擇特定檔案]、展開 [散發者/瀏覽器] 資料夾，然後選取 signalr.js 與 signalr.min.js。
+將 [目標位置] 設定為 wwwroot/lib/signalr/，然後選取 [安裝]。
+建立Signal Hub 建立Hubs資料夾
+在 Hubs 資料夾中，建立ChatHub.cs
+using Microsoft.AspNetCore.SignalR; using System.Threading.Tasks; namespace SignalRChat.Hubs { public class ChatHub : Hub { public async Task SendMessage(string user, string message) { await Clients.All.SendAsync(&amp;#34;ReceiveMessage&amp;#34;, user, message); } } }&amp;gt; 註冊SignalR 在Startup.</description>
+    </item>
+    
     <item>
       <title>NetCore 啟用Session</title>
       <link>https://hushuuu.github.io/2021/04/23/netcore-%E5%95%9F%E7%94%A8session/</link>
