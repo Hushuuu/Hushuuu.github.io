@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LineBot on The Site</title>
+    <link>https://hushuuu.github.io/tags/linebot/</link>
+    <description>Recent content in LineBot on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 27 May 2021 10:09:55 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/linebot/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NetCore上建立LINE BOT</title>
+      <link>https://hushuuu.github.io/2021/05/27/netcore%E4%B8%8A%E5%BB%BA%E7%AB%8Bline-bot/</link>
+      <pubDate>Thu, 27 May 2021 10:09:55 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/05/27/netcore%E4%B8%8A%E5%BB%BA%E7%AB%8Bline-bot/</guid>
+      <description>前言 LINE官方有不同語言的API套件，C#的話則有社群提供。主要為pierre3提供的LineMessaging Api和twdeveloper提供的LineBotSDK可選用
+本篇使用LineMessaging Api
+初始設計 建立一個新專案，範本選.net core Web空白的專案
+Nuget安裝Line.Messaging
+將Linebot的Channel secret和Channel access token放在 appsettings.json
+&amp;#34;LineBot&amp;#34;: { &amp;#34;channelSecret&amp;#34;: &amp;#34;xxx&amp;#34;, &amp;#34;accessToken&amp;#34;: &amp;#34;xxx&amp;#34; } 建立LineBotConfig.cs
+public class LineBotConfig { public string channelSecret { get; set; } public string accessToken { get; set; } } 設定Startup.cs
+public Startup(IConfiguration configuration) { Configuration = configuration; } public IConfiguration Configuration { get; } // This method gets called by the runtime. Use this method to add services to the container.</description>
+    </item>
+    
+  </channel>
+</rss>

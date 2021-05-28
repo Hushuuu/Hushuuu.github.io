@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chart on The Site</title>
+    <link>https://hushuuu.github.io/tags/chart/</link>
+    <description>Recent content in Chart on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 03 May 2021 13:59:47 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/chart/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>圖表套件使用-Chart js</title>
+      <link>https://hushuuu.github.io/2021/05/03/%E5%9C%96%E8%A1%A8%E5%A5%97%E4%BB%B6%E4%BD%BF%E7%94%A8-chart-js/</link>
+      <pubDate>Mon, 03 May 2021 13:59:47 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/05/03/%E5%9C%96%E8%A1%A8%E5%A5%97%E4%BB%B6%E4%BD%BF%E7%94%A8-chart-js/</guid>
+      <description>前言 在使用套件時，根據環境跟使用，引入的script版本非常重要
+版本不同有些使用的方式也會改變或是增減造成效果不一。
+CDN
+&amp;lt;script src=&amp;#34;https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;#34;https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; 主要內容 資料固定且簡單的範例只需引入後直接使用產生
+&amp;lt;canvas id=&amp;#34;myChart&amp;#34;&amp;gt;&amp;lt;/canvas&amp;gt; &amp;lt;script&amp;gt; var ctx = document.getElementById(&amp;#34;myChart&amp;#34;); var chart = new Chart(ctx, { type: &amp;#39;bar&amp;#39;, data: { labels:{&amp;#34;A&amp;#34;,&amp;#34;B&amp;#34;,&amp;#34;C&amp;#34;}, datasets: [{ label: [&amp;#34;銷售量&amp;#34;], data: { &amp;#34;A&amp;#34;: &amp;#34;100&amp;#34;, &amp;#34;B&amp;#34;: &amp;#34;200&amp;#34;, &amp;#34;C&amp;#34;: &amp;#34;140&amp;#34; } }], } }) &amp;lt;/script&amp;gt; 非固定資料 可用Ajax撈回或使用PartialView的概念
+&amp;lt;script&amp;gt; $(document).on(&amp;#39;click&amp;#39;, &amp;#39;#show_board&amp;#39;, function () { $.ajax({ type: &amp;#34;POST&amp;#34;, url: &amp;#39;@Url.Action(&amp;#34;ShowBoard&amp;#34;, &amp;#34;Product&amp;#34;)&amp;#39; }) .done(function (msg) { //後端傳回為json物件包含圖表所需的資料跟設定  var obj = msg; chart.data.datasets = obj.</description>
+    </item>
+    
+  </channel>
+</rss>

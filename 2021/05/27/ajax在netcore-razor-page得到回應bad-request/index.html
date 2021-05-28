@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='net core預設有檢查ValidateAntiForgeryToken，沒設定好亂傳post會得到400 BAD REQUEST'><title>ajax在NetCore Razor Page得到回應bad request</title>
+
+<link rel='canonical' href='https://hushuuu.github.io/2021/05/27/ajax%E5%9C%A8netcore-razor-page%E5%BE%97%E5%88%B0%E5%9B%9E%E6%87%89bad-request/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='ajax在NetCore Razor Page得到回應bad request'>
+<meta property='og:description' content='net core預設有檢查ValidateAntiForgeryToken，沒設定好亂傳post會得到400 BAD REQUEST'>
+<meta property='og:url' content='https://hushuuu.github.io/2021/05/27/ajax%E5%9C%A8netcore-razor-page%E5%BE%97%E5%88%B0%E5%9B%9E%E6%87%89bad-request/'>
+<meta property='og:site_name' content='The Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='CSRF' /><meta property='article:tag' content='RazorPage' /><meta property='article:published_time' content='2021-05-27T15:52:39&#43;08:00'/><meta property='article:modified_time' content='2021-05-27T15:52:39&#43;08:00'/>
+<meta name="twitter:title" content="ajax在NetCore Razor Page得到回應bad request">
+<meta name="twitter:description" content="net core預設有檢查ValidateAntiForgeryToken，沒設定好亂傳post會得到400 BAD REQUEST">
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切換菜單">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h2 class="site-description">紀錄一些筆記。</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首頁</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>關於</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>封存</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜尋</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>深色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://hushuuu.github.io/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/netcore/" >
+                NetCore
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/2021/05/27/ajax%E5%9C%A8netcore-razor-page%E5%BE%97%E5%88%B0%E5%9B%9E%E6%87%89bad-request/">ajax在NetCore Razor Page得到回應bad request</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        net core預設有檢查ValidateAntiForgeryToken，沒設定好亂傳post會得到400 BAD REQUEST
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">2021-05-27</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="前言">前言</h2>
+<p>在使用Razor Page時，想傳入post請求卻得到<code>bad request</code><br>
+應該是在net core下有預設檢查<code>ValidateAntiForgeryToken</code>來防止跨站攻擊<br>
+故需要在POST前加上token來通過檢查</p>
+<h2 id="主要內容">主要內容</h2>
+<h3 id="可利用htmlhelper直接產生出token">可利用HtmlHelper直接產生出token</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c#" data-lang="c#"><span class="n">@Html</span><span class="p">.</span><span class="n">AntiForgeryToken</span><span class="p">()</span>
+</code></pre></div><h3 id="在ajax中加入token">在ajax中加入token</h3>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"> <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+        <span class="nx">data</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+        <span class="nx">dataType</span><span class="o">:</span> <span class="s2">&#34;json&#34;</span><span class="p">,</span>
+        <span class="nx">beforeSend</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&#34;requestverificationtoken&#34;</span><span class="p">,</span>
+                <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;input:hidden[name=&#34;__RequestVerificationToken&#34;]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span>
+        <span class="p">},</span>
+        <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">}</span>
+    <span class="p">});</span>    
+</code></pre></div><h2 id="小結">小結</h2>
+<p>另外<code>Razor Pages</code> 是透過 <code>?handler</code> 決定呼叫哪一段程式<br>
+只要在 <code>AJAX URL</code> 加上 <code>?handler=MethodName</code><br>
+<code>Razor Page cs</code>檔寫 <code>OnGetMethodName()</code> 或 <code>OnPostMethodName()</code> 即可辨識要進哪個方法</p>
+<h2 id="參考連結">參考連結</h2>
+<blockquote>
+<ul>
+<li><a class="link" href="https://demo.tc/post/.net%20core%20csrf%20%E9%98%B2%E7%AF%84%E6%A9%9F%E5%88%B6%E9%81%87%E4%B8%8A%20ajax"  target="_blank" rel="noopener"
+    >url1</a></li>
+<li><a class="link" href="https://blog.darkthread.net/blog/razor-pages-ajax-call/"  target="_blank" rel="noopener"
+    >url2</a></li>
+</ul>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/csrf/">CSRF</a>
+        
+            <a href="/tags/razorpage/">RazorPage</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相關文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/2021/05/27/netcore%E4%B8%8A%E5%BB%BA%E7%AB%8Bline-bot/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">NetCore上建立LINE BOT</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/04/29/net-core-%E4%BD%BF%E7%94%A8-signalr%E5%AF%A6%E7%8F%BE%E5%8D%B3%E6%99%82%E9%80%9A%E8%A8%8A/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Net Core 使用 SignalR實現即時通訊</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/04/23/netcore-%E5%95%9F%E7%94%A8session/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">NetCore 啟用Session</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/04/23/netcore-%E6%9B%B4%E6%94%B9%E9%A0%90%E8%A8%ADmodelbinding-errormessage/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">NetCore 更改預設ModelBinding ErrorMessage</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/04/21/%E5%9C%A8net-core-%E4%BD%BF%E7%94%A8-viewcomponent/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">在Net Core 使用 ViewComponent</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 The Site
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
