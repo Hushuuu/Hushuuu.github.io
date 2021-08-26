@@ -6,7 +6,17 @@
     <description>Recent content in VueJs on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 26 Aug 2021 14:48:29 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/vuejs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 26 Aug 2021 16:37:23 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/vuejs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VueJs 處理Json格式下日期Date</title>
+      <link>https://hushuuu.github.io/2021/08/26/vuejs-%E8%99%95%E7%90%86json%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%97%A5%E6%9C%9Fdate/</link>
+      <pubDate>Thu, 26 Aug 2021 16:37:23 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/08/26/vuejs-%E8%99%95%E7%90%86json%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%97%A5%E6%9C%9Fdate/</guid>
+      <description>前言 Json Serilize後Datetime格式被轉為/Date(1373950800000)/
+轉換處理 //傳入轉換字串和是否要含時間 function FormateDate(str,withTime){ var d = eval(`new ` + str.substr(1, str.length - 2)); var ar_date = [d.getFullYear(), d.getMonth() + 1, d.getDate()]; var ar_time = [d.getHours(), d.getMinutes(), d.getSeconds()]; for (var i = 0; i &amp;lt; ar_date.length; i++) ar_date[i] = dFormat(ar_date[i]); for (var i = 0; i &amp;lt; ar_time.length; i++) ar_time[i] = dFormat(ar_time[i]); return withTime == true ? ar_date.join(`-`) + &amp;#34; &amp;#34; + ar_time.join(`: `) : ar_date.join(`-`); } function dFormat(i) { return i &amp;lt; 10 ?</description>
+    </item>
+    
     <item>
       <title>.Net MVC ViewModel 套上VueJs</title>
       <link>https://hushuuu.github.io/2021/08/26/.net-mvc-viewmodel-%E5%A5%97%E4%B8%8Avuejs/</link>

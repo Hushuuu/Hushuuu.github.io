@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='將ViewModel序列化為JSON字串後綁定進Vue'><title>.Net MVC ViewModel 套上VueJs</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='/Date(1373950800000)/ 的處理'><title>VueJs 處理Json格式下日期Date</title>
 
-<link rel='canonical' href='https://hushuuu.github.io/2021/08/26/.net-mvc-viewmodel-%E5%A5%97%E4%B8%8Avuejs/'>
+<link rel='canonical' href='https://hushuuu.github.io/2021/08/26/vuejs-%E8%99%95%E7%90%86json%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%97%A5%E6%9C%9Fdate/'>
 
-<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='.Net MVC ViewModel 套上VueJs'>
-<meta property='og:description' content='將ViewModel序列化為JSON字串後綁定進Vue'>
-<meta property='og:url' content='https://hushuuu.github.io/2021/08/26/.net-mvc-viewmodel-%E5%A5%97%E4%B8%8Avuejs/'>
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='VueJs 處理Json格式下日期Date'>
+<meta property='og:description' content='/Date(1373950800000)/ 的處理'>
+<meta property='og:url' content='https://hushuuu.github.io/2021/08/26/vuejs-%E8%99%95%E7%90%86json%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%97%A5%E6%9C%9Fdate/'>
 <meta property='og:site_name' content='The Site'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='MVC' /><meta property='article:tag' content='VueJs' /><meta property='article:published_time' content='2021-08-26T14:48:29&#43;08:00'/><meta property='article:modified_time' content='2021-08-26T14:48:29&#43;08:00'/>
-<meta name="twitter:title" content=".Net MVC ViewModel 套上VueJs">
-<meta name="twitter:description" content="將ViewModel序列化為JSON字串後綁定進Vue">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='VueJs' /><meta property='article:tag' content='Format' /><meta property='article:published_time' content='2021-08-26T16:37:23&#43;08:00'/><meta property='article:modified_time' content='2021-08-26T16:37:23&#43;08:00'/>
+<meta name="twitter:title" content="VueJs 處理Json格式下日期Date">
+<meta name="twitter:description" content="/Date(1373950800000)/ 的處理">
     </head>
     <body class="">
     <script>
@@ -194,12 +194,12 @@
     
 
     <h2 class="article-title">
-        <a href="/2021/08/26/.net-mvc-viewmodel-%E5%A5%97%E4%B8%8Avuejs/">.Net MVC ViewModel 套上VueJs</a>
+        <a href="/2021/08/26/vuejs-%E8%99%95%E7%90%86json%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%97%A5%E6%9C%9Fdate/">VueJs 處理Json格式下日期Date</a>
     </h2>
 
     
     <h3 class="article-subtitle">
-        將ViewModel序列化為JSON字串後綁定進Vue
+        /Date(1373950800000)/ 的處理
     </h3>
     <footer class="article-time">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -216,40 +216,39 @@
 
     <section class="article-content">
     <h2 id="前言">前言</h2>
-<p>版本<code>vue2.x</code><br>
-將<code>ViewModel</code>序列化後也可綁定到<code>Vue</code>物件上</p>
-<h2 id="主要內容">主要內容</h2>
-<p>在<code>cshtml</code>內定義好<code>model</code>後序列化<br>
-用<code>Json.Encode</code>或是<code>JsonConvert</code>處理後<br>
-回傳<code>MvcHtmlString</code>類別</p>
-<div class="highlight"><pre class="chroma"><code class="language-c#" data-lang="c#"><span class="err">@</span><span class="p">{</span>
-    <span class="kt">var</span> <span class="n">Datajson</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MvcHtmlString</span><span class="p">(</span><span class="n">Json</span><span class="p">.</span><span class="n">Encode</span><span class="p">(</span><span class="n">Model</span><span class="p">));</span>
+<p><code>Json Serilize</code>後<code>Datetime</code>格式被轉為<code>/Date(1373950800000)/</code></p>
+<h2 id="轉換處理">轉換處理</h2>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">//傳入轉換字串和是否要含時間
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">FormateDate</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span><span class="nx">withTime</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="sb">`new `</span> <span class="o">+</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">str</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">2</span><span class="p">));</span>
+    <span class="kd">var</span> <span class="nx">ar_date</span> <span class="o">=</span> <span class="p">[</span><span class="nx">d</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">(),</span> <span class="nx">d</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()];</span>
+    <span class="kd">var</span> <span class="nx">ar_time</span> <span class="o">=</span> <span class="p">[</span><span class="nx">d</span><span class="p">.</span><span class="nx">getHours</span><span class="p">(),</span> <span class="nx">d</span><span class="p">.</span><span class="nx">getMinutes</span><span class="p">(),</span> <span class="nx">d</span><span class="p">.</span><span class="nx">getSeconds</span><span class="p">()];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">ar_date</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="nx">ar_date</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">dFormat</span><span class="p">(</span><span class="nx">ar_date</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">ar_time</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="nx">ar_time</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">dFormat</span><span class="p">(</span><span class="nx">ar_time</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="k">return</span> <span class="nx">withTime</span> <span class="o">==</span> <span class="kc">true</span> <span class="o">?</span> <span class="nx">ar_date</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="sb">`-`</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34; &#34;</span> <span class="o">+</span> <span class="nx">ar_time</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="sb">`: `</span><span class="p">)</span> <span class="o">:</span> <span class="nx">ar_date</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="sb">`-`</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div><p>建立<code>Vue</code>實體，綁定<code>Element</code><br>
-資料<code>data</code>定義一個<code>dataList</code>接收剛剛序列化的變數</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">vueDiv</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
-        <span class="nx">el</span><span class="o">:</span> <span class="s2">&#34;#vueDiv&#34;</span><span class="p">,</span>
-        <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-            <span class="nx">dataList</span><span class="o">:</span><span class="err">@</span><span class="nx">Datajson</span><span class="p">,</span>
-        <span class="p">},</span>
-    <span class="p">});</span>
-</code></pre></div><p><code>v-if 沒筆數就不顯示</code><br>
-<code>v-for 迴圈印出datList每個項目</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">table</span> <span class="na">v-if</span><span class="o">=</span><span class="s">&#34;dataList.count&gt;0&#34;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">thead</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>標題<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>名稱<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
-        <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">thead</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">tbody</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">tr</span> <span class="na">v-for</span><span class="o">=</span><span class="s">&#34;(item,index) in dataList&#34;</span> <span class="na">:id</span><span class="o">=</span><span class="s">&#34;item.id&#34;</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{item.title}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{item.name}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-        <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">tbody</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
-</code></pre></div>
+<span class="kd">function</span> <span class="nx">dFormat</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> 
+<span class="p">{</span> 
+    <span class="k">return</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="o">?</span> <span class="s2">&#34;0&#34;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">:</span> <span class="nx">i</span><span class="p">;</span> 
+<span class="p">}</span>
+<span class="c1">//Using
+</span><span class="c1"></span><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&#34;/Date(1373950800000)/&#34;</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">result</span>  <span class="o">=</span> <span class="nx">FormateDate</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span> <span class="c1">//yyyy-MM-dd HH:mm:ss
+</span><span class="c1"></span><span class="kd">let</span> <span class="nx">result2</span> <span class="o">=</span> <span class="nx">FormateDate</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">//yyyy-MM-dd
+</span></code></pre></div><h2 id="小結">小結</h2>
+<p>可以直接將轉換<code>function</code>一起包進<code>Vue</code>的實例的<code>methods</code>中<br>
+就能跟著畫面渲染轉換。</p>
+<ul>
+<li>若有傳回後端接收的情形，也要注意轉換格式讓<code>Datetime</code>型別辨識並綁定的到</li>
+</ul>
+<h2 id="參考連結">參考連結</h2>
+<blockquote>
+<ul>
+<li><a class="link" href="https://www.itread01.com/content/1509993517.html"  target="_blank" rel="noopener"
+    >url1</a></li>
+</ul>
+</blockquote>
+
 </section>
 
 
@@ -257,9 +256,9 @@
     
     <section class="article-tags">
         
-            <a href="/tags/mvc/">MVC</a>
-        
             <a href="/tags/vuejs/">VueJs</a>
+        
+            <a href="/tags/format/">Format</a>
         
     </section>
 
@@ -290,12 +289,12 @@
                 
                     
 <article class="">
-    <a href="/2021/08/26/vuejs-%E8%99%95%E7%90%86json%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%97%A5%E6%9C%9Fdate/">
+    <a href="/2021/08/26/.net-mvc-viewmodel-%E5%A5%97%E4%B8%8Avuejs/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">VueJs 處理Json格式下日期Date</h2>
+            <h2 class="article-title">.Net MVC ViewModel 套上VueJs</h2>
         </div>
     </a>
 </article>
