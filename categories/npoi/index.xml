@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NPOI on The Site</title>
+    <link>https://hushuuu.github.io/categories/npoi/</link>
+    <description>Recent content in NPOI on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 26 Aug 2021 11:52:40 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/npoi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NPOI - CellStyle篇</title>
+      <link>https://hushuuu.github.io/2021/08/26/npoi-cellstyle%E7%AF%87/</link>
+      <pubDate>Thu, 26 Aug 2021 11:52:40 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/08/26/npoi-cellstyle%E7%AF%87/</guid>
+      <description>前言 NPOI 設定框線、字型、顏色、對齊、換行&amp;hellip;等常用樣式設定
+建立表 XSSFWorkbook xssfworkbook = new XSSFWorkbook(); //建立Workbook ISheet sheet = xssfworkbook.CreateSheet(sheetName); //建立sheet sheet.CreateRow(0).CreateCell(0).SetCellValue(&amp;#34;標題&amp;#34;); //第一次一定要先建立NewRow NewCell 框線 BorderStyle框線樣式
+BorderColor框線顏色
+ICellStyle myStyle = xssfworkbook.CreateCellStyle();//建立樣式 myStyle.BorderTop = BorderStyle.Thin;//設定上框線 myStyle.BorderBottom = BorderStyle.Thin;//設定下框線 myStyle.BorderLeft = BorderStyle.Thin;//設定框線 myStyle.BorderRight = BorderStyle.Thin;//設定框線 字型 FontName字體名稱:新細明體
+FontHeightInPoints字體大小(double):12
+IsBold是否粗體(bool)
+Color顏色(short) HSSFColor.Black.Index
+IFont cFont = workboook.CreateFont(); cFont.FontName = &amp;#34;微軟正黑體&amp;#34;; cFont.FontHeightInPoints = 12; cFont.IsBold = true; cFont.Color = HSSFColor.Red.Index; myStyle.SetFont(cFont); 對齊 myStyle.Alignment = HorizontalAlignment.Center; //水平置中 myStyle.VerticalAlignment = VerticalAlignment.Center; //垂直置中 換行 myStyle.</description>
+    </item>
+    
+    <item>
+      <title>NPOI 合併儲存格與框線樣式</title>
+      <link>https://hushuuu.github.io/2021/08/26/npoi-%E5%90%88%E4%BD%B5%E5%84%B2%E5%AD%98%E6%A0%BC%E8%88%87%E6%A1%86%E7%B7%9A%E6%A8%A3%E5%BC%8F/</link>
+      <pubDate>Thu, 26 Aug 2021 10:41:03 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/08/26/npoi-%E5%90%88%E4%BD%B5%E5%84%B2%E5%AD%98%E6%A0%BC%E8%88%87%E6%A1%86%E7%B7%9A%E6%A8%A3%E5%BC%8F/</guid>
+      <description>前言 NPOI 是可讀取及產出Excel的套件。同JAVA的POI
+EXCEL概觀 若要建立Excel首先要先建立Workbook
+Workbook裡可建立數個Sheet
+Sheet就為一張一張的表
+每個表內從第0行(Row)第0欄(Column)開始第一個單元格
+產出的格式若是較新版的Excel(.xlsx) 使用XSSFWorkbook
+若為舊版Excel格式(.xls)則使用HSSFWorkbook
+這邊以XSSF作範例，將A0合併至B2
+XSSFWorkbook xssfworkbook = new XSSFWorkbook(); //建立Workbook ISheet sheet = xssfworkbook.CreateSheet(sheetName); //建立sheet sheet.CreateRow(0).CreateCell(0).SetCellValue(&amp;#34;標題&amp;#34;); //第一次一定要先建立NewRow NewCell CellRangeAddress region = new CellRangeAddress(0,1,0,1);//指定區域A0~B2 sheet.AddMergedRegion(region);//合併區域 ICellStyle myStyle = xssfworkbook.CreateCellStyle();//建立樣式 myStyle.BorderTop = BorderStyle.Thin;//設定上框線 myStyle.BorderBottom = BorderStyle.Thin;//設定下框線 myStyle.BorderLeft = BorderStyle.Thin;//設定框線 myStyle.BorderRight = BorderStyle.Thin;//設定框線 sheet.GetRow(0).GetCell(0).CellStyle = myStyle; //設定樣式  //產出檔案並回傳 System.IO.MemoryStream ms = new System.IO.MemoryStream(); xssfworkbook.Write(ms); return File(ms.ToArray(), &amp;#34;application/vnd.ms-excel&amp;#34;, &amp;#34;myExcel.xlsx&amp;#34;); 合併後框線失效 上面的例子產出報表後，並未符合預期的樣子
+合併後的框線樣式跑掉了。
+這是因為框線樣式只有設定到A0這個元素格
+合併後右下的框線就被合併起來了
+故最簡單解決方式為把其他元素格也設定框線樣式</description>
+    </item>
+    
+  </channel>
+</rss>

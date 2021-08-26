@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 NPOI 設定框線、字型、顏色、對齊、換行&amp;hellip;等常用樣式設定
+建立表 XSSFWorkbook xssfworkbook = new XSSFWorkbook(); //建立Workbook ISheet sheet = xssfworkbook.CreateSheet(sheetName); //建立sheet sheet.CreateRow(0).CreateCell(0).SetCellValue(&amp;#34;標題&amp;#34;); //第一次一定要先建立NewRow NewCell 框線 BorderStyle框線樣式
+BorderColor框線顏色
+ICellStyle myStyle = xssfworkbook.CreateCellStyle();//建立樣式 myStyle.BorderTop = BorderStyle.Thin;//設定上框線 myStyle.BorderBottom = BorderStyle.Thin;//設定下框線 myStyle.BorderLeft = BorderStyle.Thin;//設定框線 myStyle.BorderRight = BorderStyle.Thin;//設定框線 字型 FontName字體名稱:新細明體
+FontHeightInPoints字體大小(double):12
+IsBold是否粗體(bool)
+Color顏色(short) HSSFColor.Black.Index
+IFont cFont = workboook.CreateFont(); cFont.FontName = &amp;#34;微軟正黑體&amp;#34;; cFont.FontHeightInPoints = 12; cFont.IsBold = true; cFont.Color = HSSFColor.Red.Index; myStyle.SetFont(cFont); 對齊 myStyle.Alignment = HorizontalAlignment.Center; //水平置中 myStyle.VerticalAlignment = VerticalAlignment.Center; //垂直置中 換行 myStyle.'><title>NPOI - CellStyle篇</title>
+
+<link rel='canonical' href='https://hushuuu.github.io/2021/08/26/npoi-cellstyle%E7%AF%87/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='NPOI - CellStyle篇'>
+<meta property='og:description' content='前言 NPOI 設定框線、字型、顏色、對齊、換行&amp;hellip;等常用樣式設定
+建立表 XSSFWorkbook xssfworkbook = new XSSFWorkbook(); //建立Workbook ISheet sheet = xssfworkbook.CreateSheet(sheetName); //建立sheet sheet.CreateRow(0).CreateCell(0).SetCellValue(&amp;#34;標題&amp;#34;); //第一次一定要先建立NewRow NewCell 框線 BorderStyle框線樣式
+BorderColor框線顏色
+ICellStyle myStyle = xssfworkbook.CreateCellStyle();//建立樣式 myStyle.BorderTop = BorderStyle.Thin;//設定上框線 myStyle.BorderBottom = BorderStyle.Thin;//設定下框線 myStyle.BorderLeft = BorderStyle.Thin;//設定框線 myStyle.BorderRight = BorderStyle.Thin;//設定框線 字型 FontName字體名稱:新細明體
+FontHeightInPoints字體大小(double):12
+IsBold是否粗體(bool)
+Color顏色(short) HSSFColor.Black.Index
+IFont cFont = workboook.CreateFont(); cFont.FontName = &amp;#34;微軟正黑體&amp;#34;; cFont.FontHeightInPoints = 12; cFont.IsBold = true; cFont.Color = HSSFColor.Red.Index; myStyle.SetFont(cFont); 對齊 myStyle.Alignment = HorizontalAlignment.Center; //水平置中 myStyle.VerticalAlignment = VerticalAlignment.Center; //垂直置中 換行 myStyle.'>
+<meta property='og:url' content='https://hushuuu.github.io/2021/08/26/npoi-cellstyle%E7%AF%87/'>
+<meta property='og:site_name' content='The Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='NPOI' /><meta property='article:published_time' content='2021-08-26T11:52:40&#43;08:00'/><meta property='article:modified_time' content='2021-08-26T11:52:40&#43;08:00'/>
+<meta name="twitter:title" content="NPOI - CellStyle篇">
+<meta name="twitter:description" content="前言 NPOI 設定框線、字型、顏色、對齊、換行&amp;hellip;等常用樣式設定
+建立表 XSSFWorkbook xssfworkbook = new XSSFWorkbook(); //建立Workbook ISheet sheet = xssfworkbook.CreateSheet(sheetName); //建立sheet sheet.CreateRow(0).CreateCell(0).SetCellValue(&amp;#34;標題&amp;#34;); //第一次一定要先建立NewRow NewCell 框線 BorderStyle框線樣式
+BorderColor框線顏色
+ICellStyle myStyle = xssfworkbook.CreateCellStyle();//建立樣式 myStyle.BorderTop = BorderStyle.Thin;//設定上框線 myStyle.BorderBottom = BorderStyle.Thin;//設定下框線 myStyle.BorderLeft = BorderStyle.Thin;//設定框線 myStyle.BorderRight = BorderStyle.Thin;//設定框線 字型 FontName字體名稱:新細明體
+FontHeightInPoints字體大小(double):12
+IsBold是否粗體(bool)
+Color顏色(short) HSSFColor.Black.Index
+IFont cFont = workboook.CreateFont(); cFont.FontName = &amp;#34;微軟正黑體&amp;#34;; cFont.FontHeightInPoints = 12; cFont.IsBold = true; cFont.Color = HSSFColor.Red.Index; myStyle.SetFont(cFont); 對齊 myStyle.Alignment = HorizontalAlignment.Center; //水平置中 myStyle.VerticalAlignment = VerticalAlignment.Center; //垂直置中 換行 myStyle.">
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切換菜單">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h2 class="site-description">紀錄一些筆記。</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首頁</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>關於</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>封存</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜尋</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>深色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://hushuuu.github.io/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/npoi/" >
+                NPOI
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/2021/08/26/npoi-cellstyle%E7%AF%87/">NPOI - CellStyle篇</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">2021-08-26</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="前言">前言</h2>
+<p>NPOI 設定框線、字型、顏色、對齊、換行&hellip;等常用樣式設定</p>
+<h3 id="建立表">建立表</h3>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">XSSFWorkbook</span> <span class="n">xssfworkbook</span> <span class="p">=</span> <span class="k">new</span> <span class="n">XSSFWorkbook</span><span class="p">();</span> <span class="c1">//建立Workbook
+</span><span class="c1"></span><span class="n">ISheet</span> <span class="n">sheet</span> <span class="p">=</span> <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">CreateSheet</span><span class="p">(</span><span class="n">sheetName</span><span class="p">);</span> <span class="c1">//建立sheet
+</span><span class="c1"></span><span class="n">sheet</span><span class="p">.</span><span class="n">CreateRow</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;標題&#34;</span><span class="p">);</span> <span class="c1">//第一次一定要先建立NewRow NewCell
+</span></code></pre></div><h3 id="框線">框線</h3>
+<p><code>BorderStyle</code>框線樣式<br>
+<code>BorderColor</code>框線顏色</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">ICellStyle</span> <span class="n">myStyle</span> <span class="p">=</span> <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">CreateCellStyle</span><span class="p">();</span><span class="c1">//建立樣式 
+</span><span class="c1"></span><span class="n">myStyle</span><span class="p">.</span><span class="n">BorderTop</span> <span class="p">=</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="n">Thin</span><span class="p">;</span><span class="c1">//設定上框線
+</span><span class="c1"></span><span class="n">myStyle</span><span class="p">.</span><span class="n">BorderBottom</span> <span class="p">=</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="n">Thin</span><span class="p">;</span><span class="c1">//設定下框線
+</span><span class="c1"></span><span class="n">myStyle</span><span class="p">.</span><span class="n">BorderLeft</span> <span class="p">=</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="n">Thin</span><span class="p">;</span><span class="c1">//設定框線
+</span><span class="c1"></span><span class="n">myStyle</span><span class="p">.</span><span class="n">BorderRight</span> <span class="p">=</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="n">Thin</span><span class="p">;</span><span class="c1">//設定框線
+</span></code></pre></div><h3 id="字型">字型</h3>
+<p><code>FontName</code>字體名稱:新細明體<br>
+<code>FontHeightInPoints</code>字體大小(double):12<br>
+<code>IsBold</code>是否粗體(bool)<br>
+<code>Color</code>顏色(short) HSSFColor.Black.Index</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">IFont</span> <span class="n">cFont</span> <span class="p">=</span> <span class="n">workboook</span><span class="p">.</span><span class="n">CreateFont</span><span class="p">();</span>
+<span class="n">cFont</span><span class="p">.</span><span class="n">FontName</span> <span class="p">=</span> <span class="s">&#34;微軟正黑體&#34;</span><span class="p">;</span>
+<span class="n">cFont</span><span class="p">.</span><span class="n">FontHeightInPoints</span> <span class="p">=</span> <span class="m">12</span><span class="p">;</span>
+<span class="n">cFont</span><span class="p">.</span><span class="n">IsBold</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+<span class="n">cFont</span><span class="p">.</span><span class="n">Color</span> <span class="p">=</span> <span class="n">HSSFColor</span><span class="p">.</span><span class="n">Red</span><span class="p">.</span><span class="n">Index</span><span class="p">;</span>
+<span class="n">myStyle</span><span class="p">.</span><span class="n">SetFont</span><span class="p">(</span><span class="n">cFont</span><span class="p">);</span>
+</code></pre></div><h3 id="對齊">對齊</h3>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">myStyle</span><span class="p">.</span><span class="n">Alignment</span> <span class="p">=</span> <span class="n">HorizontalAlignment</span><span class="p">.</span><span class="n">Center</span><span class="p">;</span> <span class="c1">//水平置中
+</span><span class="c1"></span><span class="n">myStyle</span><span class="p">.</span><span class="n">VerticalAlignment</span> <span class="p">=</span> <span class="n">VerticalAlignment</span><span class="p">.</span><span class="n">Center</span><span class="p">;</span> <span class="c1">//垂直置中
+</span></code></pre></div><h3 id="換行">換行</h3>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">myStyle</span><span class="p">.</span><span class="n">WrapText</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+</code></pre></div><h3 id="顏色">顏色</h3>
+<p><code>ICellStyle</code>中設定顏色通常都是傳入<code>short</code>型別，如傳入<code>HSSFColor.Yellow.Index</code><br>
+若想用<code>RGB</code>或<code>ARGB</code>來自定特定顏色則只在<code>XSSFCellStyle</code>可以做設定</p>
+<p><code>特別注意:單元格的背景顏色似乎是設定FillForegroundColor而不是設定FillBackgroundColor</code><br>
+<code>而且必須同時設定FillPattern才會有效果</code></p>
+<h4 id="一般顏色設定">一般顏色設定</h4>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">ICellStyle</span> <span class="n">myStyle</span> <span class="p">=</span> <span class="n">workbook</span><span class="p">.</span><span class="n">CreateCellStyle</span><span class="p">();</span><span class="c1">//建立樣式 
+</span><span class="c1"></span><span class="n">myStyle</span><span class="p">.</span><span class="n">FillForegroundColor</span> <span class="p">=</span> <span class="n">HSSFColor</span><span class="p">.</span><span class="n">Pink</span><span class="p">.</span><span class="n">Index</span><span class="p">;</span>
+<span class="n">myStyle</span><span class="p">.</span><span class="n">FillPattern</span> <span class="p">=</span> <span class="n">FillPattern</span><span class="p">.</span><span class="n">SolidForeground</span><span class="p">;</span>
+</code></pre></div><h4 id="特殊顏色設定">特殊顏色設定</h4>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">XSSFCellStyle</span> <span class="n">cStyle</span> <span class="p">=</span> <span class="p">(</span><span class="n">XSSFCellStyle</span><span class="p">)</span><span class="n">workboook</span><span class="p">.</span><span class="n">CreateCellStyle</span><span class="p">();</span> <span class="c1">//樣式
+</span><span class="c1"></span><span class="kt">byte</span><span class="p">[]</span> <span class="n">rgbByte</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="p">[]{</span><span class="m">192</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">};</span><span class="c1">//深紅色RGB
+</span><span class="c1"></span><span class="n">XSSFColor</span> <span class="n">rgbColor</span> <span class="p">=</span> <span class="k">new</span> <span class="n">XSSFColor</span><span class="p">(</span><span class="n">rgbByte</span><span class="p">);</span>
+<span class="n">cStyle</span><span class="p">.</span><span class="n">FillForegroundColor</span> <span class="p">=</span> <span class="n">rgbColor</span><span class="p">;</span>
+<span class="n">myStyle</span><span class="p">.</span><span class="n">FillPattern</span> <span class="p">=</span> <span class="n">FillPattern</span><span class="p">.</span><span class="n">SolidForeground</span><span class="p">;</span>
+</code></pre></div><h3 id="包成function來設定">包成Function來設定</h3>
+<p>單元格的樣式若稍有差異就要寫好幾行程式，包成方法來傳入參數自動設定。 
+仍可增加更多參數來設定樣式</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">/// &lt;summary&gt;
+</span><span class="c1">/// XSSFCellStyle較多參數可設定
+</span><span class="c1">/// &lt;/summary&gt;
+</span><span class="c1">/// &lt;param name=&#34;workboook&#34;&gt;XSSFWorkbook&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;hAlignment&#34;&gt;水平對齊&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;vAlignment&#34;&gt;垂直對齊&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;fontSize&#34;&gt;字體大小&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;fontName&#34;&gt;字體名稱&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;Btop&#34;&gt;上框線&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;Bright&#34;&gt;右框線&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;Bdown&#34;&gt;下框線&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;Bleft&#34;&gt;左框線&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;CanWrapText&#34;&gt;可換行&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;isLocked&#34;&gt;鎖定&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;isFontBold&#34;&gt;粗體&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;xssffontColor&#34;&gt;字體顏色byte[rgb]&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;xssffgColor&#34;&gt;前景顏色byte[rgb]&lt;/param&gt;
+</span><span class="c1">/// &lt;returns&gt;&lt;/returns&gt;
+</span><span class="c1"></span><span class="k">public</span> <span class="n">XSSFCellStyle</span> <span class="n">genXSSFCellStyle</span><span class="p">(</span><span class="n">XSSFWorkbook</span> <span class="n">workboook</span>
+    <span class="p">,</span> <span class="n">HorizontalAlignment</span> <span class="n">hAlignment</span> <span class="p">=</span> <span class="n">HorizontalAlignment</span><span class="p">.</span><span class="n">Center</span><span class="p">,</span> <span class="n">VerticalAlignment</span> <span class="n">vAlignment</span> <span class="p">=</span> <span class="n">VerticalAlignment</span><span class="p">.</span><span class="n">Center</span>
+    <span class="p">,</span> <span class="kt">double</span> <span class="n">fontSize</span> <span class="p">=</span> <span class="m">16</span><span class="p">,</span> <span class="kt">string</span> <span class="n">fontName</span> <span class="p">=</span> <span class="s">&#34;微軟正黑體&#34;</span>
+    <span class="p">,</span> <span class="n">BorderStyle</span> <span class="n">Btop</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">BorderStyle</span> <span class="n">Bright</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">BorderStyle</span> <span class="n">Bdown</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">BorderStyle</span> <span class="n">Bleft</span> <span class="p">=</span> <span class="m">0</span>
+    <span class="p">,</span> <span class="kt">bool</span> <span class="n">CanWrapText</span> <span class="p">=</span> <span class="k">false</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isLocked</span> <span class="p">=</span> <span class="k">false</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isFontBold</span> <span class="p">=</span> <span class="k">false</span>
+    <span class="p">,</span> <span class="kt">byte</span><span class="p">[]</span> <span class="n">xssffontColor</span><span class="p">=</span> <span class="k">null</span> <span class="p">,</span><span class="kt">byte</span><span class="p">[]</span> <span class="n">xssffgColor</span><span class="p">=</span><span class="k">null</span>  <span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">XSSFCellStyle</span> <span class="n">cStyle</span> <span class="p">=</span> <span class="p">(</span><span class="n">XSSFCellStyle</span><span class="p">)</span><span class="n">workboook</span><span class="p">.</span><span class="n">CreateCellStyle</span><span class="p">();</span> <span class="c1">////設定樣式
+</span><span class="c1"></span>    <span class="n">cStyle</span><span class="p">.</span><span class="n">Alignment</span> <span class="p">=</span> <span class="n">hAlignment</span><span class="p">;</span> <span class="c1">//水平置中
+</span><span class="c1"></span>    <span class="n">cStyle</span><span class="p">.</span><span class="n">VerticalAlignment</span> <span class="p">=</span> <span class="n">vAlignment</span><span class="p">;</span> <span class="c1">//垂直置中
+</span><span class="c1"></span>    <span class="n">XSSFFont</span> <span class="n">cFont</span> <span class="p">=</span> <span class="p">(</span><span class="n">XSSFFont</span><span class="p">)</span><span class="n">workboook</span><span class="p">.</span><span class="n">CreateFont</span><span class="p">();</span>
+    <span class="n">cFont</span><span class="p">.</span><span class="n">FontName</span> <span class="p">=</span> <span class="n">fontName</span><span class="p">;</span>
+    <span class="n">cFont</span><span class="p">.</span><span class="n">FontHeightInPoints</span> <span class="p">=</span> <span class="n">fontSize</span><span class="p">;</span>
+    <span class="n">cFont</span><span class="p">.</span><span class="n">IsBold</span> <span class="p">=</span> <span class="n">isFontBold</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">xssffontColor</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cFont</span><span class="p">.</span><span class="n">SetColor</span><span class="p">(</span><span class="k">new</span> <span class="n">XSSFColor</span><span class="p">(</span><span class="n">xssffontColor</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="n">cStyle</span><span class="p">.</span><span class="n">SetFont</span><span class="p">(</span><span class="n">cFont</span><span class="p">);</span>
+    <span class="n">cStyle</span><span class="p">.</span><span class="n">BorderTop</span> <span class="p">=</span> <span class="n">Btop</span><span class="p">;</span>
+    <span class="n">cStyle</span><span class="p">.</span><span class="n">BorderRight</span> <span class="p">=</span> <span class="n">Bright</span><span class="p">;</span>
+    <span class="n">cStyle</span><span class="p">.</span><span class="n">BorderBottom</span> <span class="p">=</span> <span class="n">Bdown</span><span class="p">;</span>
+    <span class="n">cStyle</span><span class="p">.</span><span class="n">BorderLeft</span> <span class="p">=</span> <span class="n">Bleft</span><span class="p">;</span>
+    <span class="n">cStyle</span><span class="p">.</span><span class="n">WrapText</span> <span class="p">=</span> <span class="n">CanWrapText</span><span class="p">;</span>
+    <span class="n">cStyle</span><span class="p">.</span><span class="n">IsLocked</span> <span class="p">=</span> <span class="n">isLocked</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">xssffgColor</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cStyle</span><span class="p">.</span><span class="n">FillPattern</span> <span class="p">=</span> <span class="n">FillPattern</span><span class="p">.</span><span class="n">SolidForeground</span><span class="p">;</span>
+        <span class="n">cStyle</span><span class="p">.</span><span class="n">SetFillForegroundColor</span><span class="p">(</span><span class="k">new</span> <span class="n">XSSFColor</span><span class="p">(</span><span class="n">xssffgColor</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">cStyle</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="小結">小結</h2>
+<p>設定樣式也可以透過讀取設計好的Excel檔之<code>Sheet</code>來產出<br>
+但處理上可能較為不彈性。適合較單調簡易的讀檔填值。</p>
+<p>其他仍有像是數值格式<code>DataFormat</code>的設定未紀錄<br>
+有用到再另外補上。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/npoi/">NPOI</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相關文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/2021/08/26/npoi-%E5%90%88%E4%BD%B5%E5%84%B2%E5%AD%98%E6%A0%BC%E8%88%87%E6%A1%86%E7%B7%9A%E6%A8%A3%E5%BC%8F/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">NPOI 合併儲存格與框線樣式</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 The Site
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

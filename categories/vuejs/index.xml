@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>VueJs on The Site</title>
+    <link>https://hushuuu.github.io/categories/vuejs/</link>
+    <description>Recent content in VueJs on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 26 Aug 2021 14:48:29 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/vuejs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>.Net MVC ViewModel 套上VueJs</title>
+      <link>https://hushuuu.github.io/2021/08/26/.net-mvc-viewmodel-%E5%A5%97%E4%B8%8Avuejs/</link>
+      <pubDate>Thu, 26 Aug 2021 14:48:29 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/08/26/.net-mvc-viewmodel-%E5%A5%97%E4%B8%8Avuejs/</guid>
+      <description>前言 版本vue2.x
+將ViewModel序列化後也可綁定到Vue物件上
+主要內容 在cshtml內定義好model後序列化
+用Json.Encode或是JsonConvert處理後
+回傳MvcHtmlString類別
+@{ var Datajson = new MvcHtmlString(Json.Encode(Model)); } 建立Vue實體，綁定Element
+資料data定義一個dataList接收剛剛序列化的變數
+var vueDiv = new Vue({ el: &amp;#34;#vueDiv&amp;#34;, data: { dataList:@Datajson, }, }); v-if 沒筆數就不顯示
+v-for 迴圈印出datList每個項目
+&amp;lt;table v-if=&amp;#34;dataList.count&amp;gt;0&amp;#34;&amp;gt; &amp;lt;thead&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;th&amp;gt;標題&amp;lt;/th&amp;gt; &amp;lt;th&amp;gt;名稱&amp;lt;/th&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;/thead&amp;gt; &amp;lt;tbody&amp;gt; &amp;lt;tr v-for=&amp;#34;(item,index) in dataList&amp;#34; :id=&amp;#34;item.id&amp;#34;&amp;gt; &amp;lt;td&amp;gt;{{item.title}}&amp;lt;/td&amp;gt; &amp;lt;td&amp;gt;{{item.name}}&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;/tbody&amp;gt; &amp;lt;/table&amp;gt; </description>
+    </item>
+    
+  </channel>
+</rss>
