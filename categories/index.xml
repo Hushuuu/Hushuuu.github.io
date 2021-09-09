@@ -6,7 +6,16 @@
     <description>Recent content in Categories on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 26 Aug 2021 16:37:23 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Sep 2021 10:51:04 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notification,</title>
+      <link>https://hushuuu.github.io/categories/notification/</link>
+      <pubDate>Thu, 09 Sep 2021 10:51:04 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/notification/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>VueJs</title>
       <link>https://hushuuu.github.io/categories/vuejs/</link>

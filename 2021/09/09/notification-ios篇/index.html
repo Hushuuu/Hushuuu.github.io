@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 IOS使用APNS server要額外使用組件HttpTwo HttpTwo.HPack jose-jwt
+主要內容 首先要先拿到Apple Developer的apns key .p8檔
+建立HttpClient物件使用HTTP/2
+讀取.p8檔並使用jose-jwt來產出authorization token
+類別建立 //回傳結果&#43;狀態碼 public class AppleSendResult { public bool isSuccess { get; set; } public string message { get; set; } public Guid? apns_id { get; set; } public HttpStatusCode httpStatusCode { get; set; } public string reason { get; set; } //記著request的device token送完可判斷狀態碼來得知是否token還有效  public string token { get; set; } } //Request 模型 public class APNAps { //alert 可為object or string直接當訊息body  public string alert { get; set; } } //Request public class APNSendRequest { //aps的物件結構可參照官方文件增加其他屬性  public APNAps aps { get; set; } } //推送的種類(一般為alert) public enum ApplePushTypeKind { alert, background, voip, complication, fileprovider, mdm, } private string auth_kid { get; set; } //apns auth key keyID private string auth_iss { get; set; } //開發者帳號TeamID private string apns_topic { get; set; } //開發專案名稱 private string accessToken { get; set; } //token private DateTime?'><title>Notification - IOS篇</title>
+
+<link rel='canonical' href='https://hushuuu.github.io/2021/09/09/notification-ios%E7%AF%87/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Notification - IOS篇'>
+<meta property='og:description' content='前言 IOS使用APNS server要額外使用組件HttpTwo HttpTwo.HPack jose-jwt
+主要內容 首先要先拿到Apple Developer的apns key .p8檔
+建立HttpClient物件使用HTTP/2
+讀取.p8檔並使用jose-jwt來產出authorization token
+類別建立 //回傳結果&#43;狀態碼 public class AppleSendResult { public bool isSuccess { get; set; } public string message { get; set; } public Guid? apns_id { get; set; } public HttpStatusCode httpStatusCode { get; set; } public string reason { get; set; } //記著request的device token送完可判斷狀態碼來得知是否token還有效  public string token { get; set; } } //Request 模型 public class APNAps { //alert 可為object or string直接當訊息body  public string alert { get; set; } } //Request public class APNSendRequest { //aps的物件結構可參照官方文件增加其他屬性  public APNAps aps { get; set; } } //推送的種類(一般為alert) public enum ApplePushTypeKind { alert, background, voip, complication, fileprovider, mdm, } private string auth_kid { get; set; } //apns auth key keyID private string auth_iss { get; set; } //開發者帳號TeamID private string apns_topic { get; set; } //開發專案名稱 private string accessToken { get; set; } //token private DateTime?'>
+<meta property='og:url' content='https://hushuuu.github.io/2021/09/09/notification-ios%E7%AF%87/'>
+<meta property='og:site_name' content='The Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Notification' /><meta property='article:tag' content='C#' /><meta property='article:published_time' content='2021-09-09T10:51:04&#43;08:00'/><meta property='article:modified_time' content='2021-09-09T10:51:04&#43;08:00'/>
+<meta name="twitter:title" content="Notification - IOS篇">
+<meta name="twitter:description" content="前言 IOS使用APNS server要額外使用組件HttpTwo HttpTwo.HPack jose-jwt
+主要內容 首先要先拿到Apple Developer的apns key .p8檔
+建立HttpClient物件使用HTTP/2
+讀取.p8檔並使用jose-jwt來產出authorization token
+類別建立 //回傳結果&#43;狀態碼 public class AppleSendResult { public bool isSuccess { get; set; } public string message { get; set; } public Guid? apns_id { get; set; } public HttpStatusCode httpStatusCode { get; set; } public string reason { get; set; } //記著request的device token送完可判斷狀態碼來得知是否token還有效  public string token { get; set; } } //Request 模型 public class APNAps { //alert 可為object or string直接當訊息body  public string alert { get; set; } } //Request public class APNSendRequest { //aps的物件結構可參照官方文件增加其他屬性  public APNAps aps { get; set; } } //推送的種類(一般為alert) public enum ApplePushTypeKind { alert, background, voip, complication, fileprovider, mdm, } private string auth_kid { get; set; } //apns auth key keyID private string auth_iss { get; set; } //開發者帳號TeamID private string apns_topic { get; set; } //開發專案名稱 private string accessToken { get; set; } //token private DateTime?">
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切換菜單">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h2 class="site-description">紀錄一些筆記。</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首頁</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E9%97%9C%E6%96%BC/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>關於</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>封存</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜尋</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>深色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://hushuuu.github.io/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/notification/" >
+                Notification,
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/2021/09/09/notification-ios%E7%AF%87/">Notification - IOS篇</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">2021-09-09</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="前言">前言</h2>
+<p><code>IOS</code>使用<code>APNS server</code>要額外使用組件<code>HttpTwo</code> <code>HttpTwo.HPack</code> <code>jose-jwt</code></p>
+<h2 id="主要內容">主要內容</h2>
+<p>首先要先拿到<code>Apple Developer</code>的<code>apns key .p8檔</code><br>
+建立<code>HttpClient</code>物件使用<code>HTTP/2</code><br>
+讀取<code>.p8</code>檔並使用<code>jose-jwt</code>來產出<code>authorization token</code></p>
+<h3 id="類別建立">類別建立</h3>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//回傳結果+狀態碼
+</span><span class="c1"></span><span class="k">public</span> <span class="k">class</span> <span class="nc">AppleSendResult</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">bool</span> <span class="n">isSuccess</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">message</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="n">Guid</span><span class="p">?</span> <span class="n">apns_id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="n">HttpStatusCode</span> <span class="n">httpStatusCode</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">reason</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="c1">//記著request的device token送完可判斷狀態碼來得知是否token還有效
+</span><span class="c1"></span>    <span class="k">public</span> <span class="kt">string</span> <span class="n">token</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> 
+<span class="p">}</span>
+<span class="c1">//Request 模型
+</span><span class="c1"></span><span class="k">public</span> <span class="k">class</span> <span class="nc">APNAps</span>
+<span class="p">{</span>
+    <span class="c1">//alert 可為object or string直接當訊息body
+</span><span class="c1"></span>    <span class="k">public</span> <span class="kt">string</span> <span class="n">alert</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> 
+<span class="p">}</span>
+<span class="c1">//Request
+</span><span class="c1"></span><span class="k">public</span> <span class="k">class</span> <span class="nc">APNSendRequest</span>
+<span class="p">{</span>
+    <span class="c1">//aps的物件結構可參照官方文件增加其他屬性
+</span><span class="c1"></span>    <span class="k">public</span> <span class="n">APNAps</span> <span class="n">aps</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">//推送的種類(一般為alert)
+</span><span class="c1"></span><span class="k">public</span> <span class="k">enum</span> <span class="n">ApplePushTypeKind</span>
+<span class="p">{</span>
+    <span class="n">alert</span><span class="p">,</span>
+    <span class="n">background</span><span class="p">,</span>
+    <span class="n">voip</span><span class="p">,</span>
+    <span class="n">complication</span><span class="p">,</span>
+    <span class="n">fileprovider</span><span class="p">,</span>
+    <span class="n">mdm</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="k">private</span> <span class="kt">string</span> <span class="n">auth_kid</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//apns auth key keyID
+</span><span class="c1"></span><span class="k">private</span> <span class="kt">string</span> <span class="n">auth_iss</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//開發者帳號TeamID
+</span><span class="c1"></span><span class="k">private</span> <span class="kt">string</span> <span class="n">apns_topic</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//開發專案名稱
+</span><span class="c1"></span><span class="k">private</span> <span class="kt">string</span> <span class="n">accessToken</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//token
+</span><span class="c1"></span><span class="k">private</span> <span class="n">DateTime</span><span class="p">?</span> <span class="n">accessTokenValidTime</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//token合法時間
+</span></code></pre></div><h3 id="讀取p8檔產出token">讀取.p8檔產出Token</h3>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">/// &lt;summary&gt;
+</span><span class="c1">/// 重新產生access token
+</span><span class="c1">/// &lt;/summary&gt;
+</span><span class="c1"></span><span class="k">public</span>  <span class="k">virtual</span> <span class="k">void</span> <span class="n">ReNewAccessToken</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">//取得產生Token的時間(UTC)秒為單位
+</span><span class="c1"></span>    <span class="kt">var</span> <span class="n">expiration</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">ToUniversalTime</span><span class="p">()</span> <span class="p">-</span> <span class="k">new</span> <span class="n">DateTime</span><span class="p">(</span><span class="m">1970</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">DateTimeKind</span><span class="p">.</span><span class="n">Utc</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">expirationSeconds</span> <span class="p">=</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">expiration</span><span class="p">.</span><span class="n">TotalSeconds</span><span class="p">;</span>
+
+    <span class="kt">var</span> <span class="n">header</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">object</span><span class="p">&gt;();</span>
+    <span class="n">header</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;alg&#34;</span><span class="p">,</span> <span class="s">&#34;ES256&#34;</span><span class="p">);</span> <span class="c1">//加密演算法
+</span><span class="c1"></span>    <span class="n">header</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;kid&#34;</span><span class="p">,</span> <span class="n">auth_kid</span><span class="p">);</span>
+
+    <span class="kt">string</span> <span class="n">payload</span> <span class="p">=</span> <span class="s">&#34;{\&#34;iss\&#34;:\&#34;&#34;</span> <span class="p">+</span> <span class="n">auth_iss</span> <span class="p">+</span> <span class="s">&#34;\&#34;,\&#34;iat\&#34;:\&#34;&#34;</span> <span class="p">+</span> <span class="n">expirationSeconds</span> <span class="p">+</span> <span class="s">&#34;\&#34;}&#34;</span><span class="p">;</span>
+
+    <span class="n">accessToken</span> <span class="p">=</span> <span class="n">Jose</span><span class="p">.</span><span class="n">JWT</span><span class="p">.</span><span class="n">Encode</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">scrt</span><span class="p">,</span> <span class="n">Jose</span><span class="p">.</span><span class="n">JwsAlgorithm</span><span class="p">.</span><span class="n">ES256</span><span class="p">,</span> <span class="n">header</span><span class="p">);</span>
+
+    <span class="n">accessTokenValidTime</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">AddMinutes</span><span class="p">(</span><span class="m">60</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">/// &lt;summary&gt;
+</span><span class="c1">/// 使用認證令牌
+</span><span class="c1">/// &lt;/summary&gt;
+</span><span class="c1">/// &lt;param name=&#34;p8FilePath&#34;&gt;p8檔案路徑&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;apns_topic&#34;&gt;bundle id&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;auth_kid&#34;&gt;kid&lt;/param&gt;
+</span><span class="c1">/// &lt;param name=&#34;auth_iss&#34;&gt;iss&lt;/param&gt;
+</span><span class="c1"></span><span class="k">public</span> <span class="k">virtual</span> <span class="k">void</span> <span class="n">UseAuthorization</span><span class="p">(</span><span class="kt">string</span> <span class="n">p8FilePath</span><span class="p">,</span> <span class="kt">string</span> <span class="n">apns_topic</span><span class="p">,</span> <span class="kt">string</span> <span class="n">auth_kid</span><span class="p">,</span> <span class="kt">string</span> <span class="n">auth_iss</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">text</span> <span class="p">=</span> <span class="n">File</span><span class="p">.</span><span class="n">ReadAllText</span><span class="p">(</span><span class="n">p8FilePath</span><span class="p">);</span>
+    <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">split</span> <span class="p">=</span> <span class="n">text</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
+    <span class="n">split</span><span class="p">.</span><span class="n">RemoveAt</span><span class="p">(</span><span class="n">split</span><span class="p">.</span><span class="n">Count</span> <span class="p">-</span> <span class="m">1</span><span class="p">);</span>
+    <span class="n">split</span><span class="p">.</span><span class="n">RemoveAt</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">k</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="n">split</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">bytes</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">FromBase64String</span><span class="p">(</span><span class="n">k</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">secrt</span> <span class="p">=</span> <span class="n">CngKey</span><span class="p">.</span><span class="n">Import</span><span class="p">(</span><span class="n">bytes</span><span class="p">,</span> <span class="n">CngKeyBlobFormat</span><span class="p">.</span><span class="n">Pkcs8PrivateBlob</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="n">scrt</span> <span class="p">=</span> <span class="n">secrt</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="n">auth_kid</span> <span class="p">=</span> <span class="n">auth_kid</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="n">auth_iss</span> <span class="p">=</span> <span class="n">auth_iss</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="n">apns_topic</span> <span class="p">=</span> <span class="n">apns_topic</span><span class="p">;</span>
+
+    <span class="n">ReNewAccessToken</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="http2處理">Http/2處理</h3>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">class</span> <span class="nc">Http2CustomHandler</span> <span class="p">:</span> <span class="n">WinHttpHandler</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="k">override</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">HttpResponseMessage</span><span class="p">&gt;</span> <span class="n">SendAsync</span><span class="p">(</span><span class="n">HttpRequestMessage</span> <span class="n">request</span><span class="p">,</span> <span class="n">System</span><span class="p">.</span><span class="n">Threading</span><span class="p">.</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Version</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Version</span><span class="p">(</span><span class="s">&#34;2.0&#34;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="k">base</span><span class="p">.</span><span class="n">SendAsync</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="推送方法">推送方法</h3>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">virtual</span> <span class="n">AppleSendResult</span> <span class="n">Send</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="kt">string</span> <span class="n">token</span><span class="p">,</span> <span class="n">T</span> <span class="n">postdataModel</span>
+            <span class="p">,</span> <span class="n">ApplePushTypeKind</span> <span class="n">pushTypeKind</span> <span class="p">=</span> <span class="n">ApplePushTypeKind</span><span class="p">.</span><span class="n">alert</span><span class="p">,</span> <span class="kt">int</span> <span class="n">apns_expiration</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="kt">int</span> <span class="n">apns_priority</span> <span class="p">=</span> <span class="m">10</span><span class="p">)</span>
+            <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="n">APNSendRequest</span>
+<span class="p">{</span>
+
+    <span class="n">httpClient</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpClient</span><span class="p">(</span><span class="k">new</span> <span class="n">Http2CustomHandler</span><span class="p">());</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span> <span class="p">&gt;=</span> <span class="n">accessTokenValidTime</span><span class="p">)</span> <span class="p">{</span> <span class="n">ReNewAccessToken</span><span class="p">();</span> <span class="p">}</span>
+
+    <span class="n">AppleSendResult</span> <span class="n">result</span> <span class="p">=</span> <span class="k">new</span> <span class="n">AppleSendResult</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">token</span> <span class="p">=</span> <span class="n">token</span><span class="p">,</span>
+    <span class="p">};</span>
+    <span class="c1">//若是正式環境要將網址的sandbox拿掉  
+</span><span class="c1"></span>    <span class="kt">string</span> <span class="n">url</span> <span class="p">=</span> <span class="s">$&#34;https://api.sandbox.push.apple.com/3/device/{token}&#34;</span><span class="p">;</span>  
+
+    <span class="kt">var</span> <span class="n">uri</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span><span class="p">(</span><span class="n">url</span><span class="p">);</span>
+
+    <span class="kt">string</span> <span class="n">postdata_json</span> <span class="p">=</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">SerializeObject</span><span class="p">(</span><span class="n">postdataModel</span><span class="p">);</span>
+    <span class="kt">byte</span><span class="p">[]</span> <span class="n">byteArray</span> <span class="p">=</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">postdata_json</span><span class="p">);</span>
+
+    <span class="kt">var</span> <span class="n">httpRequestMessage</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpRequestMessage</span><span class="p">();</span>
+
+    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">RequestUri</span> <span class="p">=</span> <span class="n">uri</span><span class="p">;</span>
+    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Method</span> <span class="p">=</span> <span class="n">HttpMethod</span><span class="p">.</span><span class="n">Post</span><span class="p">;</span>
+
+    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;apns-push-type&#34;</span><span class="p">,</span> <span class="n">pushTypeKind</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;apns-expiration&#34;</span><span class="p">,</span> <span class="n">apns_expiration</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;apns-priority&#34;</span><span class="p">,</span> <span class="n">apns_priority</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;authorization&#34;</span><span class="p">,</span> <span class="s">$&#34;bearer {accessToken}&#34;</span><span class="p">);</span>
+    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;apns-topic&#34;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">apns_topic</span><span class="p">);</span>
+    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;apns-id&#34;</span><span class="p">,</span> <span class="n">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="p">().</span><span class="n">ToString</span><span class="p">());</span>
+
+    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Content</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ByteArrayContent</span><span class="p">(</span><span class="n">byteArray</span><span class="p">);</span>
+
+    <span class="kt">var</span> <span class="n">responseMessage</span> <span class="p">=</span> <span class="n">httpClient</span><span class="p">.</span><span class="n">SendAsync</span><span class="p">(</span><span class="n">httpRequestMessage</span><span class="p">).</span><span class="n">Result</span><span class="p">;</span>
+
+    <span class="kt">var</span> <span class="n">responseBody</span> <span class="p">=</span> <span class="n">responseMessage</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">ReadAsStringAsync</span><span class="p">().</span><span class="n">Result</span><span class="p">;</span>
+
+    <span class="n">HttpStatusCode</span> <span class="n">responseCode</span> <span class="p">=</span> <span class="n">responseMessage</span><span class="p">.</span><span class="n">StatusCode</span><span class="p">;</span>
+    <span class="n">result</span><span class="p">.</span><span class="n">httpStatusCode</span> <span class="p">=</span> <span class="n">responseCode</span><span class="p">;</span>
+
+    <span class="kt">string</span> <span class="n">tmp_apns_id</span> <span class="p">=</span> <span class="n">responseMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">GetValues</span><span class="p">(</span><span class="s">&#34;apns-id&#34;</span><span class="p">).</span><span class="n">First</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">Guid</span><span class="p">.</span><span class="n">TryParse</span><span class="p">(</span><span class="n">tmp_apns_id</span><span class="p">,</span> <span class="k">out</span> <span class="n">Guid</span> <span class="n">res_apns_id</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">result</span><span class="p">.</span><span class="n">apns_id</span> <span class="p">=</span> <span class="n">res_apns_id</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">responseCode</span> <span class="p">!=</span> <span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">responseObj</span> <span class="p">=</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">DeserializeObject</span><span class="p">&lt;</span><span class="n">APNSendResult</span><span class="p">&gt;(</span><span class="n">responseBody</span><span class="p">);</span>
+        <span class="n">result</span><span class="p">.</span><span class="n">reason</span> <span class="p">=</span> <span class="n">responseObj</span><span class="p">.</span><span class="n">reason</span><span class="p">;</span>
+        <span class="n">result</span><span class="p">.</span><span class="n">isSuccess</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="n">result</span><span class="p">.</span><span class="n">message</span> <span class="p">=</span> <span class="s">&#34;失敗。&#34;</span> <span class="p">+</span> <span class="n">responseObj</span><span class="p">.</span><span class="n">reason</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">result</span><span class="p">.</span><span class="n">isSuccess</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+        <span class="n">result</span><span class="p">.</span><span class="n">message</span> <span class="p">=</span> <span class="s">&#34;成功。&#34;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div><h2 id="小結">小結</h2>
+<p>當通知傳到裝置後，根據<code>Response</code>可以知道是否成功及<code>DeviceToken</code>有效性<br>
+<code>Request</code>的模型還有更多參數可以設定<br>
+較詳細的處理就需要看官方文件慢慢調整了。</p>
+<h2 id="參考連結">參考連結</h2>
+<blockquote>
+<ul>
+<li><a class="link" href="https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification"  target="_blank" rel="noopener"
+    >url1</a></li>
+<li><a class="link" href="https://medium.com/@josephchen.jojo/%E5%9F%BA%E6%96%BChttp-2%E7%9A%84ios-apns-%E6%8E%A8%E6%92%AD-f39c6b31eb51"  target="_blank" rel="noopener"
+    >url2</a></li>
+<li><a class="link" href="http://monkeybinbin-blog.logdown.com/posts/1120802-apns-token-based-authentication-csharp"  target="_blank" rel="noopener"
+    >url3</a></li>
+</ul>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/notification/">Notification</a>
+        
+            <a href="/tags/c#/">C#</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相關文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/2021/09/06/notification-service-worker%E7%AF%87/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Notification - Service Worker篇</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/09/06/notification-%E5%88%A4%E6%96%B7webview/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Notification - 判斷WebView</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/09/07/notification-android%E7%AF%87/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Notification - Android篇</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 The Site
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C# on The Site</title>
+    <link>https://hushuuu.github.io/tags/c#/</link>
+    <description>Recent content in C# on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 09 Sep 2021 10:51:04 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/c#/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notification - IOS篇</title>
+      <link>https://hushuuu.github.io/2021/09/09/notification-ios%E7%AF%87/</link>
+      <pubDate>Thu, 09 Sep 2021 10:51:04 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/09/09/notification-ios%E7%AF%87/</guid>
+      <description>前言 IOS使用APNS server要額外使用組件HttpTwo HttpTwo.HPack jose-jwt
+主要內容 首先要先拿到Apple Developer的apns key .p8檔
+建立HttpClient物件使用HTTP/2
+讀取.p8檔並使用jose-jwt來產出authorization token
+類別建立 //回傳結果+狀態碼 public class AppleSendResult { public bool isSuccess { get; set; } public string message { get; set; } public Guid? apns_id { get; set; } public HttpStatusCode httpStatusCode { get; set; } public string reason { get; set; } //記著request的device token送完可判斷狀態碼來得知是否token還有效  public string token { get; set; } } //Request 模型 public class APNAps { //alert 可為object or string直接當訊息body  public string alert { get; set; } } //Request public class APNSendRequest { //aps的物件結構可參照官方文件增加其他屬性  public APNAps aps { get; set; } } //推送的種類(一般為alert) public enum ApplePushTypeKind { alert, background, voip, complication, fileprovider, mdm, } private string auth_kid { get; set; } //apns auth key keyID private string auth_iss { get; set; } //開發者帳號TeamID private string apns_topic { get; set; } //開發專案名稱 private string accessToken { get; set; } //token private DateTime?</description>
+    </item>
+    
+    <item>
+      <title>Notification - Android篇</title>
+      <link>https://hushuuu.github.io/2021/09/07/notification-android%E7%AF%87/</link>
+      <pubDate>Tue, 07 Sep 2021 09:45:46 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/09/07/notification-android%E7%AF%87/</guid>
+      <description>前言 Android用FCM傳送通知步驟較IOS Apns為簡易。
+Request加ApiKey驗證傳給FCM Server即可
+主要內容 須先取得Firebase Android開發的api key
+詳閱Firebase Cloud Messaging(FCM) 官方文件後，建立傳入傳出的類別
+request較重要的欄位為registration_ids代表欲傳送的device id
+傳送訊息FCM有定義兩種type，notification message 和data message 
+根據使用的種類，App接收端的處理也稍有不同，接收到並解析來顯示通知
+此篇不多介紹App端的處理
+定義類別
+//回傳結果  public class FCMResultData { public string error { get; set; } public string message_id { get; set; } public string registration_id { get; set; } } //FCM回傳結果 public class FCMSendResult { public string multicast_id { get; set; } public int? success { get; set; } public int?</description>
+    </item>
+    
+  </channel>
+</rss>

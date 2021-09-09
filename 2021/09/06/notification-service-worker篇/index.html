@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='發送桌面通知'><title>Notification - Service Worker篇</title>
+
+<link rel='canonical' href='https://hushuuu.github.io/2021/09/06/notification-service-worker%E7%AF%87/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Notification - Service Worker篇'>
+<meta property='og:description' content='發送桌面通知'>
+<meta property='og:url' content='https://hushuuu.github.io/2021/09/06/notification-service-worker%E7%AF%87/'>
+<meta property='og:site_name' content='The Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Notification' /><meta property='article:published_time' content='2021-09-06T16:49:16&#43;08:00'/><meta property='article:modified_time' content='2021-09-06T16:49:16&#43;08:00'/>
+<meta name="twitter:title" content="Notification - Service Worker篇">
+<meta name="twitter:description" content="發送桌面通知">
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切換菜單">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h2 class="site-description">紀錄一些筆記。</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首頁</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E9%97%9C%E6%96%BC/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>關於</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>封存</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜尋</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>深色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://hushuuu.github.io/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/notification/" >
+                Notification,
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/2021/09/06/notification-service-worker%E7%AF%87/">Notification - Service Worker篇</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        發送桌面通知
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">2021-09-06</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="前言">前言</h2>
+<p><code>Service Worker</code>目前<code>Apple</code>體系似乎還未完全支援<code>(IOS,Safari...)</code><br>
+這次使用<code>Notification API</code><br>
+較舊的瀏覽器可能也無法使用，<code>Chrome</code>，<code>Edge</code>這些就可以使用了</p>
+<h2 id="使用serviceworker並訂閱通知">使用ServiceWorker並訂閱通知</h2>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">askForNotificationPermission</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">Notification</span><span class="p">.</span><span class="nx">requestPermission</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;User Choice&#39;</span><span class="p">,</span> <span class="nx">status</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">status</span> <span class="o">!==</span> <span class="s1">&#39;granted&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;推播允許被拒絕了!&#39;</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;推播允許!&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+<span class="c1">//一組web push用的Application Server Public Key
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">applicationServerPublicKey</span> <span class="o">=</span> <span class="s1">&#39;BJZStZELls2cT9GaQ29RQlk6wuWGz-RnDFylb2YG77yiEY0DFhyVNG93U-RbUswECsVrt7dfhXLBldmUOGmWqPs&#39;</span><span class="p">;</span>
+<span class="c1">//註冊service worker js的路徑
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">serviceWorker</span> <span class="o">=</span> <span class="s1">&#39;../../serviceworker.js&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">isSubscribed</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">applicationServerPublicKey</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">errorHandler</span><span class="p">(</span><span class="s1">&#39;Vapid public key is undefined.&#39;</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">//初始化sevice worker
+</span><span class="c1"></span>    <span class="nx">initialiseServiceWorker</span><span class="p">();</span>
+    <span class="c1">//判斷browser能不能傳送通知
+</span><span class="c1"></span>    <span class="nx">Notification</span><span class="p">.</span><span class="nx">requestPermission</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">status</span> <span class="o">===</span> <span class="s1">&#39;denied&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">errorHandler</span><span class="p">(</span><span class="s1">&#39;[Notification.requestPermission] Browser denied permissions to notification api.&#39;</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">status</span> <span class="o">===</span> <span class="s1">&#39;granted&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;[Notification.requestPermission] Initializing service worker.&#39;</span><span class="p">);</span>   
+        <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="c1">//訂閱通知
+</span><span class="c1"></span>    <span class="nx">subscribe</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="c1">//初始化並註冊service worker
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">initialiseServiceWorker</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;serviceWorker&#39;</span> <span class="k">in</span> <span class="nx">navigator</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">navigator</span><span class="p">.</span><span class="nx">serviceWorker</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">serviceWorker</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">handleSWRegistration</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">errorHandler</span><span class="p">(</span><span class="s1">&#39;[initialiseServiceWorker] Service workers are not supported in this browser.&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">//註冊的狀態
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">handleSWRegistration</span><span class="p">(</span><span class="nx">reg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">reg</span><span class="p">.</span><span class="nx">installing</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Service worker installing&#39;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">reg</span><span class="p">.</span><span class="nx">waiting</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Service worker installed&#39;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">reg</span><span class="p">.</span><span class="nx">active</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Service worker active&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">initialiseState</span><span class="p">(</span><span class="nx">reg</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//初始化註冊狀態並檢驗能不能推送通知
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">initialiseState</span><span class="p">(</span><span class="nx">reg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Are Notifications supported in the service worker?
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">reg</span><span class="p">.</span><span class="nx">showNotification</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">errorHandler</span><span class="p">(</span><span class="s1">&#39;[initialiseState] Notifications aren\&#39;t supported on service workers.&#39;</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Check if push messaging is supported
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="s1">&#39;PushManager&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">errorHandler</span><span class="p">(</span><span class="s1">&#39;[initialiseState] Push messaging isn\&#39;t supported.&#39;</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// We need the service worker registration to check for a subscription
+</span><span class="c1"></span>    <span class="nx">navigator</span><span class="p">.</span><span class="nx">serviceWorker</span><span class="p">.</span><span class="nx">ready</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">reg</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Do we already have a push message subscription?
+</span><span class="c1"></span>        <span class="nx">reg</span><span class="p">.</span><span class="nx">pushManager</span><span class="p">.</span><span class="nx">getSubscription</span><span class="p">()</span>
+            <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">subscription</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">isSubscribed</span> <span class="o">=</span> <span class="nx">subscription</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">isSubscribed</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;User is already subscribed to push notifications&#39;</span><span class="p">);</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;User is not yet subscribed to push notifications&#39;</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">})</span>
+            <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;[req.pushManager.getSubscription] Unable to get subscription details.&#39;</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+            <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="c1">//訂閱通知
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">subscribe</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">navigator</span><span class="p">.</span><span class="nx">serviceWorker</span><span class="p">.</span><span class="nx">ready</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">reg</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">subscribeParams</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">userVisibleOnly</span><span class="o">:</span> <span class="kc">true</span> <span class="p">};</span>
+
+        <span class="c1">//Setting the public key of our VAPID key pair.
+</span><span class="c1"></span>        <span class="kd">var</span> <span class="nx">applicationServerKey</span> <span class="o">=</span> <span class="nx">urlB64ToUint8Array</span><span class="p">(</span><span class="nx">applicationServerPublicKey</span><span class="p">);</span>
+        <span class="nx">subscribeParams</span><span class="p">.</span><span class="nx">applicationServerKey</span> <span class="o">=</span> <span class="nx">applicationServerKey</span><span class="p">;</span>
+
+        <span class="nx">reg</span><span class="p">.</span><span class="nx">pushManager</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">subscribeParams</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">subscription</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">isSubscribed</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+                <span class="kd">var</span> <span class="nx">p256dh</span> <span class="o">=</span> <span class="nx">base64Encode</span><span class="p">(</span><span class="nx">subscription</span><span class="p">.</span><span class="nx">getKey</span><span class="p">(</span><span class="s1">&#39;p256dh&#39;</span><span class="p">));</span>
+                <span class="kd">var</span> <span class="nx">auth</span> <span class="o">=</span> <span class="nx">base64Encode</span><span class="p">(</span><span class="nx">subscription</span><span class="p">.</span><span class="nx">getKey</span><span class="p">(</span><span class="s1">&#39;auth&#39;</span><span class="p">));</span>
+                <span class="c1">//console.log(subscription);
+</span><span class="c1"></span>                <span class="c1">//console.log(subscription.endpoint);
+</span><span class="c1"></span>                <span class="c1">//console.log(p256dh);
+</span><span class="c1"></span>                <span class="c1">//console.log(auth);
+</span><span class="c1"></span>            <span class="p">})</span>
+            <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">errorHandler</span><span class="p">(</span><span class="s1">&#39;[subscribe] Unable to subscribe to push&#39;</span><span class="p">,</span> <span class="nx">e</span><span class="p">);</span>
+            <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="c1">//錯誤處理
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">errorHandler</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">e</span> <span class="o">==</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">e</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">e</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">urlB64ToUint8Array</span><span class="p">(</span><span class="nx">base64String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">padding</span> <span class="o">=</span> <span class="s1">&#39;=&#39;</span><span class="p">.</span><span class="nx">repeat</span><span class="p">((</span><span class="mi">4</span> <span class="o">-</span> <span class="nx">base64String</span><span class="p">.</span><span class="nx">length</span> <span class="o">%</span> <span class="mi">4</span><span class="p">)</span> <span class="o">%</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">base64</span> <span class="o">=</span> <span class="p">(</span><span class="nx">base64String</span> <span class="o">+</span> <span class="nx">padding</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\-/g</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/_/g</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">);</span>
+
+    <span class="kd">var</span> <span class="nx">rawData</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">atob</span><span class="p">(</span><span class="nx">base64</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">outputArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Uint8Array</span><span class="p">(</span><span class="nx">rawData</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">rawData</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">outputArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">rawData</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">outputArray</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">base64Encode</span><span class="p">(</span><span class="nx">arrayBuffer</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">btoa</span><span class="p">(</span><span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Uint8Array</span><span class="p">(</span><span class="nx">arrayBuffer</span><span class="p">)));</span>
+<span class="p">}</span>
+</code></pre></div><p><code>serviceworker.js內容</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+    <span class="c1">// Update &#39;version&#39; if you need to refresh the cache
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="s1">&#39;v1.0::CacheFirstSafe&#39;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">offlineUrl</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span> <span class="c1">// &lt;-- Offline/Index.cshtml
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">urlsToCache</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">offlineUrl</span><span class="p">];</span> <span class="c1">// &lt;-- Add more URLs you would like to cache.
+</span><span class="c1"></span>
+    <span class="c1">// Store core files in a cache (including a page to display when offline)
+</span><span class="c1"></span>    <span class="kd">function</span> <span class="nx">updateStaticCache</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">caches</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">version</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">cache</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">addAll</span><span class="p">(</span><span class="nx">urlsToCache</span><span class="p">);</span>
+            <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">addToCache</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span> <span class="o">&amp;&amp;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">type</span> <span class="o">!==</span> <span class="s1">&#39;opaque&#39;</span><span class="p">)</span>
+            <span class="k">return</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">copy</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">clone</span><span class="p">();</span>
+        <span class="nx">caches</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">version</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">cache</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">cache</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">copy</span><span class="p">);</span>
+            <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">serveOfflineImage</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;Accept&#39;</span><span class="p">).</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="s1">&#39;&lt;svg role=&#34;img&#34; aria-labelledby=&#34;offline-title&#34; viewBox=&#34;0 0 400 300&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;&lt;title id=&#34;offline-title&#34;&gt;Offline&lt;/title&gt;&lt;g fill=&#34;none&#34; fill-rule=&#34;evenodd&#34;&gt;&lt;path fill=&#34;#D8D8D8&#34; d=&#34;M0 0h400v300H0z&#34;/&gt;&lt;text fill=&#34;#9B9B9B&#34; font-family=&#34;Helvetica Neue,Arial,Helvetica,sans-serif&#34; font-size=&#34;72&#34; font-weight=&#34;bold&#34;&gt;&lt;tspan x=&#34;93&#34; y=&#34;172&#34;&gt;offline&lt;/tspan&gt;&lt;/text&gt;&lt;/g&gt;&lt;/svg&gt;&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;image/svg+xml&#39;</span> <span class="p">}</span> <span class="p">});</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;install&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">waitUntil</span><span class="p">(</span><span class="nx">updateStaticCache</span><span class="p">());</span>
+    <span class="p">});</span>
+
+    <span class="nx">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;activate&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">waitUntil</span><span class="p">(</span>
+            <span class="nx">caches</span><span class="p">.</span><span class="nx">keys</span><span class="p">()</span>
+                <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">keys</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">// Remove caches whose name is no longer valid
+</span><span class="c1"></span>                    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">keys</span>
+                        <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="k">return</span> <span class="nx">key</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">version</span><span class="p">)</span> <span class="o">!==</span> <span class="mi">0</span><span class="p">;</span>
+                        <span class="p">})</span>
+                        <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="k">return</span> <span class="nx">caches</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+                        <span class="p">})</span>
+                    <span class="p">);</span>
+                <span class="p">})</span>
+        <span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nx">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;fetch&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">request</span><span class="p">;</span>
+
+        <span class="c1">// Always fetch non-GET requests from the network
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">method</span> <span class="o">!==</span> <span class="s1">&#39;GET&#39;</span> <span class="o">||</span> <span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\/browserLink/ig</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">event</span><span class="p">.</span><span class="nx">respondWith</span><span class="p">(</span>
+                <span class="nx">fetch</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span>
+                    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                        <span class="k">return</span> <span class="nx">caches</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">offlineUrl</span><span class="p">);</span>
+                    <span class="p">})</span>
+            <span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// For HTML requests, try the network first, fall back to the cache, finally the offline page
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;Accept&#39;</span><span class="p">).</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;text/html&#39;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">event</span><span class="p">.</span><span class="nx">respondWith</span><span class="p">(</span>
+                <span class="nx">fetch</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span>
+                    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="c1">// Stash a copy of this page in the cache
+</span><span class="c1"></span>                        <span class="nx">addToCache</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">);</span>
+                        <span class="k">return</span> <span class="nx">response</span><span class="p">;</span>
+                    <span class="p">})</span>
+                    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                        <span class="k">return</span> <span class="nx">caches</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span>
+                            <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+                                <span class="k">return</span> <span class="nx">response</span> <span class="o">||</span> <span class="nx">caches</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">offlineUrl</span><span class="p">);</span>
+                            <span class="p">});</span>
+                    <span class="p">})</span>
+            <span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// cache first for fingerprinted resources
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/(\?|&amp;)v=/ig</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">event</span><span class="p">.</span><span class="nx">respondWith</span><span class="p">(</span>
+                <span class="nx">caches</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span>
+                    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="k">return</span> <span class="nx">response</span> <span class="o">||</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span>
+                            <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+                                <span class="nx">addToCache</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">);</span>
+                                <span class="k">return</span> <span class="nx">response</span> <span class="o">||</span> <span class="nx">serveOfflineImage</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+                            <span class="p">})</span>
+                            <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                                <span class="k">return</span> <span class="nx">serveOfflineImage</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+                            <span class="p">});</span>
+                    <span class="p">})</span>
+            <span class="p">);</span>
+
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// network first for non-fingerprinted resources
+</span><span class="c1"></span>        <span class="nx">event</span><span class="p">.</span><span class="nx">respondWith</span><span class="p">(</span>
+            <span class="nx">fetch</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">// Stash a copy of this page in the cache
+</span><span class="c1"></span>                    <span class="nx">addToCache</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">);</span>
+                    <span class="k">return</span> <span class="nx">response</span><span class="p">;</span>
+                <span class="p">})</span>
+                <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="nx">caches</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span>
+                        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="k">return</span> <span class="nx">response</span> <span class="o">||</span> <span class="nx">serveOfflineImage</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+                        <span class="p">})</span>
+                        <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                            <span class="k">return</span> <span class="nx">serveOfflineImage</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+                        <span class="p">});</span>
+                <span class="p">})</span>
+        <span class="p">);</span>
+    <span class="p">});</span>
+    <span class="c1">//監聽PUSH事件
+</span><span class="c1"></span>    <span class="nx">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;push&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">Notification</span> <span class="o">&amp;&amp;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">Notification</span><span class="p">.</span><span class="nx">permission</span> <span class="o">===</span> <span class="s1">&#39;granted&#39;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{};</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">try</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span> <span class="p">{</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span> <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">catch</span> <span class="p">{</span>
+                <span class="nx">data</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+                <span class="nx">data</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">text</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Notification Received:&#39;</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+        <span class="c1">//將接收到的json解析後進行通知
+</span><span class="c1"></span>        <span class="kd">var</span> <span class="nx">title</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">message</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">icon</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">icon</span><span class="p">;</span>
+        <span class="c1">//顯示通知
+</span><span class="c1"></span>        <span class="nx">event</span><span class="p">.</span><span class="nx">waitUntil</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">registration</span><span class="p">.</span><span class="nx">showNotification</span><span class="p">(</span><span class="nx">title</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">body</span><span class="o">:</span> <span class="nx">message</span><span class="p">,</span>
+            <span class="nx">icon</span><span class="o">:</span> <span class="nx">icon</span><span class="p">,</span>
+            <span class="c1">//badge: icon
+</span><span class="c1"></span>        <span class="p">}));</span>
+    <span class="p">});</span>
+
+<span class="p">})();</span>
+</code></pre></div><h3 id="後端推送">後端推送</h3>
+<p>可以建立<code>API</code>或是<code>Console</code>程式來實現推送行為</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//using WebPush套件
+</span><span class="c1"></span><span class="na"> [HttpPost]</span>
+<span class="k">public</span> <span class="n">ActionResult</span> <span class="n">Send</span><span class="p">(</span><span class="kt">string</span> <span class="n">PushEndpoint</span><span class="p">,</span><span class="kt">string</span> <span class="n">PushP256DH</span><span class="p">,</span><span class="kt">string</span> <span class="n">PushAuth</span><span class="p">,</span><span class="kt">string</span> <span class="n">msg</span><span class="p">=</span><span class="k">null</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">payload</span> <span class="p">=</span> <span class="s">&#34;{\&#34;title\&#34;:\&#34;this is title\&#34;,\&#34;message\&#34;:\&#34;this is messaage&#34;</span> <span class="p">+</span> <span class="n">msg</span> <span class="p">+</span> <span class="s">&#34;\&#34;}&#34;</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="n">payloadstr</span> <span class="p">=</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">SerializeObject</span><span class="p">(</span><span class="n">payload</span><span class="p">);</span>
+
+    <span class="kt">string</span> <span class="n">vapidPublicKey</span> <span class="p">=</span> <span class="s">&#34;BJZStZELls2cT9GaQ29RQlk6wuWGz-RnDFylb2YG77yiEY0DFhyVNG93U-RbUswECsVrt7dfhXLBldmUOGmWqPs&#34;</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="n">vapidPrivateKey</span> <span class="p">=</span> <span class="s">&#34;f_Rhef2okkI3ZziDLs0jvVGKzVMZHSDWqJrfWJYkbqI&#34;</span><span class="p">;</span>
+
+    <span class="kt">var</span> <span class="n">pushSubscription</span> <span class="p">=</span> <span class="k">new</span> <span class="n">PushSubscription</span><span class="p">(</span><span class="n">PushEndpoint</span><span class="p">,</span> <span class="n">PushP256DH</span><span class="p">,</span> <span class="n">PushAuth</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">vapidDetails</span> <span class="p">=</span> <span class="k">new</span> <span class="n">VapidDetails</span><span class="p">(</span><span class="s">&#34;mailto:example@example.com&#34;</span><span class="p">,</span> <span class="n">vapidPublicKey</span><span class="p">,</span> <span class="n">vapidPrivateKey</span><span class="p">);</span>
+
+    <span class="kt">var</span> <span class="n">webPushClient</span> <span class="p">=</span> <span class="k">new</span> <span class="n">WebPushClient</span><span class="p">();</span>
+    <span class="n">webPushClient</span><span class="p">.</span><span class="n">SendNotification</span><span class="p">(</span><span class="n">pushSubscription</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span><span class="n">vapidDetails</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">Content</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="小結">小結</h2>
+<p>桌面通知還能再結合<code>PWA</code>來讓<code>Web</code>更像一個<code>APP</code>來使用<br>
+不過不管是<code>PWA</code>還是<code>ServiceWorker</code>支援度似乎還未很完善尤其是<code>IOS</code>環境</p>
+<h2 id="參考連結">參考連結</h2>
+<blockquote>
+<ul>
+<li><a class="link" href="https://whien.medium.com/%E5%BB%BA%E7%AB%8B-service-worker-web-push-notification-web-notification-%E5%AF%A6%E4%BD%9C%E7%B4%80%E9%8C%84-8a3bb9ff09e8"  target="_blank" rel="noopener"
+    >url1</a></li>
+<li><a class="link" href="https://developers.google.com/web/fundamentals/codelabs/push-notifications?hl=zh-tw"  target="_blank" rel="noopener"
+    >url2</a></li>
+<li><a class="link" href="https://web-push-codelab.glitch.me/"  target="_blank" rel="noopener"
+    >url3</a></li>
+</ul>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/notification/">Notification</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相關文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/2021/09/09/notification-ios%E7%AF%87/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Notification - IOS篇</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/2021/09/06/notification-%E5%88%A4%E6%96%B7webview/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Notification - 判斷WebView</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 The Site
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
