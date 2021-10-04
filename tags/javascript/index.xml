@@ -6,7 +6,19 @@
     <description>Recent content in Javascript on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Mar 2021 11:15:44 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Oct 2021 14:19:59 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Windowopen開新視窗並Post資料</title>
+      <link>https://hushuuu.github.io/2021/10/04/windowopen%E9%96%8B%E6%96%B0%E8%A6%96%E7%AA%97%E4%B8%A6post%E8%B3%87%E6%96%99/</link>
+      <pubDate>Mon, 04 Oct 2021 14:19:59 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/10/04/windowopen%E9%96%8B%E6%96%B0%E8%A6%96%E7%AA%97%E4%B8%A6post%E8%B3%87%E6%96%99/</guid>
+      <description>前言 一般用window.open開窗傳遞參數常用get方式在url後方串接參數
+若想用post方式，則在開窗前模擬form submit post
+並在onsubmit前open。
+主要內容 function openPostWindow(url, name, val1, val2) { var tempForm = document.createElement(&amp;#34;form&amp;#34;); tempForm.id = &amp;#34;tempForm1&amp;#34;; tempForm.method = &amp;#34;post&amp;#34;; tempForm.action = url; //url  tempForm.target = name; let hideInput = document.createElement(&amp;#34;input&amp;#34;); hideInput.type = &amp;#34;hidden&amp;#34;; hideInput.name = &amp;#34;val1&amp;#34;;//傳入引數名  hideInput.value = val1;//傳入資料  tempForm.appendChild(hideInput); let hideInput2 = document.createElement(&amp;#34;input&amp;#34;); hideInput2.type = &amp;#34;hidden&amp;#34;; hideInput2.name = &amp;#34;val2&amp;#34;; hideInput2.value = val2; tempForm.appendChild(hideInput2); tempForm.addEventListener(&amp;#39;onsubmit&amp;#39;, function () { openWindow(name);}) document.body.appendChild(tempForm); //手動submit form  tempForm.</description>
+    </item>
+    
     <item>
       <title>MVC-上傳檔案轉為Base64String</title>
       <link>https://hushuuu.github.io/2021/03/25/mvc-%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E8%BD%89%E7%82%BAbase64string/</link>

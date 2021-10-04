@@ -6,7 +6,35 @@
     <description>Recent content in C# on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Sep 2021 10:51:04 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/c#/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Oct 2021 17:09:11 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/c#/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WebService 建立和呼叫</title>
+      <link>https://hushuuu.github.io/2021/10/04/webservice-%E5%BB%BA%E7%AB%8B%E5%92%8C%E5%91%BC%E5%8F%AB/</link>
+      <pubDate>Mon, 04 Oct 2021 17:09:11 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/10/04/webservice-%E5%BB%BA%E7%AB%8B%E5%92%8C%E5%91%BC%E5%8F%AB/</guid>
+      <description>前言 Webservice有點像是Web API的前身
+如果了解Web API的原理很快就能上手
+建立 VisualStudio開新專案-&amp;gt;web應用程式-&amp;gt;空的專案
+加入-&amp;gt;新增項目-&amp;gt;Web服務-&amp;gt;.asmx檔案
+建立的檔案會預設給一個HelloWorld的Method
+/// &amp;lt;summary&amp;gt;  ///WebService1 的摘要描述  /// &amp;lt;/summary&amp;gt; [WebService(Namespace = &amp;#34;http://tempuri.org/&amp;#34;)] [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)] [System.ComponentModel.ToolboxItem(false)] // 若要允許使用 ASP.NET AJAX 從指令碼呼叫此 Web 服務，請取消註解下列一行。  // [System.Web.Script.Services.ScriptService]  public class WebService1 : System.Web.Services.WebService { [WebMethod] public string HelloWorld(string name) { return &amp;#34;Hello World &amp;#34; + name; } } 專案建置起來並到此asmx頁面
+可見到此Webservice的資訊
+點進HelloWorld Method後可見呼叫的格式
+其中的&amp;lt;name&amp;gt;&amp;lt;/name&amp;gt;就是我們要傳入的參數
+POST /WebService1.asmx HTTP/1.1 Host: localhost Content-Type: text/xml; charset=utf-8 Content-Length: length SOAPAction: &amp;#34;http://tempuri.</description>
+    </item>
+    
+    <item>
+      <title>動態調用Webservice</title>
+      <link>https://hushuuu.github.io/2021/10/04/%E5%8B%95%E6%85%8B%E8%AA%BF%E7%94%A8webservice/</link>
+      <pubDate>Mon, 04 Oct 2021 14:38:32 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/10/04/%E5%8B%95%E6%85%8B%E8%AA%BF%E7%94%A8webservice/</guid>
+      <description>主要內容 建立DynamicInvokeWebservice.cs
+public class DynamicInvokeWebservice { public DynamicInvokeWebservice() { //  // TODO: 在此加入建構函式的程式碼  //  } static SortedList&amp;lt;string, Type&amp;gt; _typeList = new SortedList&amp;lt;string, Type&amp;gt;(); #region InvokeWebService  static string GetCacheKey(string url, string className) { return url.ToLower() + className; } static Type GetTypeFromCache(string url, string className) { string key = GetCacheKey(url, className); foreach (KeyValuePair&amp;lt;string, Type&amp;gt; pair in _typeList) { if (key == pair.Key) { return pair.Value; } } return null; } static Type GetTypeFromWebService(string url, string className) { string @namespace = &amp;#34;EnterpriseServerBase.</description>
+    </item>
+    
     <item>
       <title>Notification - IOS篇</title>
       <link>https://hushuuu.github.io/2021/09/09/notification-ios%E7%AF%87/</link>
