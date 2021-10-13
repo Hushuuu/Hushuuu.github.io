@@ -6,7 +6,22 @@
     <description>Recent content in C# on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Oct 2021 17:09:11 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/c#/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Oct 2021 15:56:04 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/c#/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JsonResult JsonConvert與日期Datetime</title>
+      <link>https://hushuuu.github.io/2021/10/13/jsonresult-jsonconvert%E8%88%87%E6%97%A5%E6%9C%9Fdatetime/</link>
+      <pubDate>Wed, 13 Oct 2021 15:56:04 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/10/13/jsonresult-jsonconvert%E8%88%87%E6%97%A5%E6%9C%9Fdatetime/</guid>
+      <description>前言 MVC回傳的ActionResult
+可以用繼承他的JsonResult來回傳
+使用return Json(obj) 會將物件序列化後回傳至前端。
+但型別為Datetime會拿到Date(12347838383333)格式之資料
+處理方式有三種
+ JS處理轉回日期格式 自訂回傳的JsonResult 用JsonConvert並套上轉換屬性  Javascript use FormatDate(&amp;ldquo;Date(12347838383333)&amp;quot;,true) ture則顯示時間
+function FormatDate (str, withTime) {//格式化後端傳回的date資料  var d = eval(`new ` + str.substr(1, str.length - 2)); var ar_date = [d.getFullYear(), d.getMonth() + 1, d.getDate()]; var ar_time = [d.getHours(), d.getMinutes(), d.getSeconds()]; for (var i = 0; i &amp;lt; ar_date.length; i++) ar_date[i] = dFormat(ar_date[i]); for (var i = 0; i &amp;lt; ar_time.length; i++) ar_time[i] = dFormat(ar_time[i]); return withTime == true ?</description>
+    </item>
+    
     <item>
       <title>WebService 建立和呼叫</title>
       <link>https://hushuuu.github.io/2021/10/04/webservice-%E5%BB%BA%E7%AB%8B%E5%92%8C%E5%91%BC%E5%8F%AB/</link>

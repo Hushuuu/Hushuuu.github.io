@@ -6,7 +6,16 @@
     <description>Recent content in Categories on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 13 Oct 2021 14:53:29 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Oct 2021 15:56:04 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MVC</title>
+      <link>https://hushuuu.github.io/categories/mvc/</link>
+      <pubDate>Wed, 13 Oct 2021 15:56:04 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/mvc/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Javascript</title>
       <link>https://hushuuu.github.io/categories/javascript/</link>
@@ -85,15 +94,6 @@
       <pubDate>Fri, 09 Apr 2021 10:17:00 +0800</pubDate>
       
       <guid>https://hushuuu.github.io/categories/net-core/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>MVC</title>
-      <link>https://hushuuu.github.io/categories/mvc/</link>
-      <pubDate>Mon, 29 Mar 2021 15:56:17 +0800</pubDate>
-      
-      <guid>https://hushuuu.github.io/categories/mvc/</guid>
       <description></description>
     </item>
     
