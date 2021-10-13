@@ -6,7 +6,19 @@
     <description>Recent content in Javascript on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Oct 2021 14:19:59 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Oct 2021 14:53:29 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Js Note</title>
+      <link>https://hushuuu.github.io/2021/10/13/js-note/</link>
+      <pubDate>Wed, 13 Oct 2021 14:53:29 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/10/13/js-note/</guid>
+      <description>Closure 閉包 和作用域有關係，可用來避免變數汙染
+或讓變數不被隨意存取改變
+用jQuery可簡易達成
+$(function(){ //do your coding }); $(document).ready(function(){ }); </description>
+    </item>
+    
     <item>
       <title>Windowopen開新視窗並Post資料</title>
       <link>https://hushuuu.github.io/2021/10/04/windowopen%E9%96%8B%E6%96%B0%E8%A6%96%E7%AA%97%E4%B8%A6post%E8%B3%87%E6%96%99/</link>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bootstrap on The Site</title>
+    <link>https://hushuuu.github.io/tags/bootstrap/</link>
+    <description>Recent content in Bootstrap on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 13 Oct 2021 09:32:14 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/bootstrap/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bootstrap Navbar Menu</title>
+      <link>https://hushuuu.github.io/2021/10/13/bootstrap-navbar-menu/</link>
+      <pubDate>Wed, 13 Oct 2021 09:32:14 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/10/13/bootstrap-navbar-menu/</guid>
+      <description>v3版本 增加一個li後atag觸發子選單ul submenu
+&amp;lt;div class=&amp;#34;navbar-collapse collapse&amp;#34;&amp;gt; &amp;lt;ul class=&amp;#34;nav navbar-nav&amp;#34;&amp;gt; &amp;lt;li class=&amp;#34;dropdown&amp;#34;&amp;gt; &amp;lt;a href=&amp;#34;#&amp;#34; data-toggle=&amp;#34;dropdown&amp;#34;&amp;gt;選單2&amp;lt;b class=&amp;#34;caret&amp;#34;&amp;gt;&amp;lt;/b&amp;gt;&amp;lt;/a&amp;gt; &amp;lt;ul class=&amp;#34;dropdown-menu&amp;#34;&amp;gt; &amp;lt;li class=&amp;#34;dropdown-submenu&amp;#34;&amp;gt; &amp;lt;a href=&amp;#34;#&amp;#34; data-toggle=&amp;#34;dropdown&amp;#34;&amp;gt;次選單2&amp;lt;/a&amp;gt; &amp;lt;ul class=&amp;#34;dropdown-menu&amp;#34;&amp;gt; &amp;lt;li class=&amp;#34;dropdown-submenu&amp;#34;&amp;gt; &amp;lt;a href=&amp;#34;#&amp;#34; data-toggle=&amp;#34;dropdown&amp;#34;&amp;gt;次次選單3&amp;lt;/a&amp;gt; &amp;lt;ul class=&amp;#34;dropdown-menu&amp;#34;&amp;gt; &amp;lt;li&amp;gt;&amp;lt;a href=&amp;#34;#&amp;#34;&amp;gt;次次次選單1&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/div&amp;gt; /*多層下拉選單設定*/ .dropdown-submenu { position: relative; } .dropdown-submenu &amp;gt; .dropdown-menu { top: 0; left: 100%; margin-top: -6px; margin-left: -1px; -webkit-border-radius: 0 6px 6px 6px; -moz-border-radius: 0 6px 6px 6px; border-radius: 0 6px 6px 6px; } .</description>
+    </item>
+    
+  </channel>
+</rss>
