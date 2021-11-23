@@ -6,22 +6,14 @@
     <description>Recent content in C# on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Mar 2021 11:15:44 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/c#/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Oct 2021 14:57:01 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/c#/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>C#-上傳檔案轉為Base64String</title>
-      <link>https://hushuuu.github.io/2021/03/25/c#-%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E8%BD%89%E7%82%BAbase64string/</link>
-      <pubDate>Thu, 25 Mar 2021 11:15:44 +0800</pubDate>
+      <title>產生QR Code</title>
+      <link>https://hushuuu.github.io/2021/10/21/%E7%94%A2%E7%94%9Fqr-code/</link>
+      <pubDate>Thu, 21 Oct 2021 14:57:01 +0800</pubDate>
       
-      <guid>https://hushuuu.github.io/2021/03/25/c#-%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E8%BD%89%E7%82%BAbase64string/</guid>
-      <description>前言 Html的Img標籤可以將src設為轉換後的Base64 String也可以顯示出圖片
-若WebApi需要交流檔案也可以將檔案轉換為Base64進行溝通
-Post前轉換 建立一個按鈕事件將轉換後的base64String``Post至後端
-$(document).on(&amp;#39;click&amp;#39;, &amp;#39;#subBtn&amp;#39;, function () { demo().then((obj) =&amp;gt; { $.ajax({ url: &amp;#34;../&amp;#34;, // url位置  type: &amp;#34;POST&amp;#34;, contentType: &amp;#34;application/json&amp;#34;, data: JSON.stringify(obj),// 輸入的資料  success: function (response) { }//  }); }); }); 使用FileReader來讀取上傳的檔案
-因為readAsDataURL是非同步讀取
-若不做非同步等待處理
-檔案還未處理完就會被Post出去造成傳遞不到正確資料
-故需將函式套上async並await等候所有檔案都處理完
-const demo = async () =&amp;gt; { var obj = {}; var filearray = []; var file_name = []; let files = $(&amp;#34;input[name=upload_file]&amp;#34;)[0].files; for (let i = 0; i &amp;lt; files.</description>
+      <guid>https://hushuuu.github.io/2021/10/21/%E7%94%A2%E7%94%9Fqr-code/</guid>
+      <description>主要內容 using System.Drawing; using System.Drawing.Imaging; using ZXing; // for BarcodeWriter using ZXing.QrCode; // for QRCode Engine using System.IO; //////圖片用ViewBag傳回base64格式 var writer = new BarcodeWriter //dll裡面可以看到屬性 { Format = BarcodeFormat.QR_CODE, Options = new QrCodeEncodingOptions //設定大小  { Height = 200, Width = 200, } }; //產生QRcode var img = writer.Write(&amp;#34;www.google.com&amp;#34;); Bitmap myBitmap = new Bitmap(img); MemoryStream ms = new MemoryStream(); myBitmap.Save(ms, ImageFormat.Jpeg); byte[] arr = new byte[ms.Length]; ms.Position = 0; ms.Read(arr, 0, (int)ms.</description>
     </item>
     
   </channel>

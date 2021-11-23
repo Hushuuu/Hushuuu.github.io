@@ -6,7 +6,35 @@
     <description>Recent content in Posts on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 13 Oct 2021 15:56:04 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 Nov 2021 15:07:03 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>完整刪除Oracle</title>
+      <link>https://hushuuu.github.io/2021/11/23/%E5%AE%8C%E6%95%B4%E5%88%AA%E9%99%A4oracle/</link>
+      <pubDate>Tue, 23 Nov 2021 15:07:03 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/11/23/%E5%AE%8C%E6%95%B4%E5%88%AA%E9%99%A4oracle/</guid>
+      <description>前言 包含環境參數，Regedit內機碼，一併刪除。
+版本為19c
+關閉服務 Services 和Oracle相關服務都關閉
+Universal Installer解除安裝或是在19cs內deinstall 
+egedit刪除Oracle開頭的項目 HKEY_LOCAL_MACHINE\SOFTWARE\ HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services 
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application\ HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Oracle*
+刪除環境變數 ORACLE_HOME，TNS_ADMIN，NLS_LANG
+刪除C槽Oracle相關目錄 Program Files\，Program Files(x86)\，ProgramData\Microsoft\Windows\Start Menu\Programs\ 
+重新開機 重新開機
+參考連結   url1 url2   </description>
+    </item>
+    
+    <item>
+      <title>產生QR Code</title>
+      <link>https://hushuuu.github.io/2021/10/21/%E7%94%A2%E7%94%9Fqr-code/</link>
+      <pubDate>Thu, 21 Oct 2021 14:57:01 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2021/10/21/%E7%94%A2%E7%94%9Fqr-code/</guid>
+      <description>主要內容 using System.Drawing; using System.Drawing.Imaging; using ZXing; // for BarcodeWriter using ZXing.QrCode; // for QRCode Engine using System.IO; //////圖片用ViewBag傳回base64格式 var writer = new BarcodeWriter //dll裡面可以看到屬性 { Format = BarcodeFormat.QR_CODE, Options = new QrCodeEncodingOptions //設定大小  { Height = 200, Width = 200, } }; //產生QRcode var img = writer.Write(&amp;#34;www.google.com&amp;#34;); Bitmap myBitmap = new Bitmap(img); MemoryStream ms = new MemoryStream(); myBitmap.Save(ms, ImageFormat.Jpeg); byte[] arr = new byte[ms.Length]; ms.Position = 0; ms.Read(arr, 0, (int)ms.</description>
+    </item>
+    
     <item>
       <title>JsonResult JsonConvert與日期Datetime</title>
       <link>https://hushuuu.github.io/2021/10/13/jsonresult-jsonconvert%E8%88%87%E6%97%A5%E6%9C%9Fdatetime/</link>
