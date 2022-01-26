@@ -6,7 +6,43 @@
     <description>Recent content in Tags on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 23 Nov 2021 15:07:03 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 26 Jan 2022 16:49:44 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javascript</title>
+      <link>https://hushuuu.github.io/tags/javascript/</link>
+      <pubDate>Wed, 26 Jan 2022 16:49:44 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Jquery</title>
+      <link>https://hushuuu.github.io/tags/jquery/</link>
+      <pubDate>Wed, 26 Jan 2022 16:49:44 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/tags/jquery/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ajax</title>
+      <link>https://hushuuu.github.io/tags/ajax/</link>
+      <pubDate>Wed, 26 Jan 2022 16:39:45 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/tags/ajax/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MVC</title>
+      <link>https://hushuuu.github.io/tags/mvc/</link>
+      <pubDate>Wed, 26 Jan 2022 16:39:45 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/tags/mvc/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Oracle</title>
       <link>https://hushuuu.github.io/tags/oracle/</link>
@@ -40,15 +76,6 @@
       <pubDate>Wed, 13 Oct 2021 15:56:04 +0800</pubDate>
       
       <guid>https://hushuuu.github.io/tags/json/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Javascript</title>
-      <link>https://hushuuu.github.io/tags/javascript/</link>
-      <pubDate>Wed, 13 Oct 2021 14:53:29 +0800</pubDate>
-      
-      <guid>https://hushuuu.github.io/tags/javascript/</guid>
       <description></description>
     </item>
     
@@ -103,15 +130,6 @@
       <pubDate>Thu, 26 Aug 2021 16:37:23 +0800</pubDate>
       
       <guid>https://hushuuu.github.io/tags/vuejs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>MVC</title>
-      <link>https://hushuuu.github.io/tags/mvc/</link>
-      <pubDate>Thu, 26 Aug 2021 14:48:29 +0800</pubDate>
-      
-      <guid>https://hushuuu.github.io/tags/mvc/</guid>
       <description></description>
     </item>
     

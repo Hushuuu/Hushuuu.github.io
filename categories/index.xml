@@ -6,7 +6,25 @@
     <description>Recent content in Categories on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 23 Nov 2021 15:07:03 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 26 Jan 2022 16:49:44 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javascript</title>
+      <link>https://hushuuu.github.io/categories/javascript/</link>
+      <pubDate>Wed, 26 Jan 2022 16:49:44 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CSRF</title>
+      <link>https://hushuuu.github.io/categories/csrf/</link>
+      <pubDate>Wed, 26 Jan 2022 16:39:45 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/csrf/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Oracle</title>
       <link>https://hushuuu.github.io/categories/oracle/</link>
@@ -31,15 +49,6 @@
       <pubDate>Wed, 13 Oct 2021 15:56:04 +0800</pubDate>
       
       <guid>https://hushuuu.github.io/categories/mvc/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Javascript</title>
-      <link>https://hushuuu.github.io/categories/javascript/</link>
-      <pubDate>Wed, 13 Oct 2021 14:53:29 +0800</pubDate>
-      
-      <guid>https://hushuuu.github.io/categories/javascript/</guid>
       <description></description>
     </item>
     

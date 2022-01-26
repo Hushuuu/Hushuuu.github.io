@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CSRF on The Site</title>
+    <link>https://hushuuu.github.io/categories/csrf/</link>
+    <description>Recent content in CSRF on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 26 Jan 2022 16:39:45 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/csrf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CSRF-AntiForgeryToken(ajax)</title>
+      <link>https://hushuuu.github.io/2022/01/26/csrf-antiforgerytokenajax/</link>
+      <pubDate>Wed, 26 Jan 2022 16:39:45 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2022/01/26/csrf-antiforgerytokenajax/</guid>
+      <description>前言 為了防止CSRF攻擊，再提交表單時通常會使用AntiForgeryToken
+但在使用Ajax Post時也要注意
+主要內容 可以在頁面上藏一個有token的form
+&amp;lt;form id=&amp;#34;__AjaxAntiForgeryForm&amp;#34; action=&amp;#34;#&amp;#34; method=&amp;#34;post&amp;#34;&amp;gt;@Html.AntiForgeryToken()&amp;lt;/form&amp;gt; 再post之前將token塞進去。
+var AddAntiForgeryToken = function (data) { data.__RequestVerificationToken = $(&amp;#39;#__AjaxAntiForgeryForm input[name=__RequestVerificationToken]&amp;#39;).val(); return data; }; $.ajax({ type: &amp;#34;post&amp;#34;, url: &amp;#39;&amp;#39;, data: AddAntiForgeryToken({id:&amp;#34;1&amp;#34;}), success: function (response) { // ....  } }); 參考連結   url1   </description>
+    </item>
+    
+  </channel>
+</rss>
