@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Line on The Site</title>
+    <link>https://hushuuu.github.io/tags/line/</link>
+    <description>Recent content in Line on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 11 Feb 2022 16:49:51 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/line/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linebot Api 設定圖文選單</title>
+      <link>https://hushuuu.github.io/2022/02/11/linebot-api-%E8%A8%AD%E5%AE%9A%E5%9C%96%E6%96%87%E9%81%B8%E5%96%AE/</link>
+      <pubDate>Fri, 11 Feb 2022 16:49:51 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2022/02/11/linebot-api-%E8%A8%AD%E5%AE%9A%E5%9C%96%E6%96%87%E9%81%B8%E5%96%AE/</guid>
+      <description>前言 設定Richmenu的API網址有換過。紀錄一下操作流程
+增加圖文選單 POST https://api.line.me/v2/bot/richmenu Authorization: Bearer {channel access token} Content-Type: application/json 成功結果回傳&amp;#34;richMenuId&amp;#34;: &amp;#34;{rich menu id}&amp;#34; Json Content Example
+{ &amp;#34;size&amp;#34;: { &amp;#34;width&amp;#34;: 2500, &amp;#34;height&amp;#34;: 843 }, &amp;#34;selected&amp;#34;: false, &amp;#34;name&amp;#34;: &amp;#34;richmenu-tsai&amp;#34;, &amp;#34;chatBarText&amp;#34;: &amp;#34;選單1&amp;#34;, &amp;#34;areas&amp;#34;: [ { &amp;#34;bounds&amp;#34;: { &amp;#34;x&amp;#34;: 0, &amp;#34;y&amp;#34;: 0, &amp;#34;width&amp;#34;: 833, &amp;#34;height&amp;#34;: 843 }, &amp;#34;action&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;message&amp;#34;, &amp;#34;label&amp;#34;: &amp;#34;指令&amp;#34;, &amp;#34;text&amp;#34;: &amp;#34;指令&amp;#34; } }, { &amp;#34;bounds&amp;#34;: { &amp;#34;x&amp;#34;: 833, &amp;#34;y&amp;#34;: 0, &amp;#34;width&amp;#34;: 833, &amp;#34;height&amp;#34;: 843 }, &amp;#34;action&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;uri&amp;#34;, &amp;#34;label&amp;#34;: &amp;#34;google&amp;#34;, &amp;#34;uri&amp;#34;: &amp;#34;www.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,7 +6,88 @@
         <description>Recent content on The Site</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Wed, 26 Jan 2022 16:49:44 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 11 Feb 2022 16:49:51 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Linebot Api 設定圖文選單</title>
+        <link>https://hushuuu.github.io/2022/02/11/linebot-api-%E8%A8%AD%E5%AE%9A%E5%9C%96%E6%96%87%E9%81%B8%E5%96%AE/</link>
+        <pubDate>Fri, 11 Feb 2022 16:49:51 +0800</pubDate>
+        
+        <guid>https://hushuuu.github.io/2022/02/11/linebot-api-%E8%A8%AD%E5%AE%9A%E5%9C%96%E6%96%87%E9%81%B8%E5%96%AE/</guid>
+        <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;設定&lt;code&gt;Richmenu&lt;/code&gt;的API網址有換過。紀錄一下操作流程&lt;/p&gt;
+&lt;h3 id=&#34;增加圖文選單&#34;&gt;增加圖文選單&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;POST https://api.line.me/v2/bot/richmenu  
+Authorization: Bearer {channel access token}  
+Content-Type: application/json  
+  
+成功結果回傳&amp;#34;richMenuId&amp;#34;: &amp;#34;{rich menu id}&amp;#34;  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;Json Content Example&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;{
+    &amp;#34;size&amp;#34;: {
+      &amp;#34;width&amp;#34;: 2500,
+      &amp;#34;height&amp;#34;: 843
+    },
+    &amp;#34;selected&amp;#34;: false,
+    &amp;#34;name&amp;#34;: &amp;#34;richmenu-tsai&amp;#34;,
+    &amp;#34;chatBarText&amp;#34;: &amp;#34;選單1&amp;#34;,
+    &amp;#34;areas&amp;#34;: [
+      {
+        &amp;#34;bounds&amp;#34;: {
+          &amp;#34;x&amp;#34;: 0,
+          &amp;#34;y&amp;#34;: 0,
+          &amp;#34;width&amp;#34;: 833,
+          &amp;#34;height&amp;#34;: 843
+        },
+        &amp;#34;action&amp;#34;: {
+          &amp;#34;type&amp;#34;: &amp;#34;message&amp;#34;,
+          &amp;#34;label&amp;#34;: &amp;#34;指令&amp;#34;,
+          &amp;#34;text&amp;#34;: &amp;#34;指令&amp;#34;
+        }
+      },
+      {
+        &amp;#34;bounds&amp;#34;: {
+          &amp;#34;x&amp;#34;: 833,
+          &amp;#34;y&amp;#34;: 0,
+          &amp;#34;width&amp;#34;: 833,
+          &amp;#34;height&amp;#34;: 843
+        },
+        &amp;#34;action&amp;#34;: {
+          &amp;#34;type&amp;#34;: &amp;#34;uri&amp;#34;,
+          &amp;#34;label&amp;#34;: &amp;#34;google&amp;#34;,
+          &amp;#34;uri&amp;#34;: &amp;#34;www.google.com&amp;#34;
+        }
+      },
+      {
+        &amp;#34;bounds&amp;#34;: {
+          &amp;#34;x&amp;#34;: 1666,
+          &amp;#34;y&amp;#34;: 0,
+          &amp;#34;width&amp;#34;: 833,
+          &amp;#34;height&amp;#34;: 843
+        },
+        &amp;#34;action&amp;#34;: {
+          &amp;#34;type&amp;#34;: &amp;#34;uri&amp;#34;,
+          &amp;#34;label&amp;#34;: &amp;#34;yahoo&amp;#34;,
+          &amp;#34;uri&amp;#34;: &amp;#34;www.yahoo.com.tw&amp;#34;
+        }
+      }
+   ]
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;設定圖文選單的圖片&#34;&gt;設定圖文選單的圖片&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;POST https://api-data.line.me/v2/bot/richmenu/{rich menu id}/content
+Authorization: Bearer {channel access token}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;設定預設的圖文選單&#34;&gt;設定預設的圖文選單&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;POST https://api.line.me/v2/bot/user/all/richmenu/{rich menu id}&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;刪除圖文選單&#34;&gt;刪除圖文選單&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;DELETE https://api.line.me/v2/bot/richmenu/{rich menu id}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;參考連結&#34;&gt;參考連結&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ithelp.ithome.com.tw/articles/10229397&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;url1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+</description>
+        </item>
+        <item>
         <title>找出form input元素並處理值集合</title>
         <link>https://hushuuu.github.io/2022/01/26/%E6%89%BE%E5%87%BAform-input%E5%85%83%E7%B4%A0%E4%B8%A6%E8%99%95%E7%90%86%E5%80%BC%E9%9B%86%E5%90%88/</link>
         <pubDate>Wed, 26 Jan 2022 16:49:44 +0800</pubDate>
