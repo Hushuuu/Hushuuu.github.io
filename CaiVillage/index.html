@@ -1223,7 +1223,7 @@
         function testJson() {
         $.ajax({
             url: "https://tsai-web-farm.azurewebsites.net//ContactApi/Get?qName=林",
-            headers: {ApiKey:"2691135"},
+            headers: {AuthKey:"2691135"},
             type: "get",
             success: function (data) {
                 console.log(data);
