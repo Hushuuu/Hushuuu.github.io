@@ -957,6 +957,7 @@
                         </div>
                         <button type="button" class="btn btn-secondary" data-toggle="modal"
                             data-target="#submit-window">提交</button>
+                            <button type="button" onclick="testJson();">testJson</button>
                     </form>
                     <!-- 提交視窗 -->
                     <div class="modal fade" id="submit-window" tabindex="-1" role="dialog"
@@ -1218,6 +1219,17 @@
                 gototop.classList.remove('show-gototop')
             }
         }
+
+        function testJson() {
+        $.ajax({
+            url: "https://tsai-web-farm.azurewebsites.net//ContactApi/Get?qName=林",
+            headers: {ApiKey:"2691135"},
+            type: "get",
+            success: function (data) {
+                console.log(data);
+            }
+        })
+    }
     </script>
 </body>
 </html>
