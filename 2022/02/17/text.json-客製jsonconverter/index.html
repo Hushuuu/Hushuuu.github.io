@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='後端回傳Json時處理for Datetime格式'><title>Text.Json 客製JsonConverter</title>
+
+<link rel='canonical' href='https://hushuuu.github.io/2022/02/17/text.json-%E5%AE%A2%E8%A3%BDjsonconverter/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Text.Json 客製JsonConverter'>
+<meta property='og:description' content='後端回傳Json時處理for Datetime格式'>
+<meta property='og:url' content='https://hushuuu.github.io/2022/02/17/text.json-%E5%AE%A2%E8%A3%BDjsonconverter/'>
+<meta property='og:site_name' content='The Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Json' /><meta property='article:tag' content='NetCore' /><meta property='article:published_time' content='2022-02-17T08:40:41&#43;08:00'/><meta property='article:modified_time' content='2022-02-17T08:40:41&#43;08:00'/>
+<meta name="twitter:title" content="Text.Json 客製JsonConverter">
+<meta name="twitter:description" content="後端回傳Json時處理for Datetime格式">
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切換菜單">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h2 class="site-description">紀錄一些筆記。</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首頁</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E9%97%9C%E6%96%BC/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>關於</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>封存</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜尋</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>深色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://hushuuu.github.io/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/json/" >
+                Json
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/2022/02/17/text.json-%E5%AE%A2%E8%A3%BDjsonconverter/">Text.Json 客製JsonConverter</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        後端回傳Json時處理for Datetime格式
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">2022-02-17</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="主要內容">主要內容</h2>
+<p>建立類別繼承JsonConverter來掛在要轉換的屬性上</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"> <span class="k">public</span> <span class="k">class</span> <span class="nc">OnlyDateConverter</span> <span class="p">:</span> <span class="n">JsonConverter</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">&gt;</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="k">override</span> <span class="n">DateTime</span> <span class="n">Read</span><span class="p">(</span><span class="k">ref</span> <span class="n">Utf8JsonReader</span> <span class="n">reader</span><span class="p">,</span> <span class="n">Type</span> <span class="n">typeToConvert</span><span class="p">,</span> <span class="n">JsonSerializerOptions</span> <span class="n">options</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">//Debug.Assert(typeToConvert == typeof(DateTime));
+</span><span class="c1"></span>            <span class="k">return</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">GetString</span><span class="p">());</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">Write</span><span class="p">(</span><span class="n">Utf8JsonWriter</span> <span class="n">writer</span><span class="p">,</span> <span class="n">DateTime</span> <span class="k">value</span><span class="p">,</span> <span class="n">JsonSerializerOptions</span> <span class="n">options</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">writer</span><span class="p">.</span><span class="n">WriteStringValue</span><span class="p">(</span><span class="k">value</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="s">&#34;yyyy-MM-dd&#34;</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">DateWithTimeConverter</span> <span class="p">:</span> <span class="n">JsonConverter</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">&gt;</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="k">override</span> <span class="n">DateTime</span> <span class="n">Read</span><span class="p">(</span><span class="k">ref</span> <span class="n">Utf8JsonReader</span> <span class="n">reader</span><span class="p">,</span> <span class="n">Type</span> <span class="n">typeToConvert</span><span class="p">,</span> <span class="n">JsonSerializerOptions</span> <span class="n">options</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">GetString</span><span class="p">());</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">Write</span><span class="p">(</span><span class="n">Utf8JsonWriter</span> <span class="n">writer</span><span class="p">,</span> <span class="n">DateTime</span> <span class="k">value</span><span class="p">,</span> <span class="n">JsonSerializerOptions</span> <span class="n">options</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">writer</span><span class="p">.</span><span class="n">WriteStringValue</span><span class="p">(</span><span class="k">value</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="s">&#34;yyyy-MM-dd HH:mm:ss&#34;</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div><p><code>掛載至屬性</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">////使用時只要掛在想要轉換的屬性上
+</span><span class="c1">/// &lt;summary&gt;
+</span><span class="c1">/// 日期
+</span><span class="c1">/// &lt;/summary&gt;
+</span><span class="c1"></span><span class="na">[JsonConverter(typeof(OnlyDateConverter))]</span>
+<span class="k">public</span> <span class="n">DateTime</span><span class="p">?</span> <span class="n">date</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="na">
+</span><span class="na">[JsonConverter(typeof(DateWithTimeConverter))]</span>
+<span class="k">public</span> <span class="n">DateTime</span><span class="p">?</span> <span class="n">date2</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div><p><code>轉換時設定</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">JsonSerializerOptions</span> <span class="n">options</span> <span class="p">=</span> <span class="k">new</span> <span class="n">JsonSerializerOptions</span><span class="p">();</span>
+<span class="n">options</span><span class="p">.</span><span class="n">Converters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">OnlyDateConverter</span><span class="p">());</span>
+<span class="k">return</span> <span class="n">Json</span><span class="p">(</span><span class="n">obj2</span><span class="p">,</span> <span class="n">options</span><span class="p">);</span>
+</code></pre></div><p><code>全域startup設定</code>
+<code>除了日期轉換，順便處理會被轉小寫+中文字被編碼的問題</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//JSON預設修改
+</span><span class="c1"></span><span class="n">services</span><span class="p">.</span><span class="n">AddMvc</span><span class="p">()</span>
+<span class="p">.</span><span class="n">AddJsonOptions</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="c1">//原本是 JsonNamingPolicy.CamelCase，強制頭文字轉小寫，我偏好維持原樣，設為null
+</span><span class="c1"></span>    <span class="n">options</span><span class="p">.</span><span class="n">JsonSerializerOptions</span><span class="p">.</span><span class="n">PropertyNamingPolicy</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="c1">//允許基本拉丁英文及中日韓文字維持原字元
+</span><span class="c1"></span>    <span class="n">options</span><span class="p">.</span><span class="n">JsonSerializerOptions</span><span class="p">.</span><span class="n">Encoder</span> <span class="p">=</span>
+        <span class="n">JavaScriptEncoder</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">UnicodeRanges</span><span class="p">.</span><span class="n">BasicLatin</span><span class="p">,</span> <span class="n">UnicodeRanges</span><span class="p">.</span><span class="n">CjkUnifiedIdeographs</span><span class="p">);</span>
+    <span class="c1">//datetime 預設處理只有日期
+</span><span class="c1"></span>    <span class="n">options</span><span class="p">.</span><span class="n">JsonSerializerOptions</span><span class="p">.</span><span class="n">Converters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">OnlyDateConverter</span><span class="p">());</span>
+<span class="p">});</span>
+</code></pre></div><p><code>掛載轉換器的優先順序</code>
+1.[JsonConverter] 套用至屬性。<br>
+2.加入至集合的轉換器 Converters 。<br>
+3.[JsonConverter] 套用至自訂實數值型別或 POCO。<br>
+4.如果在集合中註冊了某個類型的多個自訂轉換器 Converters ，則會使用第一個傳回 true 的轉換器 CanConvert 。</p>
+<h2 id="小結">小結</h2>
+<p><code>net core</code>預設使用的<code>Text.Json</code>據說比較輕量但使用上起來得設定一些設定才能用的順手</p>
+<h2 id="參考連結">參考連結</h2>
+<blockquote>
+<ul>
+<li><a class="link" href="https://docs.microsoft.com/zh-tw/dotnet/standard/serialization/system-text-json-converters-how-to?pivots=dotnet-5-0"  target="_blank" rel="noopener"
+    >url1</a></li>
+</ul>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/json/">Json</a>
+        
+            <a href="/tags/netcore/">NetCore</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 The Site
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

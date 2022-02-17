@@ -6,7 +6,17 @@
     <description>Recent content in Posts on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 11 Feb 2022 16:49:51 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Feb 2022 08:40:41 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Text.Json 客製JsonConverter</title>
+      <link>https://hushuuu.github.io/2022/02/17/text.json-%E5%AE%A2%E8%A3%BDjsonconverter/</link>
+      <pubDate>Thu, 17 Feb 2022 08:40:41 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2022/02/17/text.json-%E5%AE%A2%E8%A3%BDjsonconverter/</guid>
+      <description>主要內容 建立類別繼承JsonConverter來掛在要轉換的屬性上
+public class OnlyDateConverter : JsonConverter&amp;lt;DateTime&amp;gt; { public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { //Debug.Assert(typeToConvert == typeof(DateTime));  return DateTime.Parse(reader.GetString()); } public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options) { writer.WriteStringValue(value.ToString(&amp;#34;yyyy-MM-dd&amp;#34;)); } } public class DateWithTimeConverter : JsonConverter&amp;lt;DateTime&amp;gt; { public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { return DateTime.Parse(reader.GetString()); } public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options) { writer.WriteStringValue(value.ToString(&amp;#34;yyyy-MM-dd HH:mm:ss&amp;#34;)); } } 掛載至屬性</description>
+    </item>
+    
     <item>
       <title>Linebot Api 設定圖文選單</title>
       <link>https://hushuuu.github.io/2022/02/11/linebot-api-%E8%A8%AD%E5%AE%9A%E5%9C%96%E6%96%87%E9%81%B8%E5%96%AE/</link>
