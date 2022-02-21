@@ -1,7 +1,4 @@
 
-@{
-    Layout = null;
-}
 <!doctype html>
 <html lang="en">
 
@@ -610,18 +607,18 @@
                 <!-- LOGO右邊的整個NAV橫條 -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto ">
-                        @*<li class="nav-item ">
+                        <!-- @*<li class="nav-item ">
                             <a class="nav-link" href="#center-heart-section">主介紹</a>
                         </li>*@
                         @*<li class="nav-item">
                             <a class="nav-link" href="#popular-section">主打星</a>
-                        </li>*@
+                        </li>*@ -->
                         <li class="nav-item">
                             <a class="nav-link" href="#product-section">商品一覽</a>
                         </li>
-                        @*<li class="nav-item">
+                        <!-- @*<li class="nav-item">
                             <a class="nav-link" href="#reading-section">閱讀看板</a>
-                        </li>*@
+                        </li>*@ -->
                         <li class="nav-item">
                             <a class="nav-link" href="#intro-section">農場經歷</a>
                         </li>
@@ -637,7 +634,7 @@
     </section>
     <main>
         <!------------------核心中心 ------------------------------------------------>
-        @*<section id="center-heart-section">
+        <!-- @*<section id="center-heart-section">
             <div class="color"></div>
             <div class="container-fluid  d-flex justify-content-around  flex-wrap flex-md-nowrap">
                 <div class="center-heart1  col-12 col-md-4  ">
@@ -659,9 +656,9 @@
                     <h1>閱讀看板</h1>
                 </div>
             </div>
-        </section>*@
+        </section>*@ -->
         <!--RecommandedThisMonth------------------------------------------------>
-        @*<section id="popular-section">
+        <!-- @*<section id="popular-section">
             <div class="popular">
                 <div class="popular-pic"></div>
                 <div class="popular-title">
@@ -672,7 +669,7 @@
                     <span>當知中學都適們的現捧離型巧、學不班合從風於喔們自目教來材花與花除會</span>
                 </div>
             </div>
-        </section>*@
+        </section>*@ -->
         <!---------------------- --------------------- Product------------------------------------------------>
         <section id="product-section">
             <div class="container">
@@ -1000,7 +997,7 @@
                                 <div class="modal-body">
                                     <div class="orderResult">
                                         請等候幾秒出現結果訊息....
-                                        @*預購成功(注意並不代表購買成功)*@
+                                        <!-- @*預購成功(注意並不代表購買成功)*@ -->
                                     </div>
                                     <div>
                                         請待我們確認訂單後。再次聯絡您
@@ -1258,7 +1255,7 @@
             insObj.amount = $("#submit_form #amount").val();
             insObj.take_kind = $("#submit_form #take_kind").val();
             $.ajax({
-                url: "https://tsai-web-farm.azurewebsites.net/outside_orderapi/post",
+                url: "https://tsai-web-farm.azurewebsites.net/OutsideOrderApi/post",
                 method: 'post',
                 data: insObj,
                 success: function (data) {
