@@ -1257,6 +1257,7 @@
             $.ajax({
                 url: "https://tsai-web-farm.azurewebsites.net/OutsideOrderApi/post",
                 method: 'post',
+                headers: {authKey:"2691135"},
                 data: insObj,
                 success: function (data) {
                     if (data.isSuccess) {
