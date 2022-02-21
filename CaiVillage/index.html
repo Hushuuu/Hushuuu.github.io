@@ -1255,18 +1255,25 @@
             insObj.amount = $("#submit_form #amount").val();
             insObj.take_kind = $("#submit_form #take_kind").val();
             $.ajax({
-                url: "https://tsai-web-farm.azurewebsites.net/OutsideOrderApi/post",
+                url: "https://tsai-web-farm.azurewebsites.net/signin",
                 method: 'post',
-                headers: {authKey:"2691135"},
-                data: insObj,
-                success: function (data) {
-                    if (data.isSuccess) {
-                        $(".orderResult").html("預購成功(注意並不代表購買成功)")
-                    } else {
-                        $(".orderResult").html("出現錯誤。請重新再試");
-                    }
+                data: {Username:"Admin"},
+                success: function (token) {
+                    $.ajax({
+                        url: "https://tsai-web-farm.azurewebsites.net/OutsideOrderApi/post",
+                        method: 'post',
+                        headers: {Authorization:token},
+                        data: insObj,
+                        success: function (data) {
+                            if (data.isSuccess) {
+                                $(".orderResult").html("預購成功(注意並不代表購買成功)")
+                            } else {
+                                $(".orderResult").html("出現錯誤。請重新再試");
+                            }
+                        }
+                    });
                 }
-            })
+            })           
         }
     </script>
 </body>
