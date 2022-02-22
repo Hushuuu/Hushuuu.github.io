@@ -1245,6 +1245,7 @@
             //}
         }
         function submitOrder() {
+            let tokenObj={Username:"Admin"};
             let insObj = { doc_date: '', contact_name: '', contact_tel: '', contact_addr: '', note: '', spec: '', amount: 0, take_kind: 0 };
             insObj.doc_date = $("#submit_form #doc_date").val();
             insObj.contact_name = $("#submit_form #contact_name").val();
@@ -1257,7 +1258,7 @@
             $.ajax({
                 url: "https://tsai-web-farm.azurewebsites.net/signin",
                 method: 'post',
-                data: {Username:"Admin"},
+                data: tokenObj,
                 success: function (token) {
                     $.ajax({
                         url: "https://tsai-web-farm.azurewebsites.net/OutsideOrderApi/post",
