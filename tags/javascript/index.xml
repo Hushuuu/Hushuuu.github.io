@@ -8,11 +8,11 @@
     <language>en-us</language>
     <lastBuildDate>Fri, 25 Feb 2022 14:25:43 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Vue Component</title>
-      <link>https://hushuuu.github.io/2022/02/25/vue-component/</link>
+      <title>Vue Component(modal)</title>
+      <link>https://hushuuu.github.io/2022/02/25/vue-componentmodal/</link>
       <pubDate>Fri, 25 Feb 2022 14:25:43 +0800</pubDate>
       
-      <guid>https://hushuuu.github.io/2022/02/25/vue-component/</guid>
+      <guid>https://hushuuu.github.io/2022/02/25/vue-componentmodal/</guid>
       <description>前言 使用Vuejs 2練習模板Component
 假設要設計bootstrap4彈窗的模板
 prop命名最好不要有大寫否則在html模板需要處理成- ex:foodSize=&amp;gt;food-size
