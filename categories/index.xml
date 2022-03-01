@@ -6,7 +6,34 @@
     <description>Recent content in Categories on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 Feb 2022 08:40:41 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 25 Feb 2022 14:25:43 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VueJs</title>
+      <link>https://hushuuu.github.io/categories/vuejs/</link>
+      <pubDate>Fri, 25 Feb 2022 14:25:43 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/vuejs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NetCore</title>
+      <link>https://hushuuu.github.io/categories/netcore/</link>
+      <pubDate>Thu, 17 Feb 2022 09:45:19 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/netcore/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cors</title>
+      <link>https://hushuuu.github.io/categories/cors/</link>
+      <pubDate>Thu, 17 Feb 2022 08:40:41 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/cors/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Json</title>
       <link>https://hushuuu.github.io/categories/json/</link>
@@ -98,29 +125,11 @@
     </item>
     
     <item>
-      <title>VueJs</title>
-      <link>https://hushuuu.github.io/categories/vuejs/</link>
-      <pubDate>Thu, 26 Aug 2021 16:37:23 +0800</pubDate>
-      
-      <guid>https://hushuuu.github.io/categories/vuejs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>NPOI</title>
       <link>https://hushuuu.github.io/categories/npoi/</link>
       <pubDate>Thu, 26 Aug 2021 11:52:40 +0800</pubDate>
       
       <guid>https://hushuuu.github.io/categories/npoi/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>NetCore</title>
-      <link>https://hushuuu.github.io/categories/netcore/</link>
-      <pubDate>Thu, 27 May 2021 15:52:39 +0800</pubDate>
-      
-      <guid>https://hushuuu.github.io/categories/netcore/</guid>
       <description></description>
     </item>
     

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cors on The Site</title>
+    <link>https://hushuuu.github.io/tags/cors/</link>
+    <description>Recent content in Cors on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 17 Feb 2022 08:40:41 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/cors/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Netcore處理跨域請求</title>
+      <link>https://hushuuu.github.io/2022/02/17/netcore%E8%99%95%E7%90%86%E8%B7%A8%E5%9F%9F%E8%AB%8B%E6%B1%82/</link>
+      <pubDate>Thu, 17 Feb 2022 08:40:41 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2022/02/17/netcore%E8%99%95%E7%90%86%E8%B7%A8%E5%9F%9F%E8%AB%8B%E6%B1%82/</guid>
+      <description>主要內容 一般不允許跨域的請求，若有前後端放在不同網域或特殊用途可用
+//startup.cs public void ConfigureServices(IServiceCollection services) { //Cors允許跨域原則  services.AddCors(options =&amp;gt; { options.AddPolicy(name: &amp;#34;CustomPolicy1&amp;#34;, //規則名稱  builder =&amp;gt; { builder //.AllowAnyOrigin()  .WithOrigins(&amp;#34;https://abc.com&amp;#34;)//不可有尾巴斜線  .AllowAnyHeader() //或特定header  .AllowAnyMethod(); }); }); } public void Configure(IApplicationBuilder app, IWebHostEnvironment env) { app.UseRouting(); app.UseCors();//一定要在userouting和useendpoing之間 app.UseEndpoints(endpoints =&amp;gt; { endpoints.MapControllerRoute( name: &amp;#34;default&amp;#34;, pattern: &amp;#34;{controller=Home}/{action=Index}/{id?}&amp;#34;); }); } 掛載至Action
+////使用時只要掛Action上或Controller...等 [EnableCors(&amp;#34;CustomPolicy1&amp;#34;)] public ActionResult Post(){ } 小結 跨域請求測試用PostMan是測不出來的
+正確跨域請求回傳的header應會有Access-Control-Allow-Origin Access-Control-Allow-Origin: *則為全部</description>
+    </item>
+    
+  </channel>
+</rss>

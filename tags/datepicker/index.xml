@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>datepicker on The Site</title>
+    <link>https://hushuuu.github.io/tags/datepicker/</link>
+    <description>Recent content in datepicker on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 25 Feb 2022 14:25:43 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/datepicker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vue Component(datepicker)</title>
+      <link>https://hushuuu.github.io/2022/02/25/vue-componentdatepicker/</link>
+      <pubDate>Fri, 25 Feb 2022 14:25:43 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2022/02/25/vue-componentdatepicker/</guid>
+      <description>前言 使用Vuejs 2練習模板Component
+並處理jquery datepicker無法雙向綁定問題
+設計 偵測datepicker的onSelect事件來觸發元素的input監聽事件
+//註冊Component要在實例vue物件之前  Vue.component(&amp;#39;vue_date&amp;#39;, { template: &amp;#39;&amp;lt;input type=&amp;#34;text&amp;#34; v-datepicker class=&amp;#34;datepicker&amp;#34; :class=&amp;#34;inputclass&amp;#34; :value=&amp;#34;value&amp;#34; v-on:input=&amp;#34;update($event.target.value)&amp;#34;&amp;gt;&amp;#39;, directives: { datepicker: { inserted(el, binding, vNode) { $(el).datepicker({ autoclose: true, format: &amp;#39;yyyy-mm-dd&amp;#39;, onSelect: function (e) { //pick觸發  vNode.context.$emit(&amp;#39;input&amp;#39;, e); } }); } } }, props: { &amp;#39;value&amp;#39;: String, &amp;#34;inputclass&amp;#34;: { type: Object, default: function () { return { &amp;#34;form-control&amp;#34;: true } } }, &amp;#34;id&amp;#34;: String, }, methods: { update(v) { //input觸發  this.</description>
+    </item>
+    
+  </channel>
+</rss>

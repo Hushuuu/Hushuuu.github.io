@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Appsetting on The Site</title>
+    <link>https://hushuuu.github.io/tags/appsetting/</link>
+    <description>Recent content in Appsetting on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 17 Feb 2022 09:45:19 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/appsetting/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NetCore使用Appsetting</title>
+      <link>https://hushuuu.github.io/2022/02/17/netcore%E4%BD%BF%E7%94%A8appsetting/</link>
+      <pubDate>Thu, 17 Feb 2022 09:45:19 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2022/02/17/netcore%E4%BD%BF%E7%94%A8appsetting/</guid>
+      <description>主要內容 NetCore在取得
+//預設Startup已有注入Configuration public IConfiguration Configuration { get; } public IWebHostEnvironment _env { get; set; } public Startup(IConfiguration configuration, IWebHostEnvironment env) { Configuration = configuration; _env = env; } //一般取值 _config.GetValue&amp;lt;string&amp;gt;(&amp;#34;AAAAA&amp;#34;); 強型別取得 AppSetting.cs建立靜態類別
+public static class AppSetting { private static IConfiguration config; public static void Initialize(IConfiguration Configuration) { config = Configuration; } private static string GetAppSettings(string name) { return config.GetValue&amp;lt;string&amp;gt;(name); } #region 平台相關設定  /// &amp;lt;summary&amp;gt;  /// log 保留天數  /// &amp;lt;/summary&amp;gt;  public static int LogExistDays { get { int days = 7; int.</description>
+    </item>
+    
+  </channel>
+</rss>

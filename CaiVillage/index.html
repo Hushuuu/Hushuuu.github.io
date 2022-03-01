@@ -1274,6 +1274,10 @@
             //}
         }
         function submitOrder() {
+            if (!$("#submit_form #contact_name").val() || !$("#submit_form #contact_tel").val()) {
+                alert("姓名電話必須填");
+                return;
+            }
             let tokenObj = { Username: "Admin" };
             let insObj = { doc_date: '', contact_name: '', contact_tel: '', contact_addr: '', note: '', spec: '', amount: 0, take_kind: 0 };
             insObj.doc_date = $("#submit_form #doc_date").val();

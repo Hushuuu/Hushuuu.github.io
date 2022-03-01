@@ -270,7 +270,7 @@
     <span class="c1">//datetime 預設處理只有日期
 </span><span class="c1"></span>    <span class="n">options</span><span class="p">.</span><span class="n">JsonSerializerOptions</span><span class="p">.</span><span class="n">Converters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">OnlyDateConverter</span><span class="p">());</span>
 <span class="p">});</span>
-</code></pre></div><p><code>掛載轉換器的優先順序</code>
+</code></pre></div><p><code>掛載轉換器的優先順序</code><br>
 1.[JsonConverter] 套用至屬性。<br>
 2.加入至集合的轉換器 Converters 。<br>
 3.[JsonConverter] 套用至自訂實數值型別或 POCO。<br>
