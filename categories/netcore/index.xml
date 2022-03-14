@@ -6,7 +6,18 @@
     <description>Recent content in NetCore on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 Feb 2022 09:45:19 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/netcore/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Mar 2022 10:38:39 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/netcore/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NetCore-專案檔設定</title>
+      <link>https://hushuuu.github.io/2022/03/03/netcore-%E5%B0%88%E6%A1%88%E6%AA%94%E8%A8%AD%E5%AE%9A/</link>
+      <pubDate>Thu, 03 Mar 2022 10:38:39 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2022/03/03/netcore-%E5%B0%88%E6%A1%88%E6%AA%94%E8%A8%AD%E5%AE%9A/</guid>
+      <description>主要內容 專案下右鍵=&amp;gt;編輯專案檔
+//不重新編譯webconfig &amp;lt;!--防止 Web SDK 轉換檔案 web.config--&amp;gt; &amp;lt;PropertyGroup&amp;gt; &amp;lt;TargetFramework&amp;gt;net5.0&amp;lt;/TargetFramework&amp;gt; &amp;lt;IsTransformWebConfigDisabled&amp;gt;true&amp;lt;/IsTransformWebConfigDisabled&amp;gt; &amp;lt;/PropertyGroup&amp;gt; //發行不覆蓋  &amp;lt;ItemGroup&amp;gt; &amp;lt;MsDeploySkipRules Include=&amp;#34;CustomSkipFolder&amp;#34;&amp;gt; &amp;lt;!--不覆蓋此目錄下的檔案--&amp;gt; &amp;lt;ObjectName&amp;gt;dirPath&amp;lt;/ObjectName&amp;gt; &amp;lt;AbsolutePath&amp;gt;wwwroot\\test&amp;lt;/AbsolutePath&amp;gt; &amp;lt;/MsDeploySkipRules&amp;gt; &amp;lt;/ItemGroup&amp;gt; 小結 write something cool&amp;hellip;
+參考連結   url1 url2   </description>
+    </item>
+    
     <item>
       <title>NetCore使用Appsetting</title>
       <link>https://hushuuu.github.io/2022/02/17/netcore%E4%BD%BF%E7%94%A8appsetting/</link>
