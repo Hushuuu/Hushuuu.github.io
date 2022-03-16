@@ -39,7 +39,7 @@ prop命名最好不要有大寫否則在html模板需要處理成- ex:foodSize=&
       <description>Closure 閉包 和作用域有關係，可用來避免變數汙染
 或讓變數不被隨意存取改變
 用jQuery可簡易達成
-$(function(){ //do your coding }); $(document).ready(function(){ }); </description>
+$(function(){ //do your coding }); $(document).ready(function(){ }); 轉千分位 /** * 轉千分位 * @param {any} num */ function toCurrency(num) { var parts = num.toString().split(&amp;#39;.&amp;#39;); parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, &amp;#39;,&amp;#39;); return parts.join(&amp;#39;.&amp;#39;); } Date擴充 //增加日期 Date.prototype.addDays = function (days) { var date = new Date(this.valueOf()); date.setDate(date.getDate() + days); return date; } //轉為yyyy-MM-dd Date.prototype.toInputString = function () { let date = new Date(this.valueOf()); return date.toISOString().split(&amp;#39;T&amp;#39;)[0]; } </description>
     </item>
     
     <item>

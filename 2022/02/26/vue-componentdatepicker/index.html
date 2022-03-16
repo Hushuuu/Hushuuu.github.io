@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='未整理JS note'><title>Js Note</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 使用Vuejs 2練習模板Component
+並處理jquery datepicker無法雙向綁定問題
+設計 偵測datepicker的onSelect事件來觸發元素的input監聽事件
+//註冊Component要在實例vue物件之前  Vue.component(&amp;#39;vue_date&amp;#39;, { template: &amp;#39;&amp;lt;input type=&amp;#34;text&amp;#34; v-datepicker class=&amp;#34;datepicker&amp;#34; :class=&amp;#34;inputclass&amp;#34; :value=&amp;#34;value&amp;#34; v-on:input=&amp;#34;update($event.target.value)&amp;#34;&amp;gt;&amp;#39;, directives: { datepicker: { inserted(el, binding, vNode) { $(el).datepicker({ autoclose: true, format: &amp;#39;yyyy-mm-dd&amp;#39;, onSelect: function (e) { //pick觸發  vNode.context.$emit(&amp;#39;input&amp;#39;, e); } }); } } }, props: { &amp;#39;value&amp;#39;: String, &amp;#34;inputclass&amp;#34;: { type: Object, default: function () { return { &amp;#34;form-control&amp;#34;: true } } }, &amp;#34;id&amp;#34;: String, }, methods: { update(v) { //input觸發  this.'><title>Vue Component(datepicker)</title>
 
-<link rel='canonical' href='https://hushuuu.github.io/2021/10/13/js-note/'>
+<link rel='canonical' href='https://hushuuu.github.io/2022/02/26/vue-componentdatepicker/'>
 
-<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Js Note'>
-<meta property='og:description' content='未整理JS note'>
-<meta property='og:url' content='https://hushuuu.github.io/2021/10/13/js-note/'>
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Vue Component(datepicker)'>
+<meta property='og:description' content='前言 使用Vuejs 2練習模板Component
+並處理jquery datepicker無法雙向綁定問題
+設計 偵測datepicker的onSelect事件來觸發元素的input監聽事件
+//註冊Component要在實例vue物件之前  Vue.component(&amp;#39;vue_date&amp;#39;, { template: &amp;#39;&amp;lt;input type=&amp;#34;text&amp;#34; v-datepicker class=&amp;#34;datepicker&amp;#34; :class=&amp;#34;inputclass&amp;#34; :value=&amp;#34;value&amp;#34; v-on:input=&amp;#34;update($event.target.value)&amp;#34;&amp;gt;&amp;#39;, directives: { datepicker: { inserted(el, binding, vNode) { $(el).datepicker({ autoclose: true, format: &amp;#39;yyyy-mm-dd&amp;#39;, onSelect: function (e) { //pick觸發  vNode.context.$emit(&amp;#39;input&amp;#39;, e); } }); } } }, props: { &amp;#39;value&amp;#39;: String, &amp;#34;inputclass&amp;#34;: { type: Object, default: function () { return { &amp;#34;form-control&amp;#34;: true } } }, &amp;#34;id&amp;#34;: String, }, methods: { update(v) { //input觸發  this.'>
+<meta property='og:url' content='https://hushuuu.github.io/2022/02/26/vue-componentdatepicker/'>
 <meta property='og:site_name' content='The Site'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Javascript' /><meta property='article:published_time' content='2021-10-13T14:53:29&#43;08:00'/><meta property='article:modified_time' content='2021-10-13T14:53:29&#43;08:00'/>
-<meta name="twitter:title" content="Js Note">
-<meta name="twitter:description" content="未整理JS note">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='VueJs' /><meta property='article:tag' content='datepicker' /><meta property='article:published_time' content='2022-02-26T14:25:43&#43;08:00'/><meta property='article:modified_time' content='2022-02-26T14:25:43&#43;08:00'/>
+<meta name="twitter:title" content="Vue Component(datepicker)">
+<meta name="twitter:description" content="前言 使用Vuejs 2練習模板Component
+並處理jquery datepicker無法雙向綁定問題
+設計 偵測datepicker的onSelect事件來觸發元素的input監聽事件
+//註冊Component要在實例vue物件之前  Vue.component(&amp;#39;vue_date&amp;#39;, { template: &amp;#39;&amp;lt;input type=&amp;#34;text&amp;#34; v-datepicker class=&amp;#34;datepicker&amp;#34; :class=&amp;#34;inputclass&amp;#34; :value=&amp;#34;value&amp;#34; v-on:input=&amp;#34;update($event.target.value)&amp;#34;&amp;gt;&amp;#39;, directives: { datepicker: { inserted(el, binding, vNode) { $(el).datepicker({ autoclose: true, format: &amp;#39;yyyy-mm-dd&amp;#39;, onSelect: function (e) { //pick觸發  vNode.context.$emit(&amp;#39;input&amp;#39;, e); } }); } } }, props: { &amp;#39;value&amp;#39;: String, &amp;#34;inputclass&amp;#34;: { type: Object, default: function () { return { &amp;#34;form-control&amp;#34;: true } } }, &amp;#34;id&amp;#34;: String, }, methods: { update(v) { //input觸發  this.">
     </head>
     <body class="">
     <script>
@@ -186,21 +195,17 @@
     
     <header class="article-category">
         
-            <a href="/categories/javascript/" >
-                Javascript
+            <a href="/categories/vuejs/" >
+                VueJs
             </a>
         
     </header>
     
 
     <h2 class="article-title">
-        <a href="/2021/10/13/js-note/">Js Note</a>
+        <a href="/2022/02/26/vue-componentdatepicker/">Vue Component(datepicker)</a>
     </h2>
 
-    
-    <h3 class="article-subtitle">
-        未整理JS note
-    </h3>
     <footer class="article-time">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -210,45 +215,65 @@
 
 
 
-        <time class="article-time--published">2021-10-13</time>
+        <time class="article-time--published">2022-02-26</time>
     </footer></div>
 </header>
 
     <section class="article-content">
-    <h2 id="closure-閉包">Closure 閉包</h2>
-<p>和作用域有關係，可用來避免變數汙染<br>
-或讓變數不被隨意存取改變<br>
-用jQuery可簡易達成</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-    <span class="c1">//do your coding
-</span><span class="c1"></span><span class="p">});</span>
+    <h2 id="前言">前言</h2>
+<p>使用Vuejs 2練習模板<code>Component</code><br>
+並處理<code>jquery datepicker</code>無法雙向綁定問題</p>
+<h3 id="設計">設計</h3>
+<p><code>偵測datepicker的onSelect事件來觸發元素的input監聽事件</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">//註冊Component要在實例vue物件之前
+</span><span class="c1"></span> <span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">&#39;vue_date&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;input type=&#34;text&#34; v-datepicker class=&#34;datepicker&#34; :class=&#34;inputclass&#34; :value=&#34;value&#34; v-on:input=&#34;update($event.target.value)&#34;&gt;&#39;</span><span class="p">,</span>
+            <span class="nx">directives</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">datepicker</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="nx">inserted</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">binding</span><span class="p">,</span> <span class="nx">vNode</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">datepicker</span><span class="p">({</span>
+                            <span class="nx">autoclose</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                            <span class="nx">format</span><span class="o">:</span> <span class="s1">&#39;yyyy-mm-dd&#39;</span><span class="p">,</span>
+                            <span class="nx">onSelect</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+                                <span class="c1">//pick觸發
+</span><span class="c1"></span>                                <span class="nx">vNode</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="nx">e</span><span class="p">);</span>
+                            <span class="p">}</span>
+                        <span class="p">});</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s1">&#39;value&#39;</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+                <span class="s2">&#34;inputclass&#34;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="nx">type</span><span class="o">:</span> <span class="nb">Object</span><span class="p">,</span> <span class="k">default</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span> <span class="s2">&#34;form-control&#34;</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span> <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="s2">&#34;id&#34;</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">update</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">//input觸發
+</span><span class="c1"></span>                    <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="nx">v</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+        <span class="c1">//vue instant
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="nx">mydate</span><span class="o">:</span> <span class="s2">&#34;&#34;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}).</span><span class="nx">$mount</span><span class="p">(</span><span class="s1">&#39;#vueDiv&#39;</span><span class="p">);</span><span class="c1">//掛載
+</span></code></pre></div><p><code>實際在Html使用</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">vue_date</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;mydate&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">vue_date</span><span class="p">&gt;</span>
+</code></pre></div><h2 id="參考連結">參考連結</h2>
+<blockquote>
+<ul>
+<li><a class="link" href="https://stackoverflow.com/questions/49515965/v-model-not-working-with-bootstrap-datepicker"  target="_blank" rel="noopener"
+    >url1</a></li>
+</ul>
+</blockquote>
 
-<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-
-<span class="p">});</span>
-</code></pre></div><h3 id="轉千分位">轉千分位</h3>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="cm">/**
-</span><span class="cm"> * 轉千分位
-</span><span class="cm"> * @param {any} num
-</span><span class="cm"> */</span>
-<span class="kd">function</span> <span class="nx">toCurrency</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">parts</span> <span class="o">=</span> <span class="nx">num</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">);</span>
-    <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\B(?=(\d{3})+(?!\d))/g</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><h3 id="date擴充">Date擴充</h3>
-<div class="highlight"><pre class="chroma"><code class="language-JAVASCRIPT" data-lang="JAVASCRIPT"><span class="c1">//增加日期
-</span><span class="c1"></span><span class="nb">Date</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">addDays</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">days</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">());</span>
-    <span class="nx">date</span><span class="p">.</span><span class="nx">setDate</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span> <span class="o">+</span> <span class="nx">days</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nx">date</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="c1">//轉為yyyy-MM-dd
-</span><span class="c1"></span><span class="nb">Date</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toInputString</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">());</span>
-    <span class="k">return</span> <span class="nx">date</span><span class="p">.</span><span class="nx">toISOString</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
-<span class="p">}</span>
-</code></pre></div>
 </section>
 
 
@@ -256,7 +281,9 @@
     
     <section class="article-tags">
         
-            <a href="/tags/javascript/">Javascript</a>
+            <a href="/tags/vuejs/">VueJs</a>
+        
+            <a href="/tags/datepicker/">datepicker</a>
         
     </section>
 
@@ -287,36 +314,36 @@
                 
                     
 <article class="">
-    <a href="/2022/01/26/%E6%89%BE%E5%87%BAform-input%E5%85%83%E7%B4%A0%E4%B8%A6%E8%99%95%E7%90%86%E5%80%BC%E9%9B%86%E5%90%88/">
+    <a href="/2022/02/25/vue-componentmodal/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">找出form input元素並處理值集合</h2>
+            <h2 class="article-title">Vue Component(modal)</h2>
         </div>
     </a>
 </article>
                 
                     
 <article class="">
-    <a href="/2021/10/04/windowopen%E9%96%8B%E6%96%B0%E8%A6%96%E7%AA%97%E4%B8%A6post%E8%B3%87%E6%96%99/">
+    <a href="/2021/08/26/vuejs-%E8%99%95%E7%90%86json%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%97%A5%E6%9C%9Fdate/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Windowopen開新視窗並Post資料</h2>
+            <h2 class="article-title">VueJs 處理Json格式下日期Date</h2>
         </div>
     </a>
 </article>
                 
                     
 <article class="">
-    <a href="/2021/05/03/%E5%9C%96%E8%A1%A8%E5%A5%97%E4%BB%B6%E4%BD%BF%E7%94%A8-chart-js/">
+    <a href="/2021/08/26/.net-mvc-viewmodel-%E5%A5%97%E4%B8%8Avuejs/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">圖表套件使用-Chart js</h2>
+            <h2 class="article-title">.Net MVC ViewModel 套上VueJs</h2>
         </div>
     </a>
 </article>
