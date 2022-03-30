@@ -256,7 +256,7 @@
 <div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">JsonSerializerOptions</span> <span class="n">options</span> <span class="p">=</span> <span class="k">new</span> <span class="n">JsonSerializerOptions</span><span class="p">();</span>
 <span class="n">options</span><span class="p">.</span><span class="n">Converters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">OnlyDateConverter</span><span class="p">());</span>
 <span class="k">return</span> <span class="n">Json</span><span class="p">(</span><span class="n">obj2</span><span class="p">,</span> <span class="n">options</span><span class="p">);</span>
-</code></pre></div><p><code>全域startup設定</code>
+</code></pre></div><p><code>startup設定 注意這設定只會影響到Controller.Json retrun</code>
 <code>除了日期轉換，順便處理會被轉小寫+中文字被編碼的問題</code></p>
 <div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//JSON預設修改
 </span><span class="c1"></span><span class="n">services</span><span class="p">.</span><span class="n">AddMvc</span><span class="p">()</span>
@@ -276,12 +276,17 @@
 3.[JsonConverter] 套用至自訂實數值型別或 POCO。<br>
 4.如果在集合中註冊了某個類型的多個自訂轉換器 Converters ，則會使用第一個傳回 true 的轉換器 CanConvert 。</p>
 <h2 id="小結">小結</h2>
-<p><code>net core</code>預設使用的<code>Text.Json</code>據說比較輕量但使用上起來得設定一些設定才能用的順手</p>
+<p><code>net core</code>預設使用的<code>Text.Json</code>據說比較輕量但使用上起來得設定一些設定才能用的順手<br>
+若是手動呼叫<code>JsonSerializer</code>不會吃到startup的設定，必須自行給<code>option</code>或擴充共用</p>
 <h2 id="參考連結">參考連結</h2>
 <blockquote>
 <ul>
 <li><a class="link" href="https://docs.microsoft.com/zh-tw/dotnet/standard/serialization/system-text-json-converters-how-to?pivots=dotnet-5-0"  target="_blank" rel="noopener"
     >url1</a></li>
+<li><a class="link" href="https://blog.darkthread.net/blog/aspnet-core-json-setting/"  target="_blank" rel="noopener"
+    >url2</a></li>
+<li><a class="link" href="https://medium.com/@mvpdw06/net-core-3-1-%E5%BE%8C%E8%BD%89%E7%A7%BB-newtonsoft-json-%E8%87%B3-system-text-json-9727d774f92d"  target="_blank" rel="noopener"
+    >url3</a></li>
 </ul>
 </blockquote>
 
