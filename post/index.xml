@@ -6,7 +6,45 @@
     <description>Recent content in Posts on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 12 Apr 2022 08:42:19 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://hushuuu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Jquery Datepicker日期選單沒出現或沒反應</title>
+      <link>https://hushuuu.github.io/2022/12/28/jquery-datepicker%E6%97%A5%E6%9C%9F%E9%81%B8%E5%96%AE%E6%B2%92%E5%87%BA%E7%8F%BE%E6%88%96%E6%B2%92%E5%8F%8D%E6%87%89/</link>
+      <pubDate>Wed, 28 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://hushuuu.github.io/2022/12/28/jquery-datepicker%E6%97%A5%E6%9C%9F%E9%81%B8%E5%96%AE%E6%B2%92%E5%87%BA%E7%8F%BE%E6%88%96%E6%B2%92%E5%8F%8D%E6%87%89/</guid>
+      <description>前言 在使用jquery datepicker的時候遇到了日期選單沒出現沒反應的問題
+原本以為是瀏覽器的關係。後來找到原因是選單產生的位置不對
+可能是瀏覽器的文字縮放比例或是系統的縮放造成
+主要內容 根據參考資料，只要在beforeShow加上自訂的判斷來計算偏移的offset
+即可解決此問題
+function setDatepickerPos(input, inst) { var rect = input.getBoundingClientRect(); // use &amp;#39;setTimeout&amp;#39; to prevent effect overridden by other scripts  setTimeout(function () { var scrollTop = $(&amp;#34;body&amp;#34;).scrollTop(); inst.dpDiv.css({ top: rect.top + input.offsetHeight + scrollTop }); }, 0); } $(&amp;#39;#MyDatepicker&amp;#39;).datepicker({ dateFormat: &amp;#34;yy-mm-dd&amp;#34;, changeMonth: true, changeYear: true, defaultDate: +0, inline: true, beforeShow: function (input, inst) { setDatepickerPos(input, inst) }, }); 小結 之後再另外整併將jquery datepicker包進vue的conpoment版本
+參考連結   url1   </description>
+    </item>
+    
+    <item>
+      <title>IIS Allow Download Apk</title>
+      <link>https://hushuuu.github.io/2022/12/19/iis-allow-download-apk/</link>
+      <pubDate>Mon, 19 Dec 2022 16:01:15 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2022/12/19/iis-allow-download-apk/</guid>
+      <description>前言 設定web.config允許站台訪問靜態檔案類型apk
+主要內容 在web.config底下找到此段增加或更新
+&amp;lt;system.webServer&amp;gt; &amp;lt;staticContent&amp;gt; &amp;lt;mimeMap fileExtension=&amp;#34;.apk&amp;#34; mimeType=&amp;#34;application / vnd.android.package-archive&amp;#34;/&amp;gt; &amp;lt;/staticContent&amp;gt; &amp;lt;/system.webServer&amp;gt; 參考連結   url1   </description>
+    </item>
+    
+    <item>
+      <title>Oracle function select效能</title>
+      <link>https://hushuuu.github.io/2022/12/18/oracle-function-select%E6%95%88%E8%83%BD/</link>
+      <pubDate>Sun, 18 Dec 2022 17:50:19 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2022/12/18/oracle-function-select%E6%95%88%E8%83%BD/</guid>
+      <description>前言 使用Oracle function的時候，使用的方式的效能差異，先說結論是子查詢會快上許多。
+直接call function 舉例有一個function funcA傳入tableA表的col1,col2欄位比大小，左邊大回傳1否則2，找col2&amp;gt;col1的結果集
+select * from tableA where funcA(col1,col2)=2 子查詢 select * from tableA where (select funcA(col1,col2) from dual)=2 效能 根據參考文章，可以加快效能的原因是，Oracle 會為 SELECT 出現的 Scalar Subquery (只傳回單一值的子查詢) 在記憶體建立一個 Hashtable，整理不同參數與查詢結果的對應表。若參數欄位值先前出現過，即可直接由 Hashtable 取值不用重新計算。
+參考連結   url1   </description>
+    </item>
+    
     <item>
       <title>WinForm列印PrintDocument</title>
       <link>https://hushuuu.github.io/2022/04/12/winform%E5%88%97%E5%8D%B0printdocument/</link>
@@ -723,12 +761,50 @@ public class CheckAccountAttribute : ValidationAttribute { protected override Va
     </item>
     
     <item>
+      <title>Markdown Syntax Guide</title>
+      <link>https://hushuuu.github.io/2019/03/11/markdown-syntax-guide/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://hushuuu.github.io/2019/03/11/markdown-syntax-guide/</guid>
+      <description>&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Rich Content</title>
+      <link>https://hushuuu.github.io/2019/03/10/rich-content/</link>
+      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://hushuuu.github.io/2019/03/10/rich-content/</guid>
+      <description>&lt;p&gt;Hugo ships with several &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugo-s-built-in-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Built-in Shortcodes&lt;/a&gt; for rich content, along with a &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/about/hugo-and-gdpr/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Privacy Config&lt;/a&gt; and a set of Simple Shortcodes that enable static and no-JS versions of various social media embeds.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Placeholder Text</title>
       <link>https://hushuuu.github.io/2019/03/09/placeholder-text/</link>
       <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://hushuuu.github.io/2019/03/09/placeholder-text/</guid>
       <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Math Typesetting</title>
+      <link>https://hushuuu.github.io/2019/03/08/math-typesetting/</link>
+      <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://hushuuu.github.io/2019/03/08/math-typesetting/</guid>
+      <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Emoji Support</title>
+      <link>https://hushuuu.github.io/2019/03/05/emoji-support/</link>
+      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://hushuuu.github.io/2019/03/05/emoji-support/</guid>
+      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
     </item>
     
   </channel>

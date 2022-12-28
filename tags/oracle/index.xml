@@ -6,7 +6,19 @@
     <description>Recent content in Oracle on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 23 Nov 2021 15:07:03 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/oracle/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Dec 2022 17:50:19 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/oracle/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Oracle function select效能</title>
+      <link>https://hushuuu.github.io/2022/12/18/oracle-function-select%E6%95%88%E8%83%BD/</link>
+      <pubDate>Sun, 18 Dec 2022 17:50:19 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2022/12/18/oracle-function-select%E6%95%88%E8%83%BD/</guid>
+      <description>前言 使用Oracle function的時候，使用的方式的效能差異，先說結論是子查詢會快上許多。
+直接call function 舉例有一個function funcA傳入tableA表的col1,col2欄位比大小，左邊大回傳1否則2，找col2&amp;gt;col1的結果集
+select * from tableA where funcA(col1,col2)=2 子查詢 select * from tableA where (select funcA(col1,col2) from dual)=2 效能 根據參考文章，可以加快效能的原因是，Oracle 會為 SELECT 出現的 Scalar Subquery (只傳回單一值的子查詢) 在記憶體建立一個 Hashtable，整理不同參數與查詢結果的對應表。若參數欄位值先前出現過，即可直接由 Hashtable 取值不用重新計算。
+參考連結   url1   </description>
+    </item>
+    
     <item>
       <title>完整刪除Oracle</title>
       <link>https://hushuuu.github.io/2021/11/23/%E5%AE%8C%E6%95%B4%E5%88%AA%E9%99%A4oracle/</link>

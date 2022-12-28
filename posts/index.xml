@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Example Site</title>
-    <link>https://example.com/posts/</link>
-    <description>Recent content in Posts on Example Site</description>
+    <title>Posts on The Site</title>
+    <link>https://hushuuu.github.io/posts/</link>
+    <description>Recent content in Posts on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 Mar 2021 15:16:07 +0800</lastBuildDate><atom:link href="https://example.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Dec 2022 13:36:11 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>One Post</title>
-      <link>https://example.com/posts/one-post/</link>
-      <pubDate>Fri, 12 Mar 2021 15:16:07 +0800</pubDate>
+      <title>Test</title>
+      <link>https://hushuuu.github.io/posts/test/</link>
+      <pubDate>Wed, 28 Dec 2022 13:36:11 +0800</pubDate>
       
-      <guid>https://example.com/posts/one-post/</guid>
-      <description>##hi #hi</description>
+      <guid>https://hushuuu.github.io/posts/test/</guid>
+      <description></description>
     </item>
     
   </channel>

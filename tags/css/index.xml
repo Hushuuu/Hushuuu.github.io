@@ -17,5 +17,14 @@
 &amp;lt;div class=&amp;#34;navbar-collapse collapse&amp;#34;&amp;gt; &amp;lt;ul class=&amp;#34;nav navbar-nav&amp;#34;&amp;gt; &amp;lt;li class=&amp;#34;dropdown&amp;#34;&amp;gt; &amp;lt;a href=&amp;#34;#&amp;#34; data-toggle=&amp;#34;dropdown&amp;#34;&amp;gt;選單2&amp;lt;b class=&amp;#34;caret&amp;#34;&amp;gt;&amp;lt;/b&amp;gt;&amp;lt;/a&amp;gt; &amp;lt;ul class=&amp;#34;dropdown-menu&amp;#34;&amp;gt; &amp;lt;li class=&amp;#34;dropdown-submenu&amp;#34;&amp;gt; &amp;lt;a href=&amp;#34;#&amp;#34; data-toggle=&amp;#34;dropdown&amp;#34;&amp;gt;次選單2&amp;lt;/a&amp;gt; &amp;lt;ul class=&amp;#34;dropdown-menu&amp;#34;&amp;gt; &amp;lt;li class=&amp;#34;dropdown-submenu&amp;#34;&amp;gt; &amp;lt;a href=&amp;#34;#&amp;#34; data-toggle=&amp;#34;dropdown&amp;#34;&amp;gt;次次選單3&amp;lt;/a&amp;gt; &amp;lt;ul class=&amp;#34;dropdown-menu&amp;#34;&amp;gt; &amp;lt;li&amp;gt;&amp;lt;a href=&amp;#34;#&amp;#34;&amp;gt;次次次選單1&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/div&amp;gt; /*多層下拉選單設定*/ .dropdown-submenu { position: relative; } .dropdown-submenu &amp;gt; .dropdown-menu { top: 0; left: 100%; margin-top: -6px; margin-left: -1px; -webkit-border-radius: 0 6px 6px 6px; -moz-border-radius: 0 6px 6px 6px; border-radius: 0 6px 6px 6px; } .</description>
     </item>
     
+    <item>
+      <title>Markdown Syntax Guide</title>
+      <link>https://hushuuu.github.io/2019/03/11/markdown-syntax-guide/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://hushuuu.github.io/2019/03/11/markdown-syntax-guide/</guid>
+      <description>&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;</description>
+    </item>
+    
   </channel>
 </rss>
