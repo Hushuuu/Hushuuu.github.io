@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blazor on The Site</title>
+    <link>https://hushuuu.github.io/categories/blazor/</link>
+    <description>Recent content in Blazor on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 20 Apr 2023 15:19:02 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/blazor/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Blazor Server Iis部屬</title>
+      <link>https://hushuuu.github.io/2023/04/20/blazor-server-iis%E9%83%A8%E5%B1%AC/</link>
+      <pubDate>Thu, 20 Apr 2023 15:19:02 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2023/04/20/blazor-server-iis%E9%83%A8%E5%B1%AC/</guid>
+      <description>前言 如果部屬使用網站的方式，網站路徑不會帶有應用程式別名
+localhost:0000/ 但如果要掛在網站下的應用程式部屬，網站根路徑就會帶有應用程式名稱
+localhost:7128/MyBlazorApp 部屬後，原先開發時的導向亂掉了，連靜態檔案/js/css載入也失敗
+因為部屬環境與開發環境差了一層應用程式名的關係
+專案設定 步驟1 : _Layout.cshtml
+找到 &amp;lt;base href=&amp;#34;~/&amp;#34;/&amp;gt; 改為 &amp;lt;base href=&amp;#34;/MyBlazorApp/&amp;#34;/&amp;gt; 步驟2 : Program.cs
+app.UsePathBase(&amp;#34;/MyBlazorApp&amp;#34;); //UseStaticFiles在上面加上 UseStaticFiles() 步驟3 : 開發環境預設啟動URL Properties/launchSettings.json
+&amp;#34;profiles&amp;#34;: { &amp;#34;MyBlazorApp&amp;#34;: { &amp;#34;commandName&amp;#34;: &amp;#34;Project&amp;#34;, &amp;#34;dotnetRunMessages&amp;#34;: true, &amp;#34;launchBrowser&amp;#34;: true, &amp;#34;applicationUrl&amp;#34;: &amp;#34;https://localhost:7128;http://localhost:5258&amp;#34;, &amp;#34;launchUrl&amp;#34;: &amp;#34;https://localhost:7128/MyBlazorApp&amp;#34;, //加上這行 &amp;#34;environmentVariables&amp;#34;: { &amp;#34;ASPNETCORE_ENVIRONMENT&amp;#34;: &amp;#34;Development&amp;#34; } } } IIS部屬設定 IIS部屬的名稱大小寫要一致，否則也會請求失敗
+其他  引入css script的相對路徑 開頭不加任何~/
+ex: &amp;lt;script src=&amp;quot;js/jquery-3.6.3.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+ &amp;lt;link href=&amp;quot;css/site.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot; /&amp;gt; Razor Page 導向NavigateTo直接打元件名稱，不加/
+ex:NavigationManager.NavigateTo(&amp;quot;Login&amp;quot;,true); 使用LocalRedirect 帶 ~/</description>
+    </item>
+    
+  </channel>
+</rss>

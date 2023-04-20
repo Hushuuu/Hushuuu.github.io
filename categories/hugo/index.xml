@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hugo on The Site</title>
+    <link>https://hushuuu.github.io/categories/hugo/</link>
+    <description>Recent content in hugo on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 19 Apr 2023 16:01:04 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo發文</title>
+      <link>https://hushuuu.github.io/2023/04/19/hugo%E7%99%BC%E6%96%87/</link>
+      <pubDate>Wed, 19 Apr 2023 16:01:04 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2023/04/19/hugo%E7%99%BC%E6%96%87/</guid>
+      <description>主要內容 建立文章範本指令
+hugo new post/XXX/XXX.md 編譯建置
+hugo server hugo server -D hugo -D 參考連結   url1   </description>
+    </item>
+    
+  </channel>
+</rss>
