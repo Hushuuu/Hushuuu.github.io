@@ -45,7 +45,8 @@
 &lt;h2 id=&#34;其他&#34;&gt;其他&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;引入css script的相對路徑 開頭不加任何&lt;code&gt;~/&lt;/code&gt;&lt;br&gt;
-ex:&lt;code&gt; &amp;lt;script src=&amp;quot;js/jquery-3.6.3.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;`` &amp;lt;link href=&amp;quot;css/site.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot; /&amp;gt;&lt;/code&gt;&lt;/li&gt;
+ex:&lt;code&gt; &amp;lt;script src=&amp;quot;js/jquery-3.6.3.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;&lt;/code&gt;&lt;br&gt;
+&lt;code&gt; &amp;lt;link href=&amp;quot;css/site.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot; /&amp;gt;&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Razor Page 導向&lt;code&gt;NavigateTo&lt;/code&gt;直接打元件名稱，不加&lt;code&gt;/&lt;/code&gt;&lt;br&gt;
 ex:&lt;code&gt;NavigationManager.NavigateTo(&amp;quot;Login&amp;quot;,true);&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;使用LocalRedirect 帶 &lt;code&gt;~/&lt;/code&gt;&lt;br&gt;

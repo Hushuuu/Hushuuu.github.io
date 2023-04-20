@@ -22,7 +22,8 @@ localhost:7128/MyBlazorApp 部屬後，原先開發時的導向亂掉了，連�
 app.UsePathBase(&amp;#34;/MyBlazorApp&amp;#34;); //UseStaticFiles在上面加上 UseStaticFiles() 步驟3 : 開發環境預設啟動URL Properties/launchSettings.json
 &amp;#34;profiles&amp;#34;: { &amp;#34;MyBlazorApp&amp;#34;: { &amp;#34;commandName&amp;#34;: &amp;#34;Project&amp;#34;, &amp;#34;dotnetRunMessages&amp;#34;: true, &amp;#34;launchBrowser&amp;#34;: true, &amp;#34;applicationUrl&amp;#34;: &amp;#34;https://localhost:7128;http://localhost:5258&amp;#34;, &amp;#34;launchUrl&amp;#34;: &amp;#34;https://localhost:7128/MyBlazorApp&amp;#34;, //加上這行 &amp;#34;environmentVariables&amp;#34;: { &amp;#34;ASPNETCORE_ENVIRONMENT&amp;#34;: &amp;#34;Development&amp;#34; } } } IIS部屬設定 IIS部屬的名稱大小寫要一致，否則也會請求失敗
 其他  引入css script的相對路徑 開頭不加任何~/
-ex: &amp;lt;script src=&amp;quot;js/jquery-3.6.3.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;`` &amp;lt;link href=&amp;quot;css/site.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot; /&amp;gt; Razor Page 導向NavigateTo直接打元件名稱，不加/
+ex: &amp;lt;script src=&amp;quot;js/jquery-3.6.3.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+ &amp;lt;link href=&amp;quot;css/site.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot; /&amp;gt; Razor Page 導向NavigateTo直接打元件名稱，不加/
 ex:NavigationManager.NavigateTo(&amp;quot;Login&amp;quot;,true); 使用LocalRedirect 帶 ~/</description>
     </item>
     
