@@ -6,7 +6,52 @@
     <description>Recent content in Posts on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Dec 2022 16:01:15 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 Apr 2023 15:19:02 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Blazor Server Iis部屬</title>
+      <link>https://hushuuu.github.io/2023/04/20/blazor-server-iis%E9%83%A8%E5%B1%AC/</link>
+      <pubDate>Thu, 20 Apr 2023 15:19:02 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2023/04/20/blazor-server-iis%E9%83%A8%E5%B1%AC/</guid>
+      <description>前言 如果部屬使用網站的方式，網站路徑不會帶有應用程式別名
+localhost:0000/ 但如果要掛在網站下的應用程式部屬，網站根路徑就會帶有應用程式名稱
+localhost:7128/MyBlazorApp 部屬後，原先開發時的導向亂掉了，連靜態檔案/js/css載入也失敗
+因為部屬環境與開發環境差了一層應用程式名的關係
+專案設定 步驟1 : _Layout.cshtml
+找到 &amp;lt;base href=&amp;#34;~/&amp;#34;/&amp;gt; 改為 &amp;lt;base href=&amp;#34;/MyBlazorApp/&amp;#34;/&amp;gt; 步驟2 : Program.cs
+app.UsePathBase(&amp;#34;/MyBlazorApp&amp;#34;); //UseStaticFiles在上面加上 UseStaticFiles() 步驟3 : 開發環境預設啟動URL Properties/launchSettings.json
+&amp;#34;profiles&amp;#34;: { &amp;#34;MyBlazorApp&amp;#34;: { &amp;#34;commandName&amp;#34;: &amp;#34;Project&amp;#34;, &amp;#34;dotnetRunMessages&amp;#34;: true, &amp;#34;launchBrowser&amp;#34;: true, &amp;#34;applicationUrl&amp;#34;: &amp;#34;https://localhost:7128;http://localhost:5258&amp;#34;, &amp;#34;launchUrl&amp;#34;: &amp;#34;https://localhost:7128/MyBlazorApp&amp;#34;, //加上這行 &amp;#34;environmentVariables&amp;#34;: { &amp;#34;ASPNETCORE_ENVIRONMENT&amp;#34;: &amp;#34;Development&amp;#34; } } } IIS部屬設定 IIS部屬的名稱大小寫要一致，否則也會請求失敗
+其他  引入css script的相對路徑 開頭不加任何~/
+ex: &amp;lt;script src=&amp;quot;js/jquery-3.6.3.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;`` &amp;lt;link href=&amp;quot;css/site.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot; /&amp;gt; Razor Page 導向NavigateTo直接打元件名稱，不加/
+ex:NavigationManager.NavigateTo(&amp;quot;Login&amp;quot;,true); 使用LocalRedirect 帶 ~/</description>
+    </item>
+    
+    <item>
+      <title>Hugo發文</title>
+      <link>https://hushuuu.github.io/2023/04/19/hugo%E7%99%BC%E6%96%87/</link>
+      <pubDate>Wed, 19 Apr 2023 16:01:04 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2023/04/19/hugo%E7%99%BC%E6%96%87/</guid>
+      <description>主要內容 建立文章範本指令
+hugo new post/XXX/XXX.md 編譯建置
+hugo server hugo server -D hugo -D 參考連結   url1   </description>
+    </item>
+    
+    <item>
+      <title>Jquery Datepicker日期選單沒出現或沒反應</title>
+      <link>https://hushuuu.github.io/2022/12/28/jquery-datepicker%E6%97%A5%E6%9C%9F%E9%81%B8%E5%96%AE%E6%B2%92%E5%87%BA%E7%8F%BE%E6%88%96%E6%B2%92%E5%8F%8D%E6%87%89/</link>
+      <pubDate>Wed, 28 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://hushuuu.github.io/2022/12/28/jquery-datepicker%E6%97%A5%E6%9C%9F%E9%81%B8%E5%96%AE%E6%B2%92%E5%87%BA%E7%8F%BE%E6%88%96%E6%B2%92%E5%8F%8D%E6%87%89/</guid>
+      <description>前言 在使用jquery datepicker的時候遇到了日期選單沒出現沒反應的問題
+原本以為是瀏覽器的關係。後來找到原因是選單產生的位置不對
+可能是瀏覽器的文字縮放比例或是系統的縮放造成
+主要內容 根據參考資料，只要在beforeShow加上自訂的判斷來計算偏移的offset
+即可解決此問題
+function setDatepickerPos(input, inst) { var rect = input.getBoundingClientRect(); // use &amp;#39;setTimeout&amp;#39; to prevent effect overridden by other scripts  setTimeout(function () { var scrollTop = $(&amp;#34;body&amp;#34;).scrollTop(); inst.dpDiv.css({ top: rect.top + input.offsetHeight + scrollTop }); }, 0); } $(&amp;#39;#MyDatepicker&amp;#39;).datepicker({ dateFormat: &amp;#34;yy-mm-dd&amp;#34;, changeMonth: true, changeYear: true, defaultDate: +0, inline: true, beforeShow: function (input, inst) { setDatepickerPos(input, inst) }, }); 小結 之後再另外整併將jquery datepicker包進vue的conpoment版本
+參考連結   url1   </description>
+    </item>
+    
     <item>
       <title>IIS Allow Download Apk</title>
       <link>https://hushuuu.github.io/2022/12/19/iis-allow-download-apk/</link>
@@ -746,12 +791,50 @@ public class CheckAccountAttribute : ValidationAttribute { protected override Va
     </item>
     
     <item>
+      <title>Markdown Syntax Guide</title>
+      <link>https://hushuuu.github.io/2019/03/11/markdown-syntax-guide/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://hushuuu.github.io/2019/03/11/markdown-syntax-guide/</guid>
+      <description>&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Rich Content</title>
+      <link>https://hushuuu.github.io/2019/03/10/rich-content/</link>
+      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://hushuuu.github.io/2019/03/10/rich-content/</guid>
+      <description>&lt;p&gt;Hugo ships with several &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugo-s-built-in-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Built-in Shortcodes&lt;/a&gt; for rich content, along with a &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/about/hugo-and-gdpr/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Privacy Config&lt;/a&gt; and a set of Simple Shortcodes that enable static and no-JS versions of various social media embeds.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Placeholder Text</title>
       <link>https://hushuuu.github.io/2019/03/09/placeholder-text/</link>
       <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://hushuuu.github.io/2019/03/09/placeholder-text/</guid>
       <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Math Typesetting</title>
+      <link>https://hushuuu.github.io/2019/03/08/math-typesetting/</link>
+      <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://hushuuu.github.io/2019/03/08/math-typesetting/</guid>
+      <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Emoji Support</title>
+      <link>https://hushuuu.github.io/2019/03/05/emoji-support/</link>
+      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://hushuuu.github.io/2019/03/05/emoji-support/</guid>
+      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
     </item>
     
   </channel>
