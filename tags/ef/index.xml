@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>EF on The Site</title>
+    <link>https://hushuuu.github.io/tags/ef/</link>
+    <description>Recent content in EF on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 20 Jun 2023 16:21:12 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/ef/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Blazor正確使用EFContext</title>
+      <link>https://hushuuu.github.io/2023/06/20/blazor%E6%AD%A3%E7%A2%BA%E4%BD%BF%E7%94%A8efcontext/</link>
+      <pubDate>Tue, 20 Jun 2023 16:21:12 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2023/06/20/blazor%E6%AD%A3%E7%A2%BA%E4%BD%BF%E7%94%A8efcontext/</guid>
+      <description>前言 Blazor在使用EF Context要特別注意生命週期
+一般的注入方式services.AddDbContext
+預設的生命週期是Scoped
+在每個客戶端請求連線時，建立一個新的實例
+但是在Blazor中即使換頁，並不會重新請求重載頁面
+代表兩個畫面之間注入的DbContext是同一個
+與一般開發MVC時每個Action都會建立新的實體不同
+如有嚴謹的DbContext的追蹤與變更則不太會有問題
+但避免有例外情況，例如在不同頁面的存檔卻導致改到了非預期的資料表
+當下就很難找出問題點了!!!
+Solution1 Transient 在注入DbContext時選擇生命週期Transient 每次要求元件時就建立一個新的
+缺點並未實測。
+//program.cs { services.AddDbContext&amp;lt;TpmcDbContext&amp;gt;(options =&amp;gt; options.UseOracle() ,contextLifetime: ServiceLifetime.Transient); } Solution2 DbContextFactory 注入ContextFactory，在Action中使用再建立Context
+//program.cs //lifeTime預設是singleton永久共用 { builder.Services.AddDbContextFactory&amp;lt;&amp;gt;(); } //XXXX.razor [Inject] public IDbContextFactory&amp;lt;TpmcDbContext&amp;gt; _contextFactory { get; set; } async Task RefreshData() { using var db = _contextFactory.CreateDbContext(); var list = db.TableA.ToList(); } 參考連結   url1 url2   </description>
+    </item>
+    
+  </channel>
+</rss>

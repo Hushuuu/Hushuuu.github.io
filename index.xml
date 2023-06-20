@@ -6,7 +6,99 @@
         <description>Recent content on The Site</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 20 Apr 2023 15:19:02 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 20 Jun 2023 16:21:12 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Blazor正確使用EFContext</title>
+        <link>https://hushuuu.github.io/2023/06/20/blazor%E6%AD%A3%E7%A2%BA%E4%BD%BF%E7%94%A8efcontext/</link>
+        <pubDate>Tue, 20 Jun 2023 16:21:12 +0800</pubDate>
+        
+        <guid>https://hushuuu.github.io/2023/06/20/blazor%E6%AD%A3%E7%A2%BA%E4%BD%BF%E7%94%A8efcontext/</guid>
+        <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Blazor&lt;/code&gt;在使用&lt;code&gt;EF Context&lt;/code&gt;要特別注意生命週期&lt;/p&gt;
+&lt;p&gt;一般的注入方式&lt;code&gt;services.AddDbContext&lt;/code&gt;&lt;br&gt;
+預設的生命週期是&lt;code&gt;Scoped&lt;/code&gt;&lt;br&gt;
+在每個客戶端請求連線時，建立一個新的實例&lt;/p&gt;
+&lt;p&gt;但是在&lt;code&gt;Blazor&lt;/code&gt;中即使換頁，並不會重新請求重載頁面&lt;br&gt;
+代表兩個畫面之間注入的&lt;code&gt;DbContext&lt;/code&gt;是同一個&lt;br&gt;
+與一般開發MVC時每個&lt;code&gt;Action&lt;/code&gt;都會建立新的實體不同&lt;/p&gt;
+&lt;p&gt;如有嚴謹的&lt;code&gt;DbContext&lt;/code&gt;的追蹤與變更則不太會有問題&lt;br&gt;
+但避免有例外情況，例如在不同頁面的存檔卻導致改到了非預期的資料表&lt;br&gt;
+當下就很難找出問題點了!!!&lt;/p&gt;
+&lt;h2 id=&#34;solution1-transient&#34;&gt;Solution1 Transient&lt;/h2&gt;
+&lt;p&gt;在注入&lt;code&gt;DbContext&lt;/code&gt;時選擇生命週期&lt;code&gt;Transient&lt;/code&gt; 
+每次要求元件時就建立一個新的&lt;br&gt;
+缺點並未實測。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//program.cs
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;services&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AddDbContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TpmcDbContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;options&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UseOracle&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;contextLifetime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServiceLifetime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Transient&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;solution2-dbcontextfactory&#34;&gt;Solution2 DbContextFactory&lt;/h2&gt;
+&lt;p&gt;注入&lt;code&gt;ContextFactory&lt;/code&gt;，在&lt;code&gt;Action&lt;/code&gt;中使用再建立&lt;code&gt;Context&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//program.cs
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//lifeTime預設是singleton永久共用
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Services&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AddDbContextFactory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//XXXX.razor
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt; [Inject]&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IDbContextFactory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TpmcDbContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_contextFactory&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+ &lt;span class=&#34;k&#34;&gt;async&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Task&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;RefreshData&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;db&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_contextFactory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CreateDbContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;kt&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;list&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;db&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TableA&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ToList&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;參考連結&#34;&gt;參考連結&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=aaQsmkh1BkQ&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;url1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://learn.microsoft.com/en-us/aspnet/core/blazor/blazor-server-ef-core?view=aspnetcore-7.0&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;url2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+</description>
+        </item>
+        <item>
+        <title>Oracle使用impdp/expdp來備份</title>
+        <link>https://hushuuu.github.io/2023/06/20/oracle%E4%BD%BF%E7%94%A8impdp/expdp%E4%BE%86%E5%82%99%E4%BB%BD/</link>
+        <pubDate>Tue, 20 Jun 2023 15:47:46 +0800</pubDate>
+        
+        <guid>https://hushuuu.github.io/2023/06/20/oracle%E4%BD%BF%E7%94%A8impdp/expdp%E4%BE%86%E5%82%99%E4%BB%BD/</guid>
+        <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;使用Oracle Data Pump來匯入匯出資料庫&lt;br&gt;
+impdp/expdp只能在Server端執行，Client端不可用&lt;/p&gt;
+&lt;h2 id=&#34;匯出impdp&#34;&gt;匯出Impdp&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;登入sqlplus建立目錄並授權&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;SQL: sqlplus /nolog
+: connect sys/password@localhost/xxx as sysdba
+: create directory 資料夾定義名稱 as &lt;span class=&#34;s1&#34;&gt;&amp;#39;資料夾路徑&amp;#39;&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt;建立目錄
+&amp;gt;&amp;gt;&amp;gt;查詢目錄
+: &lt;span class=&#34;k&#34;&gt;select&lt;/span&gt; * from dba_directories
+&amp;gt;&amp;gt;&amp;gt;授權
+: GRANT READ,WRITE ON DIRECTORY 資料夾定義名稱 TO 使用者&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt;匯出
+: expdp sys/password &lt;span class=&#34;nv&#34;&gt;SCHEMAS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;使用者 &lt;span class=&#34;nv&#34;&gt;DIRECTORY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;資料夾定義名稱 &lt;span class=&#34;nv&#34;&gt;DUMPFILE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;oooooo.dmp : : : &lt;span class=&#34;nv&#34;&gt;LOGFILE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;oooo.log
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;匯入impdp&#34;&gt;匯入impdp&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;SQL: impdp 帳號/密碼 &lt;span class=&#34;nv&#34;&gt;DIRECTORY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;資料夾定義名稱 &lt;span class=&#34;nv&#34;&gt;DUMPFILE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;dmp檔案
+: &lt;span class=&#34;nv&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;data_only只匯資料 
+: &lt;span class=&#34;nv&#34;&gt;remap_schema&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;A:B 從A schema改到B
+: &lt;span class=&#34;nv&#34;&gt;table_exists_action&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;table存在的處置
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;小結&#34;&gt;小結&lt;/h2&gt;
+&lt;p&gt;實際在操作中會有不同情況需要調整指令&lt;br&gt;
+本次只嘗試data_only的方式，把資料匯進不同db&lt;/p&gt;
+&lt;h2 id=&#34;參考連結&#34;&gt;參考連結&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/promise-x/p/7477360.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;url1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+</description>
+        </item>
+        <item>
         <title>Blazor Server Iis部屬</title>
         <link>https://hushuuu.github.io/2023/04/20/blazor-server-iis%E9%83%A8%E5%B1%AC/</link>
         <pubDate>Thu, 20 Apr 2023 15:19:02 +0800</pubDate>
