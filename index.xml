@@ -6,7 +6,70 @@
         <description>Recent content on The Site</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 20 Jun 2023 16:21:12 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 11 Jul 2023 08:42:15 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Nginx開始使用</title>
+        <link>https://hushuuu.github.io/2023/07/11/nginx%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/</link>
+        <pubDate>Tue, 11 Jul 2023 08:42:15 +0800</pubDate>
+        
+        <guid>https://hushuuu.github.io/2023/07/11/nginx%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/</guid>
+        <description>&lt;h2 id=&#34;指令&#34;&gt;指令&lt;/h2&gt;
+&lt;p&gt;開啟程式點擊&lt;code&gt;nginx.exe&lt;/code&gt;&lt;br&gt;
+或&lt;code&gt;$ start nginx&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;重載 Nginx 設定檔&amp;amp;啟動&lt;br&gt;
+&lt;code&gt;$ nginx -s reload&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;停止 Nginx&lt;br&gt;
+&lt;code&gt;$ nginx -s stop&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;測試 Nginx 的設定檔並顯示狀態&lt;br&gt;
+&lt;code&gt;$ nginx -t&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;設定檔&#34;&gt;設定檔&lt;/h2&gt;
+&lt;p&gt;Nginx預設設定檔位置在&lt;code&gt;\conf\nginx.conf&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-conf&#34; data-lang=&#34;conf&#34;&gt; server{
+	listen	8100; #監聽port
+	server_name	localhost; #server網址
+	
+	location / { #網址判讀 / or xxx/
+            root   D:\MVC\2023\MyVueTest1\vueapp\dist; #根目錄位址
+            index  index.html index.htm; #頁面
+	        try_files $uri $uri/ /index.html; #vue spa使用這行來處理頁面導回index
+        }
+
+    }
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;平衡附載&#34;&gt;平衡附載&lt;/h2&gt;
+&lt;p&gt;在&lt;code&gt;config&lt;/code&gt;設定&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-conf&#34; data-lang=&#34;conf&#34;&gt; upstream ServiceInstance{  
+    #透過upstream 節點定義多個server來使用，實現平衡負載
+    #可設定權重weight/ip_hash等參數
+    server localhost:9529;  
+	server localhost:9530; 
+    } 
+    server{
+	listen	8099; #監聽port
+	server_name	localhost; #server網址
+	
+	location / { #網址判讀 / or xxx/
+            proxy_pass http://ServiceInstance/ ; #proxy代理轉處理
+        }
+
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;常見錯誤&#34;&gt;常見錯誤&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;啟動錯誤An attempt was made to access a socket in a way forbidden by its access permissions&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;可以先排查哪個process占用了要監聽的port&lt;br&gt;
+&lt;code&gt;$ netstat -aon | findstr &amp;quot;1234&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;若找不清楚可以試重啟 WinNAT 服務&lt;br&gt;
+&lt;code&gt;net stop winnat&lt;/code&gt;
+&lt;code&gt;net start winnat&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;參考連結&#34;&gt;參考連結&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://hoohoo.top/blog/nignx-module-upstream-simple-load-balancing/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;url1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+</description>
+        </item>
+        <item>
         <title>Blazor正確使用EFContext</title>
         <link>https://hushuuu.github.io/2023/06/20/blazor%E6%AD%A3%E7%A2%BA%E4%BD%BF%E7%94%A8efcontext/</link>
         <pubDate>Tue, 20 Jun 2023 16:21:12 +0800</pubDate>
