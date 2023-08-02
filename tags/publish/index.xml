@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>publish on The Site</title>
+    <link>https://hushuuu.github.io/tags/publish/</link>
+    <description>Recent content in publish on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 11 Jul 2023 08:42:15 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/publish/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nginx開始使用</title>
+      <link>https://hushuuu.github.io/2023/07/11/nginx%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 11 Jul 2023 08:42:15 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2023/07/11/nginx%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/</guid>
+      <description>指令 開啟程式點擊nginx.exe
+或$ start nginx
+重載 Nginx 設定檔&amp;amp;啟動
+$ nginx -s reload
+停止 Nginx
+$ nginx -s stop
+測試 Nginx 的設定檔並顯示狀態
+$ nginx -t
+設定檔 Nginx預設設定檔位置在\conf\nginx.conf
+server{listen	8100; #監聽portserver_name	localhost; #server網址location / { #網址判讀 / or xxx/root D:\MVC\2023\MyVueTest1\vueapp\dist; #根目錄位址index index.html index.htm; #頁面try_files $uri $uri/ /index.html; #vue spa使用這行來處理頁面導回index}}平衡附載 在config設定
+upstream ServiceInstance{ #透過upstream 節點定義多個server來使用，實現平衡負載#可設定權重weight/ip_hash等參數server localhost:9529; server localhost:9530; } server{listen	8099; #監聽portserver_name	localhost; #server網址location / { #網址判讀 / or xxx/proxy_pass http://ServiceInstance/ ; #proxy代理轉處理}}常見錯誤 啟動錯誤An attempt was made to access a socket in a way forbidden by its access permissions</description>
+    </item>
+    
+  </channel>
+</rss>

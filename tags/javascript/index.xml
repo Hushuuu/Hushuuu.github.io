@@ -6,7 +6,21 @@
     <description>Recent content in Javascript on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 25 Feb 2022 14:25:43 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Aug 2023 15:22:07 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ajax非同步接收blob結果下載檔案</title>
+      <link>https://hushuuu.github.io/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/</link>
+      <pubDate>Tue, 01 Aug 2023 15:22:07 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/</guid>
+      <description>前言 一般下載檔案常見使用開新頁面請求回傳檔案的方式
+非同步的請求也可以正確接收檔案觸發瀏覽器下載
+透過接收Blob型別的response來解析
+主要內容 axios
+axios.get(&amp;#39;url&amp;#39;,{responseType: &amp;#39;blob&amp;#39; }) .then(res =&amp;gt; { const { headers, data } = res, blob = new Blob([data]) ; let fname = &amp;#39;samp.txt&amp;#39; const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結  const a = document.createElement(&amp;#39;a&amp;#39;); a.style.display = &amp;#39;none&amp;#39;; a.href = url; a.download = fname; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }); fetch
+fetch(&amp;#39;url&amp;#39;) .then(resp =&amp;gt; resp.blob()) .then(blob =&amp;gt; { const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結  const a = document.</description>
+    </item>
+    
     <item>
       <title>Vue Component(modal)</title>
       <link>https://hushuuu.github.io/2022/02/25/vue-componentmodal/</link>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 一般下載檔案常見使用開新頁面請求回傳檔案的方式
+非同步的請求也可以正確接收檔案觸發瀏覽器下載
+透過接收Blob型別的response來解析
+主要內容 axios
+axios.get(&amp;#39;url&amp;#39;,{responseType: &amp;#39;blob&amp;#39; }) .then(res =&amp;gt; { const { headers, data } = res, blob = new Blob([data]) ; let fname = &amp;#39;samp.txt&amp;#39; const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結  const a = document.createElement(&amp;#39;a&amp;#39;); a.style.display = &amp;#39;none&amp;#39;; a.href = url; a.download = fname; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }); fetch
+fetch(&amp;#39;url&amp;#39;) .then(resp =&amp;gt; resp.blob()) .then(blob =&amp;gt; { const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結  const a = document.'><title>Ajax非同步接收blob結果下載檔案</title>
+
+<link rel='canonical' href='https://hushuuu.github.io/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Ajax非同步接收blob結果下載檔案'>
+<meta property='og:description' content='前言 一般下載檔案常見使用開新頁面請求回傳檔案的方式
+非同步的請求也可以正確接收檔案觸發瀏覽器下載
+透過接收Blob型別的response來解析
+主要內容 axios
+axios.get(&amp;#39;url&amp;#39;,{responseType: &amp;#39;blob&amp;#39; }) .then(res =&amp;gt; { const { headers, data } = res, blob = new Blob([data]) ; let fname = &amp;#39;samp.txt&amp;#39; const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結  const a = document.createElement(&amp;#39;a&amp;#39;); a.style.display = &amp;#39;none&amp;#39;; a.href = url; a.download = fname; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }); fetch
+fetch(&amp;#39;url&amp;#39;) .then(resp =&amp;gt; resp.blob()) .then(blob =&amp;gt; { const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結  const a = document.'>
+<meta property='og:url' content='https://hushuuu.github.io/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/'>
+<meta property='og:site_name' content='The Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Ajax' /><meta property='article:tag' content='JavaScript' /><meta property='article:published_time' content='2023-08-01T15:22:07&#43;08:00'/><meta property='article:modified_time' content='2023-08-01T15:22:07&#43;08:00'/>
+<meta name="twitter:title" content="Ajax非同步接收blob結果下載檔案">
+<meta name="twitter:description" content="前言 一般下載檔案常見使用開新頁面請求回傳檔案的方式
+非同步的請求也可以正確接收檔案觸發瀏覽器下載
+透過接收Blob型別的response來解析
+主要內容 axios
+axios.get(&amp;#39;url&amp;#39;,{responseType: &amp;#39;blob&amp;#39; }) .then(res =&amp;gt; { const { headers, data } = res, blob = new Blob([data]) ; let fname = &amp;#39;samp.txt&amp;#39; const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結  const a = document.createElement(&amp;#39;a&amp;#39;); a.style.display = &amp;#39;none&amp;#39;; a.href = url; a.download = fname; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }); fetch
+fetch(&amp;#39;url&amp;#39;) .then(resp =&amp;gt; resp.blob()) .then(blob =&amp;gt; { const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結  const a = document.">
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切換菜單">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h2 class="site-description">紀錄一些筆記。</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首頁</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E9%97%9C%E6%96%BC/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>關於</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>封存</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜尋</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>深色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://hushuuu.github.io/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ajax/" >
+                Ajax
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/">Ajax非同步接收blob結果下載檔案</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">2023-08-01</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="前言">前言</h2>
+<p>一般下載檔案常見使用開新頁面請求回傳檔案的方式<br>
+非同步的請求也可以正確接收檔案觸發瀏覽器下載<br>
+透過接收Blob型別的response來解析</p>
+<h2 id="主要內容">主要內容</h2>
+<p><code>axios</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,{</span><span class="nx">responseType</span><span class="o">:</span> <span class="s1">&#39;blob&#39;</span> <span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="p">{</span> <span class="nx">headers</span><span class="p">,</span> <span class="nx">data</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">res</span><span class="p">,</span>
+        <span class="nx">blob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Blob</span><span class="p">([</span><span class="nx">data</span><span class="p">])</span>
+        <span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">fname</span> <span class="o">=</span> <span class="s1">&#39;samp.txt&#39;</span>
+    <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">blob</span><span class="p">);</span> <span class="c1">//可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+    <span class="nx">a</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
+    <span class="nx">a</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
+    <span class="nx">a</span><span class="p">.</span><span class="nx">download</span> <span class="o">=</span> <span class="nx">fname</span><span class="p">;</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+    <span class="nx">a</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">revokeObjectURL</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span> <span class="c1">//釋放
+</span><span class="c1"></span><span class="p">});</span>
+</code></pre></div><p><code>fetch</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resp</span> <span class="p">=&gt;</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">blob</span><span class="p">())</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">blob</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">blob</span><span class="p">);</span> <span class="c1">//可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結
+</span><span class="c1"></span>        <span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+        <span class="nx">a</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
+        <span class="nx">a</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
+        <span class="nx">a</span><span class="p">.</span><span class="nx">download</span> <span class="o">=</span> <span class="s1">&#39;samp.txt&#39;</span><span class="p">;</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+        <span class="nx">a</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">revokeObjectURL</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span> <span class="c1">//釋放
+</span><span class="c1"></span>    <span class="p">})</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;oh no!&#39;</span><span class="p">));</span>
+</code></pre></div><p>若要取得回傳的檔案名稱</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">//取得回傳的結果header並解析content-disposition區塊
+</span><span class="c1"></span><span class="kd">let</span> <span class="nx">filename</span> <span class="o">=</span> <span class="nx">getFileName</span><span class="p">(</span><span class="nx">headers</span><span class="p">[</span><span class="s2">&#34;content-disposition&#34;</span><span class="p">]);</span>
+
+<span class="kd">function</span> <span class="nx">getFileName</span><span class="p">(</span><span class="nx">disposition</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">disposition</span><span class="p">)</span>
+    <span class="kr">const</span> <span class="nx">utf8FilenameRegex</span> <span class="o">=</span> <span class="sr">/filename\*=UTF-8&#39;&#39;([\w%.-]+)(?:; ?|$)/i</span><span class="p">;</span>
+    <span class="kr">const</span> <span class="nx">asciiFilenameRegex</span> <span class="o">=</span> <span class="sr">/^filename=([&#34;&#39;]?)(.*?[^\\])\1(?:; ?|$)/i</span><span class="p">;</span>
+
+    <span class="kd">let</span> <span class="nx">fileName</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">utf8FilenameRegex</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">disposition</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">fileName</span> <span class="o">=</span> <span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">utf8FilenameRegex</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">disposition</span><span class="p">)[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// prevent ReDos attacks by anchoring the ascii regex to string start and
+</span><span class="c1"></span>        <span class="c1">//  slicing off everything before &#39;filename=&#39;
+</span><span class="c1"></span>        <span class="kr">const</span> <span class="nx">filenameStart</span> <span class="o">=</span> <span class="nx">disposition</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;filename=&#39;</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">filenameStart</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kr">const</span> <span class="nx">partialDisposition</span> <span class="o">=</span> <span class="nx">disposition</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">filenameStart</span><span class="p">);</span>
+            <span class="kr">const</span> <span class="nx">matches</span> <span class="o">=</span> <span class="nx">asciiFilenameRegex</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">partialDisposition</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">matches</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">matches</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="p">{</span>
+                <span class="nx">fileName</span> <span class="o">=</span> <span class="nx">matches</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">fileName</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ajax/">Ajax</a>
+        
+            <a href="/tags/javascript/">Javascript</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2023 The Site
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

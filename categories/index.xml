@@ -6,7 +6,16 @@
     <description>Recent content in Categories on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Jul 2023 08:42:15 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Aug 2023 15:22:07 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ajax</title>
+      <link>https://hushuuu.github.io/categories/ajax/</link>
+      <pubDate>Tue, 01 Aug 2023 15:22:07 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/categories/ajax/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Nginx</title>
       <link>https://hushuuu.github.io/categories/nginx/</link>
