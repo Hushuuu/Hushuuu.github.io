@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 Net6在開發web api時，有時候會遇到後端沒接到值的情況
+整理幾個常用的使用方法
+主要內容 都以Post為例
+自訂Data模型參數，預設是json的方式
+//這兩種寫法相等 public string Post(A vm); public string Post([FromBody] A vm); //form-data public string Post([FromForm] A vm); //x-www-urlencoded需要特別加屬性 [Consumes(&amp;#34;application/x-www-form-urlencoded&amp;#34;)] public string Post([FromForm] A vm); 如果是用基本型別的參數的話有特別的情況
+//預設是queryString 這兩種相等 public string Post(string str); public string Post([FromQuery] string str); //json **特別不同 public string Post([FromBody] string str); //在請求時必須只傳入&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34; //因為net6 在model binding時使用Text.Json //如果試著反序列化就會拋錯 //失敗` The JSON value could not be converted to System.String.` JsonSerializer.Deserialize&amp;lt;string&amp;gt;(&amp;#34;{\&amp;#34;str\&amp;#34;:\&amp;#34;value\&amp;#34;}&amp;#34;); //正確 JsonSerializer.Deserialize&amp;lt;string&amp;gt;(&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34;); //from-data&amp;amp;form-urlencoded方式和上面自訂型別的一樣 小結 除了參數少的QueryString直接寫多個參數'><title>Net6Api資料綁定整理</title>
+
+<link rel='canonical' href='https://hushuuu.github.io/2023/08/07/net6api%E8%B3%87%E6%96%99%E7%B6%81%E5%AE%9A%E6%95%B4%E7%90%86/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Net6Api資料綁定整理'>
+<meta property='og:description' content='前言 Net6在開發web api時，有時候會遇到後端沒接到值的情況
+整理幾個常用的使用方法
+主要內容 都以Post為例
+自訂Data模型參數，預設是json的方式
+//這兩種寫法相等 public string Post(A vm); public string Post([FromBody] A vm); //form-data public string Post([FromForm] A vm); //x-www-urlencoded需要特別加屬性 [Consumes(&amp;#34;application/x-www-form-urlencoded&amp;#34;)] public string Post([FromForm] A vm); 如果是用基本型別的參數的話有特別的情況
+//預設是queryString 這兩種相等 public string Post(string str); public string Post([FromQuery] string str); //json **特別不同 public string Post([FromBody] string str); //在請求時必須只傳入&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34; //因為net6 在model binding時使用Text.Json //如果試著反序列化就會拋錯 //失敗` The JSON value could not be converted to System.String.` JsonSerializer.Deserialize&amp;lt;string&amp;gt;(&amp;#34;{\&amp;#34;str\&amp;#34;:\&amp;#34;value\&amp;#34;}&amp;#34;); //正確 JsonSerializer.Deserialize&amp;lt;string&amp;gt;(&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34;); //from-data&amp;amp;form-urlencoded方式和上面自訂型別的一樣 小結 除了參數少的QueryString直接寫多個參數'>
+<meta property='og:url' content='https://hushuuu.github.io/2023/08/07/net6api%E8%B3%87%E6%96%99%E7%B6%81%E5%AE%9A%E6%95%B4%E7%90%86/'>
+<meta property='og:site_name' content='The Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Net6' /><meta property='article:tag' content='WebApi' /><meta property='article:tag' content='Json' /><meta property='article:published_time' content='2023-08-07T15:27:57&#43;08:00'/><meta property='article:modified_time' content='2023-08-07T15:27:57&#43;08:00'/>
+<meta name="twitter:title" content="Net6Api資料綁定整理">
+<meta name="twitter:description" content="前言 Net6在開發web api時，有時候會遇到後端沒接到值的情況
+整理幾個常用的使用方法
+主要內容 都以Post為例
+自訂Data模型參數，預設是json的方式
+//這兩種寫法相等 public string Post(A vm); public string Post([FromBody] A vm); //form-data public string Post([FromForm] A vm); //x-www-urlencoded需要特別加屬性 [Consumes(&amp;#34;application/x-www-form-urlencoded&amp;#34;)] public string Post([FromForm] A vm); 如果是用基本型別的參數的話有特別的情況
+//預設是queryString 這兩種相等 public string Post(string str); public string Post([FromQuery] string str); //json **特別不同 public string Post([FromBody] string str); //在請求時必須只傳入&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34; //因為net6 在model binding時使用Text.Json //如果試著反序列化就會拋錯 //失敗` The JSON value could not be converted to System.String.` JsonSerializer.Deserialize&amp;lt;string&amp;gt;(&amp;#34;{\&amp;#34;str\&amp;#34;:\&amp;#34;value\&amp;#34;}&amp;#34;); //正確 JsonSerializer.Deserialize&amp;lt;string&amp;gt;(&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34;); //from-data&amp;amp;form-urlencoded方式和上面自訂型別的一樣 小結 除了參數少的QueryString直接寫多個參數">
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切換菜單">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h2 class="site-description">紀錄一些筆記。</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首頁</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E9%97%9C%E6%96%BC/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>關於</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>封存</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜尋</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>深色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://hushuuu.github.io/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/net6/" >
+                Net6
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/2023/08/07/net6api%E8%B3%87%E6%96%99%E7%B6%81%E5%AE%9A%E6%95%B4%E7%90%86/">Net6Api資料綁定整理</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">2023-08-07</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="前言">前言</h2>
+<p>Net6在開發web api時，有時候會遇到後端沒接到值的情況<br>
+整理幾個常用的使用方法</p>
+<h2 id="主要內容">主要內容</h2>
+<p>都以Post為例<br>
+自訂Data模型參數，預設是json的方式</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//這兩種寫法相等
+</span><span class="c1"></span><span class="k">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">(</span><span class="n">A</span> <span class="n">vm</span><span class="p">);</span>
+<span class="k">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromBody</span><span class="p">]</span> <span class="n">A</span> <span class="n">vm</span><span class="p">);</span>
+<span class="c1">//form-data
+</span><span class="c1"></span><span class="k">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromForm</span><span class="p">]</span> <span class="n">A</span> <span class="n">vm</span><span class="p">);</span>
+<span class="c1">//x-www-urlencoded需要特別加屬性
+</span><span class="c1"></span><span class="na">[Consumes(&#34;application/x-www-form-urlencoded&#34;)]</span>
+<span class="k">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromForm</span><span class="p">]</span> <span class="n">A</span> <span class="n">vm</span><span class="p">);</span>
+</code></pre></div><p>如果是用基本型別的參數的話有特別的情況</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//預設是queryString 這兩種相等
+</span><span class="c1"></span><span class="k">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">(</span><span class="kt">string</span> <span class="n">str</span><span class="p">);</span>
+<span class="k">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromQuery</span><span class="p">]</span> <span class="kt">string</span> <span class="n">str</span><span class="p">);</span>
+<span class="c1">//json **特別不同
+</span><span class="c1"></span><span class="k">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromBody</span><span class="p">]</span> <span class="kt">string</span> <span class="n">str</span><span class="p">);</span>
+<span class="c1">//在請求時必須只傳入&#34;\&#34;value\&#34;&#34;
+</span><span class="c1">//因為net6 在model binding時使用Text.Json
+</span><span class="c1">//如果試著反序列化就會拋錯
+</span><span class="c1">//失敗` The JSON value could not be converted to System.String.`
+</span><span class="c1"></span><span class="n">JsonSerializer</span><span class="p">.</span><span class="n">Deserialize</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;(</span><span class="s">&#34;{\&#34;str\&#34;:\&#34;value\&#34;}&#34;</span><span class="p">);</span>
+<span class="c1">//正確
+</span><span class="c1"></span><span class="n">JsonSerializer</span><span class="p">.</span><span class="n">Deserialize</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;(</span><span class="s">&#34;\&#34;value\&#34;&#34;</span><span class="p">);</span>
+
+<span class="c1">//from-data&amp;form-urlencoded方式和上面自訂型別的一樣
+</span></code></pre></div><h2 id="小結">小結</h2>
+<p>除了參數少的<code>QueryString</code>直接寫多個參數<br>
+其他簡單一點就是全部都定義類別來接值<br>
+就可以解決大部分的情況<br>
+有些問題在之前.netFramework是不會遇到的<br>
+應該與<code>Text.Json</code>相關(.netFramework是使用<code>Json.NET</code>)<br>
+所以開發上要留意一下</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/net6/">Net6</a>
+        
+            <a href="/tags/webapi/">WebApi</a>
+        
+            <a href="/tags/json/">Json</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2023 The Site
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

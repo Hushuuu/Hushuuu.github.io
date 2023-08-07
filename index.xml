@@ -6,7 +6,51 @@
         <description>Recent content on The Site</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 01 Aug 2023 15:22:07 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 07 Aug 2023 15:27:57 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Net6Api資料綁定整理</title>
+        <link>https://hushuuu.github.io/2023/08/07/net6api%E8%B3%87%E6%96%99%E7%B6%81%E5%AE%9A%E6%95%B4%E7%90%86/</link>
+        <pubDate>Mon, 07 Aug 2023 15:27:57 +0800</pubDate>
+        
+        <guid>https://hushuuu.github.io/2023/08/07/net6api%E8%B3%87%E6%96%99%E7%B6%81%E5%AE%9A%E6%95%B4%E7%90%86/</guid>
+        <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;Net6在開發web api時，有時候會遇到後端沒接到值的情況&lt;br&gt;
+整理幾個常用的使用方法&lt;/p&gt;
+&lt;h2 id=&#34;主要內容&#34;&gt;主要內容&lt;/h2&gt;
+&lt;p&gt;都以Post為例&lt;br&gt;
+自訂Data模型參數，預設是json的方式&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//這兩種寫法相等
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Post&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Post&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FromBody&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//form-data
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Post&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FromForm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//x-www-urlencoded需要特別加屬性
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;[Consumes(&amp;#34;application/x-www-form-urlencoded&amp;#34;)]&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Post&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FromForm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果是用基本型別的參數的話有特別的情況&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//預設是queryString 這兩種相等
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Post&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Post&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FromQuery&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//json **特別不同
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Post&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FromBody&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//在請求時必須只傳入&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//因為net6 在model binding時使用Text.Json
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//如果試著反序列化就會拋錯
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//失敗` The JSON value could not be converted to System.String.`
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;JsonSerializer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Deserialize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;{\&amp;#34;str\&amp;#34;:\&amp;#34;value\&amp;#34;}&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//正確
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;JsonSerializer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Deserialize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;//from-data&amp;amp;form-urlencoded方式和上面自訂型別的一樣
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;小結&#34;&gt;小結&lt;/h2&gt;
+&lt;p&gt;除了參數少的&lt;code&gt;QueryString&lt;/code&gt;直接寫多個參數&lt;br&gt;
+其他簡單一點就是全部都定義類別來接值&lt;br&gt;
+就可以解決大部分的情況&lt;br&gt;
+有些問題在之前.netFramework是不會遇到的&lt;br&gt;
+應該與&lt;code&gt;Text.Json&lt;/code&gt;相關(.netFramework是使用&lt;code&gt;Json.NET&lt;/code&gt;)&lt;br&gt;
+所以開發上要留意一下&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Ajax非同步接收blob結果下載檔案</title>
         <link>https://hushuuu.github.io/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/</link>
         <pubDate>Tue, 01 Aug 2023 15:22:07 +0800</pubDate>
