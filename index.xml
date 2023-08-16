@@ -33,9 +33,9 @@
 &lt;span class=&#34;c1&#34;&gt;//json **特別不同
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Post&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FromBody&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;//在請求時必須只傳入&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34;
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//因為net6 在model binding時使用Text.Json
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//如果試著反序列化就會拋錯
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//失敗` The JSON value could not be converted to System.String.`
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//在model binding時使用Text.Json
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//如果試著反序列化就會拋錯 The JSON value could not be converted to System.String.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//失敗
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;JsonSerializer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Deserialize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;{\&amp;#34;str\&amp;#34;:\&amp;#34;value\&amp;#34;}&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;//正確
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;JsonSerializer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Deserialize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
@@ -45,9 +45,17 @@
 &lt;p&gt;除了參數少的&lt;code&gt;QueryString&lt;/code&gt;直接寫多個參數&lt;br&gt;
 其他簡單一點就是全部都定義類別來接值&lt;br&gt;
 就可以解決大部分的情況&lt;br&gt;
-有些問題在之前.netFramework是不會遇到的&lt;br&gt;
-應該與&lt;code&gt;Text.Json&lt;/code&gt;相關(.netFramework是使用&lt;code&gt;Json.NET&lt;/code&gt;)&lt;br&gt;
+有些問題在之前&lt;code&gt;.netFramework&lt;/code&gt;是不會遇到的&lt;br&gt;
 所以開發上要留意一下&lt;/p&gt;
+&lt;h2 id=&#34;參考連結&#34;&gt;參考連結&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://stackoverflow.com/questions/58150652/asp-net-core-3-0-frombody-string-content-returns-the-json-value-could-not-be&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;url1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.yowko.com/aspnet-core-x-www-form-urlencoded/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;url2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 </description>
         </item>
         <item>
