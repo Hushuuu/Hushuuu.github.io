@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Html on The Site</title>
+    <link>https://hushuuu.github.io/categories/html/</link>
+    <description>Recent content in Html on The Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 17 Aug 2023 10:38:45 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/categories/html/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Html之命名規則使用</title>
+      <link>https://hushuuu.github.io/2023/08/17/html%E4%B9%8B%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Thu, 17 Aug 2023 10:38:45 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2023/08/17/html%E4%B9%8B%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%BD%BF%E7%94%A8/</guid>
+      <description>前言 HTML裡在變數或屬性的命名因人而異有不同習慣
+如駝峰式camelCase=&amp;gt;userId
+如串燒式kebab-case=&amp;gt;user-id
+但要注意以下兩點
+ html大小寫不敏感所以一般使用kebab-case命名，然後在javascript取屬性值會轉為camelCase 在vue-template也可以使用cameCcase但不建議  &amp;lt;div id=&amp;#34;a&amp;#34; data-user-id=123/&amp;gt; &amp;lt;script&amp;gt; console.log(document.querySelector(&amp;#39;#a&amp;#39;).dataset.userId); //123 &amp;lt;/script&amp;gt; 延伸-Vue 屬性Prop
+&amp;lt;template :user-id=&amp;#34;&amp;#39;123&amp;#39;&amp;#34;/&amp;gt; &amp;lt;script setup&amp;gt; const props = defineProps({ userId: String, }) console.log(props.userId); // 123 &amp;lt;/script&amp;gt; 模板Template
+可用首字母大寫PascalCase或kebab-case引入
+PascalCase定義組件，在template使用兩種寫法都可以
+但kebab-case定義則template只可使用kebab-case
+import MenuComponent from &amp;#39;@/components/MenuComponent.vue&amp;#39; components: { &amp;#39;menu-component&amp;#39;: MenuComponent, MenuComponent }, &amp;lt;template&amp;gt; &amp;lt;MenuComponent /&amp;gt; &amp;lt;!--only PascalCase --&amp;gt; &amp;lt;menu-component /&amp;gt; &amp;lt;!--PascalCase or kebab-case --&amp;gt; &amp;lt;/template&amp;gt; </description>
+    </item>
+    
+  </channel>
+</rss>

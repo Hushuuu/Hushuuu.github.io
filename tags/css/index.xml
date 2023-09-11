@@ -6,7 +6,22 @@
     <description>Recent content in CSS on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 13 Oct 2021 09:32:14 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Sep 2023 08:51:28 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Table跨行sticky</title>
+      <link>https://hushuuu.github.io/2023/09/11/table%E8%B7%A8%E8%A1%8Csticky/</link>
+      <pubDate>Mon, 11 Sep 2023 08:51:28 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2023/09/11/table%E8%B7%A8%E8%A1%8Csticky/</guid>
+      <description>前言 一般table標頭固定上方使用sticky方式
+但遇到有跨行合併儲存格的情況
+就會有跑版的情形
+主要內容 使用ele.getBoundingClientRect()
+來取得元素「相對於視窗」的座標
+重新計算th所需的top值
+// let tableHeaderTop = document.querySelector(&amp;#39;table thead&amp;#39;).getBoundingClientRect().top; let ths = document.querySelectorAll(&amp;#39;table thead th&amp;#39;) for (var i = 0; i &amp;lt; ths.length; i++) { var th = ths[i]; th.style.top = th.getBoundingClientRect().top - tableHeaderTop + &amp;#34;px&amp;#34;; } 小結 來源應該是stackoverflow</description>
+    </item>
+    
     <item>
       <title>Bootstrap Navbar Menu</title>
       <link>https://hushuuu.github.io/2021/10/13/bootstrap-navbar-menu/</link>

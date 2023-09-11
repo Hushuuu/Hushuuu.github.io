@@ -6,7 +6,22 @@
     <description>Recent content in Javascript on The Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Aug 2023 15:22:07 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Sep 2023 08:51:28 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Table跨行sticky</title>
+      <link>https://hushuuu.github.io/2023/09/11/table%E8%B7%A8%E8%A1%8Csticky/</link>
+      <pubDate>Mon, 11 Sep 2023 08:51:28 +0800</pubDate>
+      
+      <guid>https://hushuuu.github.io/2023/09/11/table%E8%B7%A8%E8%A1%8Csticky/</guid>
+      <description>前言 一般table標頭固定上方使用sticky方式
+但遇到有跨行合併儲存格的情況
+就會有跑版的情形
+主要內容 使用ele.getBoundingClientRect()
+來取得元素「相對於視窗」的座標
+重新計算th所需的top值
+// let tableHeaderTop = document.querySelector(&amp;#39;table thead&amp;#39;).getBoundingClientRect().top; let ths = document.querySelectorAll(&amp;#39;table thead th&amp;#39;) for (var i = 0; i &amp;lt; ths.length; i++) { var th = ths[i]; th.style.top = th.getBoundingClientRect().top - tableHeaderTop + &amp;#34;px&amp;#34;; } 小結 來源應該是stackoverflow</description>
+    </item>
+    
     <item>
       <title>Ajax非同步接收blob結果下載檔案</title>
       <link>https://hushuuu.github.io/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/</link>
