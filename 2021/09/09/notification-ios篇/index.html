@@ -5,7 +5,10 @@
 主要內容 首先要先拿到Apple Developer的apns key .p8檔
 建立HttpClient物件使用HTTP/2
 讀取.p8檔並使用jose-jwt來產出authorization token
-類別建立 //回傳結果&#43;狀態碼 public class AppleSendResult { public bool isSuccess { get; set; } public string message { get; set; } public Guid? apns_id { get; set; } public HttpStatusCode httpStatusCode { get; set; } public string reason { get; set; } //記著request的device token送完可判斷狀態碼來得知是否token還有效  public string token { get; set; } } //Request 模型 public class APNAps { //alert 可為object or string直接當訊息body  public string alert { get; set; } } //Request public class APNSendRequest { //aps的物件結構可參照官方文件增加其他屬性  public APNAps aps { get; set; } } //推送的種類(一般為alert) public enum ApplePushTypeKind { alert, background, voip, complication, fileprovider, mdm, } private string auth_kid { get; set; } //apns auth key keyID private string auth_iss { get; set; } //開發者帳號TeamID private string apns_topic { get; set; } //開發專案名稱 private string accessToken { get; set; } //token private DateTime?'><title>Notification - IOS篇</title>
+類別建立 //回傳結果&#43;狀態碼 public class AppleSendResult { public bool isSuccess { get; set; } public string message { get; set; } public Guid? apns_id { get; set; } public HttpStatusCode httpStatusCode { get; set; } public string reason { get; set; } //記著request的device token送完可判斷狀態碼來得知是否token還有效 public string token { get; set; } } //Request 模型 public class APNAps { //alert 可為object or string直接當訊息body public string alert { get; set; } } //Request public class APNSendRequest { //aps的物件結構可參照官方文件增加其他屬性 public APNAps aps { get; set; } } //推送的種類(一般為alert) public enum ApplePushTypeKind { alert, background, voip, complication, fileprovider, mdm, } private string auth_kid { get; set; } //apns auth key keyID private string auth_iss { get; set; } //開發者帳號TeamID private string apns_topic { get; set; } //開發專案名稱 private string accessToken { get; set; } //token private DateTime? accessTokenValidTime { get; set; } //token合法時間 讀取.p8檔產出Token /// &lt;summary&gt; /// 重新產生access token /// &lt;/summary&gt; public virtual void ReNewAccessToken() { //取得產生Token的時間(UTC)秒為單位 var expiration = DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc); var expirationSeconds = (long)expiration.TotalSeconds; var header = new Dictionary&lt;string, object&gt;(); header.Add(&#34;alg&#34;, &#34;ES256&#34;); //加密演算法 header.Add(&#34;kid&#34;, auth_kid); string payload = &#34;{\&#34;iss\&#34;:\&#34;&#34; &#43; auth_iss &#43; &#34;\&#34;,\&#34;iat\&#34;:\&#34;&#34; &#43; expirationSeconds &#43; &#34;\&#34;}&#34;; accessToken = Jose.JWT.Encode(payload, scrt, Jose.JwsAlgorithm.ES256, header); accessTokenValidTime = DateTime.Now.AddMinutes(60); } /// &lt;summary&gt; /// 使用認證令牌 /// &lt;/summary&gt; /// &lt;param name=&#34;p8FilePath&#34;&gt;p8檔案路徑&lt;/param&gt; /// &lt;param name=&#34;apns_topic&#34;&gt;bundle id&lt;/param&gt; /// &lt;param name=&#34;auth_kid&#34;&gt;kid&lt;/param&gt; /// &lt;param name=&#34;auth_iss&#34;&gt;iss&lt;/param&gt; public virtual void UseAuthorization(string p8FilePath, string apns_topic, string auth_kid, string auth_iss) { var text = File.ReadAllText(p8FilePath); List&lt;string&gt; split = text.Split(&#39;\n&#39;).ToList(); split.RemoveAt(split.Count - 1); split.RemoveAt(0); var k = string.Join(&#34;&#34;, split); var bytes = Convert.FromBase64String(k); var secrt = CngKey.Import(bytes, CngKeyBlobFormat.Pkcs8PrivateBlob); this.scrt = secrt; this.auth_kid = auth_kid; this.auth_iss = auth_iss; this.apns_topic = apns_topic; ReNewAccessToken(); } Http/2處理 public class Http2CustomHandler : WinHttpHandler { protected override Task&lt;HttpResponseMessage&gt; SendAsync(HttpRequestMessage request, System.Threading.CancellationToken cancellationToken) { request.Version = new Version(&#34;2.0&#34;); return base.SendAsync(request, cancellationToken); } } 推送方法 public virtual AppleSendResult Send&lt;T&gt;(string token, T postdataModel , ApplePushTypeKind pushTypeKind = ApplePushTypeKind.alert, int apns_expiration = 0, int apns_priority = 10) where T : APNSendRequest { httpClient = new HttpClient(new Http2CustomHandler()); if (DateTime.Now &gt;= accessTokenValidTime) { ReNewAccessToken(); } AppleSendResult result = new AppleSendResult() { token = token, }; //若是正式環境要將網址的sandbox拿掉 string url = $&#34;https://api.sandbox.push.apple.com/3/device/{token}&#34;; var uri = new Uri(url); string postdata_json = JsonConvert.SerializeObject(postdataModel); byte[] byteArray = Encoding.UTF8.GetBytes(postdata_json); var httpRequestMessage = new HttpRequestMessage(); httpRequestMessage.RequestUri = uri; httpRequestMessage.Method = HttpMethod.Post; httpRequestMessage.Headers.Add(&#34;apns-push-type&#34;, pushTypeKind.ToString()); httpRequestMessage.Headers.Add(&#34;apns-expiration&#34;, apns_expiration.ToString()); httpRequestMessage.Headers.Add(&#34;apns-priority&#34;, apns_priority.ToString()); httpRequestMessage.Headers.Add(&#34;authorization&#34;, $&#34;bearer {accessToken}&#34;); httpRequestMessage.Headers.Add(&#34;apns-topic&#34;, this.apns_topic); httpRequestMessage.Headers.Add(&#34;apns-id&#34;, Guid.NewGuid().ToString()); httpRequestMessage.Content = new ByteArrayContent(byteArray); var responseMessage = httpClient.SendAsync(httpRequestMessage).Result; var responseBody = responseMessage.Content.ReadAsStringAsync().Result; HttpStatusCode responseCode = responseMessage.StatusCode; result.httpStatusCode = responseCode; string tmp_apns_id = responseMessage.Headers.GetValues(&#34;apns-id&#34;).First(); if(Guid.TryParse(tmp_apns_id, out Guid res_apns_id)) { result.apns_id = res_apns_id; } if (responseCode != HttpStatusCode.OK) { var responseObj = JsonConvert.DeserializeObject&lt;APNSendResult&gt;(responseBody); result.reason = responseObj.reason; result.isSuccess = false; result.message = &#34;失敗。&#34; &#43; responseObj.reason; } else { result.isSuccess = true; result.message = &#34;成功。&#34;; } return result; } 小結 當通知傳到裝置後，根據Response可以知道是否成功及DeviceToken有效性
+Request的模型還有更多參數可以設定
+較詳細的處理就需要看官方文件慢慢調整了。
+'><title>Notification - IOS篇</title>
 
 <link rel='canonical' href='https://hushuuu.github.io/2021/09/09/notification-ios%E7%AF%87/'>
 
@@ -14,7 +17,10 @@
 主要內容 首先要先拿到Apple Developer的apns key .p8檔
 建立HttpClient物件使用HTTP/2
 讀取.p8檔並使用jose-jwt來產出authorization token
-類別建立 //回傳結果&#43;狀態碼 public class AppleSendResult { public bool isSuccess { get; set; } public string message { get; set; } public Guid? apns_id { get; set; } public HttpStatusCode httpStatusCode { get; set; } public string reason { get; set; } //記著request的device token送完可判斷狀態碼來得知是否token還有效  public string token { get; set; } } //Request 模型 public class APNAps { //alert 可為object or string直接當訊息body  public string alert { get; set; } } //Request public class APNSendRequest { //aps的物件結構可參照官方文件增加其他屬性  public APNAps aps { get; set; } } //推送的種類(一般為alert) public enum ApplePushTypeKind { alert, background, voip, complication, fileprovider, mdm, } private string auth_kid { get; set; } //apns auth key keyID private string auth_iss { get; set; } //開發者帳號TeamID private string apns_topic { get; set; } //開發專案名稱 private string accessToken { get; set; } //token private DateTime?'>
+類別建立 //回傳結果&#43;狀態碼 public class AppleSendResult { public bool isSuccess { get; set; } public string message { get; set; } public Guid? apns_id { get; set; } public HttpStatusCode httpStatusCode { get; set; } public string reason { get; set; } //記著request的device token送完可判斷狀態碼來得知是否token還有效 public string token { get; set; } } //Request 模型 public class APNAps { //alert 可為object or string直接當訊息body public string alert { get; set; } } //Request public class APNSendRequest { //aps的物件結構可參照官方文件增加其他屬性 public APNAps aps { get; set; } } //推送的種類(一般為alert) public enum ApplePushTypeKind { alert, background, voip, complication, fileprovider, mdm, } private string auth_kid { get; set; } //apns auth key keyID private string auth_iss { get; set; } //開發者帳號TeamID private string apns_topic { get; set; } //開發專案名稱 private string accessToken { get; set; } //token private DateTime? accessTokenValidTime { get; set; } //token合法時間 讀取.p8檔產出Token /// &lt;summary&gt; /// 重新產生access token /// &lt;/summary&gt; public virtual void ReNewAccessToken() { //取得產生Token的時間(UTC)秒為單位 var expiration = DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc); var expirationSeconds = (long)expiration.TotalSeconds; var header = new Dictionary&lt;string, object&gt;(); header.Add(&#34;alg&#34;, &#34;ES256&#34;); //加密演算法 header.Add(&#34;kid&#34;, auth_kid); string payload = &#34;{\&#34;iss\&#34;:\&#34;&#34; &#43; auth_iss &#43; &#34;\&#34;,\&#34;iat\&#34;:\&#34;&#34; &#43; expirationSeconds &#43; &#34;\&#34;}&#34;; accessToken = Jose.JWT.Encode(payload, scrt, Jose.JwsAlgorithm.ES256, header); accessTokenValidTime = DateTime.Now.AddMinutes(60); } /// &lt;summary&gt; /// 使用認證令牌 /// &lt;/summary&gt; /// &lt;param name=&#34;p8FilePath&#34;&gt;p8檔案路徑&lt;/param&gt; /// &lt;param name=&#34;apns_topic&#34;&gt;bundle id&lt;/param&gt; /// &lt;param name=&#34;auth_kid&#34;&gt;kid&lt;/param&gt; /// &lt;param name=&#34;auth_iss&#34;&gt;iss&lt;/param&gt; public virtual void UseAuthorization(string p8FilePath, string apns_topic, string auth_kid, string auth_iss) { var text = File.ReadAllText(p8FilePath); List&lt;string&gt; split = text.Split(&#39;\n&#39;).ToList(); split.RemoveAt(split.Count - 1); split.RemoveAt(0); var k = string.Join(&#34;&#34;, split); var bytes = Convert.FromBase64String(k); var secrt = CngKey.Import(bytes, CngKeyBlobFormat.Pkcs8PrivateBlob); this.scrt = secrt; this.auth_kid = auth_kid; this.auth_iss = auth_iss; this.apns_topic = apns_topic; ReNewAccessToken(); } Http/2處理 public class Http2CustomHandler : WinHttpHandler { protected override Task&lt;HttpResponseMessage&gt; SendAsync(HttpRequestMessage request, System.Threading.CancellationToken cancellationToken) { request.Version = new Version(&#34;2.0&#34;); return base.SendAsync(request, cancellationToken); } } 推送方法 public virtual AppleSendResult Send&lt;T&gt;(string token, T postdataModel , ApplePushTypeKind pushTypeKind = ApplePushTypeKind.alert, int apns_expiration = 0, int apns_priority = 10) where T : APNSendRequest { httpClient = new HttpClient(new Http2CustomHandler()); if (DateTime.Now &gt;= accessTokenValidTime) { ReNewAccessToken(); } AppleSendResult result = new AppleSendResult() { token = token, }; //若是正式環境要將網址的sandbox拿掉 string url = $&#34;https://api.sandbox.push.apple.com/3/device/{token}&#34;; var uri = new Uri(url); string postdata_json = JsonConvert.SerializeObject(postdataModel); byte[] byteArray = Encoding.UTF8.GetBytes(postdata_json); var httpRequestMessage = new HttpRequestMessage(); httpRequestMessage.RequestUri = uri; httpRequestMessage.Method = HttpMethod.Post; httpRequestMessage.Headers.Add(&#34;apns-push-type&#34;, pushTypeKind.ToString()); httpRequestMessage.Headers.Add(&#34;apns-expiration&#34;, apns_expiration.ToString()); httpRequestMessage.Headers.Add(&#34;apns-priority&#34;, apns_priority.ToString()); httpRequestMessage.Headers.Add(&#34;authorization&#34;, $&#34;bearer {accessToken}&#34;); httpRequestMessage.Headers.Add(&#34;apns-topic&#34;, this.apns_topic); httpRequestMessage.Headers.Add(&#34;apns-id&#34;, Guid.NewGuid().ToString()); httpRequestMessage.Content = new ByteArrayContent(byteArray); var responseMessage = httpClient.SendAsync(httpRequestMessage).Result; var responseBody = responseMessage.Content.ReadAsStringAsync().Result; HttpStatusCode responseCode = responseMessage.StatusCode; result.httpStatusCode = responseCode; string tmp_apns_id = responseMessage.Headers.GetValues(&#34;apns-id&#34;).First(); if(Guid.TryParse(tmp_apns_id, out Guid res_apns_id)) { result.apns_id = res_apns_id; } if (responseCode != HttpStatusCode.OK) { var responseObj = JsonConvert.DeserializeObject&lt;APNSendResult&gt;(responseBody); result.reason = responseObj.reason; result.isSuccess = false; result.message = &#34;失敗。&#34; &#43; responseObj.reason; } else { result.isSuccess = true; result.message = &#34;成功。&#34;; } return result; } 小結 當通知傳到裝置後，根據Response可以知道是否成功及DeviceToken有效性
+Request的模型還有更多參數可以設定
+較詳細的處理就需要看官方文件慢慢調整了。
+'>
 <meta property='og:url' content='https://hushuuu.github.io/2021/09/09/notification-ios%E7%AF%87/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Notification' /><meta property='article:tag' content='C#' /><meta property='article:published_time' content='2021-09-09T10:51:04&#43;08:00'/><meta property='article:modified_time' content='2021-09-09T10:51:04&#43;08:00'/>
@@ -23,7 +29,10 @@
 主要內容 首先要先拿到Apple Developer的apns key .p8檔
 建立HttpClient物件使用HTTP/2
 讀取.p8檔並使用jose-jwt來產出authorization token
-類別建立 //回傳結果&#43;狀態碼 public class AppleSendResult { public bool isSuccess { get; set; } public string message { get; set; } public Guid? apns_id { get; set; } public HttpStatusCode httpStatusCode { get; set; } public string reason { get; set; } //記著request的device token送完可判斷狀態碼來得知是否token還有效  public string token { get; set; } } //Request 模型 public class APNAps { //alert 可為object or string直接當訊息body  public string alert { get; set; } } //Request public class APNSendRequest { //aps的物件結構可參照官方文件增加其他屬性  public APNAps aps { get; set; } } //推送的種類(一般為alert) public enum ApplePushTypeKind { alert, background, voip, complication, fileprovider, mdm, } private string auth_kid { get; set; } //apns auth key keyID private string auth_iss { get; set; } //開發者帳號TeamID private string apns_topic { get; set; } //開發專案名稱 private string accessToken { get; set; } //token private DateTime?">
+類別建立 //回傳結果&#43;狀態碼 public class AppleSendResult { public bool isSuccess { get; set; } public string message { get; set; } public Guid? apns_id { get; set; } public HttpStatusCode httpStatusCode { get; set; } public string reason { get; set; } //記著request的device token送完可判斷狀態碼來得知是否token還有效 public string token { get; set; } } //Request 模型 public class APNAps { //alert 可為object or string直接當訊息body public string alert { get; set; } } //Request public class APNSendRequest { //aps的物件結構可參照官方文件增加其他屬性 public APNAps aps { get; set; } } //推送的種類(一般為alert) public enum ApplePushTypeKind { alert, background, voip, complication, fileprovider, mdm, } private string auth_kid { get; set; } //apns auth key keyID private string auth_iss { get; set; } //開發者帳號TeamID private string apns_topic { get; set; } //開發專案名稱 private string accessToken { get; set; } //token private DateTime? accessTokenValidTime { get; set; } //token合法時間 讀取.p8檔產出Token /// &lt;summary&gt; /// 重新產生access token /// &lt;/summary&gt; public virtual void ReNewAccessToken() { //取得產生Token的時間(UTC)秒為單位 var expiration = DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc); var expirationSeconds = (long)expiration.TotalSeconds; var header = new Dictionary&lt;string, object&gt;(); header.Add(&#34;alg&#34;, &#34;ES256&#34;); //加密演算法 header.Add(&#34;kid&#34;, auth_kid); string payload = &#34;{\&#34;iss\&#34;:\&#34;&#34; &#43; auth_iss &#43; &#34;\&#34;,\&#34;iat\&#34;:\&#34;&#34; &#43; expirationSeconds &#43; &#34;\&#34;}&#34;; accessToken = Jose.JWT.Encode(payload, scrt, Jose.JwsAlgorithm.ES256, header); accessTokenValidTime = DateTime.Now.AddMinutes(60); } /// &lt;summary&gt; /// 使用認證令牌 /// &lt;/summary&gt; /// &lt;param name=&#34;p8FilePath&#34;&gt;p8檔案路徑&lt;/param&gt; /// &lt;param name=&#34;apns_topic&#34;&gt;bundle id&lt;/param&gt; /// &lt;param name=&#34;auth_kid&#34;&gt;kid&lt;/param&gt; /// &lt;param name=&#34;auth_iss&#34;&gt;iss&lt;/param&gt; public virtual void UseAuthorization(string p8FilePath, string apns_topic, string auth_kid, string auth_iss) { var text = File.ReadAllText(p8FilePath); List&lt;string&gt; split = text.Split(&#39;\n&#39;).ToList(); split.RemoveAt(split.Count - 1); split.RemoveAt(0); var k = string.Join(&#34;&#34;, split); var bytes = Convert.FromBase64String(k); var secrt = CngKey.Import(bytes, CngKeyBlobFormat.Pkcs8PrivateBlob); this.scrt = secrt; this.auth_kid = auth_kid; this.auth_iss = auth_iss; this.apns_topic = apns_topic; ReNewAccessToken(); } Http/2處理 public class Http2CustomHandler : WinHttpHandler { protected override Task&lt;HttpResponseMessage&gt; SendAsync(HttpRequestMessage request, System.Threading.CancellationToken cancellationToken) { request.Version = new Version(&#34;2.0&#34;); return base.SendAsync(request, cancellationToken); } } 推送方法 public virtual AppleSendResult Send&lt;T&gt;(string token, T postdataModel , ApplePushTypeKind pushTypeKind = ApplePushTypeKind.alert, int apns_expiration = 0, int apns_priority = 10) where T : APNSendRequest { httpClient = new HttpClient(new Http2CustomHandler()); if (DateTime.Now &gt;= accessTokenValidTime) { ReNewAccessToken(); } AppleSendResult result = new AppleSendResult() { token = token, }; //若是正式環境要將網址的sandbox拿掉 string url = $&#34;https://api.sandbox.push.apple.com/3/device/{token}&#34;; var uri = new Uri(url); string postdata_json = JsonConvert.SerializeObject(postdataModel); byte[] byteArray = Encoding.UTF8.GetBytes(postdata_json); var httpRequestMessage = new HttpRequestMessage(); httpRequestMessage.RequestUri = uri; httpRequestMessage.Method = HttpMethod.Post; httpRequestMessage.Headers.Add(&#34;apns-push-type&#34;, pushTypeKind.ToString()); httpRequestMessage.Headers.Add(&#34;apns-expiration&#34;, apns_expiration.ToString()); httpRequestMessage.Headers.Add(&#34;apns-priority&#34;, apns_priority.ToString()); httpRequestMessage.Headers.Add(&#34;authorization&#34;, $&#34;bearer {accessToken}&#34;); httpRequestMessage.Headers.Add(&#34;apns-topic&#34;, this.apns_topic); httpRequestMessage.Headers.Add(&#34;apns-id&#34;, Guid.NewGuid().ToString()); httpRequestMessage.Content = new ByteArrayContent(byteArray); var responseMessage = httpClient.SendAsync(httpRequestMessage).Result; var responseBody = responseMessage.Content.ReadAsStringAsync().Result; HttpStatusCode responseCode = responseMessage.StatusCode; result.httpStatusCode = responseCode; string tmp_apns_id = responseMessage.Headers.GetValues(&#34;apns-id&#34;).First(); if(Guid.TryParse(tmp_apns_id, out Guid res_apns_id)) { result.apns_id = res_apns_id; } if (responseCode != HttpStatusCode.OK) { var responseObj = JsonConvert.DeserializeObject&lt;APNSendResult&gt;(responseBody); result.reason = responseObj.reason; result.isSuccess = false; result.message = &#34;失敗。&#34; &#43; responseObj.reason; } else { result.isSuccess = true; result.message = &#34;成功。&#34;; } return result; } 小結 當通知傳到裝置後，根據Response可以知道是否成功及DeviceToken有效性
+Request的模型還有更多參數可以設定
+較詳細的處理就需要看官方文件慢慢調整了。
+">
     </head>
     <body class="">
     <script>
@@ -63,7 +72,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -199,7 +208,7 @@
     <header class="article-category">
         
             <a href="/categories/notification/" >
-                Notification,
+                Notification
             </a>
         
     </header>
@@ -230,166 +239,165 @@
 建立<code>HttpClient</code>物件使用<code>HTTP/2</code><br>
 讀取<code>.p8</code>檔並使用<code>jose-jwt</code>來產出<code>authorization token</code></p>
 <h3 id="類別建立">類別建立</h3>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//回傳結果+狀態碼
-</span><span class="c1"></span><span class="k">public</span> <span class="k">class</span> <span class="nc">AppleSendResult</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="kt">bool</span> <span class="n">isSuccess</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">message</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="n">Guid</span><span class="p">?</span> <span class="n">apns_id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="n">HttpStatusCode</span> <span class="n">httpStatusCode</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">reason</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="c1">//記著request的device token送完可判斷狀態碼來得知是否token還有效
-</span><span class="c1"></span>    <span class="k">public</span> <span class="kt">string</span> <span class="n">token</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> 
-<span class="p">}</span>
-<span class="c1">//Request 模型
-</span><span class="c1"></span><span class="k">public</span> <span class="k">class</span> <span class="nc">APNAps</span>
-<span class="p">{</span>
-    <span class="c1">//alert 可為object or string直接當訊息body
-</span><span class="c1"></span>    <span class="k">public</span> <span class="kt">string</span> <span class="n">alert</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> 
-<span class="p">}</span>
-<span class="c1">//Request
-</span><span class="c1"></span><span class="k">public</span> <span class="k">class</span> <span class="nc">APNSendRequest</span>
-<span class="p">{</span>
-    <span class="c1">//aps的物件結構可參照官方文件增加其他屬性
-</span><span class="c1"></span>    <span class="k">public</span> <span class="n">APNAps</span> <span class="n">aps</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">}</span>
-<span class="c1">//推送的種類(一般為alert)
-</span><span class="c1"></span><span class="k">public</span> <span class="k">enum</span> <span class="n">ApplePushTypeKind</span>
-<span class="p">{</span>
-    <span class="n">alert</span><span class="p">,</span>
-    <span class="n">background</span><span class="p">,</span>
-    <span class="n">voip</span><span class="p">,</span>
-    <span class="n">complication</span><span class="p">,</span>
-    <span class="n">fileprovider</span><span class="p">,</span>
-    <span class="n">mdm</span><span class="p">,</span>
-<span class="p">}</span>
-<span class="k">private</span> <span class="kt">string</span> <span class="n">auth_kid</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//apns auth key keyID
-</span><span class="c1"></span><span class="k">private</span> <span class="kt">string</span> <span class="n">auth_iss</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//開發者帳號TeamID
-</span><span class="c1"></span><span class="k">private</span> <span class="kt">string</span> <span class="n">apns_topic</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//開發專案名稱
-</span><span class="c1"></span><span class="k">private</span> <span class="kt">string</span> <span class="n">accessToken</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//token
-</span><span class="c1"></span><span class="k">private</span> <span class="n">DateTime</span><span class="p">?</span> <span class="n">accessTokenValidTime</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//token合法時間
-</span></code></pre></div><h3 id="讀取p8檔產出token">讀取.p8檔產出Token</h3>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">/// &lt;summary&gt;
-</span><span class="c1">/// 重新產生access token
-</span><span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span><span class="k">public</span>  <span class="k">virtual</span> <span class="k">void</span> <span class="n">ReNewAccessToken</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="c1">//取得產生Token的時間(UTC)秒為單位
-</span><span class="c1"></span>    <span class="kt">var</span> <span class="n">expiration</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">ToUniversalTime</span><span class="p">()</span> <span class="p">-</span> <span class="k">new</span> <span class="n">DateTime</span><span class="p">(</span><span class="m">1970</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">DateTimeKind</span><span class="p">.</span><span class="n">Utc</span><span class="p">);</span>
-    <span class="kt">var</span> <span class="n">expirationSeconds</span> <span class="p">=</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">expiration</span><span class="p">.</span><span class="n">TotalSeconds</span><span class="p">;</span>
-
-    <span class="kt">var</span> <span class="n">header</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">object</span><span class="p">&gt;();</span>
-    <span class="n">header</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;alg&#34;</span><span class="p">,</span> <span class="s">&#34;ES256&#34;</span><span class="p">);</span> <span class="c1">//加密演算法
-</span><span class="c1"></span>    <span class="n">header</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;kid&#34;</span><span class="p">,</span> <span class="n">auth_kid</span><span class="p">);</span>
-
-    <span class="kt">string</span> <span class="n">payload</span> <span class="p">=</span> <span class="s">&#34;{\&#34;iss\&#34;:\&#34;&#34;</span> <span class="p">+</span> <span class="n">auth_iss</span> <span class="p">+</span> <span class="s">&#34;\&#34;,\&#34;iat\&#34;:\&#34;&#34;</span> <span class="p">+</span> <span class="n">expirationSeconds</span> <span class="p">+</span> <span class="s">&#34;\&#34;}&#34;</span><span class="p">;</span>
-
-    <span class="n">accessToken</span> <span class="p">=</span> <span class="n">Jose</span><span class="p">.</span><span class="n">JWT</span><span class="p">.</span><span class="n">Encode</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">scrt</span><span class="p">,</span> <span class="n">Jose</span><span class="p">.</span><span class="n">JwsAlgorithm</span><span class="p">.</span><span class="n">ES256</span><span class="p">,</span> <span class="n">header</span><span class="p">);</span>
-
-    <span class="n">accessTokenValidTime</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">AddMinutes</span><span class="p">(</span><span class="m">60</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="c1">/// &lt;summary&gt;
-</span><span class="c1">/// 使用認證令牌
-</span><span class="c1">/// &lt;/summary&gt;
-</span><span class="c1">/// &lt;param name=&#34;p8FilePath&#34;&gt;p8檔案路徑&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;apns_topic&#34;&gt;bundle id&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;auth_kid&#34;&gt;kid&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;auth_iss&#34;&gt;iss&lt;/param&gt;
-</span><span class="c1"></span><span class="k">public</span> <span class="k">virtual</span> <span class="k">void</span> <span class="n">UseAuthorization</span><span class="p">(</span><span class="kt">string</span> <span class="n">p8FilePath</span><span class="p">,</span> <span class="kt">string</span> <span class="n">apns_topic</span><span class="p">,</span> <span class="kt">string</span> <span class="n">auth_kid</span><span class="p">,</span> <span class="kt">string</span> <span class="n">auth_iss</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">var</span> <span class="n">text</span> <span class="p">=</span> <span class="n">File</span><span class="p">.</span><span class="n">ReadAllText</span><span class="p">(</span><span class="n">p8FilePath</span><span class="p">);</span>
-    <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">split</span> <span class="p">=</span> <span class="n">text</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
-    <span class="n">split</span><span class="p">.</span><span class="n">RemoveAt</span><span class="p">(</span><span class="n">split</span><span class="p">.</span><span class="n">Count</span> <span class="p">-</span> <span class="m">1</span><span class="p">);</span>
-    <span class="n">split</span><span class="p">.</span><span class="n">RemoveAt</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
-    <span class="kt">var</span> <span class="n">k</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="n">split</span><span class="p">);</span>
-    <span class="kt">var</span> <span class="n">bytes</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">FromBase64String</span><span class="p">(</span><span class="n">k</span><span class="p">);</span>
-    <span class="kt">var</span> <span class="n">secrt</span> <span class="p">=</span> <span class="n">CngKey</span><span class="p">.</span><span class="n">Import</span><span class="p">(</span><span class="n">bytes</span><span class="p">,</span> <span class="n">CngKeyBlobFormat</span><span class="p">.</span><span class="n">Pkcs8PrivateBlob</span><span class="p">);</span>
-
-    <span class="k">this</span><span class="p">.</span><span class="n">scrt</span> <span class="p">=</span> <span class="n">secrt</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="n">auth_kid</span> <span class="p">=</span> <span class="n">auth_kid</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="n">auth_iss</span> <span class="p">=</span> <span class="n">auth_iss</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="n">apns_topic</span> <span class="p">=</span> <span class="n">apns_topic</span><span class="p">;</span>
-
-    <span class="n">ReNewAccessToken</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div><h3 id="http2處理">Http/2處理</h3>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">class</span> <span class="nc">Http2CustomHandler</span> <span class="p">:</span> <span class="n">WinHttpHandler</span>
-<span class="p">{</span>
-    <span class="k">protected</span> <span class="k">override</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">HttpResponseMessage</span><span class="p">&gt;</span> <span class="n">SendAsync</span><span class="p">(</span><span class="n">HttpRequestMessage</span> <span class="n">request</span><span class="p">,</span> <span class="n">System</span><span class="p">.</span><span class="n">Threading</span><span class="p">.</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">request</span><span class="p">.</span><span class="n">Version</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Version</span><span class="p">(</span><span class="s">&#34;2.0&#34;</span><span class="p">);</span>
-        <span class="k">return</span> <span class="k">base</span><span class="p">.</span><span class="n">SendAsync</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><h3 id="推送方法">推送方法</h3>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">virtual</span> <span class="n">AppleSendResult</span> <span class="n">Send</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="kt">string</span> <span class="n">token</span><span class="p">,</span> <span class="n">T</span> <span class="n">postdataModel</span>
-            <span class="p">,</span> <span class="n">ApplePushTypeKind</span> <span class="n">pushTypeKind</span> <span class="p">=</span> <span class="n">ApplePushTypeKind</span><span class="p">.</span><span class="n">alert</span><span class="p">,</span> <span class="kt">int</span> <span class="n">apns_expiration</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="kt">int</span> <span class="n">apns_priority</span> <span class="p">=</span> <span class="m">10</span><span class="p">)</span>
-            <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="n">APNSendRequest</span>
-<span class="p">{</span>
-
-    <span class="n">httpClient</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpClient</span><span class="p">(</span><span class="k">new</span> <span class="n">Http2CustomHandler</span><span class="p">());</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span> <span class="p">&gt;=</span> <span class="n">accessTokenValidTime</span><span class="p">)</span> <span class="p">{</span> <span class="n">ReNewAccessToken</span><span class="p">();</span> <span class="p">}</span>
-
-    <span class="n">AppleSendResult</span> <span class="n">result</span> <span class="p">=</span> <span class="k">new</span> <span class="n">AppleSendResult</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="n">token</span> <span class="p">=</span> <span class="n">token</span><span class="p">,</span>
-    <span class="p">};</span>
-    <span class="c1">//若是正式環境要將網址的sandbox拿掉  
-</span><span class="c1"></span>    <span class="kt">string</span> <span class="n">url</span> <span class="p">=</span> <span class="s">$&#34;https://api.sandbox.push.apple.com/3/device/{token}&#34;</span><span class="p">;</span>  
-
-    <span class="kt">var</span> <span class="n">uri</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span><span class="p">(</span><span class="n">url</span><span class="p">);</span>
-
-    <span class="kt">string</span> <span class="n">postdata_json</span> <span class="p">=</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">SerializeObject</span><span class="p">(</span><span class="n">postdataModel</span><span class="p">);</span>
-    <span class="kt">byte</span><span class="p">[]</span> <span class="n">byteArray</span> <span class="p">=</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">postdata_json</span><span class="p">);</span>
-
-    <span class="kt">var</span> <span class="n">httpRequestMessage</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpRequestMessage</span><span class="p">();</span>
-
-    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">RequestUri</span> <span class="p">=</span> <span class="n">uri</span><span class="p">;</span>
-    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Method</span> <span class="p">=</span> <span class="n">HttpMethod</span><span class="p">.</span><span class="n">Post</span><span class="p">;</span>
-
-    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;apns-push-type&#34;</span><span class="p">,</span> <span class="n">pushTypeKind</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
-    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;apns-expiration&#34;</span><span class="p">,</span> <span class="n">apns_expiration</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
-    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;apns-priority&#34;</span><span class="p">,</span> <span class="n">apns_priority</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
-    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;authorization&#34;</span><span class="p">,</span> <span class="s">$&#34;bearer {accessToken}&#34;</span><span class="p">);</span>
-    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;apns-topic&#34;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">apns_topic</span><span class="p">);</span>
-    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;apns-id&#34;</span><span class="p">,</span> <span class="n">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="p">().</span><span class="n">ToString</span><span class="p">());</span>
-
-    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Content</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ByteArrayContent</span><span class="p">(</span><span class="n">byteArray</span><span class="p">);</span>
-
-    <span class="kt">var</span> <span class="n">responseMessage</span> <span class="p">=</span> <span class="n">httpClient</span><span class="p">.</span><span class="n">SendAsync</span><span class="p">(</span><span class="n">httpRequestMessage</span><span class="p">).</span><span class="n">Result</span><span class="p">;</span>
-
-    <span class="kt">var</span> <span class="n">responseBody</span> <span class="p">=</span> <span class="n">responseMessage</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">ReadAsStringAsync</span><span class="p">().</span><span class="n">Result</span><span class="p">;</span>
-
-    <span class="n">HttpStatusCode</span> <span class="n">responseCode</span> <span class="p">=</span> <span class="n">responseMessage</span><span class="p">.</span><span class="n">StatusCode</span><span class="p">;</span>
-    <span class="n">result</span><span class="p">.</span><span class="n">httpStatusCode</span> <span class="p">=</span> <span class="n">responseCode</span><span class="p">;</span>
-
-    <span class="kt">string</span> <span class="n">tmp_apns_id</span> <span class="p">=</span> <span class="n">responseMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">GetValues</span><span class="p">(</span><span class="s">&#34;apns-id&#34;</span><span class="p">).</span><span class="n">First</span><span class="p">();</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">Guid</span><span class="p">.</span><span class="n">TryParse</span><span class="p">(</span><span class="n">tmp_apns_id</span><span class="p">,</span> <span class="k">out</span> <span class="n">Guid</span> <span class="n">res_apns_id</span><span class="p">))</span>
-    <span class="p">{</span>
-        <span class="n">result</span><span class="p">.</span><span class="n">apns_id</span> <span class="p">=</span> <span class="n">res_apns_id</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">responseCode</span> <span class="p">!=</span> <span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kt">var</span> <span class="n">responseObj</span> <span class="p">=</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">DeserializeObject</span><span class="p">&lt;</span><span class="n">APNSendResult</span><span class="p">&gt;(</span><span class="n">responseBody</span><span class="p">);</span>
-        <span class="n">result</span><span class="p">.</span><span class="n">reason</span> <span class="p">=</span> <span class="n">responseObj</span><span class="p">.</span><span class="n">reason</span><span class="p">;</span>
-        <span class="n">result</span><span class="p">.</span><span class="n">isSuccess</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
-        <span class="n">result</span><span class="p">.</span><span class="n">message</span> <span class="p">=</span> <span class="s">&#34;失敗。&#34;</span> <span class="p">+</span> <span class="n">responseObj</span><span class="p">.</span><span class="n">reason</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">else</span>
-    <span class="p">{</span>
-        <span class="n">result</span><span class="p">.</span><span class="n">isSuccess</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
-        <span class="n">result</span><span class="p">.</span><span class="n">message</span> <span class="p">=</span> <span class="s">&#34;成功。&#34;</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
-
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="c1">//回傳結果+狀態碼</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">AppleSendResult</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">bool</span> <span class="n">isSuccess</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">message</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Guid</span><span class="p">?</span> <span class="n">apns_id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">HttpStatusCode</span> <span class="n">httpStatusCode</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">reason</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//記著request的device token送完可判斷狀態碼來得知是否token還有效</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">token</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//Request 模型</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">APNAps</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//alert 可為object or string直接當訊息body</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">alert</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//Request</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">APNSendRequest</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//aps的物件結構可參照官方文件增加其他屬性</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">APNAps</span> <span class="n">aps</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//推送的種類(一般為alert)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">enum</span> <span class="n">ApplePushTypeKind</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">alert</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">background</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">voip</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">complication</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fileprovider</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mdm</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kt">string</span> <span class="n">auth_kid</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//apns auth key keyID</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kt">string</span> <span class="n">auth_iss</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//開發者帳號TeamID</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kt">string</span> <span class="n">apns_topic</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//開發專案名稱</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kt">string</span> <span class="n">accessToken</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//token</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="n">DateTime</span><span class="p">?</span> <span class="n">accessTokenValidTime</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//token合法時間</span>
+</span></span></code></pre></div><h3 id="讀取p8檔產出token">讀取.p8檔產出Token</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// 重新產生access token</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span>  <span class="k">virtual</span> <span class="k">void</span> <span class="n">ReNewAccessToken</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//取得產生Token的時間(UTC)秒為單位</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">expiration</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">ToUniversalTime</span><span class="p">()</span> <span class="p">-</span> <span class="k">new</span> <span class="n">DateTime</span><span class="p">(</span><span class="m">1970</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">DateTimeKind</span><span class="p">.</span><span class="n">Utc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">expirationSeconds</span> <span class="p">=</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">expiration</span><span class="p">.</span><span class="n">TotalSeconds</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">header</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">object</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">header</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;alg&#34;</span><span class="p">,</span> <span class="s">&#34;ES256&#34;</span><span class="p">);</span> <span class="c1">//加密演算法</span>
+</span></span><span class="line"><span class="cl">    <span class="n">header</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;kid&#34;</span><span class="p">,</span> <span class="n">auth_kid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="n">payload</span> <span class="p">=</span> <span class="s">&#34;{\&#34;iss\&#34;:\&#34;&#34;</span> <span class="p">+</span> <span class="n">auth_iss</span> <span class="p">+</span> <span class="s">&#34;\&#34;,\&#34;iat\&#34;:\&#34;&#34;</span> <span class="p">+</span> <span class="n">expirationSeconds</span> <span class="p">+</span> <span class="s">&#34;\&#34;}&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">accessToken</span> <span class="p">=</span> <span class="n">Jose</span><span class="p">.</span><span class="n">JWT</span><span class="p">.</span><span class="n">Encode</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">scrt</span><span class="p">,</span> <span class="n">Jose</span><span class="p">.</span><span class="n">JwsAlgorithm</span><span class="p">.</span><span class="n">ES256</span><span class="p">,</span> <span class="n">header</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">accessTokenValidTime</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">AddMinutes</span><span class="p">(</span><span class="m">60</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// 使用認證令牌</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;p8FilePath&#34;&gt;p8檔案路徑&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;apns_topic&#34;&gt;bundle id&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;auth_kid&#34;&gt;kid&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;auth_iss&#34;&gt;iss&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">virtual</span> <span class="k">void</span> <span class="n">UseAuthorization</span><span class="p">(</span><span class="kt">string</span> <span class="n">p8FilePath</span><span class="p">,</span> <span class="kt">string</span> <span class="n">apns_topic</span><span class="p">,</span> <span class="kt">string</span> <span class="n">auth_kid</span><span class="p">,</span> <span class="kt">string</span> <span class="n">auth_iss</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">text</span> <span class="p">=</span> <span class="n">File</span><span class="p">.</span><span class="n">ReadAllText</span><span class="p">(</span><span class="n">p8FilePath</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">split</span> <span class="p">=</span> <span class="n">text</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">split</span><span class="p">.</span><span class="n">RemoveAt</span><span class="p">(</span><span class="n">split</span><span class="p">.</span><span class="n">Count</span> <span class="p">-</span> <span class="m">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">split</span><span class="p">.</span><span class="n">RemoveAt</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">k</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="n">split</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">bytes</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">FromBase64String</span><span class="p">(</span><span class="n">k</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">secrt</span> <span class="p">=</span> <span class="n">CngKey</span><span class="p">.</span><span class="n">Import</span><span class="p">(</span><span class="n">bytes</span><span class="p">,</span> <span class="n">CngKeyBlobFormat</span><span class="p">.</span><span class="n">Pkcs8PrivateBlob</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">scrt</span> <span class="p">=</span> <span class="n">secrt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">auth_kid</span> <span class="p">=</span> <span class="n">auth_kid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">auth_iss</span> <span class="p">=</span> <span class="n">auth_iss</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">apns_topic</span> <span class="p">=</span> <span class="n">apns_topic</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">ReNewAccessToken</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="http2處理">Http/2處理</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">Http2CustomHandler</span> <span class="p">:</span> <span class="n">WinHttpHandler</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">protected</span> <span class="kd">override</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">HttpResponseMessage</span><span class="p">&gt;</span> <span class="n">SendAsync</span><span class="p">(</span><span class="n">HttpRequestMessage</span> <span class="n">request</span><span class="p">,</span> <span class="n">System</span><span class="p">.</span><span class="n">Threading</span><span class="p">.</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">request</span><span class="p">.</span><span class="n">Version</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Version</span><span class="p">(</span><span class="s">&#34;2.0&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">base</span><span class="p">.</span><span class="n">SendAsync</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="推送方法">推送方法</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">virtual</span> <span class="n">AppleSendResult</span> <span class="n">Send</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="kt">string</span> <span class="n">token</span><span class="p">,</span> <span class="n">T</span> <span class="n">postdataModel</span>
+</span></span><span class="line"><span class="cl">            <span class="p">,</span> <span class="n">ApplePushTypeKind</span> <span class="n">pushTypeKind</span> <span class="p">=</span> <span class="n">ApplePushTypeKind</span><span class="p">.</span><span class="n">alert</span><span class="p">,</span> <span class="kt">int</span> <span class="n">apns_expiration</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="kt">int</span> <span class="n">apns_priority</span> <span class="p">=</span> <span class="m">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="n">APNSendRequest</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">httpClient</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpClient</span><span class="p">(</span><span class="k">new</span> <span class="n">Http2CustomHandler</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span> <span class="p">&gt;=</span> <span class="n">accessTokenValidTime</span><span class="p">)</span> <span class="p">{</span> <span class="n">ReNewAccessToken</span><span class="p">();</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">AppleSendResult</span> <span class="n">result</span> <span class="p">=</span> <span class="k">new</span> <span class="n">AppleSendResult</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">token</span> <span class="p">=</span> <span class="n">token</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//若是正式環境要將網址的sandbox拿掉  </span>
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="n">url</span> <span class="p">=</span> <span class="s">$&#34;https://api.sandbox.push.apple.com/3/device/{token}&#34;</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">uri</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span><span class="p">(</span><span class="n">url</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="n">postdata_json</span> <span class="p">=</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">SerializeObject</span><span class="p">(</span><span class="n">postdataModel</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">byte</span><span class="p">[]</span> <span class="n">byteArray</span> <span class="p">=</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">postdata_json</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">httpRequestMessage</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpRequestMessage</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">RequestUri</span> <span class="p">=</span> <span class="n">uri</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Method</span> <span class="p">=</span> <span class="n">HttpMethod</span><span class="p">.</span><span class="n">Post</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;apns-push-type&#34;</span><span class="p">,</span> <span class="n">pushTypeKind</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;apns-expiration&#34;</span><span class="p">,</span> <span class="n">apns_expiration</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;apns-priority&#34;</span><span class="p">,</span> <span class="n">apns_priority</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;authorization&#34;</span><span class="p">,</span> <span class="s">$&#34;bearer {accessToken}&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;apns-topic&#34;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">apns_topic</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;apns-id&#34;</span><span class="p">,</span> <span class="n">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="p">().</span><span class="n">ToString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Content</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ByteArrayContent</span><span class="p">(</span><span class="n">byteArray</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">responseMessage</span> <span class="p">=</span> <span class="n">httpClient</span><span class="p">.</span><span class="n">SendAsync</span><span class="p">(</span><span class="n">httpRequestMessage</span><span class="p">).</span><span class="n">Result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">responseBody</span> <span class="p">=</span> <span class="n">responseMessage</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">ReadAsStringAsync</span><span class="p">().</span><span class="n">Result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">HttpStatusCode</span> <span class="n">responseCode</span> <span class="p">=</span> <span class="n">responseMessage</span><span class="p">.</span><span class="n">StatusCode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span><span class="p">.</span><span class="n">httpStatusCode</span> <span class="p">=</span> <span class="n">responseCode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="n">tmp_apns_id</span> <span class="p">=</span> <span class="n">responseMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">GetValues</span><span class="p">(</span><span class="s">&#34;apns-id&#34;</span><span class="p">).</span><span class="n">First</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">Guid</span><span class="p">.</span><span class="n">TryParse</span><span class="p">(</span><span class="n">tmp_apns_id</span><span class="p">,</span> <span class="k">out</span> <span class="n">Guid</span> <span class="n">res_apns_id</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="p">.</span><span class="n">apns_id</span> <span class="p">=</span> <span class="n">res_apns_id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">responseCode</span> <span class="p">!=</span> <span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">responseObj</span> <span class="p">=</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">DeserializeObject</span><span class="p">&lt;</span><span class="n">APNSendResult</span><span class="p">&gt;(</span><span class="n">responseBody</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="p">.</span><span class="n">reason</span> <span class="p">=</span> <span class="n">responseObj</span><span class="p">.</span><span class="n">reason</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="p">.</span><span class="n">isSuccess</span> <span class="p">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="p">.</span><span class="n">message</span> <span class="p">=</span> <span class="s">&#34;失敗。&#34;</span> <span class="p">+</span> <span class="n">responseObj</span><span class="p">.</span><span class="n">reason</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="p">.</span><span class="n">isSuccess</span> <span class="p">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="p">.</span><span class="n">message</span> <span class="p">=</span> <span class="s">&#34;成功。&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p>當通知傳到裝置後，根據<code>Response</code>可以知道是否成功及<code>DeviceToken</code>有效性<br>
 <code>Request</code>的模型還有更多參數可以設定<br>
 較詳細的處理就需要看官方文件慢慢調整了。</p>
@@ -402,8 +410,7 @@
     >url2</a></li>
 <li><a class="link" href="http://monkeybinbin-blog.logdown.com/posts/1120802-apns-token-based-authentication-csharp"  target="_blank" rel="noopener"
     >url3</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -414,7 +421,7 @@
         
             <a href="/tags/notification/">Notification</a>
         
-            <a href="/tags/c#/">C#</a>
+            <a href="/tags/c%23/">C#</a>
         
     </section>
 
@@ -493,12 +500,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

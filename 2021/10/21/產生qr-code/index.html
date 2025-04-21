@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='主要內容 using System.Drawing; using System.Drawing.Imaging; using ZXing; // for BarcodeWriter using ZXing.QrCode; // for QRCode Engine using System.IO; //////圖片用ViewBag傳回base64格式 var writer = new BarcodeWriter //dll裡面可以看到屬性 { Format = BarcodeFormat.QR_CODE, Options = new QrCodeEncodingOptions //設定大小  { Height = 200, Width = 200, } }; //產生QRcode var img = writer.Write(&amp;#34;www.google.com&amp;#34;); Bitmap myBitmap = new Bitmap(img); MemoryStream ms = new MemoryStream(); myBitmap.Save(ms, ImageFormat.Jpeg); byte[] arr = new byte[ms.Length]; ms.Position = 0; ms.Read(arr, 0, (int)ms.'><title>產生QR Code</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='主要內容 using System.Drawing; using System.Drawing.Imaging; using ZXing; // for BarcodeWriter using ZXing.QrCode; // for QRCode Engine using System.IO; //////圖片用ViewBag傳回base64格式 var writer = new BarcodeWriter //dll裡面可以看到屬性 { Format = BarcodeFormat.QR_CODE, Options = new QrCodeEncodingOptions //設定大小 { Height = 200, Width = 200, } }; //產生QRcode var img = writer.Write(&#34;www.google.com&#34;); Bitmap myBitmap = new Bitmap(img); MemoryStream ms = new MemoryStream(); myBitmap.Save(ms, ImageFormat.Jpeg); byte[] arr = new byte[ms.Length]; ms.Position = 0; ms.Read(arr, 0, (int)ms.Length); ms.Close(); string base64str = Convert.ToBase64String(arr); ViewBag.IMG = base64str; '><title>產生QR Code</title>
 
 <link rel='canonical' href='https://hushuuu.github.io/2021/10/21/%E7%94%A2%E7%94%9Fqr-code/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='產生QR Code'>
-<meta property='og:description' content='主要內容 using System.Drawing; using System.Drawing.Imaging; using ZXing; // for BarcodeWriter using ZXing.QrCode; // for QRCode Engine using System.IO; //////圖片用ViewBag傳回base64格式 var writer = new BarcodeWriter //dll裡面可以看到屬性 { Format = BarcodeFormat.QR_CODE, Options = new QrCodeEncodingOptions //設定大小  { Height = 200, Width = 200, } }; //產生QRcode var img = writer.Write(&amp;#34;www.google.com&amp;#34;); Bitmap myBitmap = new Bitmap(img); MemoryStream ms = new MemoryStream(); myBitmap.Save(ms, ImageFormat.Jpeg); byte[] arr = new byte[ms.Length]; ms.Position = 0; ms.Read(arr, 0, (int)ms.'>
+<meta property='og:description' content='主要內容 using System.Drawing; using System.Drawing.Imaging; using ZXing; // for BarcodeWriter using ZXing.QrCode; // for QRCode Engine using System.IO; //////圖片用ViewBag傳回base64格式 var writer = new BarcodeWriter //dll裡面可以看到屬性 { Format = BarcodeFormat.QR_CODE, Options = new QrCodeEncodingOptions //設定大小 { Height = 200, Width = 200, } }; //產生QRcode var img = writer.Write(&#34;www.google.com&#34;); Bitmap myBitmap = new Bitmap(img); MemoryStream ms = new MemoryStream(); myBitmap.Save(ms, ImageFormat.Jpeg); byte[] arr = new byte[ms.Length]; ms.Position = 0; ms.Read(arr, 0, (int)ms.Length); ms.Close(); string base64str = Convert.ToBase64String(arr); ViewBag.IMG = base64str; '>
 <meta property='og:url' content='https://hushuuu.github.io/2021/10/21/%E7%94%A2%E7%94%9Fqr-code/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C#' /><meta property='article:tag' content='AspNet' /><meta property='article:published_time' content='2021-10-21T14:57:01&#43;08:00'/><meta property='article:modified_time' content='2021-10-21T14:57:01&#43;08:00'/>
 <meta name="twitter:title" content="產生QR Code">
-<meta name="twitter:description" content="主要內容 using System.Drawing; using System.Drawing.Imaging; using ZXing; // for BarcodeWriter using ZXing.QrCode; // for QRCode Engine using System.IO; //////圖片用ViewBag傳回base64格式 var writer = new BarcodeWriter //dll裡面可以看到屬性 { Format = BarcodeFormat.QR_CODE, Options = new QrCodeEncodingOptions //設定大小  { Height = 200, Width = 200, } }; //產生QRcode var img = writer.Write(&amp;#34;www.google.com&amp;#34;); Bitmap myBitmap = new Bitmap(img); MemoryStream ms = new MemoryStream(); myBitmap.Save(ms, ImageFormat.Jpeg); byte[] arr = new byte[ms.Length]; ms.Position = 0; ms.Read(arr, 0, (int)ms.">
+<meta name="twitter:description" content="主要內容 using System.Drawing; using System.Drawing.Imaging; using ZXing; // for BarcodeWriter using ZXing.QrCode; // for QRCode Engine using System.IO; //////圖片用ViewBag傳回base64格式 var writer = new BarcodeWriter //dll裡面可以看到屬性 { Format = BarcodeFormat.QR_CODE, Options = new QrCodeEncodingOptions //設定大小 { Height = 200, Width = 200, } }; //產生QRcode var img = writer.Write(&#34;www.google.com&#34;); Bitmap myBitmap = new Bitmap(img); MemoryStream ms = new MemoryStream(); myBitmap.Save(ms, ImageFormat.Jpeg); byte[] arr = new byte[ms.Length]; ms.Position = 0; ms.Read(arr, 0, (int)ms.Length); ms.Close(); string base64str = Convert.ToBase64String(arr); ViewBag.IMG = base64str; ">
     </head>
     <body class="">
     <script>
@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -186,7 +186,7 @@
     
     <header class="article-category">
         
-            <a href="/categories/c#/" >
+            <a href="/categories/c%23/" >
                 C#
             </a>
         
@@ -212,34 +212,34 @@
 
     <section class="article-content">
     <h2 id="主要內容">主要內容</h2>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">using</span> <span class="nn">System.Drawing</span><span class="p">;</span>
-<span class="k">using</span> <span class="nn">System.Drawing.Imaging</span><span class="p">;</span>
-<span class="k">using</span> <span class="nn">ZXing</span><span class="p">;</span>                  <span class="c1">// for BarcodeWriter
-</span><span class="c1"></span><span class="k">using</span> <span class="nn">ZXing.QrCode</span><span class="p">;</span>           <span class="c1">// for QRCode Engine
-</span><span class="c1"></span><span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
-<span class="c1">//////圖片用ViewBag傳回base64格式
-</span><span class="c1"></span><span class="kt">var</span> <span class="n">writer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">BarcodeWriter</span>  <span class="c1">//dll裡面可以看到屬性
-</span><span class="c1"></span><span class="p">{</span>
-    <span class="n">Format</span> <span class="p">=</span> <span class="n">BarcodeFormat</span><span class="p">.</span><span class="n">QR_CODE</span><span class="p">,</span>
-    <span class="n">Options</span> <span class="p">=</span> <span class="k">new</span> <span class="n">QrCodeEncodingOptions</span> <span class="c1">//設定大小
-</span><span class="c1"></span>    <span class="p">{</span>
-        <span class="n">Height</span> <span class="p">=</span> <span class="m">200</span><span class="p">,</span>
-        <span class="n">Width</span> <span class="p">=</span> <span class="m">200</span><span class="p">,</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-<span class="c1">//產生QRcode
-</span><span class="c1"></span><span class="kt">var</span> <span class="n">img</span> <span class="p">=</span> <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;www.google.com&#34;</span><span class="p">);</span>
-<span class="n">Bitmap</span> <span class="n">myBitmap</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Bitmap</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>
-<span class="n">MemoryStream</span> <span class="n">ms</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MemoryStream</span><span class="p">();</span>
-<span class="n">myBitmap</span><span class="p">.</span><span class="n">Save</span><span class="p">(</span><span class="n">ms</span><span class="p">,</span> <span class="n">ImageFormat</span><span class="p">.</span><span class="n">Jpeg</span><span class="p">);</span>
-<span class="kt">byte</span><span class="p">[]</span> <span class="n">arr</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="p">[</span><span class="n">ms</span><span class="p">.</span><span class="n">Length</span><span class="p">];</span>
-<span class="n">ms</span><span class="p">.</span><span class="n">Position</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
-<span class="n">ms</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">ms</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
-<span class="n">ms</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
-<span class="kt">string</span> <span class="n">base64str</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToBase64String</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span>
-
-<span class="n">ViewBag</span><span class="p">.</span><span class="n">IMG</span> <span class="p">=</span> <span class="n">base64str</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Drawing</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Drawing.Imaging</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">ZXing</span><span class="p">;</span>                  <span class="c1">// for BarcodeWriter</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">ZXing.QrCode</span><span class="p">;</span>           <span class="c1">// for QRCode Engine</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">//////圖片用ViewBag傳回base64格式</span>
+</span></span><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">writer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">BarcodeWriter</span>  <span class="c1">//dll裡面可以看到屬性</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Format</span> <span class="p">=</span> <span class="n">BarcodeFormat</span><span class="p">.</span><span class="n">QR_CODE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Options</span> <span class="p">=</span> <span class="k">new</span> <span class="n">QrCodeEncodingOptions</span> <span class="c1">//設定大小</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Height</span> <span class="p">=</span> <span class="m">200</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Width</span> <span class="p">=</span> <span class="m">200</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//產生QRcode</span>
+</span></span><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">img</span> <span class="p">=</span> <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;www.google.com&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Bitmap</span> <span class="n">myBitmap</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Bitmap</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">MemoryStream</span> <span class="n">ms</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MemoryStream</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">myBitmap</span><span class="p">.</span><span class="n">Save</span><span class="p">(</span><span class="n">ms</span><span class="p">,</span> <span class="n">ImageFormat</span><span class="p">.</span><span class="n">Jpeg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">byte</span><span class="p">[]</span> <span class="n">arr</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="p">[</span><span class="n">ms</span><span class="p">.</span><span class="n">Length</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="n">ms</span><span class="p">.</span><span class="n">Position</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">ms</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">ms</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">ms</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kt">string</span> <span class="n">base64str</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToBase64String</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ViewBag</span><span class="p">.</span><span class="n">IMG</span> <span class="p">=</span> <span class="n">base64str</span><span class="p">;</span>
+</span></span></code></pre></div>
 </section>
 
 
@@ -247,7 +247,7 @@
     
     <section class="article-tags">
         
-            <a href="/tags/c#/">C#</a>
+            <a href="/tags/c%23/">C#</a>
         
             <a href="/tags/aspnet/">AspNet</a>
         
@@ -285,12 +285,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

@@ -6,11 +6,13 @@ Request加ApiKey驗證傳給FCM Server即可
 主要內容 須先取得Firebase Android開發的api key
 詳閱Firebase Cloud Messaging(FCM) 官方文件後，建立傳入傳出的類別
 request較重要的欄位為registration_ids代表欲傳送的device id
-傳送訊息FCM有定義兩種type，notification message 和data message 
-根據使用的種類，App接收端的處理也稍有不同，接收到並解析來顯示通知
+傳送訊息FCM有定義兩種type，notification message 和data message 根據使用的種類，App接收端的處理也稍有不同，接收到並解析來顯示通知
 此篇不多介紹App端的處理
 定義類別
-//回傳結果  public class FCMResultData { public string error { get; set; } public string message_id { get; set; } public string registration_id { get; set; } } //FCM回傳結果 public class FCMSendResult { public string multicast_id { get; set; } public int? success { get; set; } public int?'><title>Notification - Android篇</title>
+//回傳結果 public class FCMResultData { public string error { get; set; } public string message_id { get; set; } public string registration_id { get; set; } } //FCM回傳結果 public class FCMSendResult { public string multicast_id { get; set; } public int? success { get; set; } public int? failure { get; set; } public int? canonical_ids { get; set; } public string message { get; set; } public List&lt;FCMResultData&gt; results { get; set; } } //紀錄結果&#43;狀態碼 public class AndroidSendResult : FCMSendResult { public bool isSuccess { get; set; } public string resultMessage { get; set; } public HttpStatusCode httpStatusCode { get; set; } } //Request public class FCMSendData { public string tickerText { get; set; } public string contentTitle { get; set; } public string message { get; set; } } public class FCMSendRequest&lt;T&gt; where T : FCMSendData { public List&lt;string&gt; registration_ids { get; set; } public T data { get; set; } //data message } public virtual AndroidSendResult SendList&lt;T&gt;(List&lt;string&gt; registration_ids, T send_data) where T : FCMSendData { AndroidSendResult result; //fcm推播網址 var uri = new Uri(&#34;https://fcm.googleapis.com/fcm/send&#34;); FCMSendRequest&lt;T&gt; post_data = new FCMSendRequest&lt;T&gt;() { registration_ids = registration_ids,//裝置id清單 data = send_data, //推播訊息模型 }; string postdata_json = JsonConvert.SerializeObject(post_data); var httpRequestMessage = new HttpRequestMessage(); httpRequestMessage.RequestUri = uri; httpRequestMessage.Method = HttpMethod.Post; httpRequestMessage.Headers.Add(&#34;Authorization&#34;, $&#34;key ={api_key}&#34;);//fcm token key httpRequestMessage.Content = new StringContent(postdata_json, Encoding.UTF8, &#34;application/json&#34;); httpClient = new HttpClient(); httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(&#34;application/json&#34;)); var responseMessage = httpClient.SendAsync(httpRequestMessage).Result; var responseBody = responseMessage.Content.ReadAsStringAsync().Result; //推送結果 result = JsonConvert.DeserializeObject&lt;AndroidSendResult&gt;(responseBody); HttpStatusCode responseCode = responseMessage.StatusCode; result.httpStatusCode = responseCode; if (result.success.HasValue) { if(result.success &gt;= 1) { result.isSuccess = true; result.resultMessage = &#34;OK&#34;; } else { result.isSuccess = false; result.resultMessage = &#34;無成功數量。&#34;; } } else { result.isSuccess = false; result.resultMessage = &#34;有異常結果，無回應成功或失敗數量。&#34;; } return result; } 小結 當通知傳到裝置後，根據Response可以知道是否成功及DeviceID有效性
+Request的模型還有更多參數可以設定
+較詳細的處理就需要看官方文件慢慢調整了。
+'><title>Notification - Android篇</title>
 
 <link rel='canonical' href='https://hushuuu.github.io/2021/09/07/notification-android%E7%AF%87/'>
 
@@ -20,11 +22,13 @@ Request加ApiKey驗證傳給FCM Server即可
 主要內容 須先取得Firebase Android開發的api key
 詳閱Firebase Cloud Messaging(FCM) 官方文件後，建立傳入傳出的類別
 request較重要的欄位為registration_ids代表欲傳送的device id
-傳送訊息FCM有定義兩種type，notification message 和data message 
-根據使用的種類，App接收端的處理也稍有不同，接收到並解析來顯示通知
+傳送訊息FCM有定義兩種type，notification message 和data message 根據使用的種類，App接收端的處理也稍有不同，接收到並解析來顯示通知
 此篇不多介紹App端的處理
 定義類別
-//回傳結果  public class FCMResultData { public string error { get; set; } public string message_id { get; set; } public string registration_id { get; set; } } //FCM回傳結果 public class FCMSendResult { public string multicast_id { get; set; } public int? success { get; set; } public int?'>
+//回傳結果 public class FCMResultData { public string error { get; set; } public string message_id { get; set; } public string registration_id { get; set; } } //FCM回傳結果 public class FCMSendResult { public string multicast_id { get; set; } public int? success { get; set; } public int? failure { get; set; } public int? canonical_ids { get; set; } public string message { get; set; } public List&lt;FCMResultData&gt; results { get; set; } } //紀錄結果&#43;狀態碼 public class AndroidSendResult : FCMSendResult { public bool isSuccess { get; set; } public string resultMessage { get; set; } public HttpStatusCode httpStatusCode { get; set; } } //Request public class FCMSendData { public string tickerText { get; set; } public string contentTitle { get; set; } public string message { get; set; } } public class FCMSendRequest&lt;T&gt; where T : FCMSendData { public List&lt;string&gt; registration_ids { get; set; } public T data { get; set; } //data message } public virtual AndroidSendResult SendList&lt;T&gt;(List&lt;string&gt; registration_ids, T send_data) where T : FCMSendData { AndroidSendResult result; //fcm推播網址 var uri = new Uri(&#34;https://fcm.googleapis.com/fcm/send&#34;); FCMSendRequest&lt;T&gt; post_data = new FCMSendRequest&lt;T&gt;() { registration_ids = registration_ids,//裝置id清單 data = send_data, //推播訊息模型 }; string postdata_json = JsonConvert.SerializeObject(post_data); var httpRequestMessage = new HttpRequestMessage(); httpRequestMessage.RequestUri = uri; httpRequestMessage.Method = HttpMethod.Post; httpRequestMessage.Headers.Add(&#34;Authorization&#34;, $&#34;key ={api_key}&#34;);//fcm token key httpRequestMessage.Content = new StringContent(postdata_json, Encoding.UTF8, &#34;application/json&#34;); httpClient = new HttpClient(); httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(&#34;application/json&#34;)); var responseMessage = httpClient.SendAsync(httpRequestMessage).Result; var responseBody = responseMessage.Content.ReadAsStringAsync().Result; //推送結果 result = JsonConvert.DeserializeObject&lt;AndroidSendResult&gt;(responseBody); HttpStatusCode responseCode = responseMessage.StatusCode; result.httpStatusCode = responseCode; if (result.success.HasValue) { if(result.success &gt;= 1) { result.isSuccess = true; result.resultMessage = &#34;OK&#34;; } else { result.isSuccess = false; result.resultMessage = &#34;無成功數量。&#34;; } } else { result.isSuccess = false; result.resultMessage = &#34;有異常結果，無回應成功或失敗數量。&#34;; } return result; } 小結 當通知傳到裝置後，根據Response可以知道是否成功及DeviceID有效性
+Request的模型還有更多參數可以設定
+較詳細的處理就需要看官方文件慢慢調整了。
+'>
 <meta property='og:url' content='https://hushuuu.github.io/2021/09/07/notification-android%E7%AF%87/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Notification' /><meta property='article:tag' content='C#' /><meta property='article:published_time' content='2021-09-07T09:45:46&#43;08:00'/><meta property='article:modified_time' content='2021-09-07T09:45:46&#43;08:00'/>
@@ -34,11 +38,13 @@ Request加ApiKey驗證傳給FCM Server即可
 主要內容 須先取得Firebase Android開發的api key
 詳閱Firebase Cloud Messaging(FCM) 官方文件後，建立傳入傳出的類別
 request較重要的欄位為registration_ids代表欲傳送的device id
-傳送訊息FCM有定義兩種type，notification message 和data message 
-根據使用的種類，App接收端的處理也稍有不同，接收到並解析來顯示通知
+傳送訊息FCM有定義兩種type，notification message 和data message 根據使用的種類，App接收端的處理也稍有不同，接收到並解析來顯示通知
 此篇不多介紹App端的處理
 定義類別
-//回傳結果  public class FCMResultData { public string error { get; set; } public string message_id { get; set; } public string registration_id { get; set; } } //FCM回傳結果 public class FCMSendResult { public string multicast_id { get; set; } public int? success { get; set; } public int?">
+//回傳結果 public class FCMResultData { public string error { get; set; } public string message_id { get; set; } public string registration_id { get; set; } } //FCM回傳結果 public class FCMSendResult { public string multicast_id { get; set; } public int? success { get; set; } public int? failure { get; set; } public int? canonical_ids { get; set; } public string message { get; set; } public List&lt;FCMResultData&gt; results { get; set; } } //紀錄結果&#43;狀態碼 public class AndroidSendResult : FCMSendResult { public bool isSuccess { get; set; } public string resultMessage { get; set; } public HttpStatusCode httpStatusCode { get; set; } } //Request public class FCMSendData { public string tickerText { get; set; } public string contentTitle { get; set; } public string message { get; set; } } public class FCMSendRequest&lt;T&gt; where T : FCMSendData { public List&lt;string&gt; registration_ids { get; set; } public T data { get; set; } //data message } public virtual AndroidSendResult SendList&lt;T&gt;(List&lt;string&gt; registration_ids, T send_data) where T : FCMSendData { AndroidSendResult result; //fcm推播網址 var uri = new Uri(&#34;https://fcm.googleapis.com/fcm/send&#34;); FCMSendRequest&lt;T&gt; post_data = new FCMSendRequest&lt;T&gt;() { registration_ids = registration_ids,//裝置id清單 data = send_data, //推播訊息模型 }; string postdata_json = JsonConvert.SerializeObject(post_data); var httpRequestMessage = new HttpRequestMessage(); httpRequestMessage.RequestUri = uri; httpRequestMessage.Method = HttpMethod.Post; httpRequestMessage.Headers.Add(&#34;Authorization&#34;, $&#34;key ={api_key}&#34;);//fcm token key httpRequestMessage.Content = new StringContent(postdata_json, Encoding.UTF8, &#34;application/json&#34;); httpClient = new HttpClient(); httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(&#34;application/json&#34;)); var responseMessage = httpClient.SendAsync(httpRequestMessage).Result; var responseBody = responseMessage.Content.ReadAsStringAsync().Result; //推送結果 result = JsonConvert.DeserializeObject&lt;AndroidSendResult&gt;(responseBody); HttpStatusCode responseCode = responseMessage.StatusCode; result.httpStatusCode = responseCode; if (result.success.HasValue) { if(result.success &gt;= 1) { result.isSuccess = true; result.resultMessage = &#34;OK&#34;; } else { result.isSuccess = false; result.resultMessage = &#34;無成功數量。&#34;; } } else { result.isSuccess = false; result.resultMessage = &#34;有異常結果，無回應成功或失敗數量。&#34;; } return result; } 小結 當通知傳到裝置後，根據Response可以知道是否成功及DeviceID有效性
+Request的模型還有更多參數可以設定
+較詳細的處理就需要看官方文件慢慢調整了。
+">
     </head>
     <body class="">
     <script>
@@ -78,7 +84,7 @@ request較重要的欄位為registration_ids代表欲傳送的device id
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -249,116 +255,115 @@ request較重要的欄位為registration_ids代表欲傳送的device id
 根據使用的種類，App接收端的處理也稍有不同，接收到並解析來顯示通知<br>
 此篇不多介紹App端的處理</p>
 <p><code>定義類別</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//回傳結果
-</span><span class="c1"></span> <span class="k">public</span> <span class="k">class</span> <span class="nc">FCMResultData</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">error</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">message_id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">registration_id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-<span class="p">}</span>
-<span class="c1">//FCM回傳結果
-</span><span class="c1"></span><span class="k">public</span> <span class="k">class</span> <span class="nc">FCMSendResult</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">multicast_id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="kt">int?</span> <span class="n">success</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="kt">int?</span> <span class="n">failure</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="kt">int?</span> <span class="n">canonical_ids</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">message</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">FCMResultData</span><span class="p">&gt;</span> <span class="n">results</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-<span class="p">}</span>
-<span class="c1">//紀錄結果+狀態碼
-</span><span class="c1"></span><span class="k">public</span> <span class="k">class</span> <span class="nc">AndroidSendResult</span> <span class="p">:</span> <span class="n">FCMSendResult</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="kt">bool</span> <span class="n">isSuccess</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">resultMessage</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="n">HttpStatusCode</span> <span class="n">httpStatusCode</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-<span class="p">}</span>
-<span class="c1">//Request
-</span><span class="c1"></span><span class="k">public</span> <span class="k">class</span> <span class="nc">FCMSendData</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">tickerText</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">contentTitle</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">message</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-<span class="p">}</span>
-<span class="k">public</span> <span class="k">class</span> <span class="nc">FCMSendRequest</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
-        <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="n">FCMSendData</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">registration_ids</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="n">T</span> <span class="n">data</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//data message
-</span><span class="c1"></span><span class="p">}</span>
-
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#">
-<span class="k">public</span> <span class="k">virtual</span> <span class="n">AndroidSendResult</span> <span class="n">SendList</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">registration_ids</span><span class="p">,</span> <span class="n">T</span> <span class="n">send_data</span><span class="p">)</span>
-    <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="n">FCMSendData</span>
-<span class="p">{</span>
-    <span class="n">AndroidSendResult</span> <span class="n">result</span><span class="p">;</span>
-    <span class="c1">//fcm推播網址
-</span><span class="c1"></span>    <span class="kt">var</span> <span class="n">uri</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span><span class="p">(</span><span class="s">&#34;https://fcm.googleapis.com/fcm/send&#34;</span><span class="p">);</span>
-
-    <span class="n">FCMSendRequest</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">post_data</span> <span class="p">=</span> <span class="k">new</span> <span class="n">FCMSendRequest</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;()</span>
-    <span class="p">{</span>
-        <span class="n">registration_ids</span> <span class="p">=</span> <span class="n">registration_ids</span><span class="p">,</span><span class="c1">//裝置id清單
-</span><span class="c1"></span>        <span class="n">data</span> <span class="p">=</span> <span class="n">send_data</span><span class="p">,</span> <span class="c1">//推播訊息模型
-</span><span class="c1"></span>    <span class="p">};</span>
-
-    <span class="kt">string</span> <span class="n">postdata_json</span> <span class="p">=</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">SerializeObject</span><span class="p">(</span><span class="n">post_data</span><span class="p">);</span>
-
-    <span class="kt">var</span> <span class="n">httpRequestMessage</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpRequestMessage</span><span class="p">();</span>
-
-    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">RequestUri</span> <span class="p">=</span> <span class="n">uri</span><span class="p">;</span>
-    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Method</span> <span class="p">=</span> <span class="n">HttpMethod</span><span class="p">.</span><span class="n">Post</span><span class="p">;</span>
-    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;Authorization&#34;</span><span class="p">,</span> <span class="s">$&#34;key ={api_key}&#34;</span><span class="p">);</span><span class="c1">//fcm token key
-</span><span class="c1"></span>
-    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Content</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StringContent</span><span class="p">(</span><span class="n">postdata_json</span><span class="p">,</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">,</span> <span class="s">&#34;application/json&#34;</span><span class="p">);</span>
-    
-    <span class="n">httpClient</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpClient</span><span class="p">();</span>
-    <span class="n">httpClient</span><span class="p">.</span><span class="n">DefaultRequestHeaders</span><span class="p">.</span><span class="n">Accept</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">MediaTypeWithQualityHeaderValue</span><span class="p">(</span><span class="s">&#34;application/json&#34;</span><span class="p">));</span>
-    <span class="kt">var</span> <span class="n">responseMessage</span> <span class="p">=</span> <span class="n">httpClient</span><span class="p">.</span><span class="n">SendAsync</span><span class="p">(</span><span class="n">httpRequestMessage</span><span class="p">).</span><span class="n">Result</span><span class="p">;</span>
-    <span class="kt">var</span> <span class="n">responseBody</span> <span class="p">=</span> <span class="n">responseMessage</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">ReadAsStringAsync</span><span class="p">().</span><span class="n">Result</span><span class="p">;</span>
-    <span class="c1">//推送結果
-</span><span class="c1"></span>    <span class="n">result</span> <span class="p">=</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">DeserializeObject</span><span class="p">&lt;</span><span class="n">AndroidSendResult</span><span class="p">&gt;(</span><span class="n">responseBody</span><span class="p">);</span>
-
-    <span class="n">HttpStatusCode</span> <span class="n">responseCode</span> <span class="p">=</span> <span class="n">responseMessage</span><span class="p">.</span><span class="n">StatusCode</span><span class="p">;</span>
-    <span class="n">result</span><span class="p">.</span><span class="n">httpStatusCode</span> <span class="p">=</span> <span class="n">responseCode</span><span class="p">;</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">success</span><span class="p">.</span><span class="n">HasValue</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">success</span> <span class="p">&gt;=</span> <span class="m">1</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">result</span><span class="p">.</span><span class="n">isSuccess</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
-            <span class="n">result</span><span class="p">.</span><span class="n">resultMessage</span> <span class="p">=</span> <span class="s">&#34;OK&#34;</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">else</span>
-        <span class="p">{</span>
-            <span class="n">result</span><span class="p">.</span><span class="n">isSuccess</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
-            <span class="n">result</span><span class="p">.</span><span class="n">resultMessage</span> <span class="p">=</span> <span class="s">&#34;無成功數量。&#34;</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">else</span>
-    <span class="p">{</span>
-        <span class="n">result</span><span class="p">.</span><span class="n">isSuccess</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
-        <span class="n">result</span><span class="p">.</span><span class="n">resultMessage</span> <span class="p">=</span> <span class="s">&#34;有異常結果，無回應成功或失敗數量。&#34;</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="c1">//回傳結果</span>
+</span></span><span class="line"><span class="cl"> <span class="kd">public</span> <span class="k">class</span> <span class="nc">FCMResultData</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">error</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">message_id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">registration_id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//FCM回傳結果</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">FCMSendResult</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">multicast_id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">int?</span> <span class="n">success</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">int?</span> <span class="n">failure</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">int?</span> <span class="n">canonical_ids</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">message</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">FCMResultData</span><span class="p">&gt;</span> <span class="n">results</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//紀錄結果+狀態碼</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">AndroidSendResult</span> <span class="p">:</span> <span class="n">FCMSendResult</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">bool</span> <span class="n">isSuccess</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">resultMessage</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">HttpStatusCode</span> <span class="n">httpStatusCode</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//Request</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">FCMSendData</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">tickerText</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">contentTitle</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">message</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">FCMSendRequest</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="n">FCMSendData</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">registration_ids</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">T</span> <span class="n">data</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//data message</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">virtual</span> <span class="n">AndroidSendResult</span> <span class="n">SendList</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">registration_ids</span><span class="p">,</span> <span class="n">T</span> <span class="n">send_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="n">FCMSendData</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">AndroidSendResult</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//fcm推播網址</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">uri</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span><span class="p">(</span><span class="s">&#34;https://fcm.googleapis.com/fcm/send&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">FCMSendRequest</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">post_data</span> <span class="p">=</span> <span class="k">new</span> <span class="n">FCMSendRequest</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">registration_ids</span> <span class="p">=</span> <span class="n">registration_ids</span><span class="p">,</span><span class="c1">//裝置id清單</span>
+</span></span><span class="line"><span class="cl">        <span class="n">data</span> <span class="p">=</span> <span class="n">send_data</span><span class="p">,</span> <span class="c1">//推播訊息模型</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="n">postdata_json</span> <span class="p">=</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">SerializeObject</span><span class="p">(</span><span class="n">post_data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">httpRequestMessage</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpRequestMessage</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">RequestUri</span> <span class="p">=</span> <span class="n">uri</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Method</span> <span class="p">=</span> <span class="n">HttpMethod</span><span class="p">.</span><span class="n">Post</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;Authorization&#34;</span><span class="p">,</span> <span class="s">$&#34;key ={api_key}&#34;</span><span class="p">);</span><span class="c1">//fcm token key</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">httpRequestMessage</span><span class="p">.</span><span class="n">Content</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StringContent</span><span class="p">(</span><span class="n">postdata_json</span><span class="p">,</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">,</span> <span class="s">&#34;application/json&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">httpClient</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpClient</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">httpClient</span><span class="p">.</span><span class="n">DefaultRequestHeaders</span><span class="p">.</span><span class="n">Accept</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">MediaTypeWithQualityHeaderValue</span><span class="p">(</span><span class="s">&#34;application/json&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">responseMessage</span> <span class="p">=</span> <span class="n">httpClient</span><span class="p">.</span><span class="n">SendAsync</span><span class="p">(</span><span class="n">httpRequestMessage</span><span class="p">).</span><span class="n">Result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">responseBody</span> <span class="p">=</span> <span class="n">responseMessage</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">ReadAsStringAsync</span><span class="p">().</span><span class="n">Result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//推送結果</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="p">=</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">DeserializeObject</span><span class="p">&lt;</span><span class="n">AndroidSendResult</span><span class="p">&gt;(</span><span class="n">responseBody</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">HttpStatusCode</span> <span class="n">responseCode</span> <span class="p">=</span> <span class="n">responseMessage</span><span class="p">.</span><span class="n">StatusCode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span><span class="p">.</span><span class="n">httpStatusCode</span> <span class="p">=</span> <span class="n">responseCode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">success</span><span class="p">.</span><span class="n">HasValue</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">success</span> <span class="p">&gt;=</span> <span class="m">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span><span class="p">.</span><span class="n">isSuccess</span> <span class="p">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span><span class="p">.</span><span class="n">resultMessage</span> <span class="p">=</span> <span class="s">&#34;OK&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span><span class="p">.</span><span class="n">isSuccess</span> <span class="p">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span><span class="p">.</span><span class="n">resultMessage</span> <span class="p">=</span> <span class="s">&#34;無成功數量。&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="p">.</span><span class="n">isSuccess</span> <span class="p">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="p">.</span><span class="n">resultMessage</span> <span class="p">=</span> <span class="s">&#34;有異常結果，無回應成功或失敗數量。&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p>當通知傳到裝置後，根據<code>Response</code>可以知道是否成功及<code>DeviceID</code>有效性<br>
 <code>Request</code>的模型還有更多參數可以設定<br>
 較詳細的處理就需要看官方文件慢慢調整了。</p>
@@ -369,8 +374,7 @@ request較重要的欄位為registration_ids代表欲傳送的device id
     >url1</a></li>
 <li><a class="link" href="https://medium.com/%E7%A8%8B%E5%BC%8F%E8%A3%A1%E6%9C%89%E8%9F%B2/android-fcm-notification-message-vs-data-message-368dc0d4c1b4"  target="_blank" rel="noopener"
     >url2</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -381,7 +385,7 @@ request較重要的欄位為registration_ids代表欲傳送的device id
         
             <a href="/tags/notification/">Notification</a>
         
-            <a href="/tags/c#/">C#</a>
+            <a href="/tags/c%23/">C#</a>
         
     </section>
 
@@ -436,12 +440,12 @@ request較重要的欄位為registration_ids代表欲傳送的device id
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

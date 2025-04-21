@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -218,55 +218,53 @@
     <h2 id="前言">前言</h2>
 <p>安裝套件<code> Microsoft.AspNetCore.Session</code></p>
 <p><code>Startup.cs &gt; ConfigureServices</code>中加入</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">// 將 Session 存在 ASP.NET Core 記憶體中
-</span><span class="c1"></span><span class="n">services</span><span class="p">.</span><span class="n">AddDistributedMemoryCache</span><span class="p">();</span>
-<span class="n">services</span><span class="p">.</span><span class="n">AddSession</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
-<span class="p">{</span>               
-    <span class="n">options</span><span class="p">.</span><span class="n">Cookie</span><span class="p">.</span><span class="n">HttpOnly</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span> <span class="c1">//防止XSS攻擊者存取Cookies
-</span><span class="c1"></span><span class="p">});</span>
-
-</code></pre></div><p><code>Startup &gt; Configure</code>中加入</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">// SessionMiddleware 加入 Pipeline
-</span><span class="c1"></span><span class="n">app</span><span class="p">.</span><span class="n">UseSession</span><span class="p">();</span>
-</code></pre></div><h2 id="開始使用">開始使用</h2>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//設定Session
-</span><span class="c1"></span><span class="n">HttpContext</span><span class="p">.</span><span class="n">Session</span><span class="p">.</span><span class="n">SetString</span><span class="p">(</span><span class="s">&#34;SessionKey&#34;</span><span class="p">,</span> <span class="s">&#34;SessionValue&#34;</span><span class="p">);</span>
-<span class="c1">//取得Session
-</span><span class="c1"></span><span class="kt">string</span> <span class="n">sVal</span> <span class="p">=</span> <span class="n">HttpContext</span><span class="p">.</span><span class="n">Session</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="s">&#34;SessionKey&#34;</span><span class="p">);</span>
-</code></pre></div><p><code>Session</code>如果需要存物件進去就需要寫擴充的方法來實現
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="c1">// 將 Session 存在 ASP.NET Core 記憶體中</span>
+</span></span><span class="line"><span class="cl"><span class="n">services</span><span class="p">.</span><span class="n">AddDistributedMemoryCache</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">services</span><span class="p">.</span><span class="n">AddSession</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>               
+</span></span><span class="line"><span class="cl">    <span class="n">options</span><span class="p">.</span><span class="n">Cookie</span><span class="p">.</span><span class="n">HttpOnly</span> <span class="p">=</span> <span class="kc">true</span><span class="p">;</span> <span class="c1">//防止XSS攻擊者存取Cookies</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p><code>Startup &gt; Configure</code>中加入</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="c1">// SessionMiddleware 加入 Pipeline</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="p">.</span><span class="n">UseSession</span><span class="p">();</span>
+</span></span></code></pre></div><h2 id="開始使用">開始使用</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="c1">//設定Session</span>
+</span></span><span class="line"><span class="cl"><span class="n">HttpContext</span><span class="p">.</span><span class="n">Session</span><span class="p">.</span><span class="n">SetString</span><span class="p">(</span><span class="s">&#34;SessionKey&#34;</span><span class="p">,</span> <span class="s">&#34;SessionValue&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//取得Session</span>
+</span></span><span class="line"><span class="cl"><span class="kt">string</span> <span class="n">sVal</span> <span class="p">=</span> <span class="n">HttpContext</span><span class="p">.</span><span class="n">Session</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="s">&#34;SessionKey&#34;</span><span class="p">);</span>
+</span></span></code></pre></div><p><code>Session</code>如果需要存物件進去就需要寫擴充的方法來實現
 新增<code>SessionExtensions.cs</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#">  <span class="c1">//HttpContext.Session.GetObject&lt;T&gt;(&#34;SessionKey&#34;);
-</span><span class="c1"></span>  <span class="c1">//HttpContext.Session.SetObject&lt;T&gt;(&#34;SessionKey&#34;,object);
-</span><span class="c1"></span>  <span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">SessionExtensions</span>
-    <span class="p">{</span>
-        <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">SetObject</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="k">this</span> <span class="n">ISession</span> <span class="n">session</span><span class="p">,</span> <span class="kt">string</span> <span class="n">key</span><span class="p">,</span> <span class="n">T</span> <span class="k">value</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">session</span><span class="p">.</span><span class="n">SetString</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">SerializeObject</span><span class="p">(</span><span class="k">value</span><span class="p">));</span>
-        <span class="p">}</span>
-
-        <span class="k">public</span> <span class="k">static</span> <span class="n">T</span> <span class="n">GetObject</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="k">this</span> <span class="n">ISession</span> <span class="n">session</span><span class="p">,</span> <span class="kt">string</span> <span class="n">key</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="kt">var</span> <span class="k">value</span> <span class="p">=</span> <span class="n">session</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
-            <span class="k">return</span> <span class="k">value</span> <span class="p">==</span> <span class="k">null</span> <span class="p">?</span> <span class="k">default</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="p">:</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">DeserializeObject</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="k">value</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre></div><h3 id="razor-page-中使用">Razor Page 中使用</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl">  <span class="c1">//HttpContext.Session.GetObject&lt;T&gt;(&#34;SessionKey&#34;);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//HttpContext.Session.SetObject&lt;T&gt;(&#34;SessionKey&#34;,object);</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="k">class</span> <span class="nc">SessionExtensions</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kd">static</span> <span class="k">void</span> <span class="n">SetObject</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="k">this</span> <span class="n">ISession</span> <span class="n">session</span><span class="p">,</span> <span class="kt">string</span> <span class="n">key</span><span class="p">,</span> <span class="n">T</span> <span class="k">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">session</span><span class="p">.</span><span class="n">SetString</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">SerializeObject</span><span class="p">(</span><span class="k">value</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kd">static</span> <span class="n">T</span> <span class="n">GetObject</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="k">this</span> <span class="n">ISession</span> <span class="n">session</span><span class="p">,</span> <span class="kt">string</span> <span class="n">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">var</span> <span class="k">value</span> <span class="p">=</span> <span class="n">session</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">value</span> <span class="p">==</span> <span class="kc">null</span> <span class="p">?</span> <span class="k">default</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="p">:</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">DeserializeObject</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="k">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><h3 id="razor-page-中使用">Razor Page 中使用</h3>
 <p>兩種方法都可以取到值</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">@inject</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">AspNetCore</span><span class="p">.</span><span class="n">Http</span><span class="p">.</span><span class="n">IHttpContextAccessor</span> <span class="n">HttpContextAccessor</span>
-<span class="err">@</span><span class="p">{</span>
-    <span class="kt">string</span> <span class="n">vall</span> <span class="p">=</span> <span class="n">HttpContextAccessor</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">Session</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="s">&#34;SessionKey&#34;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">@using</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">AspNetCore</span><span class="p">.</span><span class="n">Http</span>
-<span class="kt">string</span> <span class="n">vall</span> <span class="p">=</span> <span class="n">Context</span><span class="p">.</span><span class="n">Session</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="s">&#34;SessionKey&#34;</span><span class="p">);</span>
-</code></pre></div><h2 id="參考連結">參考連結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">@inject</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">AspNetCore</span><span class="p">.</span><span class="n">Http</span><span class="p">.</span><span class="n">IHttpContextAccessor</span> <span class="n">HttpContextAccessor</span>
+</span></span><span class="line"><span class="cl"><span class="err">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="n">vall</span> <span class="p">=</span> <span class="n">HttpContextAccessor</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">Session</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="s">&#34;SessionKey&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">@using</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">AspNetCore</span><span class="p">.</span><span class="n">Http</span>
+</span></span><span class="line"><span class="cl"><span class="kt">string</span> <span class="n">vall</span> <span class="p">=</span> <span class="n">Context</span><span class="p">.</span><span class="n">Session</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="s">&#34;SessionKey&#34;</span><span class="p">);</span>
+</span></span></code></pre></div><h2 id="參考連結">參考連結</h2>
 <blockquote>
 <ul>
 <li><a class="link" href="https://blog.johnwu.cc/article/ironman-day11-asp-net-core-cookies-session.html"  target="_blank" rel="noopener"
     >url1</a></li>
 <li><a class="link" href="https://smalltowntechblog.wordpress.com/2017/10/31/asp-net-core-mvc-%E7%9A%84-session-%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/"  target="_blank" rel="noopener"
     >url2</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -378,12 +376,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

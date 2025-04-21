@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -217,20 +217,20 @@
     <section class="article-content">
     <h2 id="主要內容">主要內容</h2>
 <p>專案下右鍵=&gt;編輯專案檔</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//不重新編譯webconfig
-</span><span class="c1"></span><span class="p">&lt;!--</span><span class="err">防止</span> <span class="n">Web</span> <span class="n">SDK</span> <span class="err">轉換檔案</span> <span class="n">web</span><span class="p">.</span><span class="n">config</span><span class="p">--&gt;</span>
-<span class="p">&lt;</span><span class="n">PropertyGroup</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="n">TargetFramework</span><span class="p">&gt;</span><span class="n">net5</span><span class="p">.</span><span class="m">0</span><span class="p">&lt;/</span><span class="n">TargetFramework</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="n">IsTransformWebConfigDisabled</span><span class="p">&gt;</span><span class="k">true</span><span class="p">&lt;/</span><span class="n">IsTransformWebConfigDisabled</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="n">PropertyGroup</span><span class="p">&gt;</span>
-<span class="c1">//發行不覆蓋
-</span><span class="c1"></span> <span class="p">&lt;</span><span class="n">ItemGroup</span><span class="p">&gt;</span>
-	    <span class="p">&lt;</span><span class="n">MsDeploySkipRules</span> <span class="n">Include</span><span class="p">=</span><span class="s">&#34;CustomSkipFolder&#34;</span><span class="p">&gt;</span>  <span class="p">&lt;!--</span><span class="err">不覆蓋此目錄下的檔案</span><span class="p">--&gt;</span>
-		    <span class="p">&lt;</span><span class="n">ObjectName</span><span class="p">&gt;</span><span class="n">dirPath</span><span class="p">&lt;/</span><span class="n">ObjectName</span><span class="p">&gt;</span>
-		    <span class="p">&lt;</span><span class="n">AbsolutePath</span><span class="p">&gt;</span><span class="n">wwwroot</span><span class="err">\\</span><span class="n">test</span><span class="p">&lt;/</span><span class="n">AbsolutePath</span><span class="p">&gt;</span>
-	    <span class="p">&lt;/</span><span class="n">MsDeploySkipRules</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="n">ItemGroup</span><span class="p">&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="c1">//不重新編譯webconfig</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;!--</span><span class="err">防止</span> <span class="n">Web</span> <span class="n">SDK</span> <span class="err">轉換檔案</span> <span class="n">web</span><span class="p">.</span><span class="n">config</span><span class="p">--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="n">PropertyGroup</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="n">TargetFramework</span><span class="p">&gt;</span><span class="n">net5</span><span class="p">.</span><span class="m">0</span><span class="p">&lt;/</span><span class="n">TargetFramework</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="n">IsTransformWebConfigDisabled</span><span class="p">&gt;</span><span class="kc">true</span><span class="p">&lt;/</span><span class="n">IsTransformWebConfigDisabled</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="n">PropertyGroup</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//發行不覆蓋</span>
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="n">ItemGroup</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">	    <span class="p">&lt;</span><span class="n">MsDeploySkipRules</span> <span class="n">Include</span><span class="p">=</span><span class="s">&#34;CustomSkipFolder&#34;</span><span class="p">&gt;</span>  <span class="p">&lt;!--</span><span class="err">不覆蓋此目錄下的檔案</span><span class="p">--&gt;</span>
+</span></span><span class="line"><span class="cl">		    <span class="p">&lt;</span><span class="n">ObjectName</span><span class="p">&gt;</span><span class="n">dirPath</span><span class="p">&lt;/</span><span class="n">ObjectName</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">		    <span class="p">&lt;</span><span class="n">AbsolutePath</span><span class="p">&gt;</span><span class="n">wwwroot</span><span class="err">\\</span><span class="n">test</span><span class="p">&lt;/</span><span class="n">AbsolutePath</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">	    <span class="p">&lt;/</span><span class="n">MsDeploySkipRules</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="n">ItemGroup</span><span class="p">&gt;</span>
+</span></span></code></pre></div>
 </section>
 
 
@@ -341,12 +341,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

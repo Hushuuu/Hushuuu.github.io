@@ -5,9 +5,13 @@
 整理幾個常用的使用方法
 主要內容 都以Post為例
 自訂Data模型參數，預設是json的方式
-//這兩種寫法相等 public string Post(A vm); public string Post([FromBody] A vm); //form-data public string Post([FromForm] A vm); //x-www-urlencoded需要特別加屬性 [Consumes(&amp;#34;application/x-www-form-urlencoded&amp;#34;)] public string Post([FromForm] A vm); 如果是用基本型別的參數的話有特別的情況
-//預設是queryString 這兩種相等 public string Post(string str); public string Post([FromQuery] string str); //json **特別不同 public string Post([FromBody] string str); //在請求時必須只傳入&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34; //在model binding時使用Text.Json //如果試著反序列化就會拋錯 The JSON value could not be converted to System.String. //失敗 JsonSerializer.Deserialize&amp;lt;string&amp;gt;(&amp;#34;{\&amp;#34;str\&amp;#34;:\&amp;#34;value\&amp;#34;}&amp;#34;); //正確 JsonSerializer.Deserialize&amp;lt;string&amp;gt;(&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34;); //from-data&amp;amp;form-urlencoded方式和上面自訂型別的一樣 小結 除了參數少的QueryString直接寫多個參數
-其他簡單一點就是全部都定義類別來接值'><title>Net6Api資料綁定整理</title>
+//這兩種寫法相等 public string Post(A vm); public string Post([FromBody] A vm); //form-data public string Post([FromForm] A vm); //x-www-urlencoded需要特別加屬性 [Consumes(&#34;application/x-www-form-urlencoded&#34;)] public string Post([FromForm] A vm); 如果是用基本型別的參數的話有特別的情況
+//預設是queryString 這兩種相等 public string Post(string str); public string Post([FromQuery] string str); //json **特別不同 public string Post([FromBody] string str); //在請求時必須只傳入&#34;\&#34;value\&#34;&#34; //在model binding時使用Text.Json //如果試著反序列化就會拋錯 The JSON value could not be converted to System.String. //失敗 JsonSerializer.Deserialize&lt;string&gt;(&#34;{\&#34;str\&#34;:\&#34;value\&#34;}&#34;); //正確 JsonSerializer.Deserialize&lt;string&gt;(&#34;\&#34;value\&#34;&#34;); //from-data&amp;form-urlencoded方式和上面自訂型別的一樣 小結 除了參數少的QueryString直接寫多個參數
+其他簡單一點就是全部都定義類別來接值
+就可以解決大部分的情況
+有些問題在之前.netFramework是不會遇到的
+所以開發上要留意一下
+參考連結 url1 url2 '><title>Net6Api資料綁定整理</title>
 
 <link rel='canonical' href='https://hushuuu.github.io/2023/08/07/net6api%E8%B3%87%E6%96%99%E7%B6%81%E5%AE%9A%E6%95%B4%E7%90%86/'>
 
@@ -16,9 +20,13 @@
 整理幾個常用的使用方法
 主要內容 都以Post為例
 自訂Data模型參數，預設是json的方式
-//這兩種寫法相等 public string Post(A vm); public string Post([FromBody] A vm); //form-data public string Post([FromForm] A vm); //x-www-urlencoded需要特別加屬性 [Consumes(&amp;#34;application/x-www-form-urlencoded&amp;#34;)] public string Post([FromForm] A vm); 如果是用基本型別的參數的話有特別的情況
-//預設是queryString 這兩種相等 public string Post(string str); public string Post([FromQuery] string str); //json **特別不同 public string Post([FromBody] string str); //在請求時必須只傳入&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34; //在model binding時使用Text.Json //如果試著反序列化就會拋錯 The JSON value could not be converted to System.String. //失敗 JsonSerializer.Deserialize&amp;lt;string&amp;gt;(&amp;#34;{\&amp;#34;str\&amp;#34;:\&amp;#34;value\&amp;#34;}&amp;#34;); //正確 JsonSerializer.Deserialize&amp;lt;string&amp;gt;(&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34;); //from-data&amp;amp;form-urlencoded方式和上面自訂型別的一樣 小結 除了參數少的QueryString直接寫多個參數
-其他簡單一點就是全部都定義類別來接值'>
+//這兩種寫法相等 public string Post(A vm); public string Post([FromBody] A vm); //form-data public string Post([FromForm] A vm); //x-www-urlencoded需要特別加屬性 [Consumes(&#34;application/x-www-form-urlencoded&#34;)] public string Post([FromForm] A vm); 如果是用基本型別的參數的話有特別的情況
+//預設是queryString 這兩種相等 public string Post(string str); public string Post([FromQuery] string str); //json **特別不同 public string Post([FromBody] string str); //在請求時必須只傳入&#34;\&#34;value\&#34;&#34; //在model binding時使用Text.Json //如果試著反序列化就會拋錯 The JSON value could not be converted to System.String. //失敗 JsonSerializer.Deserialize&lt;string&gt;(&#34;{\&#34;str\&#34;:\&#34;value\&#34;}&#34;); //正確 JsonSerializer.Deserialize&lt;string&gt;(&#34;\&#34;value\&#34;&#34;); //from-data&amp;form-urlencoded方式和上面自訂型別的一樣 小結 除了參數少的QueryString直接寫多個參數
+其他簡單一點就是全部都定義類別來接值
+就可以解決大部分的情況
+有些問題在之前.netFramework是不會遇到的
+所以開發上要留意一下
+參考連結 url1 url2 '>
 <meta property='og:url' content='https://hushuuu.github.io/2023/08/07/net6api%E8%B3%87%E6%96%99%E7%B6%81%E5%AE%9A%E6%95%B4%E7%90%86/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Net6' /><meta property='article:tag' content='WebApi' /><meta property='article:tag' content='Json' /><meta property='article:published_time' content='2023-08-07T15:27:57&#43;08:00'/><meta property='article:modified_time' content='2023-08-07T15:27:57&#43;08:00'/>
@@ -27,9 +35,13 @@
 整理幾個常用的使用方法
 主要內容 都以Post為例
 自訂Data模型參數，預設是json的方式
-//這兩種寫法相等 public string Post(A vm); public string Post([FromBody] A vm); //form-data public string Post([FromForm] A vm); //x-www-urlencoded需要特別加屬性 [Consumes(&amp;#34;application/x-www-form-urlencoded&amp;#34;)] public string Post([FromForm] A vm); 如果是用基本型別的參數的話有特別的情況
-//預設是queryString 這兩種相等 public string Post(string str); public string Post([FromQuery] string str); //json **特別不同 public string Post([FromBody] string str); //在請求時必須只傳入&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34; //在model binding時使用Text.Json //如果試著反序列化就會拋錯 The JSON value could not be converted to System.String. //失敗 JsonSerializer.Deserialize&amp;lt;string&amp;gt;(&amp;#34;{\&amp;#34;str\&amp;#34;:\&amp;#34;value\&amp;#34;}&amp;#34;); //正確 JsonSerializer.Deserialize&amp;lt;string&amp;gt;(&amp;#34;\&amp;#34;value\&amp;#34;&amp;#34;); //from-data&amp;amp;form-urlencoded方式和上面自訂型別的一樣 小結 除了參數少的QueryString直接寫多個參數
-其他簡單一點就是全部都定義類別來接值">
+//這兩種寫法相等 public string Post(A vm); public string Post([FromBody] A vm); //form-data public string Post([FromForm] A vm); //x-www-urlencoded需要特別加屬性 [Consumes(&#34;application/x-www-form-urlencoded&#34;)] public string Post([FromForm] A vm); 如果是用基本型別的參數的話有特別的情況
+//預設是queryString 這兩種相等 public string Post(string str); public string Post([FromQuery] string str); //json **特別不同 public string Post([FromBody] string str); //在請求時必須只傳入&#34;\&#34;value\&#34;&#34; //在model binding時使用Text.Json //如果試著反序列化就會拋錯 The JSON value could not be converted to System.String. //失敗 JsonSerializer.Deserialize&lt;string&gt;(&#34;{\&#34;str\&#34;:\&#34;value\&#34;}&#34;); //正確 JsonSerializer.Deserialize&lt;string&gt;(&#34;\&#34;value\&#34;&#34;); //from-data&amp;form-urlencoded方式和上面自訂型別的一樣 小結 除了參數少的QueryString直接寫多個參數
+其他簡單一點就是全部都定義類別來接值
+就可以解決大部分的情況
+有些問題在之前.netFramework是不會遇到的
+所以開發上要留意一下
+參考連結 url1 url2 ">
     </head>
     <body class="">
     <script>
@@ -69,7 +81,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -235,30 +247,30 @@
 <h2 id="主要內容">主要內容</h2>
 <p>都以Post為例<br>
 自訂Data模型參數，預設是json的方式</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//這兩種寫法相等
-</span><span class="c1"></span><span class="k">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">(</span><span class="n">A</span> <span class="n">vm</span><span class="p">);</span>
-<span class="k">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromBody</span><span class="p">]</span> <span class="n">A</span> <span class="n">vm</span><span class="p">);</span>
-<span class="c1">//form-data
-</span><span class="c1"></span><span class="k">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromForm</span><span class="p">]</span> <span class="n">A</span> <span class="n">vm</span><span class="p">);</span>
-<span class="c1">//x-www-urlencoded需要特別加屬性
-</span><span class="c1"></span><span class="na">[Consumes(&#34;application/x-www-form-urlencoded&#34;)]</span>
-<span class="k">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromForm</span><span class="p">]</span> <span class="n">A</span> <span class="n">vm</span><span class="p">);</span>
-</code></pre></div><p>如果是用基本型別的參數的話有特別的情況</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//預設是queryString 這兩種相等
-</span><span class="c1"></span><span class="k">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">(</span><span class="kt">string</span> <span class="n">str</span><span class="p">);</span>
-<span class="k">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromQuery</span><span class="p">]</span> <span class="kt">string</span> <span class="n">str</span><span class="p">);</span>
-<span class="c1">//json **特別不同
-</span><span class="c1"></span><span class="k">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromBody</span><span class="p">]</span> <span class="kt">string</span> <span class="n">str</span><span class="p">);</span>
-<span class="c1">//在請求時必須只傳入&#34;\&#34;value\&#34;&#34;
-</span><span class="c1">//在model binding時使用Text.Json
-</span><span class="c1">//如果試著反序列化就會拋錯 The JSON value could not be converted to System.String.
-</span><span class="c1">//失敗
-</span><span class="c1"></span><span class="n">JsonSerializer</span><span class="p">.</span><span class="n">Deserialize</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;(</span><span class="s">&#34;{\&#34;str\&#34;:\&#34;value\&#34;}&#34;</span><span class="p">);</span>
-<span class="c1">//正確
-</span><span class="c1"></span><span class="n">JsonSerializer</span><span class="p">.</span><span class="n">Deserialize</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;(</span><span class="s">&#34;\&#34;value\&#34;&#34;</span><span class="p">);</span>
-
-<span class="c1">//from-data&amp;form-urlencoded方式和上面自訂型別的一樣
-</span></code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="c1">//這兩種寫法相等</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">(</span><span class="n">A</span> <span class="n">vm</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromBody</span><span class="p">]</span> <span class="n">A</span> <span class="n">vm</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//form-data</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromForm</span><span class="p">]</span> <span class="n">A</span> <span class="n">vm</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//x-www-urlencoded需要特別加屬性</span>
+</span></span><span class="line"><span class="cl"><span class="na">[Consumes(&#34;application/x-www-form-urlencoded&#34;)]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromForm</span><span class="p">]</span> <span class="n">A</span> <span class="n">vm</span><span class="p">);</span>
+</span></span></code></pre></div><p>如果是用基本型別的參數的話有特別的情況</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="c1">//預設是queryString 這兩種相等</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">(</span><span class="kt">string</span> <span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromQuery</span><span class="p">]</span> <span class="kt">string</span> <span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//json **特別不同</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">string</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromBody</span><span class="p">]</span> <span class="kt">string</span> <span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//在請求時必須只傳入&#34;\&#34;value\&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//在model binding時使用Text.Json</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//如果試著反序列化就會拋錯 The JSON value could not be converted to System.String.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//失敗</span>
+</span></span><span class="line"><span class="cl"><span class="n">JsonSerializer</span><span class="p">.</span><span class="n">Deserialize</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;(</span><span class="s">&#34;{\&#34;str\&#34;:\&#34;value\&#34;}&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//正確</span>
+</span></span><span class="line"><span class="cl"><span class="n">JsonSerializer</span><span class="p">.</span><span class="n">Deserialize</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;(</span><span class="s">&#34;\&#34;value\&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//from-data&amp;form-urlencoded方式和上面自訂型別的一樣</span>
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p>除了參數少的<code>QueryString</code>直接寫多個參數<br>
 其他簡單一點就是全部都定義類別來接值<br>
 就可以解決大部分的情況<br>
@@ -271,8 +283,7 @@
     >url1</a></li>
 <li><a class="link" href="https://blog.yowko.com/aspnet-core-x-www-form-urlencoded/"  target="_blank" rel="noopener"
     >url2</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -321,12 +332,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

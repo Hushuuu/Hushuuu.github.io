@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -220,59 +220,59 @@
 若<code>WebApi</code>需要交流檔案也可以將檔案轉換為<code>Base64</code>進行溝通</p>
 <h2 id="post前轉換">Post前轉換</h2>
 <p>建立一個按鈕事件將轉換後的<code>base64String</code> <code>Post</code>至後端</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="s1">&#39;#subBtn&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="nx">demo</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">obj</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-            <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-                <span class="nx">url</span><span class="o">:</span> <span class="s2">&#34;../&#34;</span><span class="p">,</span>            <span class="c1">// url位置
-</span><span class="c1"></span>                <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>       
-                <span class="nx">contentType</span><span class="o">:</span> <span class="s2">&#34;application/json&#34;</span><span class="p">,</span>
-                <span class="nx">data</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">obj</span><span class="p">),</span><span class="c1">// 輸入的資料
-</span><span class="c1"></span>                <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span><span class="c1">// 
-</span><span class="c1"></span>            <span class="p">});</span>
-        <span class="p">});</span>
-    <span class="p">});</span>
-</code></pre></div><p>使用<code>FileReader</code>來讀取上傳的檔案<br>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="s1">&#39;#subBtn&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">demo</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">obj</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">url</span><span class="o">:</span> <span class="s2">&#34;../&#34;</span><span class="p">,</span>            <span class="c1">// url位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>       
+</span></span><span class="line"><span class="cl">                <span class="nx">contentType</span><span class="o">:</span> <span class="s2">&#34;application/json&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">data</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">obj</span><span class="p">),</span><span class="c1">// 輸入的資料
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span><span class="c1">// 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span></code></pre></div><p>使用<code>FileReader</code>來讀取上傳的檔案<br>
 因為<code>readAsDataURL</code>是非同步讀取<br>
 若不做非同步等待處理<br>
 檔案還未處理完就會被Post出去造成傳遞不到正確資料<br>
 故需將函式套上<code>async</code>並<code>await</code>等候所有檔案都處理完</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">demo</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="kd">var</span> <span class="nx">filearray</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="kd">var</span> <span class="nx">file_name</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="kd">let</span> <span class="nx">files</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;input[name=upload_file]&#34;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">files</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">files</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileReader</span><span class="p">();</span>
-        <span class="nx">reader</span><span class="p">.</span><span class="nx">readAsDataURL</span><span class="p">(</span><span class="nx">files</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span> <span class="c1">//data url
-</span><span class="c1"></span>        <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-            <span class="nx">reader</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-                <span class="kd">var</span> <span class="nx">buffer</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>  <span class="c1">//是data url
-</span><span class="c1"></span>                <span class="kr">const</span> <span class="nx">base64String</span> <span class="o">=</span> <span class="nx">buffer</span> <span class="c1">//只取得base64 string
-</span><span class="c1"></span>                    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&#34;data:&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
-                    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^.+,/</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">);</span>
-                <span class="nx">resolve</span><span class="p">(</span><span class="nx">base64String</span><span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">});</span>
-        <span class="nx">filearray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-        <span class="nx">file_name</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">files</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="nx">file_byte</span><span class="o">:</span> <span class="nx">filearray</span><span class="p">,</span>
-        <span class="nx">file_name</span><span class="o">:</span> <span class="nx">file_name</span>
-    <span class="p">};</span>
-    <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div><h2 id="post後轉換">Post後轉換</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">demo</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">filearray</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">file_name</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">files</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;input[name=upload_file]&#34;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">files</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">files</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileReader</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">reader</span><span class="p">.</span><span class="nx">readAsDataURL</span><span class="p">(</span><span class="nx">files</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span> <span class="c1">//data url
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">reader</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">buffer</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>  <span class="c1">//是data url
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="kr">const</span> <span class="nx">base64String</span> <span class="o">=</span> <span class="nx">buffer</span> <span class="c1">//只取得base64 string
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&#34;data:&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^.+,/</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">resolve</span><span class="p">(</span><span class="nx">base64String</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">filearray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">file_name</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">files</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">file_byte</span><span class="o">:</span> <span class="nx">filearray</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">file_name</span><span class="o">:</span> <span class="nx">file_name</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><h2 id="post後轉換">Post後轉換</h2>
 <p>上傳至後端才做轉換的處理相較之下就簡單許多</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"> <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">Request</span><span class="p">.</span><span class="n">Files</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
-<span class="p">{</span>
-    <span class="n">HttpPostedFileBase</span> <span class="n">file</span> <span class="p">=</span> <span class="n">Request</span><span class="p">.</span><span class="n">Files</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-    <span class="n">MemoryStream</span> <span class="n">ms</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MemoryStream</span><span class="p">();</span>
-    <span class="n">file</span><span class="p">.</span><span class="n">InputStream</span><span class="p">.</span><span class="n">CopyTo</span><span class="p">(</span><span class="n">ms</span><span class="p">);</span>
-    <span class="kt">byte</span><span class="p">[]</span> <span class="n">btarr</span> <span class="p">=</span> <span class="n">ms</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
-    <span class="kt">string</span> <span class="n">basestr</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToBase64String</span><span class="p">(</span><span class="n">btarr</span><span class="p">);</span> 
-<span class="p">}</span>
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"> <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">Request</span><span class="p">.</span><span class="n">Files</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">HttpPostedFileBase</span> <span class="n">file</span> <span class="p">=</span> <span class="n">Request</span><span class="p">.</span><span class="n">Files</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MemoryStream</span> <span class="n">ms</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MemoryStream</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">file</span><span class="p">.</span><span class="n">InputStream</span><span class="p">.</span><span class="n">CopyTo</span><span class="p">(</span><span class="n">ms</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">byte</span><span class="p">[]</span> <span class="n">btarr</span> <span class="p">=</span> <span class="n">ms</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="n">basestr</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToBase64String</span><span class="p">(</span><span class="n">btarr</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p><code>async</code> <code>await</code> <code>Promise</code>這些非同步相關的使用上需要花點時間理解<br>
 主要目的為實現等待：檔案非同步讀取完全做完才上傳出去</p>
 <h2 id="參考連結">參考連結</h2>
@@ -282,8 +282,7 @@
     >url1</a></li>
 <li><a class="link" href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL"  target="_blank" rel="noopener"
     >url2</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -294,7 +293,7 @@
         
             <a href="/tags/javascript/">Javascript</a>
         
-            <a href="/tags/file/">file</a>
+            <a href="/tags/file/">File</a>
         
     </section>
 
@@ -397,12 +396,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

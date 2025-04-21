@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -227,40 +227,38 @@
 但避免有例外情況，例如在不同頁面的存檔卻導致改到了非預期的資料表<br>
 當下就很難找出問題點了!!!</p>
 <h2 id="solution1-transient">Solution1 Transient</h2>
-<p>在注入<code>DbContext</code>時選擇生命週期<code>Transient</code> 
+<p>在注入<code>DbContext</code>時選擇生命週期<code>Transient</code>
 每次要求元件時就建立一個新的<br>
 缺點並未實測。</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//program.cs
-</span><span class="c1"></span><span class="p">{</span>
-<span class="n">services</span><span class="p">.</span><span class="n">AddDbContext</span><span class="p">&lt;</span><span class="n">TpmcDbContext</span><span class="p">&gt;(</span><span class="n">options</span> <span class="p">=&gt;</span> <span class="n">options</span><span class="p">.</span><span class="n">UseOracle</span><span class="p">()</span>
-    <span class="p">,</span><span class="n">contextLifetime</span><span class="p">:</span> <span class="n">ServiceLifetime</span><span class="p">.</span><span class="n">Transient</span><span class="p">);</span>
-<span class="p">}</span>
-
-</code></pre></div><h2 id="solution2-dbcontextfactory">Solution2 DbContextFactory</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="c1">//program.cs</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="n">services</span><span class="p">.</span><span class="n">AddDbContext</span><span class="p">&lt;</span><span class="n">TpmcDbContext</span><span class="p">&gt;(</span><span class="n">options</span> <span class="p">=&gt;</span> <span class="n">options</span><span class="p">.</span><span class="n">UseOracle</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">,</span><span class="n">contextLifetime</span><span class="p">:</span> <span class="n">ServiceLifetime</span><span class="p">.</span><span class="n">Transient</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="solution2-dbcontextfactory">Solution2 DbContextFactory</h2>
 <p>注入<code>ContextFactory</code>，在<code>Action</code>中使用再建立<code>Context</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//program.cs
-</span><span class="c1">//lifeTime預設是singleton永久共用
-</span><span class="c1"></span><span class="p">{</span>
-    <span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddDbContextFactory</span><span class="p">&lt;&gt;();</span>
-<span class="p">}</span>
-<span class="c1">//XXXX.razor
-</span><span class="c1"></span><span class="na"> [Inject]</span>
-<span class="k">public</span> <span class="n">IDbContextFactory</span><span class="p">&lt;</span><span class="n">TpmcDbContext</span><span class="p">&gt;</span> <span class="n">_contextFactory</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
- <span class="k">async</span> <span class="n">Task</span> <span class="n">RefreshData</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">using</span> <span class="nn">var</span> <span class="n">db</span> <span class="p">=</span> <span class="n">_contextFactory</span><span class="p">.</span><span class="n">CreateDbContext</span><span class="p">();</span>
-    <span class="kt">var</span> <span class="n">list</span> <span class="p">=</span> <span class="n">db</span><span class="p">.</span><span class="n">TableA</span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="參考連結">參考連結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="c1">//program.cs</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//lifeTime預設是singleton永久共用</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddDbContextFactory</span><span class="p">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//XXXX.razor</span>
+</span></span><span class="line"><span class="cl"><span class="na"> [Inject]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">IDbContextFactory</span><span class="p">&lt;</span><span class="n">TpmcDbContext</span><span class="p">&gt;</span> <span class="n">_contextFactory</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="kd">async</span> <span class="n">Task</span> <span class="n">RefreshData</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="nn">var</span> <span class="n">db</span> <span class="p">=</span> <span class="n">_contextFactory</span><span class="p">.</span><span class="n">CreateDbContext</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">list</span> <span class="p">=</span> <span class="n">db</span><span class="p">.</span><span class="n">TableA</span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="參考連結">參考連結</h2>
 <blockquote>
 <ul>
 <li><a class="link" href="https://www.youtube.com/watch?v=aaQsmkh1BkQ"  target="_blank" rel="noopener"
     >url1</a></li>
 <li><a class="link" href="https://learn.microsoft.com/en-us/aspnet/core/blazor/blazor-server-ef-core?view=aspnetcore-7.0"  target="_blank" rel="noopener"
     >url2</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -326,12 +324,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

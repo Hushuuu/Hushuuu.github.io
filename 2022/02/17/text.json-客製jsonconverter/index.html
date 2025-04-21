@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -217,60 +217,60 @@
     <section class="article-content">
     <h2 id="主要內容">主要內容</h2>
 <p>建立類別繼承JsonConverter來掛在要轉換的屬性上</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"> <span class="k">public</span> <span class="k">class</span> <span class="nc">OnlyDateConverter</span> <span class="p">:</span> <span class="n">JsonConverter</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">&gt;</span>
-    <span class="p">{</span>
-        <span class="k">public</span> <span class="k">override</span> <span class="n">DateTime</span> <span class="n">Read</span><span class="p">(</span><span class="k">ref</span> <span class="n">Utf8JsonReader</span> <span class="n">reader</span><span class="p">,</span> <span class="n">Type</span> <span class="n">typeToConvert</span><span class="p">,</span> <span class="n">JsonSerializerOptions</span> <span class="n">options</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="c1">//Debug.Assert(typeToConvert == typeof(DateTime));
-</span><span class="c1"></span>            <span class="k">return</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">GetString</span><span class="p">());</span>
-        <span class="p">}</span>
-
-        <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">Write</span><span class="p">(</span><span class="n">Utf8JsonWriter</span> <span class="n">writer</span><span class="p">,</span> <span class="n">DateTime</span> <span class="k">value</span><span class="p">,</span> <span class="n">JsonSerializerOptions</span> <span class="n">options</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">writer</span><span class="p">.</span><span class="n">WriteStringValue</span><span class="p">(</span><span class="k">value</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="s">&#34;yyyy-MM-dd&#34;</span><span class="p">));</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">public</span> <span class="k">class</span> <span class="nc">DateWithTimeConverter</span> <span class="p">:</span> <span class="n">JsonConverter</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">&gt;</span>
-    <span class="p">{</span>
-        <span class="k">public</span> <span class="k">override</span> <span class="n">DateTime</span> <span class="n">Read</span><span class="p">(</span><span class="k">ref</span> <span class="n">Utf8JsonReader</span> <span class="n">reader</span><span class="p">,</span> <span class="n">Type</span> <span class="n">typeToConvert</span><span class="p">,</span> <span class="n">JsonSerializerOptions</span> <span class="n">options</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">GetString</span><span class="p">());</span>
-        <span class="p">}</span>
-
-        <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">Write</span><span class="p">(</span><span class="n">Utf8JsonWriter</span> <span class="n">writer</span><span class="p">,</span> <span class="n">DateTime</span> <span class="k">value</span><span class="p">,</span> <span class="n">JsonSerializerOptions</span> <span class="n">options</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">writer</span><span class="p">.</span><span class="n">WriteStringValue</span><span class="p">(</span><span class="k">value</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="s">&#34;yyyy-MM-dd HH:mm:ss&#34;</span><span class="p">));</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre></div><p><code>掛載至屬性</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">////使用時只要掛在想要轉換的屬性上
-</span><span class="c1">/// &lt;summary&gt;
-</span><span class="c1">/// 日期
-</span><span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span><span class="na">[JsonConverter(typeof(OnlyDateConverter))]</span>
-<span class="k">public</span> <span class="n">DateTime</span><span class="p">?</span> <span class="n">date</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-<span class="na">
-</span><span class="na">[JsonConverter(typeof(DateWithTimeConverter))]</span>
-<span class="k">public</span> <span class="n">DateTime</span><span class="p">?</span> <span class="n">date2</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-</code></pre></div><p><code>轉換時設定</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">JsonSerializerOptions</span> <span class="n">options</span> <span class="p">=</span> <span class="k">new</span> <span class="n">JsonSerializerOptions</span><span class="p">();</span>
-<span class="n">options</span><span class="p">.</span><span class="n">Converters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">OnlyDateConverter</span><span class="p">());</span>
-<span class="k">return</span> <span class="n">Json</span><span class="p">(</span><span class="n">obj2</span><span class="p">,</span> <span class="n">options</span><span class="p">);</span>
-</code></pre></div><p><code>startup設定 注意這設定只會影響到Controller.Json retrun</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"> <span class="kd">public</span> <span class="k">class</span> <span class="nc">OnlyDateConverter</span> <span class="p">:</span> <span class="n">JsonConverter</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kd">override</span> <span class="n">DateTime</span> <span class="n">Read</span><span class="p">(</span><span class="k">ref</span> <span class="n">Utf8JsonReader</span> <span class="n">reader</span><span class="p">,</span> <span class="n">Type</span> <span class="n">typeToConvert</span><span class="p">,</span> <span class="n">JsonSerializerOptions</span> <span class="n">options</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//Debug.Assert(typeToConvert == typeof(DateTime));</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">GetString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kd">override</span> <span class="k">void</span> <span class="n">Write</span><span class="p">(</span><span class="n">Utf8JsonWriter</span> <span class="n">writer</span><span class="p">,</span> <span class="n">DateTime</span> <span class="k">value</span><span class="p">,</span> <span class="n">JsonSerializerOptions</span> <span class="n">options</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">writer</span><span class="p">.</span><span class="n">WriteStringValue</span><span class="p">(</span><span class="k">value</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="s">&#34;yyyy-MM-dd&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">class</span> <span class="nc">DateWithTimeConverter</span> <span class="p">:</span> <span class="n">JsonConverter</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kd">override</span> <span class="n">DateTime</span> <span class="n">Read</span><span class="p">(</span><span class="k">ref</span> <span class="n">Utf8JsonReader</span> <span class="n">reader</span><span class="p">,</span> <span class="n">Type</span> <span class="n">typeToConvert</span><span class="p">,</span> <span class="n">JsonSerializerOptions</span> <span class="n">options</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">GetString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kd">override</span> <span class="k">void</span> <span class="n">Write</span><span class="p">(</span><span class="n">Utf8JsonWriter</span> <span class="n">writer</span><span class="p">,</span> <span class="n">DateTime</span> <span class="k">value</span><span class="p">,</span> <span class="n">JsonSerializerOptions</span> <span class="n">options</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">writer</span><span class="p">.</span><span class="n">WriteStringValue</span><span class="p">(</span><span class="k">value</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="s">&#34;yyyy-MM-dd HH:mm:ss&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p><code>掛載至屬性</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="cs">////使用時只要掛在想要轉換的屬性上</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// 日期</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="na">[JsonConverter(typeof(OnlyDateConverter))]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">DateTime</span><span class="p">?</span> <span class="n">date</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="na">
+</span></span></span><span class="line"><span class="cl"><span class="na">[JsonConverter(typeof(DateWithTimeConverter))]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">DateTime</span><span class="p">?</span> <span class="n">date2</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span></code></pre></div><p><code>轉換時設定</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">JsonSerializerOptions</span> <span class="n">options</span> <span class="p">=</span> <span class="k">new</span> <span class="n">JsonSerializerOptions</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">options</span><span class="p">.</span><span class="n">Converters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">OnlyDateConverter</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="n">Json</span><span class="p">(</span><span class="n">obj2</span><span class="p">,</span> <span class="n">options</span><span class="p">);</span>
+</span></span></code></pre></div><p><code>startup設定 注意這設定只會影響到Controller.Json retrun</code>
 <code>除了日期轉換，順便處理會被轉小寫+中文字被編碼的問題</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//JSON預設修改
-</span><span class="c1"></span><span class="n">services</span><span class="p">.</span><span class="n">AddMvc</span><span class="p">()</span>
-<span class="p">.</span><span class="n">AddJsonOptions</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
-<span class="p">{</span>
-    <span class="c1">//原本是 JsonNamingPolicy.CamelCase，強制頭文字轉小寫，我偏好維持原樣，設為null
-</span><span class="c1"></span>    <span class="n">options</span><span class="p">.</span><span class="n">JsonSerializerOptions</span><span class="p">.</span><span class="n">PropertyNamingPolicy</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
-    <span class="c1">//允許基本拉丁英文及中日韓文字維持原字元
-</span><span class="c1"></span>    <span class="n">options</span><span class="p">.</span><span class="n">JsonSerializerOptions</span><span class="p">.</span><span class="n">Encoder</span> <span class="p">=</span>
-        <span class="n">JavaScriptEncoder</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">UnicodeRanges</span><span class="p">.</span><span class="n">BasicLatin</span><span class="p">,</span> <span class="n">UnicodeRanges</span><span class="p">.</span><span class="n">CjkUnifiedIdeographs</span><span class="p">);</span>
-    <span class="c1">//datetime 預設處理只有日期
-</span><span class="c1"></span>    <span class="n">options</span><span class="p">.</span><span class="n">JsonSerializerOptions</span><span class="p">.</span><span class="n">Converters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">OnlyDateConverter</span><span class="p">());</span>
-<span class="p">});</span>
-</code></pre></div><p><code>掛載轉換器的優先順序</code><br>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="c1">//JSON預設修改</span>
+</span></span><span class="line"><span class="cl"><span class="n">services</span><span class="p">.</span><span class="n">AddMvc</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="n">AddJsonOptions</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//原本是 JsonNamingPolicy.CamelCase，強制頭文字轉小寫，我偏好維持原樣，設為null</span>
+</span></span><span class="line"><span class="cl">    <span class="n">options</span><span class="p">.</span><span class="n">JsonSerializerOptions</span><span class="p">.</span><span class="n">PropertyNamingPolicy</span> <span class="p">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//允許基本拉丁英文及中日韓文字維持原字元</span>
+</span></span><span class="line"><span class="cl">    <span class="n">options</span><span class="p">.</span><span class="n">JsonSerializerOptions</span><span class="p">.</span><span class="n">Encoder</span> <span class="p">=</span>
+</span></span><span class="line"><span class="cl">        <span class="n">JavaScriptEncoder</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">UnicodeRanges</span><span class="p">.</span><span class="n">BasicLatin</span><span class="p">,</span> <span class="n">UnicodeRanges</span><span class="p">.</span><span class="n">CjkUnifiedIdeographs</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//datetime 預設處理只有日期</span>
+</span></span><span class="line"><span class="cl">    <span class="n">options</span><span class="p">.</span><span class="n">JsonSerializerOptions</span><span class="p">.</span><span class="n">Converters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">OnlyDateConverter</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p><code>掛載轉換器的優先順序</code><br>
 1.[JsonConverter] 套用至屬性。<br>
 2.加入至集合的轉換器 Converters 。<br>
 3.[JsonConverter] 套用至自訂實數值型別或 POCO。<br>
@@ -287,8 +287,7 @@
     >url2</a></li>
 <li><a class="link" href="https://medium.com/@mvpdw06/net-core-3-1-%E5%BE%8C%E8%BD%89%E7%A7%BB-newtonsoft-json-%E8%87%B3-system-text-json-9727d774f92d"  target="_blank" rel="noopener"
     >url3</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -335,12 +334,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

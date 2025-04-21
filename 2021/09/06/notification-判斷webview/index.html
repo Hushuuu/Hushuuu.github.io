@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -187,7 +187,7 @@
     <header class="article-category">
         
             <a href="/categories/notification/" >
-                Notification,
+                Notification
             </a>
         
     </header>
@@ -219,29 +219,28 @@
 <p>透過用戶代理<code>useragent</code>偵測瀏覽器<br>
 來判斷是否當下為<code>WebView</code></p>
 <h2 id="主要內容">主要內容</h2>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"> <span class="kd">var</span> <span class="nx">rules</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;WebView&#39;</span><span class="p">,</span> <span class="s1">&#39;(iPhone|iPod|iPad)(?!.*Safari\/)&#39;</span><span class="p">,</span> <span class="s1">&#39;Android.*(wv|\.0\.0\.0)&#39;</span><span class="p">];</span>
- <span class="kd">var</span> <span class="nx">regex</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="sb">`(`</span> <span class="o">+</span> <span class="nx">rules</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="sb">`)`</span><span class="p">,</span> <span class="s1">&#39;ig&#39;</span><span class="p">);</span>
- <span class="kd">var</span> <span class="nx">matchResult</span> <span class="o">=</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">regex</span><span class="p">);</span>
- <span class="kd">var</span> <span class="nx">isWebview</span> <span class="o">=</span> <span class="nx">matchResult</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">matchResult</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
- <span class="k">if</span> <span class="p">(</span><span class="nx">isWebview</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/iPhone|iPad|iPod/i</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nb">window</span><span class="p">.</span><span class="nx">webkit</span> <span class="o">!=</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">try</span> <span class="p">{</span><span class="c1">//webview需對應設定
-</span><span class="c1"></span>            <span class="nb">window</span><span class="p">.</span><span class="nx">webkit</span><span class="p">.</span><span class="nx">messageHandlers</span><span class="p">.</span><span class="nx">Login</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s2">&#34;Login&#34;</span><span class="p">);</span><span class="c1">//呼叫手機端Login方法
-</span><span class="c1"></span>        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>           
-        <span class="p">}</span>
-        <span class="k">return</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">androidJs</span> <span class="o">!=</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//webview需對應設定
-</span><span class="c1"></span>        <span class="nx">androidJs</span><span class="p">.</span><span class="nx">login</span><span class="p">();</span><span class="c1">//呼叫手機端login方法
-</span><span class="c1"></span>        <span class="k">return</span><span class="p">;</span>
-    <span class="p">}</span>
- <span class="p">}</span>
-</code></pre></div><h2 id="參考連結">參考連結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"> <span class="kd">var</span> <span class="nx">rules</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;WebView&#39;</span><span class="p">,</span> <span class="s1">&#39;(iPhone|iPod|iPad)(?!.*Safari\/)&#39;</span><span class="p">,</span> <span class="s1">&#39;Android.*(wv|\.0\.0\.0)&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"> <span class="kd">var</span> <span class="nx">regex</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="sb">`(`</span> <span class="o">+</span> <span class="nx">rules</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="sb">`)`</span><span class="p">,</span> <span class="s1">&#39;ig&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> <span class="kd">var</span> <span class="nx">matchResult</span> <span class="o">=</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">regex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> <span class="kd">var</span> <span class="nx">isWebview</span> <span class="o">=</span> <span class="nx">matchResult</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">matchResult</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="k">if</span> <span class="p">(</span><span class="nx">isWebview</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/iPhone|iPad|iPod/i</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nb">window</span><span class="p">.</span><span class="nx">webkit</span> <span class="o">!=</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="p">{</span><span class="c1">//webview需對應設定
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nb">window</span><span class="p">.</span><span class="nx">webkit</span><span class="p">.</span><span class="nx">messageHandlers</span><span class="p">.</span><span class="nx">Login</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s2">&#34;Login&#34;</span><span class="p">);</span><span class="c1">//呼叫手機端Login方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>           
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">androidJs</span> <span class="o">!=</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//webview需對應設定
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">androidJs</span><span class="p">.</span><span class="nx">login</span><span class="p">();</span><span class="c1">//呼叫手機端login方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span></code></pre></div><h2 id="參考連結">參考連結</h2>
 <blockquote>
 <ul>
 <li><a class="link" href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Browser_detection_using_the_user_agent"  target="_blank" rel="noopener"
     >url1</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -317,12 +316,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

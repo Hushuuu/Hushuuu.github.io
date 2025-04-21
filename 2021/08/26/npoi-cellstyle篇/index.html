@@ -1,38 +1,59 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 NPOI 設定框線、字型、顏色、對齊、換行&amp;hellip;等常用樣式設定
-建立表 XSSFWorkbook xssfworkbook = new XSSFWorkbook(); //建立Workbook ISheet sheet = xssfworkbook.CreateSheet(sheetName); //建立sheet sheet.CreateRow(0).CreateCell(0).SetCellValue(&amp;#34;標題&amp;#34;); //第一次一定要先建立NewRow NewCell 框線 BorderStyle框線樣式
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 NPOI 設定框線、字型、顏色、對齊、換行&hellip;等常用樣式設定
+建立表 XSSFWorkbook xssfworkbook = new XSSFWorkbook(); //建立Workbook ISheet sheet = xssfworkbook.CreateSheet(sheetName); //建立sheet sheet.CreateRow(0).CreateCell(0).SetCellValue(&#34;標題&#34;); //第一次一定要先建立NewRow NewCell 框線 BorderStyle框線樣式
 BorderColor框線顏色
 ICellStyle myStyle = xssfworkbook.CreateCellStyle();//建立樣式 myStyle.BorderTop = BorderStyle.Thin;//設定上框線 myStyle.BorderBottom = BorderStyle.Thin;//設定下框線 myStyle.BorderLeft = BorderStyle.Thin;//設定框線 myStyle.BorderRight = BorderStyle.Thin;//設定框線 字型 FontName字體名稱:新細明體
 FontHeightInPoints字體大小(double):12
 IsBold是否粗體(bool)
 Color顏色(short) HSSFColor.Black.Index
-IFont cFont = workboook.CreateFont(); cFont.FontName = &amp;#34;微軟正黑體&amp;#34;; cFont.FontHeightInPoints = 12; cFont.IsBold = true; cFont.Color = HSSFColor.Red.Index; myStyle.SetFont(cFont); 對齊 myStyle.Alignment = HorizontalAlignment.Center; //水平置中 myStyle.VerticalAlignment = VerticalAlignment.Center; //垂直置中 換行 myStyle.'><title>NPOI - CellStyle篇</title>
+IFont cFont = workboook.CreateFont(); cFont.FontName = &#34;微軟正黑體&#34;; cFont.FontHeightInPoints = 12; cFont.IsBold = true; cFont.Color = HSSFColor.Red.Index; myStyle.SetFont(cFont); 對齊 myStyle.Alignment = HorizontalAlignment.Center; //水平置中 myStyle.VerticalAlignment = VerticalAlignment.Center; //垂直置中 換行 myStyle.WrapText = true; 顏色 ICellStyle中設定顏色通常都是傳入short型別，如傳入HSSFColor.Yellow.Index
+若想用RGB或ARGB來自定特定顏色則只在XSSFCellStyle可以做設定
+特別注意:單元格的背景顏色似乎是設定FillForegroundColor而不是設定FillBackgroundColor
+而且必須同時設定FillPattern才會有效果
+一般顏色設定 ICellStyle myStyle = workbook.CreateCellStyle();//建立樣式 myStyle.FillForegroundColor = HSSFColor.Pink.Index; myStyle.FillPattern = FillPattern.SolidForeground; 特殊顏色設定 XSSFCellStyle cStyle = (XSSFCellStyle)workboook.CreateCellStyle(); //樣式 byte[] rgbByte = new byte[]{192,0,0};//深紅色RGB XSSFColor rgbColor = new XSSFColor(rgbByte); cStyle.FillForegroundColor = rgbColor; myStyle.FillPattern = FillPattern.SolidForeground; 包成Function來設定 單元格的樣式若稍有差異就要寫好幾行程式，包成方法來傳入參數自動設定。 仍可增加更多參數來設定樣式
+/// &lt;summary&gt; /// XSSFCellStyle較多參數可設定 /// &lt;/summary&gt; /// &lt;param name=&#34;workboook&#34;&gt;XSSFWorkbook&lt;/param&gt; /// &lt;param name=&#34;hAlignment&#34;&gt;水平對齊&lt;/param&gt; /// &lt;param name=&#34;vAlignment&#34;&gt;垂直對齊&lt;/param&gt; /// &lt;param name=&#34;fontSize&#34;&gt;字體大小&lt;/param&gt; /// &lt;param name=&#34;fontName&#34;&gt;字體名稱&lt;/param&gt; /// &lt;param name=&#34;Btop&#34;&gt;上框線&lt;/param&gt; /// &lt;param name=&#34;Bright&#34;&gt;右框線&lt;/param&gt; /// &lt;param name=&#34;Bdown&#34;&gt;下框線&lt;/param&gt; /// &lt;param name=&#34;Bleft&#34;&gt;左框線&lt;/param&gt; /// &lt;param name=&#34;CanWrapText&#34;&gt;可換行&lt;/param&gt; /// &lt;param name=&#34;isLocked&#34;&gt;鎖定&lt;/param&gt; /// &lt;param name=&#34;isFontBold&#34;&gt;粗體&lt;/param&gt; /// &lt;param name=&#34;xssffontColor&#34;&gt;字體顏色byte[rgb]&lt;/param&gt; /// &lt;param name=&#34;xssffgColor&#34;&gt;前景顏色byte[rgb]&lt;/param&gt; /// &lt;returns&gt;&lt;/returns&gt; public XSSFCellStyle genXSSFCellStyle(XSSFWorkbook workboook , HorizontalAlignment hAlignment = HorizontalAlignment.Center, VerticalAlignment vAlignment = VerticalAlignment.Center , double fontSize = 16, string fontName = &#34;微軟正黑體&#34; , BorderStyle Btop = 0, BorderStyle Bright = 0, BorderStyle Bdown = 0, BorderStyle Bleft = 0 , bool CanWrapText = false, bool isLocked = false, bool isFontBold = false , byte[] xssffontColor= null ,byte[] xssffgColor=null ) { XSSFCellStyle cStyle = (XSSFCellStyle)workboook.CreateCellStyle(); ////設定樣式 cStyle.Alignment = hAlignment; //水平置中 cStyle.VerticalAlignment = vAlignment; //垂直置中 XSSFFont cFont = (XSSFFont)workboook.CreateFont(); cFont.FontName = fontName; cFont.FontHeightInPoints = fontSize; cFont.IsBold = isFontBold; if (xssffontColor != null) { cFont.SetColor(new XSSFColor(xssffontColor)); } cStyle.SetFont(cFont); cStyle.BorderTop = Btop; cStyle.BorderRight = Bright; cStyle.BorderBottom = Bdown; cStyle.BorderLeft = Bleft; cStyle.WrapText = CanWrapText; cStyle.IsLocked = isLocked; if (xssffgColor != null) { cStyle.FillPattern = FillPattern.SolidForeground; cStyle.SetFillForegroundColor(new XSSFColor(xssffgColor)); } return cStyle; } 小結 設定樣式也可以透過讀取設計好的Excel檔之Sheet來產出
+但處理上可能較為不彈性。適合較單調簡易的讀檔填值。
+'><title>NPOI - CellStyle篇</title>
 
 <link rel='canonical' href='https://hushuuu.github.io/2021/08/26/npoi-cellstyle%E7%AF%87/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='NPOI - CellStyle篇'>
-<meta property='og:description' content='前言 NPOI 設定框線、字型、顏色、對齊、換行&amp;hellip;等常用樣式設定
-建立表 XSSFWorkbook xssfworkbook = new XSSFWorkbook(); //建立Workbook ISheet sheet = xssfworkbook.CreateSheet(sheetName); //建立sheet sheet.CreateRow(0).CreateCell(0).SetCellValue(&amp;#34;標題&amp;#34;); //第一次一定要先建立NewRow NewCell 框線 BorderStyle框線樣式
+<meta property='og:description' content='前言 NPOI 設定框線、字型、顏色、對齊、換行&hellip;等常用樣式設定
+建立表 XSSFWorkbook xssfworkbook = new XSSFWorkbook(); //建立Workbook ISheet sheet = xssfworkbook.CreateSheet(sheetName); //建立sheet sheet.CreateRow(0).CreateCell(0).SetCellValue(&#34;標題&#34;); //第一次一定要先建立NewRow NewCell 框線 BorderStyle框線樣式
 BorderColor框線顏色
 ICellStyle myStyle = xssfworkbook.CreateCellStyle();//建立樣式 myStyle.BorderTop = BorderStyle.Thin;//設定上框線 myStyle.BorderBottom = BorderStyle.Thin;//設定下框線 myStyle.BorderLeft = BorderStyle.Thin;//設定框線 myStyle.BorderRight = BorderStyle.Thin;//設定框線 字型 FontName字體名稱:新細明體
 FontHeightInPoints字體大小(double):12
 IsBold是否粗體(bool)
 Color顏色(short) HSSFColor.Black.Index
-IFont cFont = workboook.CreateFont(); cFont.FontName = &amp;#34;微軟正黑體&amp;#34;; cFont.FontHeightInPoints = 12; cFont.IsBold = true; cFont.Color = HSSFColor.Red.Index; myStyle.SetFont(cFont); 對齊 myStyle.Alignment = HorizontalAlignment.Center; //水平置中 myStyle.VerticalAlignment = VerticalAlignment.Center; //垂直置中 換行 myStyle.'>
+IFont cFont = workboook.CreateFont(); cFont.FontName = &#34;微軟正黑體&#34;; cFont.FontHeightInPoints = 12; cFont.IsBold = true; cFont.Color = HSSFColor.Red.Index; myStyle.SetFont(cFont); 對齊 myStyle.Alignment = HorizontalAlignment.Center; //水平置中 myStyle.VerticalAlignment = VerticalAlignment.Center; //垂直置中 換行 myStyle.WrapText = true; 顏色 ICellStyle中設定顏色通常都是傳入short型別，如傳入HSSFColor.Yellow.Index
+若想用RGB或ARGB來自定特定顏色則只在XSSFCellStyle可以做設定
+特別注意:單元格的背景顏色似乎是設定FillForegroundColor而不是設定FillBackgroundColor
+而且必須同時設定FillPattern才會有效果
+一般顏色設定 ICellStyle myStyle = workbook.CreateCellStyle();//建立樣式 myStyle.FillForegroundColor = HSSFColor.Pink.Index; myStyle.FillPattern = FillPattern.SolidForeground; 特殊顏色設定 XSSFCellStyle cStyle = (XSSFCellStyle)workboook.CreateCellStyle(); //樣式 byte[] rgbByte = new byte[]{192,0,0};//深紅色RGB XSSFColor rgbColor = new XSSFColor(rgbByte); cStyle.FillForegroundColor = rgbColor; myStyle.FillPattern = FillPattern.SolidForeground; 包成Function來設定 單元格的樣式若稍有差異就要寫好幾行程式，包成方法來傳入參數自動設定。 仍可增加更多參數來設定樣式
+/// &lt;summary&gt; /// XSSFCellStyle較多參數可設定 /// &lt;/summary&gt; /// &lt;param name=&#34;workboook&#34;&gt;XSSFWorkbook&lt;/param&gt; /// &lt;param name=&#34;hAlignment&#34;&gt;水平對齊&lt;/param&gt; /// &lt;param name=&#34;vAlignment&#34;&gt;垂直對齊&lt;/param&gt; /// &lt;param name=&#34;fontSize&#34;&gt;字體大小&lt;/param&gt; /// &lt;param name=&#34;fontName&#34;&gt;字體名稱&lt;/param&gt; /// &lt;param name=&#34;Btop&#34;&gt;上框線&lt;/param&gt; /// &lt;param name=&#34;Bright&#34;&gt;右框線&lt;/param&gt; /// &lt;param name=&#34;Bdown&#34;&gt;下框線&lt;/param&gt; /// &lt;param name=&#34;Bleft&#34;&gt;左框線&lt;/param&gt; /// &lt;param name=&#34;CanWrapText&#34;&gt;可換行&lt;/param&gt; /// &lt;param name=&#34;isLocked&#34;&gt;鎖定&lt;/param&gt; /// &lt;param name=&#34;isFontBold&#34;&gt;粗體&lt;/param&gt; /// &lt;param name=&#34;xssffontColor&#34;&gt;字體顏色byte[rgb]&lt;/param&gt; /// &lt;param name=&#34;xssffgColor&#34;&gt;前景顏色byte[rgb]&lt;/param&gt; /// &lt;returns&gt;&lt;/returns&gt; public XSSFCellStyle genXSSFCellStyle(XSSFWorkbook workboook , HorizontalAlignment hAlignment = HorizontalAlignment.Center, VerticalAlignment vAlignment = VerticalAlignment.Center , double fontSize = 16, string fontName = &#34;微軟正黑體&#34; , BorderStyle Btop = 0, BorderStyle Bright = 0, BorderStyle Bdown = 0, BorderStyle Bleft = 0 , bool CanWrapText = false, bool isLocked = false, bool isFontBold = false , byte[] xssffontColor= null ,byte[] xssffgColor=null ) { XSSFCellStyle cStyle = (XSSFCellStyle)workboook.CreateCellStyle(); ////設定樣式 cStyle.Alignment = hAlignment; //水平置中 cStyle.VerticalAlignment = vAlignment; //垂直置中 XSSFFont cFont = (XSSFFont)workboook.CreateFont(); cFont.FontName = fontName; cFont.FontHeightInPoints = fontSize; cFont.IsBold = isFontBold; if (xssffontColor != null) { cFont.SetColor(new XSSFColor(xssffontColor)); } cStyle.SetFont(cFont); cStyle.BorderTop = Btop; cStyle.BorderRight = Bright; cStyle.BorderBottom = Bdown; cStyle.BorderLeft = Bleft; cStyle.WrapText = CanWrapText; cStyle.IsLocked = isLocked; if (xssffgColor != null) { cStyle.FillPattern = FillPattern.SolidForeground; cStyle.SetFillForegroundColor(new XSSFColor(xssffgColor)); } return cStyle; } 小結 設定樣式也可以透過讀取設計好的Excel檔之Sheet來產出
+但處理上可能較為不彈性。適合較單調簡易的讀檔填值。
+'>
 <meta property='og:url' content='https://hushuuu.github.io/2021/08/26/npoi-cellstyle%E7%AF%87/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='NPOI' /><meta property='article:published_time' content='2021-08-26T11:52:40&#43;08:00'/><meta property='article:modified_time' content='2021-08-26T11:52:40&#43;08:00'/>
 <meta name="twitter:title" content="NPOI - CellStyle篇">
-<meta name="twitter:description" content="前言 NPOI 設定框線、字型、顏色、對齊、換行&amp;hellip;等常用樣式設定
-建立表 XSSFWorkbook xssfworkbook = new XSSFWorkbook(); //建立Workbook ISheet sheet = xssfworkbook.CreateSheet(sheetName); //建立sheet sheet.CreateRow(0).CreateCell(0).SetCellValue(&amp;#34;標題&amp;#34;); //第一次一定要先建立NewRow NewCell 框線 BorderStyle框線樣式
+<meta name="twitter:description" content="前言 NPOI 設定框線、字型、顏色、對齊、換行&hellip;等常用樣式設定
+建立表 XSSFWorkbook xssfworkbook = new XSSFWorkbook(); //建立Workbook ISheet sheet = xssfworkbook.CreateSheet(sheetName); //建立sheet sheet.CreateRow(0).CreateCell(0).SetCellValue(&#34;標題&#34;); //第一次一定要先建立NewRow NewCell 框線 BorderStyle框線樣式
 BorderColor框線顏色
 ICellStyle myStyle = xssfworkbook.CreateCellStyle();//建立樣式 myStyle.BorderTop = BorderStyle.Thin;//設定上框線 myStyle.BorderBottom = BorderStyle.Thin;//設定下框線 myStyle.BorderLeft = BorderStyle.Thin;//設定框線 myStyle.BorderRight = BorderStyle.Thin;//設定框線 字型 FontName字體名稱:新細明體
 FontHeightInPoints字體大小(double):12
 IsBold是否粗體(bool)
 Color顏色(short) HSSFColor.Black.Index
-IFont cFont = workboook.CreateFont(); cFont.FontName = &amp;#34;微軟正黑體&amp;#34;; cFont.FontHeightInPoints = 12; cFont.IsBold = true; cFont.Color = HSSFColor.Red.Index; myStyle.SetFont(cFont); 對齊 myStyle.Alignment = HorizontalAlignment.Center; //水平置中 myStyle.VerticalAlignment = VerticalAlignment.Center; //垂直置中 換行 myStyle.">
+IFont cFont = workboook.CreateFont(); cFont.FontName = &#34;微軟正黑體&#34;; cFont.FontHeightInPoints = 12; cFont.IsBold = true; cFont.Color = HSSFColor.Red.Index; myStyle.SetFont(cFont); 對齊 myStyle.Alignment = HorizontalAlignment.Center; //水平置中 myStyle.VerticalAlignment = VerticalAlignment.Center; //垂直置中 換行 myStyle.WrapText = true; 顏色 ICellStyle中設定顏色通常都是傳入short型別，如傳入HSSFColor.Yellow.Index
+若想用RGB或ARGB來自定特定顏色則只在XSSFCellStyle可以做設定
+特別注意:單元格的背景顏色似乎是設定FillForegroundColor而不是設定FillBackgroundColor
+而且必須同時設定FillPattern才會有效果
+一般顏色設定 ICellStyle myStyle = workbook.CreateCellStyle();//建立樣式 myStyle.FillForegroundColor = HSSFColor.Pink.Index; myStyle.FillPattern = FillPattern.SolidForeground; 特殊顏色設定 XSSFCellStyle cStyle = (XSSFCellStyle)workboook.CreateCellStyle(); //樣式 byte[] rgbByte = new byte[]{192,0,0};//深紅色RGB XSSFColor rgbColor = new XSSFColor(rgbByte); cStyle.FillForegroundColor = rgbColor; myStyle.FillPattern = FillPattern.SolidForeground; 包成Function來設定 單元格的樣式若稍有差異就要寫好幾行程式，包成方法來傳入參數自動設定。 仍可增加更多參數來設定樣式
+/// &lt;summary&gt; /// XSSFCellStyle較多參數可設定 /// &lt;/summary&gt; /// &lt;param name=&#34;workboook&#34;&gt;XSSFWorkbook&lt;/param&gt; /// &lt;param name=&#34;hAlignment&#34;&gt;水平對齊&lt;/param&gt; /// &lt;param name=&#34;vAlignment&#34;&gt;垂直對齊&lt;/param&gt; /// &lt;param name=&#34;fontSize&#34;&gt;字體大小&lt;/param&gt; /// &lt;param name=&#34;fontName&#34;&gt;字體名稱&lt;/param&gt; /// &lt;param name=&#34;Btop&#34;&gt;上框線&lt;/param&gt; /// &lt;param name=&#34;Bright&#34;&gt;右框線&lt;/param&gt; /// &lt;param name=&#34;Bdown&#34;&gt;下框線&lt;/param&gt; /// &lt;param name=&#34;Bleft&#34;&gt;左框線&lt;/param&gt; /// &lt;param name=&#34;CanWrapText&#34;&gt;可換行&lt;/param&gt; /// &lt;param name=&#34;isLocked&#34;&gt;鎖定&lt;/param&gt; /// &lt;param name=&#34;isFontBold&#34;&gt;粗體&lt;/param&gt; /// &lt;param name=&#34;xssffontColor&#34;&gt;字體顏色byte[rgb]&lt;/param&gt; /// &lt;param name=&#34;xssffgColor&#34;&gt;前景顏色byte[rgb]&lt;/param&gt; /// &lt;returns&gt;&lt;/returns&gt; public XSSFCellStyle genXSSFCellStyle(XSSFWorkbook workboook , HorizontalAlignment hAlignment = HorizontalAlignment.Center, VerticalAlignment vAlignment = VerticalAlignment.Center , double fontSize = 16, string fontName = &#34;微軟正黑體&#34; , BorderStyle Btop = 0, BorderStyle Bright = 0, BorderStyle Bdown = 0, BorderStyle Bleft = 0 , bool CanWrapText = false, bool isLocked = false, bool isFontBold = false , byte[] xssffontColor= null ,byte[] xssffgColor=null ) { XSSFCellStyle cStyle = (XSSFCellStyle)workboook.CreateCellStyle(); ////設定樣式 cStyle.Alignment = hAlignment; //水平置中 cStyle.VerticalAlignment = vAlignment; //垂直置中 XSSFFont cFont = (XSSFFont)workboook.CreateFont(); cFont.FontName = fontName; cFont.FontHeightInPoints = fontSize; cFont.IsBold = isFontBold; if (xssffontColor != null) { cFont.SetColor(new XSSFColor(xssffontColor)); } cStyle.SetFont(cFont); cStyle.BorderTop = Btop; cStyle.BorderRight = Bright; cStyle.BorderBottom = Bdown; cStyle.BorderLeft = Bleft; cStyle.WrapText = CanWrapText; cStyle.IsLocked = isLocked; if (xssffgColor != null) { cStyle.FillPattern = FillPattern.SolidForeground; cStyle.SetFillForegroundColor(new XSSFColor(xssffgColor)); } return cStyle; } 小結 設定樣式也可以透過讀取設計好的Excel檔之Sheet來產出
+但處理上可能較為不彈性。適合較單調簡易的讀檔填值。
+">
     </head>
     <body class="">
     <script>
@@ -72,7 +93,7 @@ IFont cFont = workboook.CreateFont(); cFont.FontName = &amp;#34;微軟正黑體&
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -235,102 +256,102 @@ IFont cFont = workboook.CreateFont(); cFont.FontName = &amp;#34;微軟正黑體&
     <h2 id="前言">前言</h2>
 <p>NPOI 設定框線、字型、顏色、對齊、換行&hellip;等常用樣式設定</p>
 <h3 id="建立表">建立表</h3>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">XSSFWorkbook</span> <span class="n">xssfworkbook</span> <span class="p">=</span> <span class="k">new</span> <span class="n">XSSFWorkbook</span><span class="p">();</span> <span class="c1">//建立Workbook
-</span><span class="c1"></span><span class="n">ISheet</span> <span class="n">sheet</span> <span class="p">=</span> <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">CreateSheet</span><span class="p">(</span><span class="n">sheetName</span><span class="p">);</span> <span class="c1">//建立sheet
-</span><span class="c1"></span><span class="n">sheet</span><span class="p">.</span><span class="n">CreateRow</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;標題&#34;</span><span class="p">);</span> <span class="c1">//第一次一定要先建立NewRow NewCell
-</span></code></pre></div><h3 id="框線">框線</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">XSSFWorkbook</span> <span class="n">xssfworkbook</span> <span class="p">=</span> <span class="k">new</span> <span class="n">XSSFWorkbook</span><span class="p">();</span> <span class="c1">//建立Workbook</span>
+</span></span><span class="line"><span class="cl"><span class="n">ISheet</span> <span class="n">sheet</span> <span class="p">=</span> <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">CreateSheet</span><span class="p">(</span><span class="n">sheetName</span><span class="p">);</span> <span class="c1">//建立sheet</span>
+</span></span><span class="line"><span class="cl"><span class="n">sheet</span><span class="p">.</span><span class="n">CreateRow</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;標題&#34;</span><span class="p">);</span> <span class="c1">//第一次一定要先建立NewRow NewCell</span>
+</span></span></code></pre></div><h3 id="框線">框線</h3>
 <p><code>BorderStyle</code>框線樣式<br>
 <code>BorderColor</code>框線顏色</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">ICellStyle</span> <span class="n">myStyle</span> <span class="p">=</span> <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">CreateCellStyle</span><span class="p">();</span><span class="c1">//建立樣式 
-</span><span class="c1"></span><span class="n">myStyle</span><span class="p">.</span><span class="n">BorderTop</span> <span class="p">=</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="n">Thin</span><span class="p">;</span><span class="c1">//設定上框線
-</span><span class="c1"></span><span class="n">myStyle</span><span class="p">.</span><span class="n">BorderBottom</span> <span class="p">=</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="n">Thin</span><span class="p">;</span><span class="c1">//設定下框線
-</span><span class="c1"></span><span class="n">myStyle</span><span class="p">.</span><span class="n">BorderLeft</span> <span class="p">=</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="n">Thin</span><span class="p">;</span><span class="c1">//設定框線
-</span><span class="c1"></span><span class="n">myStyle</span><span class="p">.</span><span class="n">BorderRight</span> <span class="p">=</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="n">Thin</span><span class="p">;</span><span class="c1">//設定框線
-</span></code></pre></div><h3 id="字型">字型</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">ICellStyle</span> <span class="n">myStyle</span> <span class="p">=</span> <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">CreateCellStyle</span><span class="p">();</span><span class="c1">//建立樣式 </span>
+</span></span><span class="line"><span class="cl"><span class="n">myStyle</span><span class="p">.</span><span class="n">BorderTop</span> <span class="p">=</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="n">Thin</span><span class="p">;</span><span class="c1">//設定上框線</span>
+</span></span><span class="line"><span class="cl"><span class="n">myStyle</span><span class="p">.</span><span class="n">BorderBottom</span> <span class="p">=</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="n">Thin</span><span class="p">;</span><span class="c1">//設定下框線</span>
+</span></span><span class="line"><span class="cl"><span class="n">myStyle</span><span class="p">.</span><span class="n">BorderLeft</span> <span class="p">=</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="n">Thin</span><span class="p">;</span><span class="c1">//設定框線</span>
+</span></span><span class="line"><span class="cl"><span class="n">myStyle</span><span class="p">.</span><span class="n">BorderRight</span> <span class="p">=</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="n">Thin</span><span class="p">;</span><span class="c1">//設定框線</span>
+</span></span></code></pre></div><h3 id="字型">字型</h3>
 <p><code>FontName</code>字體名稱:新細明體<br>
 <code>FontHeightInPoints</code>字體大小(double):12<br>
 <code>IsBold</code>是否粗體(bool)<br>
 <code>Color</code>顏色(short) HSSFColor.Black.Index</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">IFont</span> <span class="n">cFont</span> <span class="p">=</span> <span class="n">workboook</span><span class="p">.</span><span class="n">CreateFont</span><span class="p">();</span>
-<span class="n">cFont</span><span class="p">.</span><span class="n">FontName</span> <span class="p">=</span> <span class="s">&#34;微軟正黑體&#34;</span><span class="p">;</span>
-<span class="n">cFont</span><span class="p">.</span><span class="n">FontHeightInPoints</span> <span class="p">=</span> <span class="m">12</span><span class="p">;</span>
-<span class="n">cFont</span><span class="p">.</span><span class="n">IsBold</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
-<span class="n">cFont</span><span class="p">.</span><span class="n">Color</span> <span class="p">=</span> <span class="n">HSSFColor</span><span class="p">.</span><span class="n">Red</span><span class="p">.</span><span class="n">Index</span><span class="p">;</span>
-<span class="n">myStyle</span><span class="p">.</span><span class="n">SetFont</span><span class="p">(</span><span class="n">cFont</span><span class="p">);</span>
-</code></pre></div><h3 id="對齊">對齊</h3>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">myStyle</span><span class="p">.</span><span class="n">Alignment</span> <span class="p">=</span> <span class="n">HorizontalAlignment</span><span class="p">.</span><span class="n">Center</span><span class="p">;</span> <span class="c1">//水平置中
-</span><span class="c1"></span><span class="n">myStyle</span><span class="p">.</span><span class="n">VerticalAlignment</span> <span class="p">=</span> <span class="n">VerticalAlignment</span><span class="p">.</span><span class="n">Center</span><span class="p">;</span> <span class="c1">//垂直置中
-</span></code></pre></div><h3 id="換行">換行</h3>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">myStyle</span><span class="p">.</span><span class="n">WrapText</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
-</code></pre></div><h3 id="顏色">顏色</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">IFont</span> <span class="n">cFont</span> <span class="p">=</span> <span class="n">workboook</span><span class="p">.</span><span class="n">CreateFont</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">cFont</span><span class="p">.</span><span class="n">FontName</span> <span class="p">=</span> <span class="s">&#34;微軟正黑體&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">cFont</span><span class="p">.</span><span class="n">FontHeightInPoints</span> <span class="p">=</span> <span class="m">12</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">cFont</span><span class="p">.</span><span class="n">IsBold</span> <span class="p">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">cFont</span><span class="p">.</span><span class="n">Color</span> <span class="p">=</span> <span class="n">HSSFColor</span><span class="p">.</span><span class="n">Red</span><span class="p">.</span><span class="n">Index</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">myStyle</span><span class="p">.</span><span class="n">SetFont</span><span class="p">(</span><span class="n">cFont</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="對齊">對齊</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">myStyle</span><span class="p">.</span><span class="n">Alignment</span> <span class="p">=</span> <span class="n">HorizontalAlignment</span><span class="p">.</span><span class="n">Center</span><span class="p">;</span> <span class="c1">//水平置中</span>
+</span></span><span class="line"><span class="cl"><span class="n">myStyle</span><span class="p">.</span><span class="n">VerticalAlignment</span> <span class="p">=</span> <span class="n">VerticalAlignment</span><span class="p">.</span><span class="n">Center</span><span class="p">;</span> <span class="c1">//垂直置中</span>
+</span></span></code></pre></div><h3 id="換行">換行</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">myStyle</span><span class="p">.</span><span class="n">WrapText</span> <span class="p">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span></code></pre></div><h3 id="顏色">顏色</h3>
 <p><code>ICellStyle</code>中設定顏色通常都是傳入<code>short</code>型別，如傳入<code>HSSFColor.Yellow.Index</code><br>
 若想用<code>RGB</code>或<code>ARGB</code>來自定特定顏色則只在<code>XSSFCellStyle</code>可以做設定</p>
 <p><code>特別注意:單元格的背景顏色似乎是設定FillForegroundColor而不是設定FillBackgroundColor</code><br>
 <code>而且必須同時設定FillPattern才會有效果</code></p>
 <h4 id="一般顏色設定">一般顏色設定</h4>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">ICellStyle</span> <span class="n">myStyle</span> <span class="p">=</span> <span class="n">workbook</span><span class="p">.</span><span class="n">CreateCellStyle</span><span class="p">();</span><span class="c1">//建立樣式 
-</span><span class="c1"></span><span class="n">myStyle</span><span class="p">.</span><span class="n">FillForegroundColor</span> <span class="p">=</span> <span class="n">HSSFColor</span><span class="p">.</span><span class="n">Pink</span><span class="p">.</span><span class="n">Index</span><span class="p">;</span>
-<span class="n">myStyle</span><span class="p">.</span><span class="n">FillPattern</span> <span class="p">=</span> <span class="n">FillPattern</span><span class="p">.</span><span class="n">SolidForeground</span><span class="p">;</span>
-</code></pre></div><h4 id="特殊顏色設定">特殊顏色設定</h4>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">XSSFCellStyle</span> <span class="n">cStyle</span> <span class="p">=</span> <span class="p">(</span><span class="n">XSSFCellStyle</span><span class="p">)</span><span class="n">workboook</span><span class="p">.</span><span class="n">CreateCellStyle</span><span class="p">();</span> <span class="c1">//樣式
-</span><span class="c1"></span><span class="kt">byte</span><span class="p">[]</span> <span class="n">rgbByte</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="p">[]{</span><span class="m">192</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">};</span><span class="c1">//深紅色RGB
-</span><span class="c1"></span><span class="n">XSSFColor</span> <span class="n">rgbColor</span> <span class="p">=</span> <span class="k">new</span> <span class="n">XSSFColor</span><span class="p">(</span><span class="n">rgbByte</span><span class="p">);</span>
-<span class="n">cStyle</span><span class="p">.</span><span class="n">FillForegroundColor</span> <span class="p">=</span> <span class="n">rgbColor</span><span class="p">;</span>
-<span class="n">myStyle</span><span class="p">.</span><span class="n">FillPattern</span> <span class="p">=</span> <span class="n">FillPattern</span><span class="p">.</span><span class="n">SolidForeground</span><span class="p">;</span>
-</code></pre></div><h3 id="包成function來設定">包成Function來設定</h3>
-<p>單元格的樣式若稍有差異就要寫好幾行程式，包成方法來傳入參數自動設定。 
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">ICellStyle</span> <span class="n">myStyle</span> <span class="p">=</span> <span class="n">workbook</span><span class="p">.</span><span class="n">CreateCellStyle</span><span class="p">();</span><span class="c1">//建立樣式 </span>
+</span></span><span class="line"><span class="cl"><span class="n">myStyle</span><span class="p">.</span><span class="n">FillForegroundColor</span> <span class="p">=</span> <span class="n">HSSFColor</span><span class="p">.</span><span class="n">Pink</span><span class="p">.</span><span class="n">Index</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">myStyle</span><span class="p">.</span><span class="n">FillPattern</span> <span class="p">=</span> <span class="n">FillPattern</span><span class="p">.</span><span class="n">SolidForeground</span><span class="p">;</span>
+</span></span></code></pre></div><h4 id="特殊顏色設定">特殊顏色設定</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">XSSFCellStyle</span> <span class="n">cStyle</span> <span class="p">=</span> <span class="p">(</span><span class="n">XSSFCellStyle</span><span class="p">)</span><span class="n">workboook</span><span class="p">.</span><span class="n">CreateCellStyle</span><span class="p">();</span> <span class="c1">//樣式</span>
+</span></span><span class="line"><span class="cl"><span class="kt">byte</span><span class="p">[]</span> <span class="n">rgbByte</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="p">[]{</span><span class="m">192</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">};</span><span class="c1">//深紅色RGB</span>
+</span></span><span class="line"><span class="cl"><span class="n">XSSFColor</span> <span class="n">rgbColor</span> <span class="p">=</span> <span class="k">new</span> <span class="n">XSSFColor</span><span class="p">(</span><span class="n">rgbByte</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">cStyle</span><span class="p">.</span><span class="n">FillForegroundColor</span> <span class="p">=</span> <span class="n">rgbColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">myStyle</span><span class="p">.</span><span class="n">FillPattern</span> <span class="p">=</span> <span class="n">FillPattern</span><span class="p">.</span><span class="n">SolidForeground</span><span class="p">;</span>
+</span></span></code></pre></div><h3 id="包成function來設定">包成Function來設定</h3>
+<p>單元格的樣式若稍有差異就要寫好幾行程式，包成方法來傳入參數自動設定。
 仍可增加更多參數來設定樣式</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">/// &lt;summary&gt;
-</span><span class="c1">/// XSSFCellStyle較多參數可設定
-</span><span class="c1">/// &lt;/summary&gt;
-</span><span class="c1">/// &lt;param name=&#34;workboook&#34;&gt;XSSFWorkbook&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;hAlignment&#34;&gt;水平對齊&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;vAlignment&#34;&gt;垂直對齊&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;fontSize&#34;&gt;字體大小&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;fontName&#34;&gt;字體名稱&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;Btop&#34;&gt;上框線&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;Bright&#34;&gt;右框線&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;Bdown&#34;&gt;下框線&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;Bleft&#34;&gt;左框線&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;CanWrapText&#34;&gt;可換行&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;isLocked&#34;&gt;鎖定&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;isFontBold&#34;&gt;粗體&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;xssffontColor&#34;&gt;字體顏色byte[rgb]&lt;/param&gt;
-</span><span class="c1">/// &lt;param name=&#34;xssffgColor&#34;&gt;前景顏色byte[rgb]&lt;/param&gt;
-</span><span class="c1">/// &lt;returns&gt;&lt;/returns&gt;
-</span><span class="c1"></span><span class="k">public</span> <span class="n">XSSFCellStyle</span> <span class="n">genXSSFCellStyle</span><span class="p">(</span><span class="n">XSSFWorkbook</span> <span class="n">workboook</span>
-    <span class="p">,</span> <span class="n">HorizontalAlignment</span> <span class="n">hAlignment</span> <span class="p">=</span> <span class="n">HorizontalAlignment</span><span class="p">.</span><span class="n">Center</span><span class="p">,</span> <span class="n">VerticalAlignment</span> <span class="n">vAlignment</span> <span class="p">=</span> <span class="n">VerticalAlignment</span><span class="p">.</span><span class="n">Center</span>
-    <span class="p">,</span> <span class="kt">double</span> <span class="n">fontSize</span> <span class="p">=</span> <span class="m">16</span><span class="p">,</span> <span class="kt">string</span> <span class="n">fontName</span> <span class="p">=</span> <span class="s">&#34;微軟正黑體&#34;</span>
-    <span class="p">,</span> <span class="n">BorderStyle</span> <span class="n">Btop</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">BorderStyle</span> <span class="n">Bright</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">BorderStyle</span> <span class="n">Bdown</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">BorderStyle</span> <span class="n">Bleft</span> <span class="p">=</span> <span class="m">0</span>
-    <span class="p">,</span> <span class="kt">bool</span> <span class="n">CanWrapText</span> <span class="p">=</span> <span class="k">false</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isLocked</span> <span class="p">=</span> <span class="k">false</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isFontBold</span> <span class="p">=</span> <span class="k">false</span>
-    <span class="p">,</span> <span class="kt">byte</span><span class="p">[]</span> <span class="n">xssffontColor</span><span class="p">=</span> <span class="k">null</span> <span class="p">,</span><span class="kt">byte</span><span class="p">[]</span> <span class="n">xssffgColor</span><span class="p">=</span><span class="k">null</span>  <span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">XSSFCellStyle</span> <span class="n">cStyle</span> <span class="p">=</span> <span class="p">(</span><span class="n">XSSFCellStyle</span><span class="p">)</span><span class="n">workboook</span><span class="p">.</span><span class="n">CreateCellStyle</span><span class="p">();</span> <span class="c1">////設定樣式
-</span><span class="c1"></span>    <span class="n">cStyle</span><span class="p">.</span><span class="n">Alignment</span> <span class="p">=</span> <span class="n">hAlignment</span><span class="p">;</span> <span class="c1">//水平置中
-</span><span class="c1"></span>    <span class="n">cStyle</span><span class="p">.</span><span class="n">VerticalAlignment</span> <span class="p">=</span> <span class="n">vAlignment</span><span class="p">;</span> <span class="c1">//垂直置中
-</span><span class="c1"></span>    <span class="n">XSSFFont</span> <span class="n">cFont</span> <span class="p">=</span> <span class="p">(</span><span class="n">XSSFFont</span><span class="p">)</span><span class="n">workboook</span><span class="p">.</span><span class="n">CreateFont</span><span class="p">();</span>
-    <span class="n">cFont</span><span class="p">.</span><span class="n">FontName</span> <span class="p">=</span> <span class="n">fontName</span><span class="p">;</span>
-    <span class="n">cFont</span><span class="p">.</span><span class="n">FontHeightInPoints</span> <span class="p">=</span> <span class="n">fontSize</span><span class="p">;</span>
-    <span class="n">cFont</span><span class="p">.</span><span class="n">IsBold</span> <span class="p">=</span> <span class="n">isFontBold</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">xssffontColor</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">cFont</span><span class="p">.</span><span class="n">SetColor</span><span class="p">(</span><span class="k">new</span> <span class="n">XSSFColor</span><span class="p">(</span><span class="n">xssffontColor</span><span class="p">));</span>
-    <span class="p">}</span>
-    <span class="n">cStyle</span><span class="p">.</span><span class="n">SetFont</span><span class="p">(</span><span class="n">cFont</span><span class="p">);</span>
-    <span class="n">cStyle</span><span class="p">.</span><span class="n">BorderTop</span> <span class="p">=</span> <span class="n">Btop</span><span class="p">;</span>
-    <span class="n">cStyle</span><span class="p">.</span><span class="n">BorderRight</span> <span class="p">=</span> <span class="n">Bright</span><span class="p">;</span>
-    <span class="n">cStyle</span><span class="p">.</span><span class="n">BorderBottom</span> <span class="p">=</span> <span class="n">Bdown</span><span class="p">;</span>
-    <span class="n">cStyle</span><span class="p">.</span><span class="n">BorderLeft</span> <span class="p">=</span> <span class="n">Bleft</span><span class="p">;</span>
-    <span class="n">cStyle</span><span class="p">.</span><span class="n">WrapText</span> <span class="p">=</span> <span class="n">CanWrapText</span><span class="p">;</span>
-    <span class="n">cStyle</span><span class="p">.</span><span class="n">IsLocked</span> <span class="p">=</span> <span class="n">isLocked</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">xssffgColor</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">cStyle</span><span class="p">.</span><span class="n">FillPattern</span> <span class="p">=</span> <span class="n">FillPattern</span><span class="p">.</span><span class="n">SolidForeground</span><span class="p">;</span>
-        <span class="n">cStyle</span><span class="p">.</span><span class="n">SetFillForegroundColor</span><span class="p">(</span><span class="k">new</span> <span class="n">XSSFColor</span><span class="p">(</span><span class="n">xssffgColor</span><span class="p">));</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">cStyle</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// XSSFCellStyle較多參數可設定</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;workboook&#34;&gt;XSSFWorkbook&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;hAlignment&#34;&gt;水平對齊&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;vAlignment&#34;&gt;垂直對齊&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;fontSize&#34;&gt;字體大小&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;fontName&#34;&gt;字體名稱&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;Btop&#34;&gt;上框線&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;Bright&#34;&gt;右框線&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;Bdown&#34;&gt;下框線&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;Bleft&#34;&gt;左框線&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;CanWrapText&#34;&gt;可換行&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;isLocked&#34;&gt;鎖定&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;isFontBold&#34;&gt;粗體&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;xssffontColor&#34;&gt;字體顏色byte[rgb]&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;param name=&#34;xssffgColor&#34;&gt;前景顏色byte[rgb]&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cs">/// &lt;returns&gt;&lt;/returns&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">XSSFCellStyle</span> <span class="n">genXSSFCellStyle</span><span class="p">(</span><span class="n">XSSFWorkbook</span> <span class="n">workboook</span>
+</span></span><span class="line"><span class="cl">    <span class="p">,</span> <span class="n">HorizontalAlignment</span> <span class="n">hAlignment</span> <span class="p">=</span> <span class="n">HorizontalAlignment</span><span class="p">.</span><span class="n">Center</span><span class="p">,</span> <span class="n">VerticalAlignment</span> <span class="n">vAlignment</span> <span class="p">=</span> <span class="n">VerticalAlignment</span><span class="p">.</span><span class="n">Center</span>
+</span></span><span class="line"><span class="cl">    <span class="p">,</span> <span class="kt">double</span> <span class="n">fontSize</span> <span class="p">=</span> <span class="m">16</span><span class="p">,</span> <span class="kt">string</span> <span class="n">fontName</span> <span class="p">=</span> <span class="s">&#34;微軟正黑體&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">,</span> <span class="n">BorderStyle</span> <span class="n">Btop</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">BorderStyle</span> <span class="n">Bright</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">BorderStyle</span> <span class="n">Bdown</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">BorderStyle</span> <span class="n">Bleft</span> <span class="p">=</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">,</span> <span class="kt">bool</span> <span class="n">CanWrapText</span> <span class="p">=</span> <span class="kc">false</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isLocked</span> <span class="p">=</span> <span class="kc">false</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isFontBold</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">    <span class="p">,</span> <span class="kt">byte</span><span class="p">[]</span> <span class="n">xssffontColor</span><span class="p">=</span> <span class="kc">null</span> <span class="p">,</span><span class="kt">byte</span><span class="p">[]</span> <span class="n">xssffgColor</span><span class="p">=</span><span class="kc">null</span>  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">XSSFCellStyle</span> <span class="n">cStyle</span> <span class="p">=</span> <span class="p">(</span><span class="n">XSSFCellStyle</span><span class="p">)</span><span class="n">workboook</span><span class="p">.</span><span class="n">CreateCellStyle</span><span class="p">();</span> <span class="cs">////設定樣式</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cStyle</span><span class="p">.</span><span class="n">Alignment</span> <span class="p">=</span> <span class="n">hAlignment</span><span class="p">;</span> <span class="c1">//水平置中</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cStyle</span><span class="p">.</span><span class="n">VerticalAlignment</span> <span class="p">=</span> <span class="n">vAlignment</span><span class="p">;</span> <span class="c1">//垂直置中</span>
+</span></span><span class="line"><span class="cl">    <span class="n">XSSFFont</span> <span class="n">cFont</span> <span class="p">=</span> <span class="p">(</span><span class="n">XSSFFont</span><span class="p">)</span><span class="n">workboook</span><span class="p">.</span><span class="n">CreateFont</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cFont</span><span class="p">.</span><span class="n">FontName</span> <span class="p">=</span> <span class="n">fontName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cFont</span><span class="p">.</span><span class="n">FontHeightInPoints</span> <span class="p">=</span> <span class="n">fontSize</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cFont</span><span class="p">.</span><span class="n">IsBold</span> <span class="p">=</span> <span class="n">isFontBold</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">xssffontColor</span> <span class="p">!=</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cFont</span><span class="p">.</span><span class="n">SetColor</span><span class="p">(</span><span class="k">new</span> <span class="n">XSSFColor</span><span class="p">(</span><span class="n">xssffontColor</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cStyle</span><span class="p">.</span><span class="n">SetFont</span><span class="p">(</span><span class="n">cFont</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cStyle</span><span class="p">.</span><span class="n">BorderTop</span> <span class="p">=</span> <span class="n">Btop</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cStyle</span><span class="p">.</span><span class="n">BorderRight</span> <span class="p">=</span> <span class="n">Bright</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cStyle</span><span class="p">.</span><span class="n">BorderBottom</span> <span class="p">=</span> <span class="n">Bdown</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cStyle</span><span class="p">.</span><span class="n">BorderLeft</span> <span class="p">=</span> <span class="n">Bleft</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cStyle</span><span class="p">.</span><span class="n">WrapText</span> <span class="p">=</span> <span class="n">CanWrapText</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cStyle</span><span class="p">.</span><span class="n">IsLocked</span> <span class="p">=</span> <span class="n">isLocked</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">xssffgColor</span> <span class="p">!=</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cStyle</span><span class="p">.</span><span class="n">FillPattern</span> <span class="p">=</span> <span class="n">FillPattern</span><span class="p">.</span><span class="n">SolidForeground</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cStyle</span><span class="p">.</span><span class="n">SetFillForegroundColor</span><span class="p">(</span><span class="k">new</span> <span class="n">XSSFColor</span><span class="p">(</span><span class="n">xssffgColor</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">cStyle</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p>設定樣式也可以透過讀取設計好的Excel檔之<code>Sheet</code>來產出<br>
 但處理上可能較為不彈性。適合較單調簡易的讀檔填值。</p>
 <p>其他仍有像是數值格式<code>DataFormat</code>的設定未紀錄<br>
@@ -398,12 +419,12 @@ IFont cFont = workboook.CreateFont(); cFont.FontName = &amp;#34;微軟正黑體&
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

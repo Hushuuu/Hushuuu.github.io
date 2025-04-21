@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -220,27 +220,26 @@
 但在使用Ajax Post時也要注意</p>
 <h2 id="主要內容">主要內容</h2>
 <p>可以在頁面上藏一個<code>有token的form</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;__AjaxAntiForgeryForm&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;#&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span><span class="p">&gt;</span>@Html.AntiForgeryToken()<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>  
-</code></pre></div><p>再post之前將token塞進去。</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">AddAntiForgeryToken</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">data</span><span class="p">.</span><span class="nx">__RequestVerificationToken</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#__AjaxAntiForgeryForm input[name=__RequestVerificationToken]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
-        <span class="k">return</span> <span class="nx">data</span><span class="p">;</span>
-    <span class="p">};</span>
-    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-            <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;post&#34;</span><span class="p">,</span>
-            <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-            <span class="nx">data</span><span class="o">:</span> <span class="nx">AddAntiForgeryToken</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="s2">&#34;1&#34;</span><span class="p">}),</span>
-            <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-                <span class="c1">// ....
-</span><span class="c1"></span>            <span class="p">}</span>
-        <span class="p">});</span>   
-</code></pre></div><h2 id="參考連結">參考連結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;__AjaxAntiForgeryForm&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;#&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span><span class="p">&gt;</span>@Html.AntiForgeryToken()<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>  
+</span></span></code></pre></div><p>再post之前將token塞進去。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">AddAntiForgeryToken</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="p">.</span><span class="nx">__RequestVerificationToken</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#__AjaxAntiForgeryForm input[name=__RequestVerificationToken]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;post&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">data</span><span class="o">:</span> <span class="nx">AddAntiForgeryToken</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="s2">&#34;1&#34;</span><span class="p">}),</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// ....
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>   
+</span></span></code></pre></div><h2 id="參考連結">參考連結</h2>
 <blockquote>
 <ul>
 <li><a class="link" href="https://stackoverflow.com/questions/4074199/jquery-ajax-calls-and-the-html-antiforgerytoken"  target="_blank" rel="noopener"
     >url1</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -287,12 +286,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

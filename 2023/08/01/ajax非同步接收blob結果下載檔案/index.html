@@ -5,8 +5,9 @@
 非同步的請求也可以正確接收檔案觸發瀏覽器下載
 透過接收Blob型別的response來解析
 主要內容 axios
-axios.get(&amp;#39;url&amp;#39;,{responseType: &amp;#39;blob&amp;#39; }) .then(res =&amp;gt; { const { headers, data } = res, blob = new Blob([data]) ; let fname = &amp;#39;samp.txt&amp;#39; const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結  const a = document.createElement(&amp;#39;a&amp;#39;); a.style.display = &amp;#39;none&amp;#39;; a.href = url; a.download = fname; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }); fetch
-fetch(&amp;#39;url&amp;#39;) .then(resp =&amp;gt; resp.blob()) .then(blob =&amp;gt; { const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結  const a = document.'><title>Ajax非同步接收blob結果下載檔案</title>
+axios.get(&#39;url&#39;,{responseType: &#39;blob&#39; }) .then(res =&gt; { const { headers, data } = res, blob = new Blob([data]) ; let fname = &#39;samp.txt&#39; const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結 const a = document.createElement(&#39;a&#39;); a.style.display = &#39;none&#39;; a.href = url; a.download = fname; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }); fetch
+fetch(&#39;url&#39;) .then(resp =&gt; resp.blob()) .then(blob =&gt; { const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結 const a = document.createElement(&#39;a&#39;); a.style.display = &#39;none&#39;; a.href = url; a.download = &#39;samp.txt&#39;; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }) .catch(() =&gt; alert(&#39;oh no!&#39;)); 若要取得回傳的檔案名稱
+//取得回傳的結果header並解析content-disposition區塊 let filename = getFileName(headers[&#34;content-disposition&#34;]); function getFileName(disposition) { console.log(disposition) const utf8FilenameRegex = /filename\*=UTF-8&#39;&#39;([\w%.-]&#43;)(?:; ?|$)/i; const asciiFilenameRegex = /^filename=([&#34;&#39;]?)(.*?[^\\])\1(?:; ?|$)/i; let fileName = null; if (utf8FilenameRegex.test(disposition)) { fileName = decodeURIComponent(utf8FilenameRegex.exec(disposition)[1]); } else { // prevent ReDos attacks by anchoring the ascii regex to string start and // slicing off everything before &#39;filename=&#39; const filenameStart = disposition.toLowerCase().indexOf(&#39;filename=&#39;); if (filenameStart &gt;= 0) { const partialDisposition = disposition.slice(filenameStart); const matches = asciiFilenameRegex.exec(partialDisposition); if (matches != null &amp;&amp; matches[2]) { fileName = matches[2]; } } } return fileName; } '><title>Ajax非同步接收blob結果下載檔案</title>
 
 <link rel='canonical' href='https://hushuuu.github.io/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/'>
 
@@ -15,8 +16,9 @@ fetch(&amp;#39;url&amp;#39;) .then(resp =&amp;gt; resp.blob()) .then(blob =&amp;
 非同步的請求也可以正確接收檔案觸發瀏覽器下載
 透過接收Blob型別的response來解析
 主要內容 axios
-axios.get(&amp;#39;url&amp;#39;,{responseType: &amp;#39;blob&amp;#39; }) .then(res =&amp;gt; { const { headers, data } = res, blob = new Blob([data]) ; let fname = &amp;#39;samp.txt&amp;#39; const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結  const a = document.createElement(&amp;#39;a&amp;#39;); a.style.display = &amp;#39;none&amp;#39;; a.href = url; a.download = fname; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }); fetch
-fetch(&amp;#39;url&amp;#39;) .then(resp =&amp;gt; resp.blob()) .then(blob =&amp;gt; { const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結  const a = document.'>
+axios.get(&#39;url&#39;,{responseType: &#39;blob&#39; }) .then(res =&gt; { const { headers, data } = res, blob = new Blob([data]) ; let fname = &#39;samp.txt&#39; const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結 const a = document.createElement(&#39;a&#39;); a.style.display = &#39;none&#39;; a.href = url; a.download = fname; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }); fetch
+fetch(&#39;url&#39;) .then(resp =&gt; resp.blob()) .then(blob =&gt; { const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結 const a = document.createElement(&#39;a&#39;); a.style.display = &#39;none&#39;; a.href = url; a.download = &#39;samp.txt&#39;; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }) .catch(() =&gt; alert(&#39;oh no!&#39;)); 若要取得回傳的檔案名稱
+//取得回傳的結果header並解析content-disposition區塊 let filename = getFileName(headers[&#34;content-disposition&#34;]); function getFileName(disposition) { console.log(disposition) const utf8FilenameRegex = /filename\*=UTF-8&#39;&#39;([\w%.-]&#43;)(?:; ?|$)/i; const asciiFilenameRegex = /^filename=([&#34;&#39;]?)(.*?[^\\])\1(?:; ?|$)/i; let fileName = null; if (utf8FilenameRegex.test(disposition)) { fileName = decodeURIComponent(utf8FilenameRegex.exec(disposition)[1]); } else { // prevent ReDos attacks by anchoring the ascii regex to string start and // slicing off everything before &#39;filename=&#39; const filenameStart = disposition.toLowerCase().indexOf(&#39;filename=&#39;); if (filenameStart &gt;= 0) { const partialDisposition = disposition.slice(filenameStart); const matches = asciiFilenameRegex.exec(partialDisposition); if (matches != null &amp;&amp; matches[2]) { fileName = matches[2]; } } } return fileName; } '>
 <meta property='og:url' content='https://hushuuu.github.io/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Ajax' /><meta property='article:tag' content='JavaScript' /><meta property='article:published_time' content='2023-08-01T15:22:07&#43;08:00'/><meta property='article:modified_time' content='2023-08-01T15:22:07&#43;08:00'/>
@@ -25,8 +27,9 @@ fetch(&amp;#39;url&amp;#39;) .then(resp =&amp;gt; resp.blob()) .then(blob =&amp;
 非同步的請求也可以正確接收檔案觸發瀏覽器下載
 透過接收Blob型別的response來解析
 主要內容 axios
-axios.get(&amp;#39;url&amp;#39;,{responseType: &amp;#39;blob&amp;#39; }) .then(res =&amp;gt; { const { headers, data } = res, blob = new Blob([data]) ; let fname = &amp;#39;samp.txt&amp;#39; const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結  const a = document.createElement(&amp;#39;a&amp;#39;); a.style.display = &amp;#39;none&amp;#39;; a.href = url; a.download = fname; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }); fetch
-fetch(&amp;#39;url&amp;#39;) .then(resp =&amp;gt; resp.blob()) .then(blob =&amp;gt; { const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結  const a = document.">
+axios.get(&#39;url&#39;,{responseType: &#39;blob&#39; }) .then(res =&gt; { const { headers, data } = res, blob = new Blob([data]) ; let fname = &#39;samp.txt&#39; const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結 const a = document.createElement(&#39;a&#39;); a.style.display = &#39;none&#39;; a.href = url; a.download = fname; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }); fetch
+fetch(&#39;url&#39;) .then(resp =&gt; resp.blob()) .then(blob =&gt; { const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結 const a = document.createElement(&#39;a&#39;); a.style.display = &#39;none&#39;; a.href = url; a.download = &#39;samp.txt&#39;; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }) .catch(() =&gt; alert(&#39;oh no!&#39;)); 若要取得回傳的檔案名稱
+//取得回傳的結果header並解析content-disposition區塊 let filename = getFileName(headers[&#34;content-disposition&#34;]); function getFileName(disposition) { console.log(disposition) const utf8FilenameRegex = /filename\*=UTF-8&#39;&#39;([\w%.-]&#43;)(?:; ?|$)/i; const asciiFilenameRegex = /^filename=([&#34;&#39;]?)(.*?[^\\])\1(?:; ?|$)/i; let fileName = null; if (utf8FilenameRegex.test(disposition)) { fileName = decodeURIComponent(utf8FilenameRegex.exec(disposition)[1]); } else { // prevent ReDos attacks by anchoring the ascii regex to string start and // slicing off everything before &#39;filename=&#39; const filenameStart = disposition.toLowerCase().indexOf(&#39;filename=&#39;); if (filenameStart &gt;= 0) { const partialDisposition = disposition.slice(filenameStart); const matches = asciiFilenameRegex.exec(partialDisposition); if (matches != null &amp;&amp; matches[2]) { fileName = matches[2]; } } } return fileName; } ">
     </head>
     <body class="">
     <script>
@@ -66,7 +69,7 @@ fetch(&amp;#39;url&amp;#39;) .then(resp =&amp;gt; resp.blob()) .then(blob =&amp;
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -232,62 +235,62 @@ fetch(&amp;#39;url&amp;#39;) .then(resp =&amp;gt; resp.blob()) .then(blob =&amp;
 透過接收Blob型別的response來解析</p>
 <h2 id="主要內容">主要內容</h2>
 <p><code>axios</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,{</span><span class="nx">responseType</span><span class="o">:</span> <span class="s1">&#39;blob&#39;</span> <span class="p">})</span>
-<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="p">{</span> <span class="nx">headers</span><span class="p">,</span> <span class="nx">data</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">res</span><span class="p">,</span>
-        <span class="nx">blob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Blob</span><span class="p">([</span><span class="nx">data</span><span class="p">])</span>
-        <span class="p">;</span>
-    <span class="kd">let</span> <span class="nx">fname</span> <span class="o">=</span> <span class="s1">&#39;samp.txt&#39;</span>
-    <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">blob</span><span class="p">);</span> <span class="c1">//可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結
-</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
-    <span class="nx">a</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
-    <span class="nx">a</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
-    <span class="nx">a</span><span class="p">.</span><span class="nx">download</span> <span class="o">=</span> <span class="nx">fname</span><span class="p">;</span>
-    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
-    <span class="nx">a</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
-    <span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">revokeObjectURL</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span> <span class="c1">//釋放
-</span><span class="c1"></span><span class="p">});</span>
-</code></pre></div><p><code>fetch</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resp</span> <span class="p">=&gt;</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">blob</span><span class="p">())</span>
-    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">blob</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">blob</span><span class="p">);</span> <span class="c1">//可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結
-</span><span class="c1"></span>        <span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
-        <span class="nx">a</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
-        <span class="nx">a</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
-        <span class="nx">a</span><span class="p">.</span><span class="nx">download</span> <span class="o">=</span> <span class="s1">&#39;samp.txt&#39;</span><span class="p">;</span>
-        <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
-        <span class="nx">a</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
-        <span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">revokeObjectURL</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span> <span class="c1">//釋放
-</span><span class="c1"></span>    <span class="p">})</span>
-    <span class="p">.</span><span class="k">catch</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;oh no!&#39;</span><span class="p">));</span>
-</code></pre></div><p>若要取得回傳的檔案名稱</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">//取得回傳的結果header並解析content-disposition區塊
-</span><span class="c1"></span><span class="kd">let</span> <span class="nx">filename</span> <span class="o">=</span> <span class="nx">getFileName</span><span class="p">(</span><span class="nx">headers</span><span class="p">[</span><span class="s2">&#34;content-disposition&#34;</span><span class="p">]);</span>
-
-<span class="kd">function</span> <span class="nx">getFileName</span><span class="p">(</span><span class="nx">disposition</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">disposition</span><span class="p">)</span>
-    <span class="kr">const</span> <span class="nx">utf8FilenameRegex</span> <span class="o">=</span> <span class="sr">/filename\*=UTF-8&#39;&#39;([\w%.-]+)(?:; ?|$)/i</span><span class="p">;</span>
-    <span class="kr">const</span> <span class="nx">asciiFilenameRegex</span> <span class="o">=</span> <span class="sr">/^filename=([&#34;&#39;]?)(.*?[^\\])\1(?:; ?|$)/i</span><span class="p">;</span>
-
-    <span class="kd">let</span> <span class="nx">fileName</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">utf8FilenameRegex</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">disposition</span><span class="p">))</span> <span class="p">{</span>
-        <span class="nx">fileName</span> <span class="o">=</span> <span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">utf8FilenameRegex</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">disposition</span><span class="p">)[</span><span class="mi">1</span><span class="p">]);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="c1">// prevent ReDos attacks by anchoring the ascii regex to string start and
-</span><span class="c1"></span>        <span class="c1">//  slicing off everything before &#39;filename=&#39;
-</span><span class="c1"></span>        <span class="kr">const</span> <span class="nx">filenameStart</span> <span class="o">=</span> <span class="nx">disposition</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;filename=&#39;</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">filenameStart</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kr">const</span> <span class="nx">partialDisposition</span> <span class="o">=</span> <span class="nx">disposition</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">filenameStart</span><span class="p">);</span>
-            <span class="kr">const</span> <span class="nx">matches</span> <span class="o">=</span> <span class="nx">asciiFilenameRegex</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">partialDisposition</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">matches</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">matches</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="p">{</span>
-                <span class="nx">fileName</span> <span class="o">=</span> <span class="nx">matches</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">fileName</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,{</span><span class="nx">responseType</span><span class="o">:</span> <span class="s1">&#39;blob&#39;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">headers</span><span class="p">,</span> <span class="nx">data</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">res</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">blob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Blob</span><span class="p">([</span><span class="nx">data</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">fname</span> <span class="o">=</span> <span class="s1">&#39;samp.txt&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">blob</span><span class="p">);</span> <span class="c1">//可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">a</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">a</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">a</span><span class="p">.</span><span class="nx">download</span> <span class="o">=</span> <span class="nx">fname</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">a</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">revokeObjectURL</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span> <span class="c1">//釋放
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">});</span>
+</span></span></code></pre></div><p><code>fetch</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resp</span> <span class="p">=&gt;</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">blob</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">blob</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">blob</span><span class="p">);</span> <span class="c1">//可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">a</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">a</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">a</span><span class="p">.</span><span class="nx">download</span> <span class="o">=</span> <span class="s1">&#39;samp.txt&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">a</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">revokeObjectURL</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span> <span class="c1">//釋放
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="k">catch</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;oh no!&#39;</span><span class="p">));</span>
+</span></span></code></pre></div><p>若要取得回傳的檔案名稱</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">//取得回傳的結果header並解析content-disposition區塊
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">filename</span> <span class="o">=</span> <span class="nx">getFileName</span><span class="p">(</span><span class="nx">headers</span><span class="p">[</span><span class="s2">&#34;content-disposition&#34;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getFileName</span><span class="p">(</span><span class="nx">disposition</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">disposition</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">utf8FilenameRegex</span> <span class="o">=</span> <span class="sr">/filename\*=UTF-8&#39;&#39;([\w%.-]+)(?:; ?|$)/i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">asciiFilenameRegex</span> <span class="o">=</span> <span class="sr">/^filename=([&#34;&#39;]?)(.*?[^\\])\1(?:; ?|$)/i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">fileName</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">utf8FilenameRegex</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">disposition</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fileName</span> <span class="o">=</span> <span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">utf8FilenameRegex</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">disposition</span><span class="p">)[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// prevent ReDos attacks by anchoring the ascii regex to string start and
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//  slicing off everything before &#39;filename=&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kr">const</span> <span class="nx">filenameStart</span> <span class="o">=</span> <span class="nx">disposition</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;filename=&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">filenameStart</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">const</span> <span class="nx">partialDisposition</span> <span class="o">=</span> <span class="nx">disposition</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">filenameStart</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">const</span> <span class="nx">matches</span> <span class="o">=</span> <span class="nx">asciiFilenameRegex</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">partialDisposition</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">matches</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">matches</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">fileName</span> <span class="o">=</span> <span class="nx">matches</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">fileName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 </section>
 
 
@@ -333,12 +336,12 @@ fetch(&amp;#39;url&amp;#39;) .then(resp =&amp;gt; resp.blob()) .then(blob =&amp;
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

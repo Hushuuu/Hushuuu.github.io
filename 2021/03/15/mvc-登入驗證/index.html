@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -228,21 +228,21 @@
 繼承<code>ActionFilterAttribute</code>並複寫<code>OnActionExecuting</code>方法<br>
 這邊條件我拿一個登入後設定的Seesion來做判斷。<br>
 不通過則<code>filterContext.Result</code>設定導向回登入頁</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">class</span> <span class="nc">LoginFilter</span><span class="p">:</span> <span class="n">ActionFilterAttribute</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">OnActionExecuting</span><span class="p">(</span><span class="n">ActionExecutingContext</span> <span class="n">filterContext</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">Current</span><span class="p">.</span><span class="n">Session</span><span class="p">[</span><span class="s">&#34;Login_id&#34;</span><span class="p">]</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">filterContext</span><span class="p">.</span><span class="n">Result</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RedirectToRouteResult</span><span class="p">(</span><span class="k">new</span> <span class="n">RouteValueDictionary</span><span class="p">(</span><span class="k">new</span>
-            <span class="p">{</span>
-                <span class="n">controller</span> <span class="p">=</span> <span class="s">&#34;Home&#34;</span><span class="p">,</span>
-                <span class="n">action</span> <span class="p">=</span> <span class="s">&#34;Login&#34;</span>
-            <span class="p">}));</span>
-        <span class="p">}</span>           
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="掛上filter">掛上Filter</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">LoginFilter</span><span class="p">:</span> <span class="n">ActionFilterAttribute</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">override</span> <span class="k">void</span> <span class="n">OnActionExecuting</span><span class="p">(</span><span class="n">ActionExecutingContext</span> <span class="n">filterContext</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">Current</span><span class="p">.</span><span class="n">Session</span><span class="p">[</span><span class="s">&#34;Login_id&#34;</span><span class="p">]</span> <span class="p">==</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">filterContext</span><span class="p">.</span><span class="n">Result</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RedirectToRouteResult</span><span class="p">(</span><span class="k">new</span> <span class="n">RouteValueDictionary</span><span class="p">(</span><span class="k">new</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">controller</span> <span class="p">=</span> <span class="s">&#34;Home&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">action</span> <span class="p">=</span> <span class="s">&#34;Login&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>           
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="掛上filter">掛上Filter</h2>
 <p>建立好自定義的Filter後，使用的方式可根據想套用的範圍大小來掛上Filter。<br>
 可以在Action上頭掛上<code>[LoginFilter]</code>，或者是掛在Controller上來套用整個控制器的Action</p>
 
@@ -358,12 +358,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -220,88 +220,87 @@
 也能對平常的List型別進行過濾查詢。</p>
 <h2 id="主要內容">主要內容</h2>
 <p>Linq有兩種表示式，有一種是使用Lambda表示式</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"> <span class="kt">var</span> <span class="n">p</span> <span class="p">=</span> <span class="k">from</span> <span class="n">t</span> <span class="k">in</span> <span class="n">products</span>
-                <span class="k">where</span> <span class="n">t</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&#34;牙膏&#34;</span>
-                <span class="k">select</span> <span class="n">t</span><span class="p">;</span>
-<span class="c1">//Lambda
-</span><span class="c1"></span><span class="kt">var</span> <span class="n">p2</span> <span class="p">=</span> <span class="n">products</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">t</span> <span class="p">=&gt;</span> <span class="n">t</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&#34;牙膏&#34;</span><span class="p">);</span>
-</code></pre></div><h3 id="join">JOIN</h3>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//left join linq
-</span><span class="c1"></span><span class="kt">var</span> <span class="n">q</span> <span class="p">=</span> <span class="k">from</span> <span class="n">e</span> <span class="k">in</span> <span class="n">Db</span><span class="p">.</span><span class="n">Page_M</span> 
-        <span class="k">orderby</span> <span class="n">e</span><span class="p">.</span><span class="n">page_stack</span>
-        <span class="k">join</span> <span class="n">s</span> <span class="k">in</span> <span class="p">(</span> <span class="k">from</span> <span class="n">s</span> <span class="k">in</span> <span class="n">Db</span><span class="p">.</span><span class="n">Group_D</span> <span class="k">where</span> <span class="n">s</span><span class="p">.</span><span class="n">group_id</span><span class="p">==</span><span class="n">group_id</span> <span class="k">select</span> <span class="n">s</span><span class="p">)</span>
-        <span class="k">on</span> <span class="k">new</span> <span class="p">{</span> <span class="n">page_id</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page_id</span> <span class="p">}</span> <span class="k">equals</span>
-        <span class="k">new</span> <span class="p">{</span> <span class="n">page_id</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">page_id</span> <span class="p">}</span> <span class="k">into</span> <span class="n">subGrp</span>
-        <span class="k">from</span> <span class="n">s</span> <span class="k">in</span> <span class="n">subGrp</span><span class="p">.</span><span class="n">DefaultIfEmpty</span><span class="p">()</span>
-        <span class="k">select</span> <span class="k">new</span> <span class="n">GroupDModel</span>
-        <span class="p">{</span>
-            <span class="n">page_id</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page_id</span><span class="p">,</span>
-            <span class="n">page_name</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page_name</span><span class="p">,</span>
-            <span class="n">controller</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">controller</span><span class="p">,</span>
-            <span class="n">action</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">action</span><span class="p">,</span>
-            <span class="n">can_enter</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">can_enter</span> <span class="p">??</span> <span class="k">false</span><span class="p">,</span>
-            <span class="n">can_see</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">can_see</span> <span class="p">??</span> <span class="k">false</span><span class="p">,</span>
-            <span class="n">page_stack</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page_stack</span>
-        <span class="p">};</span>
-<span class="c1">//left join lambda
-</span><span class="c1"></span><span class="kt">var</span> <span class="n">qq</span> <span class="p">=</span> <span class="n">Db</span><span class="p">.</span><span class="n">Page_M</span><span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">x</span><span class="p">=&gt;</span><span class="n">x</span><span class="p">.</span><span class="n">page_stack</span><span class="p">)</span>
-    <span class="p">.</span><span class="n">GroupJoin</span><span class="p">(</span><span class="n">Db</span><span class="p">.</span><span class="n">Group_D</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span><span class="p">=&gt;</span><span class="n">x</span><span class="p">.</span><span class="n">group_id</span><span class="p">==</span><span class="n">group_id</span><span class="p">),</span> 
-    <span class="n">e</span> <span class="p">=&gt;</span> <span class="n">e</span><span class="p">.</span><span class="n">page_id</span><span class="p">,</span> 
-    <span class="n">s</span> <span class="p">=&gt;</span> <span class="n">s</span><span class="p">.</span><span class="n">page_id</span><span class="p">,</span>
-    <span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">new</span>
-    <span class="p">{</span>
-        <span class="n">page</span> <span class="p">=</span> <span class="n">e</span><span class="p">,</span>
-        <span class="k">group</span> <span class="p">=</span> <span class="n">s</span>
-    <span class="p">})</span>
-    <span class="p">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="n">s</span> <span class="p">=&gt;</span> <span class="n">s</span><span class="p">.</span><span class="k">group</span><span class="p">.</span><span class="n">DefaultIfEmpty</span><span class="p">(),</span> <span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="n">GroupDModel</span>
-    <span class="p">{</span>
-        <span class="n">page_id</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page</span><span class="p">.</span><span class="n">page_id</span><span class="p">,</span>
-        <span class="n">page_name</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page</span><span class="p">.</span><span class="n">page_name</span><span class="p">,</span>
-        <span class="n">controller</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page</span><span class="p">.</span><span class="n">controller</span><span class="p">,</span>
-        <span class="n">action</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page</span><span class="p">.</span><span class="n">action</span><span class="p">,</span>
-        <span class="n">can_enter</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">can_enter</span> <span class="p">??</span> <span class="k">false</span><span class="p">,</span>
-        <span class="n">can_see</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">can_see</span> <span class="p">??</span> <span class="k">false</span><span class="p">,</span>
-        <span class="n">page_stack</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page</span><span class="p">.</span><span class="n">page_stack</span>
-    <span class="p">});</span>
-</code></pre></div><p>比較複雜的語法得仔細檢查是否結果無誤</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"> <span class="n">List</span><span class="p">&lt;</span><span class="n">BuyDtl</span><span class="p">&gt;</span> <span class="n">all_list</span> <span class="p">=</span> <span class="n">query</span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
- <span class="n">all_list</span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">pro_id</span><span class="p">).</span><span class="n">Select</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">Key</span><span class="p">)</span>
-    <span class="p">.</span><span class="n">ToList</span><span class="p">()</span>
-    <span class="p">.</span><span class="n">ForEach</span><span class="p">(</span><span class="n">z</span> <span class="p">=&gt;</span>
-    <span class="p">{</span>
-        <span class="n">all_list</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">pro_id</span> <span class="p">==</span> <span class="n">z</span><span class="p">)</span>
-        <span class="c1">//groupBy日期
-</span><span class="c1"></span>        <span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="p">{</span> <span class="n">pro_id</span> <span class="p">=</span> <span class="n">x</span><span class="p">.</span><span class="n">pro_id</span><span class="p">,</span> <span class="n">doc_date</span> <span class="p">=</span> <span class="n">x</span><span class="p">.</span><span class="n">BuyMst</span><span class="p">.</span><span class="n">doc_date</span> <span class="p">})</span>
-        <span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="p">{</span> <span class="n">doc_date</span> <span class="p">=</span> <span class="n">x</span><span class="p">.</span><span class="n">Key</span><span class="p">.</span><span class="n">doc_date</span><span class="p">,</span> <span class="n">s_qty</span> <span class="p">=</span> <span class="n">x</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">y</span> <span class="p">=&gt;</span> <span class="n">y</span><span class="p">.</span><span class="n">qty</span><span class="p">)</span> <span class="p">})</span>
-        <span class="p">.</span><span class="n">ToList</span><span class="p">()</span>
-        <span class="p">.</span><span class="n">ForEach</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span>
-        <span class="p">{</span>
-            <span class="n">ChartPointData</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;</span> <span class="n">cpd</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ChartPointData</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;</span> <span class="p">{</span>
-            <span class="n">x</span> <span class="p">=</span> <span class="n">c</span><span class="p">.</span><span class="n">doc_date</span><span class="p">.</span><span class="n">Value</span><span class="p">,</span>
-            <span class="n">y</span> <span class="p">=</span> <span class="n">c</span><span class="p">.</span><span class="n">s_qty</span>
-            <span class="p">};</span>
-        <span class="p">});</span>
-    <span class="p">});</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"> <span class="n">IQueryable</span><span class="p">&lt;</span><span class="n">BuyDtl</span><span class="p">&gt;</span> <span class="n">query</span> <span class="p">=</span> <span class="n">Db</span><span class="p">.</span><span class="n">BuyDtl</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">BuyMst</span><span class="p">.</span><span class="n">doc_date</span> <span class="p">==</span> <span class="n">today</span><span class="p">);</span>
-    <span class="c1">//當天全部
-</span><span class="c1"></span>    <span class="n">ChartDatasets</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;</span> <span class="n">chart_ds</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ChartDatasets</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;();</span>
-    <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartPointData</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;&gt;</span> <span class="n">lst_p</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartPointData</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;&gt;();</span>
-    <span class="n">query</span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">y</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="p">{</span> <span class="n">pro_id</span> <span class="p">=</span> <span class="n">y</span><span class="p">.</span><span class="n">pro_id</span> <span class="p">})</span>
-    <span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">z</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="p">{</span> <span class="n">pro_id</span> <span class="p">=</span> <span class="n">z</span><span class="p">.</span><span class="n">Key</span><span class="p">.</span><span class="n">pro_id</span><span class="p">,</span> <span class="n">s_qty</span> <span class="p">=</span> <span class="n">z</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="n">c</span><span class="p">.</span><span class="n">qty</span><span class="p">)</span> <span class="p">})</span>
-    <span class="p">.</span><span class="n">ToList</span><span class="p">()</span>
-    <span class="p">.</span><span class="n">ForEach</span><span class="p">(</span><span class="n">v</span> <span class="p">=&gt;</span>
-    <span class="p">{</span>
-        <span class="kt">string</span> <span class="n">proname</span> <span class="p">=</span> <span class="n">Db</span><span class="p">.</span><span class="n">Product</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">y</span> <span class="p">=&gt;</span> <span class="n">y</span><span class="p">.</span><span class="n">pro_id</span> <span class="p">==</span> <span class="n">v</span><span class="p">.</span><span class="n">pro_id</span><span class="p">).</span><span class="n">Select</span><span class="p">(</span><span class="n">y</span> <span class="p">=&gt;</span> <span class="n">y</span><span class="p">.</span><span class="n">pro_name</span><span class="p">).</span><span class="n">FirstOrDefault</span><span class="p">();</span>
-    <span class="p">});</span>
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"> <span class="kt">var</span> <span class="n">p</span> <span class="p">=</span> <span class="k">from</span> <span class="n">t</span> <span class="k">in</span> <span class="n">products</span>
+</span></span><span class="line"><span class="cl">                <span class="k">where</span> <span class="n">t</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&#34;牙膏&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">select</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//Lambda</span>
+</span></span><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">p2</span> <span class="p">=</span> <span class="n">products</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">t</span> <span class="p">=&gt;</span> <span class="n">t</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&#34;牙膏&#34;</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="join">JOIN</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="c1">//left join linq</span>
+</span></span><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">q</span> <span class="p">=</span> <span class="k">from</span> <span class="n">e</span> <span class="k">in</span> <span class="n">Db</span><span class="p">.</span><span class="n">Page_M</span> 
+</span></span><span class="line"><span class="cl">        <span class="k">orderby</span> <span class="n">e</span><span class="p">.</span><span class="n">page_stack</span>
+</span></span><span class="line"><span class="cl">        <span class="k">join</span> <span class="n">s</span> <span class="k">in</span> <span class="p">(</span> <span class="k">from</span> <span class="n">s</span> <span class="k">in</span> <span class="n">Db</span><span class="p">.</span><span class="n">Group_D</span> <span class="k">where</span> <span class="n">s</span><span class="p">.</span><span class="n">group_id</span><span class="p">==</span><span class="n">group_id</span> <span class="k">select</span> <span class="n">s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">on</span> <span class="k">new</span> <span class="p">{</span> <span class="n">page_id</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page_id</span> <span class="p">}</span> <span class="k">equals</span>
+</span></span><span class="line"><span class="cl">        <span class="k">new</span> <span class="p">{</span> <span class="n">page_id</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">page_id</span> <span class="p">}</span> <span class="k">into</span> <span class="n">subGrp</span>
+</span></span><span class="line"><span class="cl">        <span class="k">from</span> <span class="n">s</span> <span class="k">in</span> <span class="n">subGrp</span><span class="p">.</span><span class="n">DefaultIfEmpty</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">select</span> <span class="k">new</span> <span class="n">GroupDModel</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">page_id</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page_id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">page_name</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page_name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">controller</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">controller</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">action</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">action</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">can_enter</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">can_enter</span> <span class="p">??</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">can_see</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">can_see</span> <span class="p">??</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">page_stack</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page_stack</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//left join lambda</span>
+</span></span><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">qq</span> <span class="p">=</span> <span class="n">Db</span><span class="p">.</span><span class="n">Page_M</span><span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">x</span><span class="p">=&gt;</span><span class="n">x</span><span class="p">.</span><span class="n">page_stack</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">GroupJoin</span><span class="p">(</span><span class="n">Db</span><span class="p">.</span><span class="n">Group_D</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span><span class="p">=&gt;</span><span class="n">x</span><span class="p">.</span><span class="n">group_id</span><span class="p">==</span><span class="n">group_id</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">e</span> <span class="p">=&gt;</span> <span class="n">e</span><span class="p">.</span><span class="n">page_id</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="p">=&gt;</span> <span class="n">s</span><span class="p">.</span><span class="n">page_id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">new</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">page</span> <span class="p">=</span> <span class="n">e</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="k">group</span> <span class="p">=</span> <span class="n">s</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="n">s</span> <span class="p">=&gt;</span> <span class="n">s</span><span class="p">.</span><span class="k">group</span><span class="p">.</span><span class="n">DefaultIfEmpty</span><span class="p">(),</span> <span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="n">GroupDModel</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">page_id</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page</span><span class="p">.</span><span class="n">page_id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">page_name</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page</span><span class="p">.</span><span class="n">page_name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">controller</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page</span><span class="p">.</span><span class="n">controller</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">action</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page</span><span class="p">.</span><span class="n">action</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">can_enter</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">can_enter</span> <span class="p">??</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">can_see</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">can_see</span> <span class="p">??</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">page_stack</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">page</span><span class="p">.</span><span class="n">page_stack</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span></code></pre></div><p>比較複雜的語法得仔細檢查是否結果無誤</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"> <span class="n">List</span><span class="p">&lt;</span><span class="n">BuyDtl</span><span class="p">&gt;</span> <span class="n">all_list</span> <span class="p">=</span> <span class="n">query</span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"> <span class="n">all_list</span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">pro_id</span><span class="p">).</span><span class="n">Select</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">Key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">ToList</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">ForEach</span><span class="p">(</span><span class="n">z</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">all_list</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">pro_id</span> <span class="p">==</span> <span class="n">z</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//groupBy日期</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="p">{</span> <span class="n">pro_id</span> <span class="p">=</span> <span class="n">x</span><span class="p">.</span><span class="n">pro_id</span><span class="p">,</span> <span class="n">doc_date</span> <span class="p">=</span> <span class="n">x</span><span class="p">.</span><span class="n">BuyMst</span><span class="p">.</span><span class="n">doc_date</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="p">{</span> <span class="n">doc_date</span> <span class="p">=</span> <span class="n">x</span><span class="p">.</span><span class="n">Key</span><span class="p">.</span><span class="n">doc_date</span><span class="p">,</span> <span class="n">s_qty</span> <span class="p">=</span> <span class="n">x</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">y</span> <span class="p">=&gt;</span> <span class="n">y</span><span class="p">.</span><span class="n">qty</span><span class="p">)</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">ToList</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">ForEach</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ChartPointData</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;</span> <span class="n">cpd</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ChartPointData</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">x</span> <span class="p">=</span> <span class="n">c</span><span class="p">.</span><span class="n">doc_date</span><span class="p">.</span><span class="n">Value</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">y</span> <span class="p">=</span> <span class="n">c</span><span class="p">.</span><span class="n">s_qty</span>
+</span></span><span class="line"><span class="cl">            <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"> <span class="n">IQueryable</span><span class="p">&lt;</span><span class="n">BuyDtl</span><span class="p">&gt;</span> <span class="n">query</span> <span class="p">=</span> <span class="n">Db</span><span class="p">.</span><span class="n">BuyDtl</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">BuyMst</span><span class="p">.</span><span class="n">doc_date</span> <span class="p">==</span> <span class="n">today</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//當天全部</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ChartDatasets</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;</span> <span class="n">chart_ds</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ChartDatasets</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartPointData</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;&gt;</span> <span class="n">lst_p</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartPointData</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">query</span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">y</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="p">{</span> <span class="n">pro_id</span> <span class="p">=</span> <span class="n">y</span><span class="p">.</span><span class="n">pro_id</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">z</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="p">{</span> <span class="n">pro_id</span> <span class="p">=</span> <span class="n">z</span><span class="p">.</span><span class="n">Key</span><span class="p">.</span><span class="n">pro_id</span><span class="p">,</span> <span class="n">s_qty</span> <span class="p">=</span> <span class="n">z</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="n">c</span><span class="p">.</span><span class="n">qty</span><span class="p">)</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">ToList</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">ForEach</span><span class="p">(</span><span class="n">v</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">string</span> <span class="n">proname</span> <span class="p">=</span> <span class="n">Db</span><span class="p">.</span><span class="n">Product</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">y</span> <span class="p">=&gt;</span> <span class="n">y</span><span class="p">.</span><span class="n">pro_id</span> <span class="p">==</span> <span class="n">v</span><span class="p">.</span><span class="n">pro_id</span><span class="p">).</span><span class="n">Select</span><span class="p">(</span><span class="n">y</span> <span class="p">=&gt;</span> <span class="n">y</span><span class="p">.</span><span class="n">pro_name</span><span class="p">).</span><span class="n">FirstOrDefault</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p>linq is good</p>
 <h2 id="參考連結">參考連結</h2>
 <blockquote>
 <ul>
 <li><a class="link" href="https://ithelp.ithome.com.tw/articles/10194251"  target="_blank" rel="noopener"
     >url1</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -310,7 +309,7 @@
     
     <section class="article-tags">
         
-            <a href="/tags/linq/">linq</a>
+            <a href="/tags/linq/">Linq</a>
         
     </section>
 
@@ -346,12 +345,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

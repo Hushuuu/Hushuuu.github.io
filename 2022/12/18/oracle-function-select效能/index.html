@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -219,18 +219,17 @@
 <p>使用Oracle function的時候，使用的方式的效能差異，先說結論是<code>子查詢</code>會快上許多。</p>
 <h4 id="直接call-function">直接call function</h4>
 <p>舉例有一個function <code>funcA</code>傳入<code>tableA</code>表的<code>col1,col2</code>欄位比大小，左邊大回傳1否則2，找<code>col2&gt;col1</code>的結果集</p>
-<div class="highlight"><pre class="chroma"><code class="language-SQL" data-lang="SQL"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">tableA</span> <span class="k">where</span> <span class="n">funcA</span><span class="p">(</span><span class="n">col1</span><span class="p">,</span><span class="n">col2</span><span class="p">)</span><span class="o">=</span><span class="mi">2</span> 
-</code></pre></div><h4 id="子查詢">子查詢</h4>
-<div class="highlight"><pre class="chroma"><code class="language-SQL" data-lang="SQL"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">tableA</span> <span class="k">where</span> <span class="p">(</span><span class="k">select</span> <span class="n">funcA</span><span class="p">(</span><span class="n">col1</span><span class="p">,</span><span class="n">col2</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">)</span><span class="o">=</span><span class="mi">2</span> 
-</code></pre></div><h4 id="效能">效能</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">tableA</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">funcA</span><span class="p">(</span><span class="n">col1</span><span class="p">,</span><span class="n">col2</span><span class="p">)</span><span class="o">=</span><span class="mi">2</span><span class="w"> 
+</span></span></span></code></pre></div><h4 id="子查詢">子查詢</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">tableA</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">funcA</span><span class="p">(</span><span class="n">col1</span><span class="p">,</span><span class="n">col2</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dual</span><span class="p">)</span><span class="o">=</span><span class="mi">2</span><span class="w"> 
+</span></span></span></code></pre></div><h4 id="效能">效能</h4>
 <p>根據參考文章，可以加快效能的原因是，Oracle 會為 SELECT 出現的 Scalar Subquery (只傳回單一值的子查詢) 在記憶體建立一個 Hashtable，整理不同參數與查詢結果的對應表。若參數欄位值先前出現過，即可直接由 Hashtable 取值不用重新計算。</p>
 <h2 id="參考連結">參考連結</h2>
 <blockquote>
 <ul>
 <li><a class="link" href="https://blog.darkthread.net/blog/oracle-scalar-subquery-caching/"  target="_blank" rel="noopener"
     >url1</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -306,12 +305,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

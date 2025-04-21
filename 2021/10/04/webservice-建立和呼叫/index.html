@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -222,42 +222,42 @@
 <p><code>VisualStudio</code>開新專案-&gt;web應用程式-&gt;空的專案<br>
 加入-&gt;新增項目-&gt;Web服務-&gt;.asmx檔案</p>
 <p>建立的檔案會預設給一個<code>HelloWorld</code>的<code>Method</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"> <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>    <span class="c1">///WebService1 的摘要描述
-</span><span class="c1"></span>    <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span><span class="na">    [WebService(Namespace = &#34;http://tempuri.org/&#34;)]</span>
-<span class="na">    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]</span>
-<span class="na">    [System.ComponentModel.ToolboxItem(false)]</span>
-    <span class="c1">// 若要允許使用 ASP.NET AJAX 從指令碼呼叫此 Web 服務，請取消註解下列一行。
-</span><span class="c1"></span>    <span class="c1">// [System.Web.Script.Services.ScriptService]
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">class</span> <span class="nc">WebService1</span> <span class="p">:</span> <span class="n">System</span><span class="p">.</span><span class="n">Web</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">WebService</span>
-    <span class="p">{</span>
-<span class="na">
-</span><span class="na">        [WebMethod]</span>
-        <span class="k">public</span> <span class="kt">string</span> <span class="n">HelloWorld</span><span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="s">&#34;Hello World &#34;</span> <span class="p">+</span> <span class="n">name</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre></div><p>專案建置起來並到此asmx頁面<br>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"> <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">///WebService1 的摘要描述</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="na">    [WebService(Namespace = &#34;http://tempuri.org/&#34;)]</span>
+</span></span><span class="line"><span class="cl"><span class="na">    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]</span>
+</span></span><span class="line"><span class="cl"><span class="na">    [System.ComponentModel.ToolboxItem(false)]</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 若要允許使用 ASP.NET AJAX 從指令碼呼叫此 Web 服務，請取消註解下列一行。</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// [System.Web.Script.Services.ScriptService]</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">class</span> <span class="nc">WebService1</span> <span class="p">:</span> <span class="n">System</span><span class="p">.</span><span class="n">Web</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">WebService</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="na">
+</span></span></span><span class="line"><span class="cl"><span class="na">        [WebMethod]</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">string</span> <span class="n">HelloWorld</span><span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="s">&#34;Hello World &#34;</span> <span class="p">+</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>專案建置起來並到此asmx頁面<br>
 可見到此<code>Webservice</code>的資訊<br>
 點進<code>HelloWorld Method</code>後可見呼叫的格式<br>
 其中的<code>&lt;name&gt;&lt;/name&gt;</code>就是我們要傳入的參數</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">POST /WebService1.asmx HTTP/1.1
-Host: localhost
-Content-Type: text/xml; charset=utf-8
-Content-Length: length
-SOAPAction: &#34;http://tempuri.org/HelloWorld&#34;
-
-<span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
-<span class="nt">&lt;soap:Envelope</span> <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span> <span class="na">xmlns:xsd=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema&#34;</span> <span class="na">xmlns:soap=</span><span class="s">&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;soap:Body&gt;</span>
-    <span class="nt">&lt;HelloWorld</span> <span class="na">xmlns=</span><span class="s">&#34;http://tempuri.org/&#34;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name&gt;</span>string<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;/HelloWorld&gt;</span>
-  <span class="nt">&lt;/soap:Body&gt;</span>
-<span class="nt">&lt;/soap:Envelope&gt;</span>
-</code></pre></div><h3 id="postman">PostMan</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">POST /WebService1.asmx HTTP/1.1
+</span></span><span class="line"><span class="cl">Host: localhost
+</span></span><span class="line"><span class="cl">Content-Type: text/xml; charset=utf-8
+</span></span><span class="line"><span class="cl">Content-Length: length
+</span></span><span class="line"><span class="cl">SOAPAction: &#34;http://tempuri.org/HelloWorld&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;soap:Envelope</span> <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span> <span class="na">xmlns:xsd=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema&#34;</span> <span class="na">xmlns:soap=</span><span class="s">&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;soap:Body&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;HelloWorld</span> <span class="na">xmlns=</span><span class="s">&#34;http://tempuri.org/&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;name&gt;</span>string<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/HelloWorld&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/soap:Body&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/soap:Envelope&gt;</span>
+</span></span></code></pre></div><h3 id="postman">PostMan</h3>
 <p>首先介紹如何用<code>PostMan</code>來呼叫剛剛建立的<code>WebService</code><br>
 1.Post的Url是建置運行後的asmx網址<code>https://localhost:44370/WebService1.asmx</code><br>
 2.<code>Header</code>的設定照著<code>asmx</code>頁的資訊設定如<code>Content-Type:text/xml; charset=utf-8</code>，<code>Host: localhost</code>，<code>SOAPAction: &quot;http://tempuri.org/HelloWorld&quot;</code><br>
@@ -269,9 +269,9 @@ SOAPAction: &#34;http://tempuri.org/HelloWorld&#34;
 2.位址填入asmx網址<code>https://localhost:44370/WebService1.asmx</code><br>
 3.命名空間<code>ServiceReference1</code>可修改<br>
 4.確定加入後專案的<code>Connected Services</code>就會增加</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">ServiceReference1</span><span class="p">.</span><span class="n">WebService1SoapClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ServiceReference1</span><span class="p">.</span><span class="n">WebService1SoapClient</span><span class="p">();</span>
-<span class="kt">string</span> <span class="n">rs</span> <span class="p">=</span> <span class="n">client</span><span class="p">.</span><span class="n">HelloWorld</span><span class="p">(</span><span class="s">&#34;kevin&#34;</span><span class="p">);</span> <span class="c1">//rs = Hello World kevin  
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">ServiceReference1</span><span class="p">.</span><span class="n">WebService1SoapClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ServiceReference1</span><span class="p">.</span><span class="n">WebService1SoapClient</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kt">string</span> <span class="n">rs</span> <span class="p">=</span> <span class="n">client</span><span class="p">.</span><span class="n">HelloWorld</span><span class="p">(</span><span class="s">&#34;kevin&#34;</span><span class="p">);</span> <span class="c1">//rs = Hello World kevin  </span>
+</span></span></code></pre></div>
 </section>
 
 
@@ -281,7 +281,7 @@ SOAPAction: &#34;http://tempuri.org/HelloWorld&#34;
         
             <a href="/tags/webservice/">Webservice</a>
         
-            <a href="/tags/c#/">C#</a>
+            <a href="/tags/c%23/">C#</a>
         
     </section>
 
@@ -336,12 +336,12 @@ SOAPAction: &#34;http://tempuri.org/HelloWorld&#34;
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

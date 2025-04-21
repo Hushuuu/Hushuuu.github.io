@@ -4,9 +4,9 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 使用Oracle Data Pump來匯入匯出資料庫
 impdp/expdp只能在Server端執行，Client端不可用
 匯出Impdp 登入sqlplus建立目錄並授權
-SQL: sqlplus /nolog : connect sys/password@localhost/xxx as sysdba : create directory 資料夾定義名稱 as &amp;#39;資料夾路徑&amp;#39; &amp;gt;&amp;gt;&amp;gt;建立目錄 &amp;gt;&amp;gt;&amp;gt;查詢目錄 : select * from dba_directories &amp;gt;&amp;gt;&amp;gt;授權 : GRANT READ,WRITE ON DIRECTORY 資料夾定義名稱 TO 使用者; &amp;gt;&amp;gt;&amp;gt;匯出 : expdp sys/password SCHEMAS=使用者 DIRECTORY=資料夾定義名稱 DUMPFILE=oooooo.dmp : : : LOGFILE=oooo.log 匯入impdp SQL: impdp 帳號/密碼 DIRECTORY=資料夾定義名稱 DUMPFILE=dmp檔案 : content=data_only只匯資料 : remap_schema=A:B 從A schema改到B : table_exists_action=table存在的處置 小結 實際在操作中會有不同情況需要調整指令
+SQL: sqlplus /nolog : connect sys/password@localhost/xxx as sysdba : create directory 資料夾定義名稱 as &#39;資料夾路徑&#39; &gt;&gt;&gt;建立目錄 &gt;&gt;&gt;查詢目錄 : select * from dba_directories &gt;&gt;&gt;授權 : GRANT READ,WRITE ON DIRECTORY 資料夾定義名稱 TO 使用者; &gt;&gt;&gt;匯出 : expdp sys/password SCHEMAS=使用者 DIRECTORY=資料夾定義名稱 DUMPFILE=oooooo.dmp : : : LOGFILE=oooo.log 匯入impdp SQL: impdp 帳號/密碼 DIRECTORY=資料夾定義名稱 DUMPFILE=dmp檔案 : content=data_only只匯資料 : remap_schema=A:B 從A schema改到B : table_exists_action=table存在的處置 小結 實際在操作中會有不同情況需要調整指令
 本次只嘗試data_only的方式，把資料匯進不同db
-參考連結   url1   '><title>Oracle使用impdp/expdp來備份</title>
+參考連結 url1 '><title>Oracle使用impdp/expdp來備份</title>
 
 <link rel='canonical' href='https://hushuuu.github.io/2023/06/20/oracle%E4%BD%BF%E7%94%A8impdp/expdp%E4%BE%86%E5%82%99%E4%BB%BD/'>
 
@@ -14,9 +14,9 @@ SQL: sqlplus /nolog : connect sys/password@localhost/xxx as sysdba : create dire
 <meta property='og:description' content='前言 使用Oracle Data Pump來匯入匯出資料庫
 impdp/expdp只能在Server端執行，Client端不可用
 匯出Impdp 登入sqlplus建立目錄並授權
-SQL: sqlplus /nolog : connect sys/password@localhost/xxx as sysdba : create directory 資料夾定義名稱 as &amp;#39;資料夾路徑&amp;#39; &amp;gt;&amp;gt;&amp;gt;建立目錄 &amp;gt;&amp;gt;&amp;gt;查詢目錄 : select * from dba_directories &amp;gt;&amp;gt;&amp;gt;授權 : GRANT READ,WRITE ON DIRECTORY 資料夾定義名稱 TO 使用者; &amp;gt;&amp;gt;&amp;gt;匯出 : expdp sys/password SCHEMAS=使用者 DIRECTORY=資料夾定義名稱 DUMPFILE=oooooo.dmp : : : LOGFILE=oooo.log 匯入impdp SQL: impdp 帳號/密碼 DIRECTORY=資料夾定義名稱 DUMPFILE=dmp檔案 : content=data_only只匯資料 : remap_schema=A:B 從A schema改到B : table_exists_action=table存在的處置 小結 實際在操作中會有不同情況需要調整指令
+SQL: sqlplus /nolog : connect sys/password@localhost/xxx as sysdba : create directory 資料夾定義名稱 as &#39;資料夾路徑&#39; &gt;&gt;&gt;建立目錄 &gt;&gt;&gt;查詢目錄 : select * from dba_directories &gt;&gt;&gt;授權 : GRANT READ,WRITE ON DIRECTORY 資料夾定義名稱 TO 使用者; &gt;&gt;&gt;匯出 : expdp sys/password SCHEMAS=使用者 DIRECTORY=資料夾定義名稱 DUMPFILE=oooooo.dmp : : : LOGFILE=oooo.log 匯入impdp SQL: impdp 帳號/密碼 DIRECTORY=資料夾定義名稱 DUMPFILE=dmp檔案 : content=data_only只匯資料 : remap_schema=A:B 從A schema改到B : table_exists_action=table存在的處置 小結 實際在操作中會有不同情況需要調整指令
 本次只嘗試data_only的方式，把資料匯進不同db
-參考連結   url1   '>
+參考連結 url1 '>
 <meta property='og:url' content='https://hushuuu.github.io/2023/06/20/oracle%E4%BD%BF%E7%94%A8impdp/expdp%E4%BE%86%E5%82%99%E4%BB%BD/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Oracle' /><meta property='article:published_time' content='2023-06-20T15:47:46&#43;08:00'/><meta property='article:modified_time' content='2023-06-20T15:47:46&#43;08:00'/>
@@ -24,9 +24,9 @@ SQL: sqlplus /nolog : connect sys/password@localhost/xxx as sysdba : create dire
 <meta name="twitter:description" content="前言 使用Oracle Data Pump來匯入匯出資料庫
 impdp/expdp只能在Server端執行，Client端不可用
 匯出Impdp 登入sqlplus建立目錄並授權
-SQL: sqlplus /nolog : connect sys/password@localhost/xxx as sysdba : create directory 資料夾定義名稱 as &amp;#39;資料夾路徑&amp;#39; &amp;gt;&amp;gt;&amp;gt;建立目錄 &amp;gt;&amp;gt;&amp;gt;查詢目錄 : select * from dba_directories &amp;gt;&amp;gt;&amp;gt;授權 : GRANT READ,WRITE ON DIRECTORY 資料夾定義名稱 TO 使用者; &amp;gt;&amp;gt;&amp;gt;匯出 : expdp sys/password SCHEMAS=使用者 DIRECTORY=資料夾定義名稱 DUMPFILE=oooooo.dmp : : : LOGFILE=oooo.log 匯入impdp SQL: impdp 帳號/密碼 DIRECTORY=資料夾定義名稱 DUMPFILE=dmp檔案 : content=data_only只匯資料 : remap_schema=A:B 從A schema改到B : table_exists_action=table存在的處置 小結 實際在操作中會有不同情況需要調整指令
+SQL: sqlplus /nolog : connect sys/password@localhost/xxx as sysdba : create directory 資料夾定義名稱 as &#39;資料夾路徑&#39; &gt;&gt;&gt;建立目錄 &gt;&gt;&gt;查詢目錄 : select * from dba_directories &gt;&gt;&gt;授權 : GRANT READ,WRITE ON DIRECTORY 資料夾定義名稱 TO 使用者; &gt;&gt;&gt;匯出 : expdp sys/password SCHEMAS=使用者 DIRECTORY=資料夾定義名稱 DUMPFILE=oooooo.dmp : : : LOGFILE=oooo.log 匯入impdp SQL: impdp 帳號/密碼 DIRECTORY=資料夾定義名稱 DUMPFILE=dmp檔案 : content=data_only只匯資料 : remap_schema=A:B 從A schema改到B : table_exists_action=table存在的處置 小結 實際在操作中會有不同情況需要調整指令
 本次只嘗試data_only的方式，把資料匯進不同db
-參考連結   url1   ">
+參考連結 url1 ">
     </head>
     <body class="">
     <script>
@@ -66,7 +66,7 @@ SQL: sqlplus /nolog : connect sys/password@localhost/xxx as sysdba : create dire
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -231,22 +231,22 @@ SQL: sqlplus /nolog : connect sys/password@localhost/xxx as sysdba : create dire
 impdp/expdp只能在Server端執行，Client端不可用</p>
 <h2 id="匯出impdp">匯出Impdp</h2>
 <p><code>登入sqlplus建立目錄並授權</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">SQL: sqlplus /nolog
-: connect sys/password@localhost/xxx as sysdba
-: create directory 資料夾定義名稱 as <span class="s1">&#39;資料夾路徑&#39;</span>
-&gt;&gt;&gt;建立目錄
-&gt;&gt;&gt;查詢目錄
-: <span class="k">select</span> * from dba_directories
-&gt;&gt;&gt;授權
-: GRANT READ,WRITE ON DIRECTORY 資料夾定義名稱 TO 使用者<span class="p">;</span>
-&gt;&gt;&gt;匯出
-: expdp sys/password <span class="nv">SCHEMAS</span><span class="o">=</span>使用者 <span class="nv">DIRECTORY</span><span class="o">=</span>資料夾定義名稱 <span class="nv">DUMPFILE</span><span class="o">=</span>oooooo.dmp : : : <span class="nv">LOGFILE</span><span class="o">=</span>oooo.log
-</code></pre></div><h2 id="匯入impdp">匯入impdp</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">SQL: impdp 帳號/密碼 <span class="nv">DIRECTORY</span><span class="o">=</span>資料夾定義名稱 <span class="nv">DUMPFILE</span><span class="o">=</span>dmp檔案
-: <span class="nv">content</span><span class="o">=</span>data_only只匯資料 
-: <span class="nv">remap_schema</span><span class="o">=</span>A:B 從A schema改到B
-: <span class="nv">table_exists_action</span><span class="o">=</span>table存在的處置
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">SQL: sqlplus /nolog
+</span></span><span class="line"><span class="cl">: connect sys/password@localhost/xxx as sysdba
+</span></span><span class="line"><span class="cl">: create directory 資料夾定義名稱 as <span class="s1">&#39;資料夾路徑&#39;</span>
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt;建立目錄
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt;查詢目錄
+</span></span><span class="line"><span class="cl">: <span class="k">select</span> * from dba_directories
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt;授權
+</span></span><span class="line"><span class="cl">: GRANT READ,WRITE ON DIRECTORY 資料夾定義名稱 TO 使用者<span class="p">;</span>
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt;匯出
+</span></span><span class="line"><span class="cl">: expdp sys/password <span class="nv">SCHEMAS</span><span class="o">=</span>使用者 <span class="nv">DIRECTORY</span><span class="o">=</span>資料夾定義名稱 <span class="nv">DUMPFILE</span><span class="o">=</span>oooooo.dmp : : : <span class="nv">LOGFILE</span><span class="o">=</span>oooo.log
+</span></span></code></pre></div><h2 id="匯入impdp">匯入impdp</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">SQL: impdp 帳號/密碼 <span class="nv">DIRECTORY</span><span class="o">=</span>資料夾定義名稱 <span class="nv">DUMPFILE</span><span class="o">=</span>dmp檔案
+</span></span><span class="line"><span class="cl">: <span class="nv">content</span><span class="o">=</span>data_only只匯資料 
+</span></span><span class="line"><span class="cl">: <span class="nv">remap_schema</span><span class="o">=</span>A:B 從A schema改到B
+</span></span><span class="line"><span class="cl">: <span class="nv">table_exists_action</span><span class="o">=</span>table存在的處置
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p>實際在操作中會有不同情況需要調整指令<br>
 本次只嘗試data_only的方式，把資料匯進不同db</p>
 <h2 id="參考連結">參考連結</h2>
@@ -254,8 +254,7 @@ impdp/expdp只能在Server端執行，Client端不可用</p>
 <ul>
 <li><a class="link" href="https://www.cnblogs.com/promise-x/p/7477360.html"  target="_blank" rel="noopener"
     >url1</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -331,12 +330,12 @@ impdp/expdp只能在Server端執行，Client端不可用</p>
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

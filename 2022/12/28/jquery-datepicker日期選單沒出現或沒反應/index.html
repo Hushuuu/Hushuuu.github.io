@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -222,31 +222,30 @@
 <h2 id="主要內容">主要內容</h2>
 <p>根據參考資料，只要在<code>beforeShow</code>加上自訂的判斷來計算偏移的<code>offset</code><br>
 即可解決此問題</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">setDatepickerPos</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="nx">inst</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">rect</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">();</span>
-        <span class="c1">// use &#39;setTimeout&#39; to prevent effect overridden by other scripts
-</span><span class="c1"></span>        <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;body&#34;</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">();</span>
-    	    <span class="nx">inst</span><span class="p">.</span><span class="nx">dpDiv</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span> <span class="nx">top</span><span class="o">:</span> <span class="nx">rect</span><span class="p">.</span><span class="nx">top</span> <span class="o">+</span> <span class="nx">input</span><span class="p">.</span><span class="nx">offsetHeight</span> <span class="o">+</span> <span class="nx">scrollTop</span> <span class="p">});</span>
-        <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#MyDatepicker&#39;</span><span class="p">).</span><span class="nx">datepicker</span><span class="p">({</span>
-	<span class="nx">dateFormat</span><span class="o">:</span> <span class="s2">&#34;yy-mm-dd&#34;</span><span class="p">,</span>
-	<span class="nx">changeMonth</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-	<span class="nx">changeYear</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-	<span class="nx">defaultDate</span><span class="o">:</span> <span class="o">+</span><span class="mi">0</span><span class="p">,</span>
-	<span class="nx">inline</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-	<span class="nx">beforeShow</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="nx">inst</span><span class="p">)</span> <span class="p">{</span> <span class="nx">setDatepickerPos</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="nx">inst</span><span class="p">)</span> <span class="p">},</span>
-<span class="p">});</span>  
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">setDatepickerPos</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="nx">inst</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">rect</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// use &#39;setTimeout&#39; to prevent effect overridden by other scripts
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;body&#34;</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    	    <span class="nx">inst</span><span class="p">.</span><span class="nx">dpDiv</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span> <span class="nx">top</span><span class="o">:</span> <span class="nx">rect</span><span class="p">.</span><span class="nx">top</span> <span class="o">+</span> <span class="nx">input</span><span class="p">.</span><span class="nx">offsetHeight</span> <span class="o">+</span> <span class="nx">scrollTop</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#MyDatepicker&#39;</span><span class="p">).</span><span class="nx">datepicker</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">dateFormat</span><span class="o">:</span> <span class="s2">&#34;yy-mm-dd&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">changeMonth</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">changeYear</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">defaultDate</span><span class="o">:</span> <span class="o">+</span><span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">inline</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">beforeShow</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="nx">inst</span><span class="p">)</span> <span class="p">{</span> <span class="nx">setDatepickerPos</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="nx">inst</span><span class="p">)</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>  
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p>之後再另外整併將jquery datepicker包進vue的conpoment版本</p>
 <h2 id="參考連結">參考連結</h2>
 <blockquote>
 <ul>
 <li><a class="link" href="https://aries.me/2020/08/03/jquery-ui-1-12-datepicker-wrong-position-issue-and-fix/"  target="_blank" rel="noopener"
     >url1</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -257,7 +256,7 @@
         
             <a href="/tags/jquery/">Jquery</a>
         
-            <a href="/tags/datepicker/">datepicker</a>
+            <a href="/tags/datepicker/">Datepicker</a>
         
     </section>
 
@@ -293,12 +292,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -222,81 +222,81 @@
 <p>分頁的概念為設定一頁需顯示幾筆，再將資料分為幾等分來決定<br>
 要顯示第幾頁的資料，<code>根據資料庫的種類用 Rownum Limit等</code><br>
 還可以用<code>LinQ Skip() Take()</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"> <span class="kt">var</span> <span class="n">list</span> <span class="p">=</span> <span class="n">query</span><span class="p">.</span><span class="n">Skip</span><span class="p">(</span><span class="n">startIndex</span><span class="p">).</span><span class="n">Take</span><span class="p">(</span><span class="n">pageSize</span><span class="p">).</span><span class="n">toList</span><span class="p">();</span>
- <span class="c1">//舉例一頁顯示10筆，要顯示第3頁的資料
-</span><span class="c1"></span> <span class="c1">//Skip前兩頁的資料 =&gt; 10*2 
-</span><span class="c1"></span> <span class="c1">//Skip 20筆 Take 10筆
-</span></code></pre></div><h4 id="分頁導覽列">分頁導覽列</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"> <span class="kt">var</span> <span class="n">list</span> <span class="p">=</span> <span class="n">query</span><span class="p">.</span><span class="n">Skip</span><span class="p">(</span><span class="n">startIndex</span><span class="p">).</span><span class="n">Take</span><span class="p">(</span><span class="n">pageSize</span><span class="p">).</span><span class="n">toList</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"> <span class="c1">//舉例一頁顯示10筆，要顯示第3頁的資料</span>
+</span></span><span class="line"><span class="cl"> <span class="c1">//Skip前兩頁的資料 =&gt; 10*2 </span>
+</span></span><span class="line"><span class="cl"> <span class="c1">//Skip 20筆 Take 10筆</span>
+</span></span></code></pre></div><h4 id="分頁導覽列">分頁導覽列</h4>
 <p>傳回前端的資料除了這十筆，也需要將分頁的資訊傳入進行判斷<br>
 <code>page當前頁數</code> <code>EndPage最後頁</code> <code>TotalItemCount總筆數</code>等<br>
 建立導覽列</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">if</span> <span class="p">(</span><span class="n">page</span> <span class="p">==</span> <span class="m">1</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="p">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;btn-default btn-sm disabled&#34;</span> <span class="n">id</span><span class="p">=</span><span class="s">&#34;last_btn&#34;</span><span class="p">&gt;</span><span class="err">上頁</span><span class="p">&lt;/</span><span class="n">a</span><span class="p">&gt;</span>
-<span class="p">}</span>
-<span class="k">else</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">nextnum</span> <span class="p">=</span> <span class="n">page</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span>
-    <span class="p">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;btn-default btn-sm&#34;</span> <span class="n">id</span><span class="p">=</span><span class="s">&#34;last_btn&#34;</span> <span class="n">href</span><span class="p">=</span><span class="s">&#34;@url?page=@nextnum&#34;</span><span class="p">&gt;</span><span class="err">上頁</span><span class="p">&lt;/</span><span class="n">a</span><span class="p">&gt;</span>
-<span class="p">}</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">page</span> <span class="p">==</span> <span class="n">Endpage</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="p">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;btn-default btn-sm disabled&#34;</span> <span class="n">id</span><span class="p">=</span><span class="s">&#34;next_btn&#34;</span><span class="p">&gt;</span><span class="err">下頁</span><span class="p">&lt;/</span><span class="n">a</span><span class="p">&gt;</span>
-<span class="p">}</span>
-<span class="k">else</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">nextnum</span> <span class="p">=</span> <span class="n">page</span> <span class="p">+</span> <span class="m">1</span><span class="p">;</span>
-    <span class="p">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;btn-default btn-sm&#34;</span> <span class="n">id</span><span class="p">=</span><span class="s">&#34;next_btn&#34;</span> <span class="n">href</span><span class="p">=</span><span class="s">&#34;@url?page=@nextnum&#34;</span><span class="p">&gt;</span><span class="err">下頁</span><span class="p">&lt;/</span><span class="n">a</span><span class="p">&gt;</span>
-<span class="p">}</span>
-</code></pre></div><p>概念為按下換頁將頁數傳至後端再進行資料過濾<br>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">page</span> <span class="p">==</span> <span class="m">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;btn-default btn-sm disabled&#34;</span> <span class="n">id</span><span class="p">=</span><span class="s">&#34;last_btn&#34;</span><span class="p">&gt;</span><span class="err">上頁</span><span class="p">&lt;/</span><span class="n">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">nextnum</span> <span class="p">=</span> <span class="n">page</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;btn-default btn-sm&#34;</span> <span class="n">id</span><span class="p">=</span><span class="s">&#34;last_btn&#34;</span> <span class="n">href</span><span class="p">=</span><span class="s">&#34;@url?page=@nextnum&#34;</span><span class="p">&gt;</span><span class="err">上頁</span><span class="p">&lt;/</span><span class="n">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">page</span> <span class="p">==</span> <span class="n">Endpage</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;btn-default btn-sm disabled&#34;</span> <span class="n">id</span><span class="p">=</span><span class="s">&#34;next_btn&#34;</span><span class="p">&gt;</span><span class="err">下頁</span><span class="p">&lt;/</span><span class="n">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">nextnum</span> <span class="p">=</span> <span class="n">page</span> <span class="p">+</span> <span class="m">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;btn-default btn-sm&#34;</span> <span class="n">id</span><span class="p">=</span><span class="s">&#34;next_btn&#34;</span> <span class="n">href</span><span class="p">=</span><span class="s">&#34;@url?page=@nextnum&#34;</span><span class="p">&gt;</span><span class="err">下頁</span><span class="p">&lt;/</span><span class="n">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>概念為按下換頁將頁數傳至後端再進行資料過濾<br>
 接著再加上排序的功能</p>
 <p>點擊標頭來排序並標記上顏色<br>
 將排序的欄位和順序及頁數資訊
 AJAX post進後端查詢<br>
 傳回html TABLE直接取代</p>
-<div class="highlight"><pre class="chroma"><code class="language-c#" data-lang="c#"><span class="kt">var</span> <span class="n">ordering_field</span> <span class="p">=</span> <span class="n">Session</span><span class="p">[</span><span class="s">&#34;ordering_field&#34;</span><span class="p">]</span> <span class="p">??</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
-<span class="kt">var</span> <span class="n">ordering_kind</span> <span class="p">=</span> <span class="n">Session</span><span class="p">[</span><span class="s">&#34;ordering_kind&#34;</span><span class="p">]</span> <span class="p">??</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
-<span class="err">$</span><span class="p">(</span><span class="n">document</span><span class="p">).</span><span class="k">on</span><span class="p">(</span><span class="err">&#39;</span><span class="n">click</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;#</span><span class="n">tb1</span> <span class="n">thead</span> <span class="n">tr</span> <span class="n">th</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span> 
-    <span class="c1">//去除顏色     
-</span><span class="c1"></span>     <span class="err">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="n">closest</span><span class="p">(</span><span class="err">&#39;</span><span class="n">tr</span><span class="err">&#39;</span><span class="p">).</span><span class="n">find</span><span class="p">(</span><span class="err">&#39;</span><span class="n">th</span><span class="err">&#39;</span><span class="p">).</span><span class="n">each</span><span class="p">(</span><span class="n">function</span> <span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="p">{</span>
-            <span class="err">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="n">removeAttr</span><span class="p">(</span><span class="err">&#39;</span><span class="n">style</span><span class="err">&#39;</span><span class="p">);</span>
-        <span class="p">});</span>
-    <span class="k">let</span> <span class="n">order_field</span> <span class="p">=</span> <span class="err">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="n">attr</span><span class="p">(</span><span class="err">&#39;</span><span class="n">name</span><span class="err">&#39;</span><span class="p">);</span>
-    <span class="k">let</span> <span class="n">order_kind</span> <span class="p">=</span> <span class="s">&#34;Desc&#34;</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">ordering_field</span> <span class="p">==</span> <span class="n">order_field</span> <span class="p">&amp;&amp;</span> <span class="n">ordering_kind</span> <span class="p">==</span> <span class="s">&#34;Desc&#34;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">order_kind</span> <span class="p">=</span> <span class="s">&#34;Asc&#34;</span><span class="p">;</span>
-        <span class="err">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="n">css</span><span class="p">(</span><span class="err">&#39;</span><span class="n">background</span><span class="p">-</span><span class="n">color</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">yellow</span><span class="err">&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="p">{</span>
-        <span class="err">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="n">css</span><span class="p">(</span><span class="err">&#39;</span><span class="n">background</span><span class="p">-</span><span class="n">color</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">pink</span><span class="err">&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">let</span> <span class="n">Lvm</span> <span class="p">=</span> <span class="p">{</span>
-        <span class="n">page</span><span class="p">:</span><span class="n">@Model</span><span class="p">.</span><span class="n">page</span><span class="p">,</span>
-        <span class="n">EndPage</span><span class="p">:</span><span class="n">@Model</span><span class="p">.</span><span class="n">EndPage</span><span class="p">,</span>
-        <span class="n">pageSize</span><span class="p">:</span><span class="n">@Model</span><span class="p">.</span><span class="n">pageSize</span><span class="p">,</span>
-        <span class="n">TotalItemCount</span><span class="p">:</span><span class="n">@Model</span><span class="p">.</span><span class="n">TotalItemCount</span><span class="p">,</span>
-        <span class="n">OrderField</span><span class="p">:</span> <span class="n">order_field</span><span class="p">,</span>
-        <span class="n">OrderKind</span><span class="p">:</span> <span class="n">order_kind</span>
-    <span class="p">};</span>
-    <span class="k">let</span> <span class="n">obj</span> <span class="p">=</span> <span class="p">{</span>
-        <span class="n">Lvm</span><span class="p">:</span> <span class="n">Lvm</span>
-    <span class="p">}</span>
-    <span class="err">$</span><span class="p">.</span><span class="n">ajax</span><span class="p">({</span>
-        <span class="n">type</span><span class="p">:</span> <span class="s">&#34;POST&#34;</span><span class="p">,</span>
-        <span class="n">url</span><span class="p">:</span> <span class="s">&#34;@Url.Action(&#34;</span><span class="n">OrderByField</span><span class="s">&#34;,&#34;</span><span class="n">Order</span><span class="s">&#34;)&#34;</span><span class="p">,</span>
-        <span class="n">data</span><span class="p">:</span> <span class="n">obj</span><span class="p">,</span>
-        <span class="n">success</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
-            <span class="err">$</span><span class="p">(</span><span class="err">&#39;#</span><span class="n">tb1</span> <span class="n">tbody</span><span class="err">&#39;</span><span class="p">).</span><span class="n">html</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-            <span class="n">ordering_field</span> <span class="p">=</span> <span class="n">order_field</span><span class="p">;</span>
-            <span class="n">ordering_kind</span> <span class="p">=</span> <span class="n">order_kind</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">});</span>
-<span class="p">});</span>
-</code></pre></div><p>AJAX回傳<code>PartialView</code>結果，<code>Partial</code>產出<code>Table</code>直接取代原先Html<br>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">ordering_field</span> <span class="p">=</span> <span class="n">Session</span><span class="p">[</span><span class="s">&#34;ordering_field&#34;</span><span class="p">]</span> <span class="p">??</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">ordering_kind</span> <span class="p">=</span> <span class="n">Session</span><span class="p">[</span><span class="s">&#34;ordering_kind&#34;</span><span class="p">]</span> <span class="p">??</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="err">$</span><span class="p">(</span><span class="n">document</span><span class="p">).</span><span class="k">on</span><span class="p">(</span><span class="err">&#39;</span><span class="n">click</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;#</span><span class="n">tb1</span> <span class="n">thead</span> <span class="n">tr</span> <span class="n">th</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="c1">//去除顏色     </span>
+</span></span><span class="line"><span class="cl">     <span class="err">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="n">closest</span><span class="p">(</span><span class="err">&#39;</span><span class="n">tr</span><span class="err">&#39;</span><span class="p">).</span><span class="n">find</span><span class="p">(</span><span class="err">&#39;</span><span class="n">th</span><span class="err">&#39;</span><span class="p">).</span><span class="n">each</span><span class="p">(</span><span class="n">function</span> <span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="err">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="n">removeAttr</span><span class="p">(</span><span class="err">&#39;</span><span class="n">style</span><span class="err">&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">order_field</span> <span class="p">=</span> <span class="err">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="n">attr</span><span class="p">(</span><span class="err">&#39;</span><span class="n">name</span><span class="err">&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">order_kind</span> <span class="p">=</span> <span class="s">&#34;Desc&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">ordering_field</span> <span class="p">==</span> <span class="n">order_field</span> <span class="p">&amp;&amp;</span> <span class="n">ordering_kind</span> <span class="p">==</span> <span class="s">&#34;Desc&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">order_kind</span> <span class="p">=</span> <span class="s">&#34;Asc&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="n">css</span><span class="p">(</span><span class="err">&#39;</span><span class="n">background</span><span class="p">-</span><span class="n">color</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">yellow</span><span class="err">&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="err">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="n">css</span><span class="p">(</span><span class="err">&#39;</span><span class="n">background</span><span class="p">-</span><span class="n">color</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">pink</span><span class="err">&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">Lvm</span> <span class="p">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">page</span><span class="p">:</span><span class="n">@Model</span><span class="p">.</span><span class="n">page</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">EndPage</span><span class="p">:</span><span class="n">@Model</span><span class="p">.</span><span class="n">EndPage</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pageSize</span><span class="p">:</span><span class="n">@Model</span><span class="p">.</span><span class="n">pageSize</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">TotalItemCount</span><span class="p">:</span><span class="n">@Model</span><span class="p">.</span><span class="n">TotalItemCount</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">OrderField</span><span class="p">:</span> <span class="n">order_field</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">OrderKind</span><span class="p">:</span> <span class="n">order_kind</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">obj</span> <span class="p">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Lvm</span><span class="p">:</span> <span class="n">Lvm</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="err">$</span><span class="p">.</span><span class="n">ajax</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="n">type</span><span class="p">:</span> <span class="s">&#34;POST&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">url</span><span class="p">:</span> <span class="s">&#34;@Url.Action(&#34;</span><span class="n">OrderByField</span><span class="s">&#34;,&#34;</span><span class="n">Order</span><span class="s">&#34;)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">data</span><span class="p">:</span> <span class="n">obj</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">success</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="err">$</span><span class="p">(</span><span class="err">&#39;#</span><span class="n">tb1</span> <span class="n">tbody</span><span class="err">&#39;</span><span class="p">).</span><span class="n">html</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ordering_field</span> <span class="p">=</span> <span class="n">order_field</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ordering_kind</span> <span class="p">=</span> <span class="n">order_kind</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p>AJAX回傳<code>PartialView</code>結果，<code>Partial</code>產出<code>Table</code>直接取代原先Html<br>
 Session可以記住排序的欄位順序甚至查詢條件<br>
 再切換頁面或其他動作時可恢復原本過濾後的結果</p>
-<div class="highlight"><pre class="chroma"><code class="language-c#" data-lang="c#"><span class="k">return</span> <span class="n">PartialView</span><span class="p">(</span><span class="s">&#34;_SortOrderView&#34;</span><span class="p">,</span> <span class="n">Lvm</span><span class="p">);</span>
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">return</span> <span class="n">PartialView</span><span class="p">(</span><span class="s">&#34;_SortOrderView&#34;</span><span class="p">,</span> <span class="n">Lvm</span><span class="p">);</span>
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p>若沒有特別的要求，其實使用前端套件來的更方便快速<br>
 但在刻畫功能過程中確實也能收穫不少！<br>
 *在使用LinQ排序時可引用一個套件方便做欄位的DESC及ASC
@@ -309,7 +309,7 @@ Session可以記住排序的欄位順序甚至查詢條件<br>
     
     <section class="article-tags">
         
-            <a href="/tags/pager/">pager</a>
+            <a href="/tags/pager/">Pager</a>
         
             <a href="/tags/html/">Html</a>
         
@@ -414,12 +414,12 @@ Session可以記住排序的欄位順序甚至查詢條件<br>
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

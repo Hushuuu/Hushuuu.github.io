@@ -2,19 +2,22 @@
 <html lang="en-us">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='主要內容 建立DynamicInvokeWebservice.cs
-public class DynamicInvokeWebservice { public DynamicInvokeWebservice() { //  // TODO: 在此加入建構函式的程式碼  //  } static SortedList&amp;lt;string, Type&amp;gt; _typeList = new SortedList&amp;lt;string, Type&amp;gt;(); #region InvokeWebService  static string GetCacheKey(string url, string className) { return url.ToLower() &#43; className; } static Type GetTypeFromCache(string url, string className) { string key = GetCacheKey(url, className); foreach (KeyValuePair&amp;lt;string, Type&amp;gt; pair in _typeList) { if (key == pair.Key) { return pair.Value; } } return null; } static Type GetTypeFromWebService(string url, string className) { string @namespace = &amp;#34;EnterpriseServerBase.'><title>動態調用Webservice</title>
+public class DynamicInvokeWebservice { public DynamicInvokeWebservice() { // // TODO: 在此加入建構函式的程式碼 // } static SortedList&lt;string, Type&gt; _typeList = new SortedList&lt;string, Type&gt;(); #region InvokeWebService static string GetCacheKey(string url, string className) { return url.ToLower() &#43; className; } static Type GetTypeFromCache(string url, string className) { string key = GetCacheKey(url, className); foreach (KeyValuePair&lt;string, Type&gt; pair in _typeList) { if (key == pair.Key) { return pair.Value; } } return null; } static Type GetTypeFromWebService(string url, string className) { string @namespace = &#34;EnterpriseServerBase.WebService.DynamicWebCalling&#34;; if ((className == null) || (className == &#34;&#34;)) { className = GetWsClassName(url); } //获取WSDL WebClient wc = new WebClient(); Stream stream = wc.OpenRead(url &#43; &#34;?WSDL&#34;); ServiceDescription sd = ServiceDescription.Read(stream); ServiceDescriptionImporter sdi = new ServiceDescriptionImporter(); sdi.AddServiceDescription(sd, &#34;&#34;, &#34;&#34;); CodeNamespace cn = new CodeNamespace(@namespace); //生成客户端代理类代码 CodeCompileUnit ccu = new CodeCompileUnit(); ccu.Namespaces.Add(cn); sdi.Import(cn, ccu); //CSharpCodeProvider csc = new CSharpCodeProvider(); //ICodeCompiler icc = 因; -&gt; 已過時 CodeDomProvider provider = CodeDomProvider.CreateProvider(&#34;CSharp&#34;); //设定编译参数 CompilerParameters cplist = new CompilerParameters(); cplist.GenerateExecutable = false; cplist.GenerateInMemory = true; cplist.ReferencedAssemblies.Add(&#34;System.dll&#34;); cplist.ReferencedAssemblies.Add(&#34;System.XML.dll&#34;); cplist.ReferencedAssemblies.Add(&#34;System.Web.Services.dll&#34;); cplist.ReferencedAssemblies.Add(&#34;System.Data.dll&#34;); //编译代理类 //CompilerResults cr = icc.CompileAssemblyFromDom(cplist, ccu); -&gt; 因為csc.CreateCompiler()已過時 CompilerResults cr = provider.CompileAssemblyFromDom(cplist, ccu); if (true == cr.Errors.HasErrors) { System.Text.StringBuilder sb = new System.Text.StringBuilder(); foreach (System.CodeDom.Compiler.CompilerError ce in cr.Errors) { sb.Append(ce.ToString()); sb.Append(System.Environment.NewLine); } throw new Exception(sb.ToString()); } //生成代理实例，并调用方法 System.Reflection.Assembly assembly = cr.CompiledAssembly; Type t = assembly.GetType(@namespace &#43; &#34;.&#34; &#43; className, true, true); return t; } /// &lt;summary&gt; /// 动态调用web服务 /// timeout: 5分鐘 /// &lt;/summary&gt; /// &lt;param name=&#34;url&#34;&gt;&lt;/param&gt; /// &lt;param name=&#34;methodName&#34;&gt;&lt;/param&gt; /// &lt;param name=&#34;args&#34;&gt;&lt;/param&gt; /// &lt;returns&gt;&lt;/returns&gt; public static object InvokeWebService(string url, string methodName, object[] args) { return InvokeWebService(url, null, methodName, args, 300000); } /// &lt;summary&gt; /// 动态调用web服务 /// &lt;/summary&gt; /// &lt;param name=&#34;url&#34;&gt;&lt;/param&gt; /// &lt;param name=&#34;methodName&#34;&gt;&lt;/param&gt; /// &lt;param name=&#34;args&#34;&gt;&lt;/param&gt; /// &lt;param name=&#34;timeout&#34;&gt;&lt;/param&gt; /// &lt;returns&gt;&lt;/returns&gt; public static object InvokeWebService(string url, string methodName, object[] args, int? timeout) { return InvokeWebService(url, null, methodName, args, timeout); } public static object InvokeWebService(string url, string className, string methodName, object[] args, int? timeout) { try { Type t = GetTypeFromCache(url, className); if (t == null) { t = GetTypeFromWebService(url, className); //添加到缓冲中 string key = GetCacheKey(url, className); _typeList.Add(key, t); } object obj = Activator.CreateInstance(t); MethodInfo mi = t.GetMethod(methodName); if (mi == null) { throw new Exception(&#34;沒有WS:&#34; &#43; methodName); } if (timeout.HasValue) { //增加以下設定timeout時間 PropertyInfo propInfo = obj.GetType().GetProperty(&#34;Timeout&#34;); propInfo.SetValue(obj, timeout, null); } return mi.Invoke(obj, args); } catch (Exception ex) { //throw new Exception(ex.InnerException.Message, new Exception(ex.InnerException.StackTrace)); throw ex; } } private static string GetWsClassName(string wsUrl) { string[] parts = wsUrl.Split(&#39;/&#39;); string[] pps = parts[parts.Length - 1].Split(&#39;.&#39;); return pps[0]; } #endregion } 使用 基本上直接調用InvokeWebService方法即可
+'><title>動態調用Webservice</title>
 
 <link rel='canonical' href='https://hushuuu.github.io/2021/10/04/%E5%8B%95%E6%85%8B%E8%AA%BF%E7%94%A8webservice/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='動態調用Webservice'>
 <meta property='og:description' content='主要內容 建立DynamicInvokeWebservice.cs
-public class DynamicInvokeWebservice { public DynamicInvokeWebservice() { //  // TODO: 在此加入建構函式的程式碼  //  } static SortedList&amp;lt;string, Type&amp;gt; _typeList = new SortedList&amp;lt;string, Type&amp;gt;(); #region InvokeWebService  static string GetCacheKey(string url, string className) { return url.ToLower() &#43; className; } static Type GetTypeFromCache(string url, string className) { string key = GetCacheKey(url, className); foreach (KeyValuePair&amp;lt;string, Type&amp;gt; pair in _typeList) { if (key == pair.Key) { return pair.Value; } } return null; } static Type GetTypeFromWebService(string url, string className) { string @namespace = &amp;#34;EnterpriseServerBase.'>
+public class DynamicInvokeWebservice { public DynamicInvokeWebservice() { // // TODO: 在此加入建構函式的程式碼 // } static SortedList&lt;string, Type&gt; _typeList = new SortedList&lt;string, Type&gt;(); #region InvokeWebService static string GetCacheKey(string url, string className) { return url.ToLower() &#43; className; } static Type GetTypeFromCache(string url, string className) { string key = GetCacheKey(url, className); foreach (KeyValuePair&lt;string, Type&gt; pair in _typeList) { if (key == pair.Key) { return pair.Value; } } return null; } static Type GetTypeFromWebService(string url, string className) { string @namespace = &#34;EnterpriseServerBase.WebService.DynamicWebCalling&#34;; if ((className == null) || (className == &#34;&#34;)) { className = GetWsClassName(url); } //获取WSDL WebClient wc = new WebClient(); Stream stream = wc.OpenRead(url &#43; &#34;?WSDL&#34;); ServiceDescription sd = ServiceDescription.Read(stream); ServiceDescriptionImporter sdi = new ServiceDescriptionImporter(); sdi.AddServiceDescription(sd, &#34;&#34;, &#34;&#34;); CodeNamespace cn = new CodeNamespace(@namespace); //生成客户端代理类代码 CodeCompileUnit ccu = new CodeCompileUnit(); ccu.Namespaces.Add(cn); sdi.Import(cn, ccu); //CSharpCodeProvider csc = new CSharpCodeProvider(); //ICodeCompiler icc = 因; -&gt; 已過時 CodeDomProvider provider = CodeDomProvider.CreateProvider(&#34;CSharp&#34;); //设定编译参数 CompilerParameters cplist = new CompilerParameters(); cplist.GenerateExecutable = false; cplist.GenerateInMemory = true; cplist.ReferencedAssemblies.Add(&#34;System.dll&#34;); cplist.ReferencedAssemblies.Add(&#34;System.XML.dll&#34;); cplist.ReferencedAssemblies.Add(&#34;System.Web.Services.dll&#34;); cplist.ReferencedAssemblies.Add(&#34;System.Data.dll&#34;); //编译代理类 //CompilerResults cr = icc.CompileAssemblyFromDom(cplist, ccu); -&gt; 因為csc.CreateCompiler()已過時 CompilerResults cr = provider.CompileAssemblyFromDom(cplist, ccu); if (true == cr.Errors.HasErrors) { System.Text.StringBuilder sb = new System.Text.StringBuilder(); foreach (System.CodeDom.Compiler.CompilerError ce in cr.Errors) { sb.Append(ce.ToString()); sb.Append(System.Environment.NewLine); } throw new Exception(sb.ToString()); } //生成代理实例，并调用方法 System.Reflection.Assembly assembly = cr.CompiledAssembly; Type t = assembly.GetType(@namespace &#43; &#34;.&#34; &#43; className, true, true); return t; } /// &lt;summary&gt; /// 动态调用web服务 /// timeout: 5分鐘 /// &lt;/summary&gt; /// &lt;param name=&#34;url&#34;&gt;&lt;/param&gt; /// &lt;param name=&#34;methodName&#34;&gt;&lt;/param&gt; /// &lt;param name=&#34;args&#34;&gt;&lt;/param&gt; /// &lt;returns&gt;&lt;/returns&gt; public static object InvokeWebService(string url, string methodName, object[] args) { return InvokeWebService(url, null, methodName, args, 300000); } /// &lt;summary&gt; /// 动态调用web服务 /// &lt;/summary&gt; /// &lt;param name=&#34;url&#34;&gt;&lt;/param&gt; /// &lt;param name=&#34;methodName&#34;&gt;&lt;/param&gt; /// &lt;param name=&#34;args&#34;&gt;&lt;/param&gt; /// &lt;param name=&#34;timeout&#34;&gt;&lt;/param&gt; /// &lt;returns&gt;&lt;/returns&gt; public static object InvokeWebService(string url, string methodName, object[] args, int? timeout) { return InvokeWebService(url, null, methodName, args, timeout); } public static object InvokeWebService(string url, string className, string methodName, object[] args, int? timeout) { try { Type t = GetTypeFromCache(url, className); if (t == null) { t = GetTypeFromWebService(url, className); //添加到缓冲中 string key = GetCacheKey(url, className); _typeList.Add(key, t); } object obj = Activator.CreateInstance(t); MethodInfo mi = t.GetMethod(methodName); if (mi == null) { throw new Exception(&#34;沒有WS:&#34; &#43; methodName); } if (timeout.HasValue) { //增加以下設定timeout時間 PropertyInfo propInfo = obj.GetType().GetProperty(&#34;Timeout&#34;); propInfo.SetValue(obj, timeout, null); } return mi.Invoke(obj, args); } catch (Exception ex) { //throw new Exception(ex.InnerException.Message, new Exception(ex.InnerException.StackTrace)); throw ex; } } private static string GetWsClassName(string wsUrl) { string[] parts = wsUrl.Split(&#39;/&#39;); string[] pps = parts[parts.Length - 1].Split(&#39;.&#39;); return pps[0]; } #endregion } 使用 基本上直接調用InvokeWebService方法即可
+'>
 <meta property='og:url' content='https://hushuuu.github.io/2021/10/04/%E5%8B%95%E6%85%8B%E8%AA%BF%E7%94%A8webservice/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C#' /><meta property='article:tag' content='Webservice' /><meta property='article:published_time' content='2021-10-04T14:38:32&#43;08:00'/><meta property='article:modified_time' content='2021-10-04T14:38:32&#43;08:00'/>
 <meta name="twitter:title" content="動態調用Webservice">
 <meta name="twitter:description" content="主要內容 建立DynamicInvokeWebservice.cs
-public class DynamicInvokeWebservice { public DynamicInvokeWebservice() { //  // TODO: 在此加入建構函式的程式碼  //  } static SortedList&amp;lt;string, Type&amp;gt; _typeList = new SortedList&amp;lt;string, Type&amp;gt;(); #region InvokeWebService  static string GetCacheKey(string url, string className) { return url.ToLower() &#43; className; } static Type GetTypeFromCache(string url, string className) { string key = GetCacheKey(url, className); foreach (KeyValuePair&amp;lt;string, Type&amp;gt; pair in _typeList) { if (key == pair.Key) { return pair.Value; } } return null; } static Type GetTypeFromWebService(string url, string className) { string @namespace = &amp;#34;EnterpriseServerBase.">
+public class DynamicInvokeWebservice { public DynamicInvokeWebservice() { // // TODO: 在此加入建構函式的程式碼 // } static SortedList&lt;string, Type&gt; _typeList = new SortedList&lt;string, Type&gt;(); #region InvokeWebService static string GetCacheKey(string url, string className) { return url.ToLower() &#43; className; } static Type GetTypeFromCache(string url, string className) { string key = GetCacheKey(url, className); foreach (KeyValuePair&lt;string, Type&gt; pair in _typeList) { if (key == pair.Key) { return pair.Value; } } return null; } static Type GetTypeFromWebService(string url, string className) { string @namespace = &#34;EnterpriseServerBase.WebService.DynamicWebCalling&#34;; if ((className == null) || (className == &#34;&#34;)) { className = GetWsClassName(url); } //获取WSDL WebClient wc = new WebClient(); Stream stream = wc.OpenRead(url &#43; &#34;?WSDL&#34;); ServiceDescription sd = ServiceDescription.Read(stream); ServiceDescriptionImporter sdi = new ServiceDescriptionImporter(); sdi.AddServiceDescription(sd, &#34;&#34;, &#34;&#34;); CodeNamespace cn = new CodeNamespace(@namespace); //生成客户端代理类代码 CodeCompileUnit ccu = new CodeCompileUnit(); ccu.Namespaces.Add(cn); sdi.Import(cn, ccu); //CSharpCodeProvider csc = new CSharpCodeProvider(); //ICodeCompiler icc = 因; -&gt; 已過時 CodeDomProvider provider = CodeDomProvider.CreateProvider(&#34;CSharp&#34;); //设定编译参数 CompilerParameters cplist = new CompilerParameters(); cplist.GenerateExecutable = false; cplist.GenerateInMemory = true; cplist.ReferencedAssemblies.Add(&#34;System.dll&#34;); cplist.ReferencedAssemblies.Add(&#34;System.XML.dll&#34;); cplist.ReferencedAssemblies.Add(&#34;System.Web.Services.dll&#34;); cplist.ReferencedAssemblies.Add(&#34;System.Data.dll&#34;); //编译代理类 //CompilerResults cr = icc.CompileAssemblyFromDom(cplist, ccu); -&gt; 因為csc.CreateCompiler()已過時 CompilerResults cr = provider.CompileAssemblyFromDom(cplist, ccu); if (true == cr.Errors.HasErrors) { System.Text.StringBuilder sb = new System.Text.StringBuilder(); foreach (System.CodeDom.Compiler.CompilerError ce in cr.Errors) { sb.Append(ce.ToString()); sb.Append(System.Environment.NewLine); } throw new Exception(sb.ToString()); } //生成代理实例，并调用方法 System.Reflection.Assembly assembly = cr.CompiledAssembly; Type t = assembly.GetType(@namespace &#43; &#34;.&#34; &#43; className, true, true); return t; } /// &lt;summary&gt; /// 动态调用web服务 /// timeout: 5分鐘 /// &lt;/summary&gt; /// &lt;param name=&#34;url&#34;&gt;&lt;/param&gt; /// &lt;param name=&#34;methodName&#34;&gt;&lt;/param&gt; /// &lt;param name=&#34;args&#34;&gt;&lt;/param&gt; /// &lt;returns&gt;&lt;/returns&gt; public static object InvokeWebService(string url, string methodName, object[] args) { return InvokeWebService(url, null, methodName, args, 300000); } /// &lt;summary&gt; /// 动态调用web服务 /// &lt;/summary&gt; /// &lt;param name=&#34;url&#34;&gt;&lt;/param&gt; /// &lt;param name=&#34;methodName&#34;&gt;&lt;/param&gt; /// &lt;param name=&#34;args&#34;&gt;&lt;/param&gt; /// &lt;param name=&#34;timeout&#34;&gt;&lt;/param&gt; /// &lt;returns&gt;&lt;/returns&gt; public static object InvokeWebService(string url, string methodName, object[] args, int? timeout) { return InvokeWebService(url, null, methodName, args, timeout); } public static object InvokeWebService(string url, string className, string methodName, object[] args, int? timeout) { try { Type t = GetTypeFromCache(url, className); if (t == null) { t = GetTypeFromWebService(url, className); //添加到缓冲中 string key = GetCacheKey(url, className); _typeList.Add(key, t); } object obj = Activator.CreateInstance(t); MethodInfo mi = t.GetMethod(methodName); if (mi == null) { throw new Exception(&#34;沒有WS:&#34; &#43; methodName); } if (timeout.HasValue) { //增加以下設定timeout時間 PropertyInfo propInfo = obj.GetType().GetProperty(&#34;Timeout&#34;); propInfo.SetValue(obj, timeout, null); } return mi.Invoke(obj, args); } catch (Exception ex) { //throw new Exception(ex.InnerException.Message, new Exception(ex.InnerException.StackTrace)); throw ex; } } private static string GetWsClassName(string wsUrl) { string[] parts = wsUrl.Split(&#39;/&#39;); string[] pps = parts[parts.Length - 1].Split(&#39;.&#39;); return pps[0]; } #endregion } 使用 基本上直接調用InvokeWebService方法即可
+">
     </head>
     <body class="">
     <script>
@@ -54,7 +57,7 @@ public class DynamicInvokeWebservice { public DynamicInvokeWebservice() { //  //
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -216,179 +219,179 @@ public class DynamicInvokeWebservice { public DynamicInvokeWebservice() { //  //
     <section class="article-content">
     <h2 id="主要內容">主要內容</h2>
 <p>建立<code>DynamicInvokeWebservice.cs</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"> <span class="k">public</span> <span class="k">class</span> <span class="nc">DynamicInvokeWebservice</span>
-    <span class="p">{</span>
-
-        <span class="k">public</span> <span class="n">DynamicInvokeWebservice</span><span class="p">()</span>
-        <span class="p">{</span>
-            <span class="c1">//
-</span><span class="c1"></span>            <span class="c1">// TODO: 在此加入建構函式的程式碼
-</span><span class="c1"></span>            <span class="c1">//
-</span><span class="c1"></span>        <span class="p">}</span>
-
-        <span class="k">static</span> <span class="n">SortedList</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">Type</span><span class="p">&gt;</span> <span class="n">_typeList</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SortedList</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">Type</span><span class="p">&gt;();</span>
-
-
-        <span class="cp">#region InvokeWebService
-</span><span class="cp"></span>
-
-        <span class="k">static</span> <span class="kt">string</span> <span class="n">GetCacheKey</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">,</span> <span class="kt">string</span> <span class="n">className</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="n">url</span><span class="p">.</span><span class="n">ToLower</span><span class="p">()</span> <span class="p">+</span> <span class="n">className</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">static</span> <span class="n">Type</span> <span class="n">GetTypeFromCache</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">,</span> <span class="kt">string</span> <span class="n">className</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="kt">string</span> <span class="n">key</span> <span class="p">=</span> <span class="n">GetCacheKey</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">className</span><span class="p">);</span>
-            <span class="k">foreach</span> <span class="p">(</span><span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">Type</span><span class="p">&gt;</span> <span class="n">pair</span> <span class="k">in</span> <span class="n">_typeList</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="p">==</span> <span class="n">pair</span><span class="p">.</span><span class="n">Key</span><span class="p">)</span>
-                <span class="p">{</span>
-                    <span class="k">return</span> <span class="n">pair</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-
-            <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">static</span> <span class="n">Type</span> <span class="n">GetTypeFromWebService</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">,</span> <span class="kt">string</span> <span class="n">className</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="kt">string</span> <span class="n">@namespace</span> <span class="p">=</span> <span class="s">&#34;EnterpriseServerBase.WebService.DynamicWebCalling&#34;</span><span class="p">;</span>
-            <span class="k">if</span> <span class="p">((</span><span class="n">className</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span> <span class="p">||</span> <span class="p">(</span><span class="n">className</span> <span class="p">==</span> <span class="s">&#34;&#34;</span><span class="p">))</span>
-            <span class="p">{</span>
-                <span class="n">className</span> <span class="p">=</span> <span class="n">GetWsClassName</span><span class="p">(</span><span class="n">url</span><span class="p">);</span>
-            <span class="p">}</span>
-
-            <span class="c1">//获取WSDL
-</span><span class="c1"></span>            <span class="n">WebClient</span> <span class="n">wc</span> <span class="p">=</span> <span class="k">new</span> <span class="n">WebClient</span><span class="p">();</span>
-            <span class="n">Stream</span> <span class="n">stream</span> <span class="p">=</span> <span class="n">wc</span><span class="p">.</span><span class="n">OpenRead</span><span class="p">(</span><span class="n">url</span> <span class="p">+</span> <span class="s">&#34;?WSDL&#34;</span><span class="p">);</span>
-            <span class="n">ServiceDescription</span> <span class="n">sd</span> <span class="p">=</span> <span class="n">ServiceDescription</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
-            <span class="n">ServiceDescriptionImporter</span> <span class="n">sdi</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ServiceDescriptionImporter</span><span class="p">();</span>
-            <span class="n">sdi</span><span class="p">.</span><span class="n">AddServiceDescription</span><span class="p">(</span><span class="n">sd</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">);</span>
-            <span class="n">CodeNamespace</span> <span class="n">cn</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CodeNamespace</span><span class="p">(</span><span class="n">@namespace</span><span class="p">);</span>
-
-            <span class="c1">//生成客户端代理类代码
-</span><span class="c1"></span>            <span class="n">CodeCompileUnit</span> <span class="n">ccu</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CodeCompileUnit</span><span class="p">();</span>
-            <span class="n">ccu</span><span class="p">.</span><span class="n">Namespaces</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">cn</span><span class="p">);</span>
-            <span class="n">sdi</span><span class="p">.</span><span class="n">Import</span><span class="p">(</span><span class="n">cn</span><span class="p">,</span> <span class="n">ccu</span><span class="p">);</span>
-            <span class="c1">//CSharpCodeProvider csc = new CSharpCodeProvider();
-</span><span class="c1"></span>            <span class="c1">//ICodeCompiler icc = 因; -&gt; 已過時
-</span><span class="c1"></span>            <span class="n">CodeDomProvider</span> <span class="n">provider</span> <span class="p">=</span> <span class="n">CodeDomProvider</span><span class="p">.</span><span class="n">CreateProvider</span><span class="p">(</span><span class="s">&#34;CSharp&#34;</span><span class="p">);</span>
-
-            <span class="c1">//设定编译参数
-</span><span class="c1"></span>            <span class="n">CompilerParameters</span> <span class="n">cplist</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CompilerParameters</span><span class="p">();</span>
-            <span class="n">cplist</span><span class="p">.</span><span class="n">GenerateExecutable</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
-            <span class="n">cplist</span><span class="p">.</span><span class="n">GenerateInMemory</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
-            <span class="n">cplist</span><span class="p">.</span><span class="n">ReferencedAssemblies</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;System.dll&#34;</span><span class="p">);</span>
-            <span class="n">cplist</span><span class="p">.</span><span class="n">ReferencedAssemblies</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;System.XML.dll&#34;</span><span class="p">);</span>
-            <span class="n">cplist</span><span class="p">.</span><span class="n">ReferencedAssemblies</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;System.Web.Services.dll&#34;</span><span class="p">);</span>
-            <span class="n">cplist</span><span class="p">.</span><span class="n">ReferencedAssemblies</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;System.Data.dll&#34;</span><span class="p">);</span>
-
-            <span class="c1">//编译代理类
-</span><span class="c1"></span>            <span class="c1">//CompilerResults cr = icc.CompileAssemblyFromDom(cplist, ccu); -&gt; 因為csc.CreateCompiler()已過時
-</span><span class="c1"></span>            <span class="n">CompilerResults</span> <span class="n">cr</span> <span class="p">=</span> <span class="n">provider</span><span class="p">.</span><span class="n">CompileAssemblyFromDom</span><span class="p">(</span><span class="n">cplist</span><span class="p">,</span> <span class="n">ccu</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="k">true</span> <span class="p">==</span> <span class="n">cr</span><span class="p">.</span><span class="n">Errors</span><span class="p">.</span><span class="n">HasErrors</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">StringBuilder</span> <span class="n">sb</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">StringBuilder</span><span class="p">();</span>
-                <span class="k">foreach</span> <span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">CodeDom</span><span class="p">.</span><span class="n">Compiler</span><span class="p">.</span><span class="n">CompilerError</span> <span class="n">ce</span> <span class="k">in</span> <span class="n">cr</span><span class="p">.</span><span class="n">Errors</span><span class="p">)</span>
-                <span class="p">{</span>
-                    <span class="n">sb</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="n">ce</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
-                    <span class="n">sb</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Environment</span><span class="p">.</span><span class="n">NewLine</span><span class="p">);</span>
-                <span class="p">}</span>
-                <span class="k">throw</span> <span class="k">new</span> <span class="n">Exception</span><span class="p">(</span><span class="n">sb</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
-            <span class="p">}</span>
-
-            <span class="c1">//生成代理实例，并调用方法
-</span><span class="c1"></span>            <span class="n">System</span><span class="p">.</span><span class="n">Reflection</span><span class="p">.</span><span class="n">Assembly</span> <span class="n">assembly</span> <span class="p">=</span> <span class="n">cr</span><span class="p">.</span><span class="n">CompiledAssembly</span><span class="p">;</span>
-            <span class="n">Type</span> <span class="n">t</span> <span class="p">=</span> <span class="n">assembly</span><span class="p">.</span><span class="n">GetType</span><span class="p">(</span><span class="n">@namespace</span> <span class="p">+</span> <span class="s">&#34;.&#34;</span> <span class="p">+</span> <span class="n">className</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
-
-            <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// 动态调用web服务
-</span><span class="c1"></span>        <span class="c1">/// timeout: 5分鐘
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// &lt;param name=&#34;url&#34;&gt;&lt;/param&gt;
-</span><span class="c1"></span>        <span class="c1">/// &lt;param name=&#34;methodName&#34;&gt;&lt;/param&gt;
-</span><span class="c1"></span>        <span class="c1">/// &lt;param name=&#34;args&#34;&gt;&lt;/param&gt;
-</span><span class="c1"></span>        <span class="c1">/// &lt;returns&gt;&lt;/returns&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="k">static</span> <span class="kt">object</span> <span class="n">InvokeWebService</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">,</span> <span class="kt">string</span> <span class="n">methodName</span><span class="p">,</span> <span class="kt">object</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="n">InvokeWebService</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="n">methodName</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="m">300000</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// 动态调用web服务
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// &lt;param name=&#34;url&#34;&gt;&lt;/param&gt;
-</span><span class="c1"></span>        <span class="c1">/// &lt;param name=&#34;methodName&#34;&gt;&lt;/param&gt;
-</span><span class="c1"></span>        <span class="c1">/// &lt;param name=&#34;args&#34;&gt;&lt;/param&gt;
-</span><span class="c1"></span>        <span class="c1">/// &lt;param name=&#34;timeout&#34;&gt;&lt;/param&gt;
-</span><span class="c1"></span>        <span class="c1">/// &lt;returns&gt;&lt;/returns&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="k">static</span> <span class="kt">object</span> <span class="n">InvokeWebService</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">,</span> <span class="kt">string</span> <span class="n">methodName</span><span class="p">,</span> <span class="kt">object</span><span class="p">[]</span> <span class="n">args</span><span class="p">,</span> <span class="kt">int?</span> <span class="n">timeout</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="n">InvokeWebService</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="n">methodName</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">timeout</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">public</span> <span class="k">static</span> <span class="kt">object</span> <span class="n">InvokeWebService</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">,</span> <span class="kt">string</span> <span class="n">className</span><span class="p">,</span> <span class="kt">string</span> <span class="n">methodName</span><span class="p">,</span> <span class="kt">object</span><span class="p">[]</span> <span class="n">args</span><span class="p">,</span> <span class="kt">int?</span> <span class="n">timeout</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">try</span>
-            <span class="p">{</span>
-                <span class="n">Type</span> <span class="n">t</span> <span class="p">=</span> <span class="n">GetTypeFromCache</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">className</span><span class="p">);</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">t</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
-                <span class="p">{</span>
-                    <span class="n">t</span> <span class="p">=</span> <span class="n">GetTypeFromWebService</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">className</span><span class="p">);</span>
-
-
-                    <span class="c1">//添加到缓冲中
-</span><span class="c1"></span>                    <span class="kt">string</span> <span class="n">key</span> <span class="p">=</span> <span class="n">GetCacheKey</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">className</span><span class="p">);</span>
-                    <span class="n">_typeList</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
-                <span class="p">}</span>
-
-
-                <span class="kt">object</span> <span class="n">obj</span> <span class="p">=</span> <span class="n">Activator</span><span class="p">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
-                <span class="n">MethodInfo</span> <span class="n">mi</span> <span class="p">=</span> <span class="n">t</span><span class="p">.</span><span class="n">GetMethod</span><span class="p">(</span><span class="n">methodName</span><span class="p">);</span>
-
-                <span class="k">if</span> <span class="p">(</span><span class="n">mi</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
-                <span class="p">{</span>
-                    <span class="k">throw</span> <span class="k">new</span> <span class="n">Exception</span><span class="p">(</span><span class="s">&#34;沒有WS:&#34;</span> <span class="p">+</span> <span class="n">methodName</span><span class="p">);</span>
-                <span class="p">}</span>
-
-                <span class="k">if</span> <span class="p">(</span><span class="n">timeout</span><span class="p">.</span><span class="n">HasValue</span><span class="p">)</span>
-                <span class="p">{</span>
-                    <span class="c1">//增加以下設定timeout時間
-</span><span class="c1"></span>                    <span class="n">PropertyInfo</span> <span class="n">propInfo</span> <span class="p">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">GetProperty</span><span class="p">(</span><span class="s">&#34;Timeout&#34;</span><span class="p">);</span>
-                    <span class="n">propInfo</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="k">null</span><span class="p">);</span>
-                <span class="p">}</span>
-
-                <span class="k">return</span> <span class="n">mi</span><span class="p">.</span><span class="n">Invoke</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="c1">//throw new Exception(ex.InnerException.Message, new Exception(ex.InnerException.StackTrace));
-</span><span class="c1"></span>                <span class="k">throw</span> <span class="n">ex</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-
-        <span class="k">private</span> <span class="k">static</span> <span class="kt">string</span> <span class="n">GetWsClassName</span><span class="p">(</span><span class="kt">string</span> <span class="n">wsUrl</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="kt">string</span><span class="p">[]</span> <span class="n">parts</span> <span class="p">=</span> <span class="n">wsUrl</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39;/&#39;</span><span class="p">);</span>
-            <span class="kt">string</span><span class="p">[]</span> <span class="n">pps</span> <span class="p">=</span> <span class="n">parts</span><span class="p">[</span><span class="n">parts</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">].</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39;.&#39;</span><span class="p">);</span>
-
-            <span class="k">return</span> <span class="n">pps</span><span class="p">[</span><span class="m">0</span><span class="p">];</span>
-        <span class="p">}</span>
-        <span class="cp">#endregion
-</span><span class="cp"></span>    <span class="p">}</span>
-</code></pre></div><h3 id="使用">使用</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"> <span class="kd">public</span> <span class="k">class</span> <span class="nc">DynamicInvokeWebservice</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">DynamicInvokeWebservice</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// TODO: 在此加入建構函式的程式碼</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">static</span> <span class="n">SortedList</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">Type</span><span class="p">&gt;</span> <span class="n">_typeList</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SortedList</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">Type</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cp">#region</span> <span class="n">InvokeWebService</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">static</span> <span class="kt">string</span> <span class="n">GetCacheKey</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">,</span> <span class="kt">string</span> <span class="n">className</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">url</span><span class="p">.</span><span class="n">ToLower</span><span class="p">()</span> <span class="p">+</span> <span class="n">className</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">static</span> <span class="n">Type</span> <span class="n">GetTypeFromCache</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">,</span> <span class="kt">string</span> <span class="n">className</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">string</span> <span class="n">key</span> <span class="p">=</span> <span class="n">GetCacheKey</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">className</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">foreach</span> <span class="p">(</span><span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">Type</span><span class="p">&gt;</span> <span class="n">pair</span> <span class="k">in</span> <span class="n">_typeList</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="p">==</span> <span class="n">pair</span><span class="p">.</span><span class="n">Key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="n">pair</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">static</span> <span class="n">Type</span> <span class="n">GetTypeFromWebService</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">,</span> <span class="kt">string</span> <span class="n">className</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">string</span> <span class="n">@namespace</span> <span class="p">=</span> <span class="s">&#34;EnterpriseServerBase.WebService.DynamicWebCalling&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">((</span><span class="n">className</span> <span class="p">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">||</span> <span class="p">(</span><span class="n">className</span> <span class="p">==</span> <span class="s">&#34;&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">className</span> <span class="p">=</span> <span class="n">GetWsClassName</span><span class="p">(</span><span class="n">url</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">//获取WSDL</span>
+</span></span><span class="line"><span class="cl">            <span class="n">WebClient</span> <span class="n">wc</span> <span class="p">=</span> <span class="k">new</span> <span class="n">WebClient</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Stream</span> <span class="n">stream</span> <span class="p">=</span> <span class="n">wc</span><span class="p">.</span><span class="n">OpenRead</span><span class="p">(</span><span class="n">url</span> <span class="p">+</span> <span class="s">&#34;?WSDL&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ServiceDescription</span> <span class="n">sd</span> <span class="p">=</span> <span class="n">ServiceDescription</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ServiceDescriptionImporter</span> <span class="n">sdi</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ServiceDescriptionImporter</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sdi</span><span class="p">.</span><span class="n">AddServiceDescription</span><span class="p">(</span><span class="n">sd</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">CodeNamespace</span> <span class="n">cn</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CodeNamespace</span><span class="p">(</span><span class="n">@namespace</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">//生成客户端代理类代码</span>
+</span></span><span class="line"><span class="cl">            <span class="n">CodeCompileUnit</span> <span class="n">ccu</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CodeCompileUnit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ccu</span><span class="p">.</span><span class="n">Namespaces</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">cn</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sdi</span><span class="p">.</span><span class="n">Import</span><span class="p">(</span><span class="n">cn</span><span class="p">,</span> <span class="n">ccu</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//CSharpCodeProvider csc = new CSharpCodeProvider();</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//ICodeCompiler icc = 因; -&gt; 已過時</span>
+</span></span><span class="line"><span class="cl">            <span class="n">CodeDomProvider</span> <span class="n">provider</span> <span class="p">=</span> <span class="n">CodeDomProvider</span><span class="p">.</span><span class="n">CreateProvider</span><span class="p">(</span><span class="s">&#34;CSharp&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">//设定编译参数</span>
+</span></span><span class="line"><span class="cl">            <span class="n">CompilerParameters</span> <span class="n">cplist</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CompilerParameters</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cplist</span><span class="p">.</span><span class="n">GenerateExecutable</span> <span class="p">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cplist</span><span class="p">.</span><span class="n">GenerateInMemory</span> <span class="p">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cplist</span><span class="p">.</span><span class="n">ReferencedAssemblies</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;System.dll&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cplist</span><span class="p">.</span><span class="n">ReferencedAssemblies</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;System.XML.dll&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cplist</span><span class="p">.</span><span class="n">ReferencedAssemblies</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;System.Web.Services.dll&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cplist</span><span class="p">.</span><span class="n">ReferencedAssemblies</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;System.Data.dll&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">//编译代理类</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//CompilerResults cr = icc.CompileAssemblyFromDom(cplist, ccu); -&gt; 因為csc.CreateCompiler()已過時</span>
+</span></span><span class="line"><span class="cl">            <span class="n">CompilerResults</span> <span class="n">cr</span> <span class="p">=</span> <span class="n">provider</span><span class="p">.</span><span class="n">CompileAssemblyFromDom</span><span class="p">(</span><span class="n">cplist</span><span class="p">,</span> <span class="n">ccu</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="kc">true</span> <span class="p">==</span> <span class="n">cr</span><span class="p">.</span><span class="n">Errors</span><span class="p">.</span><span class="n">HasErrors</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">StringBuilder</span> <span class="n">sb</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">StringBuilder</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="k">foreach</span> <span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">CodeDom</span><span class="p">.</span><span class="n">Compiler</span><span class="p">.</span><span class="n">CompilerError</span> <span class="n">ce</span> <span class="k">in</span> <span class="n">cr</span><span class="p">.</span><span class="n">Errors</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">sb</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="n">ce</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">sb</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Environment</span><span class="p">.</span><span class="n">NewLine</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">throw</span> <span class="k">new</span> <span class="n">Exception</span><span class="p">(</span><span class="n">sb</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">//生成代理实例，并调用方法</span>
+</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="p">.</span><span class="n">Reflection</span><span class="p">.</span><span class="n">Assembly</span> <span class="n">assembly</span> <span class="p">=</span> <span class="n">cr</span><span class="p">.</span><span class="n">CompiledAssembly</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Type</span> <span class="n">t</span> <span class="p">=</span> <span class="n">assembly</span><span class="p">.</span><span class="n">GetType</span><span class="p">(</span><span class="n">@namespace</span> <span class="p">+</span> <span class="s">&#34;.&#34;</span> <span class="p">+</span> <span class="n">className</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// 动态调用web服务</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// timeout: 5分鐘</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;param name=&#34;url&#34;&gt;&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;param name=&#34;methodName&#34;&gt;&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;param name=&#34;args&#34;&gt;&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;returns&gt;&lt;/returns&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">object</span> <span class="n">InvokeWebService</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">,</span> <span class="kt">string</span> <span class="n">methodName</span><span class="p">,</span> <span class="kt">object</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">InvokeWebService</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="n">methodName</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="m">300000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// 动态调用web服务</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;param name=&#34;url&#34;&gt;&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;param name=&#34;methodName&#34;&gt;&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;param name=&#34;args&#34;&gt;&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;param name=&#34;timeout&#34;&gt;&lt;/param&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;returns&gt;&lt;/returns&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">object</span> <span class="n">InvokeWebService</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">,</span> <span class="kt">string</span> <span class="n">methodName</span><span class="p">,</span> <span class="kt">object</span><span class="p">[]</span> <span class="n">args</span><span class="p">,</span> <span class="kt">int?</span> <span class="n">timeout</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">InvokeWebService</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="n">methodName</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">timeout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">object</span> <span class="n">InvokeWebService</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">,</span> <span class="kt">string</span> <span class="n">className</span><span class="p">,</span> <span class="kt">string</span> <span class="n">methodName</span><span class="p">,</span> <span class="kt">object</span><span class="p">[]</span> <span class="n">args</span><span class="p">,</span> <span class="kt">int?</span> <span class="n">timeout</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Type</span> <span class="n">t</span> <span class="p">=</span> <span class="n">GetTypeFromCache</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">className</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">t</span> <span class="p">==</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">t</span> <span class="p">=</span> <span class="n">GetTypeFromWebService</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">className</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="c1">//添加到缓冲中</span>
+</span></span><span class="line"><span class="cl">                    <span class="kt">string</span> <span class="n">key</span> <span class="p">=</span> <span class="n">GetCacheKey</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">className</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">_typeList</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="kt">object</span> <span class="n">obj</span> <span class="p">=</span> <span class="n">Activator</span><span class="p">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">MethodInfo</span> <span class="n">mi</span> <span class="p">=</span> <span class="n">t</span><span class="p">.</span><span class="n">GetMethod</span><span class="p">(</span><span class="n">methodName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">mi</span> <span class="p">==</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">throw</span> <span class="k">new</span> <span class="n">Exception</span><span class="p">(</span><span class="s">&#34;沒有WS:&#34;</span> <span class="p">+</span> <span class="n">methodName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">timeout</span><span class="p">.</span><span class="n">HasValue</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">//增加以下設定timeout時間</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">PropertyInfo</span> <span class="n">propInfo</span> <span class="p">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">GetProperty</span><span class="p">(</span><span class="s">&#34;Timeout&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">propInfo</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">mi</span><span class="p">.</span><span class="n">Invoke</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">//throw new Exception(ex.InnerException.Message, new Exception(ex.InnerException.StackTrace));</span>
+</span></span><span class="line"><span class="cl">                <span class="k">throw</span> <span class="n">ex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="kd">static</span> <span class="kt">string</span> <span class="n">GetWsClassName</span><span class="p">(</span><span class="kt">string</span> <span class="n">wsUrl</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">string</span><span class="p">[]</span> <span class="n">parts</span> <span class="p">=</span> <span class="n">wsUrl</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39;/&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">string</span><span class="p">[]</span> <span class="n">pps</span> <span class="p">=</span> <span class="n">parts</span><span class="p">[</span><span class="n">parts</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">].</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39;.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">pps</span><span class="p">[</span><span class="m">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cp">#endregion</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><h3 id="使用">使用</h3>
 <p>基本上直接調用<code>InvokeWebService</code>方法即可</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="kt">var</span> <span class="n">url</span> <span class="p">=</span> <span class="s">&#34;Webservice的網址&#34;</span><span class="p">;</span>
-<span class="kt">var</span> <span class="n">methodName</span> <span class="p">=</span> <span class="s">&#34;HellWorld&#34;</span><span class="p">;</span>
-
-<span class="c1">//參數照定義的method順序傳入
-</span><span class="c1"></span><span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">args</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
-<span class="n">args</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;123456&#34;</span><span class="p">);</span>
-<span class="n">args</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;asdfg&#34;</span><span class="p">);</span>
-<span class="kt">var</span> <span class="n">obj</span> <span class="p">=</span> <span class="n">DynamicInvokeWebservice</span><span class="p">.</span><span class="n">InvokeWebService</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">methodName</span><span class="p">,</span> <span class="n">args</span><span class="p">.</span><span class="n">ToArray</span><span class="p">());</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">url</span> <span class="p">=</span> <span class="s">&#34;Webservice的網址&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">methodName</span> <span class="p">=</span> <span class="s">&#34;HellWorld&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//參數照定義的method順序傳入</span>
+</span></span><span class="line"><span class="cl"><span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">args</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl"><span class="n">args</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;123456&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">args</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;asdfg&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">obj</span> <span class="p">=</span> <span class="n">DynamicInvokeWebservice</span><span class="p">.</span><span class="n">InvokeWebService</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">methodName</span><span class="p">,</span> <span class="n">args</span><span class="p">.</span><span class="n">ToArray</span><span class="p">());</span>
+</span></span></code></pre></div>
 </section>
 
 
@@ -396,7 +399,7 @@ public class DynamicInvokeWebservice { public DynamicInvokeWebservice() { //  //
     
     <section class="article-tags">
         
-            <a href="/tags/c#/">C#</a>
+            <a href="/tags/c%23/">C#</a>
         
             <a href="/tags/webservice/">Webservice</a>
         
@@ -453,12 +456,12 @@ public class DynamicInvokeWebservice { public DynamicInvokeWebservice() { //  //
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

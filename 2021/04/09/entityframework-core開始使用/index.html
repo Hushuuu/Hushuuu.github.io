@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -221,101 +221,100 @@ Entity Framework Core<br>
 紀錄如何初始化</p>
 <h2 id="主要內容">主要內容</h2>
 <p>使用<code>PackageManager</code>安裝</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span>
-<span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">Design</span>
-<span class="n">EntityFrameworkCore</span>
-<span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span><span class="p">.</span><span class="n">Tools</span>
-</code></pre></div><p>建立 DB模型cs</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">class</span> <span class="nc">Blog</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="kt">int</span> <span class="n">Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>建立<code>DbContext.cs</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"> <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Test2021Context</span> <span class="p">:</span> <span class="n">DbContext</span>
-    <span class="p">{</span>
-        <span class="k">public</span> <span class="n">Test2021Context</span><span class="p">()</span>
-        <span class="p">{</span>
-        <span class="p">}</span>
-
-        <span class="k">public</span> <span class="n">Test2021Context</span><span class="p">(</span><span class="n">DbContextOptions</span><span class="p">&lt;</span><span class="n">Test2021Context</span><span class="p">&gt;</span> <span class="n">options</span><span class="p">)</span>
-            <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
-        <span class="p">{</span>
-        <span class="p">}</span>
-
-        <span class="k">public</span> <span class="k">virtual</span> <span class="n">DbSet</span><span class="p">&lt;</span><span class="n">Blog</span><span class="p">&gt;</span> <span class="n">Blogs</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-        <span class="c1">//相依注入後此方法可註解掉
-</span><span class="c1"></span>        <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="n">OnConfiguring</span><span class="p">(</span><span class="n">DbContextOptionsBuilder</span> <span class="n">optionsBuilder</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(!</span><span class="n">optionsBuilder</span><span class="p">.</span><span class="n">IsConfigured</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="n">optionsBuilder</span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="s">&#34;Server=.\\sqlexpress;Database=Test2021;Trusted_Connection=True;MultipleActiveResultSets=true&#34;</span><span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-</code></pre></div><p>進行<code>Mirgration</code>及同步資料庫</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">PM</span><span class="p">&gt;</span> <span class="n">Add</span><span class="p">-</span><span class="n">Migration</span> <span class="n">InitialCreate</span>
-<span class="n">PM</span><span class="p">&gt;</span> <span class="n">Update</span><span class="p">-</span><span class="n">Database</span> <span class="p">-</span><span class="n">V</span>
-<span class="c1">//若不要直接更新要產出SQL
-</span><span class="c1"></span><span class="n">PM</span><span class="p">&gt;</span> <span class="n">Migration</span><span class="p">-</span><span class="n">Script</span>
-<span class="c1">//可手動調整Migration出來的cs檔再做Update
-</span></code></pre></div><p><code>DbContext</code>和模型也可以透過逆向工程來產生<br>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span>
+</span></span><span class="line"><span class="cl"><span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">Design</span>
+</span></span><span class="line"><span class="cl"><span class="n">EntityFrameworkCore</span>
+</span></span><span class="line"><span class="cl"><span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span><span class="p">.</span><span class="n">Tools</span>
+</span></span></code></pre></div><p>建立 DB模型cs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">Blog</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">int</span> <span class="n">Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>建立<code>DbContext.cs</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"> <span class="kd">public</span> <span class="kd">partial</span> <span class="k">class</span> <span class="nc">Test2021Context</span> <span class="p">:</span> <span class="n">DbContext</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">Test2021Context</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">Test2021Context</span><span class="p">(</span><span class="n">DbContextOptions</span><span class="p">&lt;</span><span class="n">Test2021Context</span><span class="p">&gt;</span> <span class="n">options</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="k">virtual</span> <span class="n">DbSet</span><span class="p">&lt;</span><span class="n">Blog</span><span class="p">&gt;</span> <span class="n">Blogs</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//相依注入後此方法可註解掉</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">protected</span> <span class="kd">override</span> <span class="k">void</span> <span class="n">OnConfiguring</span><span class="p">(</span><span class="n">DbContextOptionsBuilder</span> <span class="n">optionsBuilder</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(!</span><span class="n">optionsBuilder</span><span class="p">.</span><span class="n">IsConfigured</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">optionsBuilder</span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="s">&#34;Server=.\\sqlexpress;Database=Test2021;Trusted_Connection=True;MultipleActiveResultSets=true&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>進行<code>Mirgration</code>及同步資料庫</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">PM</span><span class="p">&gt;</span> <span class="n">Add</span><span class="p">-</span><span class="n">Migration</span> <span class="n">InitialCreate</span>
+</span></span><span class="line"><span class="cl"><span class="n">PM</span><span class="p">&gt;</span> <span class="n">Update</span><span class="p">-</span><span class="n">Database</span> <span class="p">-</span><span class="n">V</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//若不要直接更新要產出SQL</span>
+</span></span><span class="line"><span class="cl"><span class="n">PM</span><span class="p">&gt;</span> <span class="n">Migration</span><span class="p">-</span><span class="n">Script</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//可手動調整Migration出來的cs檔再做Update</span>
+</span></span></code></pre></div><p><code>DbContext</code>和模型也可以透過逆向工程來產生<br>
 <code>-force</code>覆寫現有的檔案<br>
 <code>-outputdir</code>產出資料夾
 <code>-context</code>名稱預設為dbnameContext.cs</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">Scaffold</span><span class="p">-</span><span class="n">DbContext</span> <span class="err">&#39;</span><span class="n">Server</span><span class="p">=.</span><span class="err">\</span><span class="n">sqlexpress</span><span class="p">;</span><span class="n">Database</span><span class="p">=</span><span class="n">Test1202</span><span class="p">;</span><span class="n">Trusted_Connection</span><span class="p">=</span><span class="n">True</span><span class="p">;</span><span class="n">MultipleActiveResultSets</span><span class="p">=</span><span class="k">true</span><span class="err">&#39;</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span> <span class="p">-</span><span class="n">OutputDir</span> <span class="n">Data</span> <span class="p">-</span><span class="n">Force</span>
-</code></pre></div><p>將連線字串放進<code>appsettings.json</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="s">&#34;ConnectionStrings&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s">&#34;DefaultConnection&#34;</span><span class="p">:</span> <span class="s">&#34;Server=localhost\\SQLEXPRESS;Database=Test2021;Trusted_Connection=True&#34;</span>
-  <span class="p">}</span>
-</code></pre></div><h3 id="相依注入">相依注入</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">Scaffold</span><span class="p">-</span><span class="n">DbContext</span> <span class="err">&#39;</span><span class="n">Server</span><span class="p">=.</span><span class="err">\</span><span class="n">sqlexpress</span><span class="p">;</span><span class="n">Database</span><span class="p">=</span><span class="n">Test1202</span><span class="p">;</span><span class="n">Trusted_Connection</span><span class="p">=</span><span class="n">True</span><span class="p">;</span><span class="n">MultipleActiveResultSets</span><span class="p">=</span><span class="kc">true</span><span class="err">&#39;</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span> <span class="p">-</span><span class="n">OutputDir</span> <span class="n">Data</span> <span class="p">-</span><span class="n">Force</span>
+</span></span></code></pre></div><p>將連線字串放進<code>appsettings.json</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="s">&#34;ConnectionStrings&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;DefaultConnection&#34;</span><span class="p">:</span> <span class="s">&#34;Server=localhost\\SQLEXPRESS;Database=Test2021;Trusted_Connection=True&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></div><h3 id="相依注入">相依注入</h3>
 <p><code>Startup.cs</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">void</span> <span class="n">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">services</span><span class="p">.</span><span class="n">AddControllersWithViews</span><span class="p">();</span>
-            <span class="n">services</span><span class="p">.</span><span class="n">AddDbContext</span><span class="p">&lt;</span><span class="n">Test2021Context</span><span class="p">&gt;(</span><span class="n">options</span> <span class="p">=&gt;</span>
-            <span class="p">{</span>
-                <span class="c1">//啟用 Logging 觀察 SQL 指令
-</span><span class="c1"></span>                <span class="c1">//連參數一起顯示
-</span><span class="c1"></span>                <span class="n">options</span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="n">Configuration</span><span class="p">.</span><span class="n">GetConnectionString</span><span class="p">(</span><span class="s">&#34;DefaultConnection&#34;</span><span class="p">))</span>
-                <span class="p">.</span><span class="n">UseLoggerFactory</span><span class="p">(</span><span class="n">LoggerFactory</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">builder</span> <span class="p">=&gt;</span> <span class="n">builder</span><span class="p">.</span><span class="n">AddConsole</span><span class="p">()</span>
-                            <span class="p">.</span><span class="n">AddDebug</span><span class="p">()</span>
-                            <span class="p">.</span><span class="n">AddFilter</span><span class="p">(</span><span class="n">level</span><span class="p">=&gt;</span><span class="n">level</span><span class="p">==</span><span class="n">LogLevel</span><span class="p">.</span><span class="n">Information</span><span class="p">)));</span> <span class="c1">//LoggerFactory方式
-</span><span class="c1"></span>                <span class="p">.</span><span class="n">LogTo</span><span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">,</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="n">DbLoggerCategory</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">Name</span> <span class="p">},</span> <span class="n">LogLevel</span><span class="p">.</span><span class="n">Information</span><span class="p">)</span> <span class="c1">//LogTo的方式
-</span><span class="c1"></span>                <span class="p">.</span><span class="n">EnableSensitiveDataLogging</span><span class="p">();</span>
-            <span class="p">});</span>
-        <span class="p">}</span>
-
-<span class="k">public</span> <span class="k">void</span> <span class="n">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IWebHostEnvironment</span> <span class="n">env</span><span class="p">,</span><span class="n">Test2021Context</span> <span class="n">dbContext</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="c1">// 建立資料庫            
-</span><span class="c1"></span>    <span class="n">dbContext</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">EnsureCreated</span><span class="p">();</span>
-    <span class="c1">//略
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p><code>Controller</code>可以套用範本直接產生出CRUD再微調，效率好很多<br>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">services</span><span class="p">.</span><span class="n">AddControllersWithViews</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">services</span><span class="p">.</span><span class="n">AddDbContext</span><span class="p">&lt;</span><span class="n">Test2021Context</span><span class="p">&gt;(</span><span class="n">options</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">//啟用 Logging 觀察 SQL 指令</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">//連參數一起顯示</span>
+</span></span><span class="line"><span class="cl">                <span class="n">options</span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="n">Configuration</span><span class="p">.</span><span class="n">GetConnectionString</span><span class="p">(</span><span class="s">&#34;DefaultConnection&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="p">.</span><span class="n">UseLoggerFactory</span><span class="p">(</span><span class="n">LoggerFactory</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">builder</span> <span class="p">=&gt;</span> <span class="n">builder</span><span class="p">.</span><span class="n">AddConsole</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                            <span class="p">.</span><span class="n">AddDebug</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                            <span class="p">.</span><span class="n">AddFilter</span><span class="p">(</span><span class="n">level</span><span class="p">=&gt;</span><span class="n">level</span><span class="p">==</span><span class="n">LogLevel</span><span class="p">.</span><span class="n">Information</span><span class="p">)));</span> <span class="c1">//LoggerFactory方式</span>
+</span></span><span class="line"><span class="cl">                <span class="p">.</span><span class="n">LogTo</span><span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">,</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="n">DbLoggerCategory</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">Name</span> <span class="p">},</span> <span class="n">LogLevel</span><span class="p">.</span><span class="n">Information</span><span class="p">)</span> <span class="c1">//LogTo的方式</span>
+</span></span><span class="line"><span class="cl">                <span class="p">.</span><span class="n">EnableSensitiveDataLogging</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IWebHostEnvironment</span> <span class="n">env</span><span class="p">,</span><span class="n">Test2021Context</span> <span class="n">dbContext</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 建立資料庫            </span>
+</span></span><span class="line"><span class="cl">    <span class="n">dbContext</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">EnsureCreated</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//略</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>Controller</code>可以套用範本直接產生出CRUD再微調，效率好很多<br>
 範本也會幫忙建立建構子及注入</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">class</span> <span class="nc">BlogController</span> <span class="p">:</span> <span class="n">Controller</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">Test2021Context</span> <span class="n">_context</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="n">BlogController</span><span class="p">(</span><span class="n">Test2021Context</span> <span class="n">context</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">_context</span> <span class="p">=</span> <span class="n">context</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">BlogController</span> <span class="p">:</span> <span class="n">Controller</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="k">readonly</span> <span class="n">Test2021Context</span> <span class="n">_context</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">BlogController</span><span class="p">(</span><span class="n">Test2021Context</span> <span class="n">context</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_context</span> <span class="p">=</span> <span class="n">context</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p>紀錄指令</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//逆向工程產生DbContext及模型
-</span><span class="c1"></span><span class="n">Scaffold</span><span class="p">-</span><span class="n">DbContext</span> <span class="err">&#39;</span><span class="n">Server</span><span class="p">=.</span><span class="err">\</span><span class="n">sqlexpress</span><span class="p">;</span><span class="n">Database</span><span class="p">=</span><span class="n">Test1202</span><span class="p">;</span><span class="n">Trusted_Connection</span><span class="p">=</span><span class="n">True</span><span class="p">;</span><span class="n">MultipleActiveResultSets</span><span class="p">=</span><span class="k">true</span><span class="err">&#39;</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span> <span class="p">-</span><span class="n">OutputDir</span> <span class="n">Data</span> <span class="p">-</span><span class="n">Force</span>
-<span class="c1">//CodeFirst
-</span><span class="c1"></span><span class="n">Add</span><span class="p">-</span><span class="n">Migration</span> <span class="n">InitialCreate</span>
-<span class="n">Update</span><span class="p">-</span><span class="n">Database</span> <span class="p">-</span><span class="n">V</span>
-<span class="c1">//若不要直接更新要產出SQL
-</span><span class="c1"></span><span class="n">Script</span><span class="p">-</span><span class="n">Migration</span> 
-<span class="c1">//可手動調整Migration出來的cs檔再做Update
-</span></code></pre></div><h2 id="參考連結">參考連結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="c1">//逆向工程產生DbContext及模型</span>
+</span></span><span class="line"><span class="cl"><span class="n">Scaffold</span><span class="p">-</span><span class="n">DbContext</span> <span class="err">&#39;</span><span class="n">Server</span><span class="p">=.</span><span class="err">\</span><span class="n">sqlexpress</span><span class="p">;</span><span class="n">Database</span><span class="p">=</span><span class="n">Test1202</span><span class="p">;</span><span class="n">Trusted_Connection</span><span class="p">=</span><span class="n">True</span><span class="p">;</span><span class="n">MultipleActiveResultSets</span><span class="p">=</span><span class="kc">true</span><span class="err">&#39;</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span> <span class="p">-</span><span class="n">OutputDir</span> <span class="n">Data</span> <span class="p">-</span><span class="n">Force</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//CodeFirst</span>
+</span></span><span class="line"><span class="cl"><span class="n">Add</span><span class="p">-</span><span class="n">Migration</span> <span class="n">InitialCreate</span>
+</span></span><span class="line"><span class="cl"><span class="n">Update</span><span class="p">-</span><span class="n">Database</span> <span class="p">-</span><span class="n">V</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//若不要直接更新要產出SQL</span>
+</span></span><span class="line"><span class="cl"><span class="n">Script</span><span class="p">-</span><span class="n">Migration</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">//可手動調整Migration出來的cs檔再做Update</span>
+</span></span></code></pre></div><h2 id="參考連結">參考連結</h2>
 <blockquote>
 <ul>
 <li><a class="link" href="https://blog.darkthread.net/blog/efcore-notes-1/"  target="_blank" rel="noopener"
@@ -324,8 +323,7 @@ Entity Framework Core<br>
     >url2</a></li>
 <li><a class="link" href="https://blog.miniasp.com/post/2020/12/12/Logging-in-Entity-Framework-Core"  target="_blank" rel="noopener"
     >url3</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -372,12 +370,12 @@ Entity Framework Core<br>
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

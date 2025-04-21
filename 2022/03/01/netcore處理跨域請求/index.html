@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -217,42 +217,41 @@
     <section class="article-content">
     <h2 id="主要內容">主要內容</h2>
 <p>一般不允許跨域的請求，若有前後端放在不同網域或特殊用途可用</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//startup.cs
-</span><span class="c1"></span><span class="k">public</span> <span class="k">void</span> <span class="n">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="c1">//Cors允許跨域原則
-</span><span class="c1"></span>    <span class="n">services</span><span class="p">.</span><span class="n">AddCors</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
-    <span class="p">{</span>
-        <span class="n">options</span><span class="p">.</span><span class="n">AddPolicy</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="s">&#34;CustomPolicy1&#34;</span><span class="p">,</span> <span class="c1">//規則名稱
-</span><span class="c1"></span>        <span class="n">builder</span> <span class="p">=&gt;</span>
-        <span class="p">{</span>
-            <span class="n">builder</span>
-                <span class="c1">//.AllowAnyOrigin()
-</span><span class="c1"></span>                <span class="p">.</span><span class="n">WithOrigins</span><span class="p">(</span><span class="s">&#34;https://abc.com&#34;</span><span class="p">)</span><span class="c1">//不可有尾巴斜線
-</span><span class="c1"></span>                <span class="p">.</span><span class="n">AllowAnyHeader</span><span class="p">()</span> <span class="c1">//或特定header
-</span><span class="c1"></span>                <span class="p">.</span><span class="n">AllowAnyMethod</span><span class="p">();</span>
-        <span class="p">});</span>
-    <span class="p">});</span>
-<span class="p">}</span>
-<span class="k">public</span> <span class="k">void</span> <span class="n">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IWebHostEnvironment</span> <span class="n">env</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="n">app</span><span class="p">.</span><span class="n">UseRouting</span><span class="p">();</span>
-<span class="n">app</span><span class="p">.</span><span class="n">UseCors</span><span class="p">();</span><span class="c1">//一定要在userouting和useendpoing之間
-</span><span class="c1"></span><span class="n">app</span><span class="p">.</span><span class="n">UseEndpoints</span><span class="p">(</span><span class="n">endpoints</span> <span class="p">=&gt;</span>
-<span class="p">{</span>
-    <span class="n">endpoints</span><span class="p">.</span><span class="n">MapControllerRoute</span><span class="p">(</span>
-        <span class="n">name</span><span class="p">:</span> <span class="s">&#34;default&#34;</span><span class="p">,</span>
-        <span class="n">pattern</span><span class="p">:</span> <span class="s">&#34;{controller=Home}/{action=Index}/{id?}&#34;</span><span class="p">);</span>
-<span class="p">});</span>
-<span class="p">}</span>
-
-</code></pre></div><p><code>掛載至Action</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">////使用時只要掛Action上或Controller...等
-</span><span class="c1"></span><span class="na">[EnableCors(&#34;CustomPolicy1&#34;)]</span>
-<span class="k">public</span> <span class="n">ActionResult</span> <span class="n">Post</span><span class="p">(){</span>
-
-<span class="p">}</span>
-</code></pre></div><h3 id="小結">小結</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="c1">//startup.cs</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//Cors允許跨域原則</span>
+</span></span><span class="line"><span class="cl">    <span class="n">services</span><span class="p">.</span><span class="n">AddCors</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">options</span><span class="p">.</span><span class="n">AddPolicy</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="s">&#34;CustomPolicy1&#34;</span><span class="p">,</span> <span class="c1">//規則名稱</span>
+</span></span><span class="line"><span class="cl">        <span class="n">builder</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">builder</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">//.AllowAnyOrigin()</span>
+</span></span><span class="line"><span class="cl">                <span class="p">.</span><span class="n">WithOrigins</span><span class="p">(</span><span class="s">&#34;https://abc.com&#34;</span><span class="p">)</span><span class="c1">//不可有尾巴斜線</span>
+</span></span><span class="line"><span class="cl">                <span class="p">.</span><span class="n">AllowAnyHeader</span><span class="p">()</span> <span class="c1">//或特定header</span>
+</span></span><span class="line"><span class="cl">                <span class="p">.</span><span class="n">AllowAnyMethod</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IWebHostEnvironment</span> <span class="n">env</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="p">.</span><span class="n">UseRouting</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="p">.</span><span class="n">UseCors</span><span class="p">();</span><span class="c1">//一定要在userouting和useendpoing之間</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="p">.</span><span class="n">UseEndpoints</span><span class="p">(</span><span class="n">endpoints</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">endpoints</span><span class="p">.</span><span class="n">MapControllerRoute</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">name</span><span class="p">:</span> <span class="s">&#34;default&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pattern</span><span class="p">:</span> <span class="s">&#34;{controller=Home}/{action=Index}/{id?}&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>掛載至Action</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="cs">////使用時只要掛Action上或Controller...等</span>
+</span></span><span class="line"><span class="cl"><span class="na">[EnableCors(&#34;CustomPolicy1&#34;)]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">ActionResult</span> <span class="n">Post</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="小結">小結</h3>
 <p>跨域請求測試用<code>PostMan</code>是測不出來的<br>
 正確跨域請求回傳的<code>header</code>應會有<code>Access-Control-Allow-Origin</code>
 <code>Access-Control-Allow-Origin: *</code>則為全部</p>
@@ -302,12 +301,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

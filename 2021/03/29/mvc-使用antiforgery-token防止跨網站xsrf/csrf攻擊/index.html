@@ -6,7 +6,8 @@
 如果要在Ajax使用可以自行建立驗證
 內建的AntiForgeryToken @using (Html.BeginForm()) { @Html.AntiForgeryToken() } 後端掛在動作上驗證
 [ValidateAntiForgeryToken] public ActionResult Create(){ } Ajax套用自行建立驗證 產生AntiForgeryToken
-@functions{ public static string GetAntiForgery() { string cookieToken, formToken; AntiForgery.GetTokens(null, out cookieToken, out formToken); return String.Concat(cookieToken, &amp;#34;@.@&amp;#34;, formToken); } } function deleteUser() { var token = $(&amp;#39;@Html.AntiForgeryToken()&amp;#39;).val(); //防偽標記放入headers  //也可以將防偽標記放入data  $.ajax({ type: &amp;#39;POST&amp;#39;, url: &amp;#34;/User/Delete&amp;#34;, headers: { &amp;#39;__RequestVerificationToken&amp;#39;: token }, cache: false, data: { &amp;#34;id&amp;#34;: $(&amp;#34;#delid&amp;#34;).val()}, complete: function (data) { alert(data.'><title>MVC-使用AntiForgery Token防止跨網站(XSRF/CSRF)攻擊</title>
+@functions{ public static string GetAntiForgery() { string cookieToken, formToken; AntiForgery.GetTokens(null, out cookieToken, out formToken); return String.Concat(cookieToken, &#34;@.@&#34;, formToken); } } function deleteUser() { var token = $(&#39;@Html.AntiForgeryToken()&#39;).val(); //防偽標記放入headers //也可以將防偽標記放入data $.ajax({ type: &#39;POST&#39;, url: &#34;/User/Delete&#34;, headers: { &#39;__RequestVerificationToken&#39;: token }, cache: false, data: { &#34;id&#34;: $(&#34;#delid&#34;).val()}, complete: function (data) { alert(data.responseJSON[&#34;Data&#34;]); document.location.href = &#34;/User/Index&#34;; } }); } 後端自行建立Attribute驗證
+public class MyValidateAntiForgeryToken : AuthorizeAttribute { public override void OnAuthorization(AuthorizationContext filterContext) { var request = filterContext.HttpContext.Request; if (request.HttpMethod == WebRequestMethods.Http.Post) { if (request.IsAjaxRequest()) { var antiForgeryCookie = request.Cookies[AntiForgeryConfig.CookieName]; var cookieValue = antiForgeryCookie != null ? antiForgeryCookie.Value : null; //從cookies 和 Headers 中 驗證防偽標記 //這裡可以加try-catch AntiForgery.Validate(cookieValue, request.Headers[&#34;__RequestVerificationToken&#34;]); } else { new ValidateAntiForgeryTokenAttribute() .OnAuthorization(filterContext); } } } } [MyValidateAntiForgeryToken] public ActionResult Delete(string id){} 參考連結 url1 '><title>MVC-使用AntiForgery Token防止跨網站(XSRF/CSRF)攻擊</title>
 
 <link rel='canonical' href='https://hushuuu.github.io/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/'>
 
@@ -16,7 +17,8 @@
 如果要在Ajax使用可以自行建立驗證
 內建的AntiForgeryToken @using (Html.BeginForm()) { @Html.AntiForgeryToken() } 後端掛在動作上驗證
 [ValidateAntiForgeryToken] public ActionResult Create(){ } Ajax套用自行建立驗證 產生AntiForgeryToken
-@functions{ public static string GetAntiForgery() { string cookieToken, formToken; AntiForgery.GetTokens(null, out cookieToken, out formToken); return String.Concat(cookieToken, &amp;#34;@.@&amp;#34;, formToken); } } function deleteUser() { var token = $(&amp;#39;@Html.AntiForgeryToken()&amp;#39;).val(); //防偽標記放入headers  //也可以將防偽標記放入data  $.ajax({ type: &amp;#39;POST&amp;#39;, url: &amp;#34;/User/Delete&amp;#34;, headers: { &amp;#39;__RequestVerificationToken&amp;#39;: token }, cache: false, data: { &amp;#34;id&amp;#34;: $(&amp;#34;#delid&amp;#34;).val()}, complete: function (data) { alert(data.'>
+@functions{ public static string GetAntiForgery() { string cookieToken, formToken; AntiForgery.GetTokens(null, out cookieToken, out formToken); return String.Concat(cookieToken, &#34;@.@&#34;, formToken); } } function deleteUser() { var token = $(&#39;@Html.AntiForgeryToken()&#39;).val(); //防偽標記放入headers //也可以將防偽標記放入data $.ajax({ type: &#39;POST&#39;, url: &#34;/User/Delete&#34;, headers: { &#39;__RequestVerificationToken&#39;: token }, cache: false, data: { &#34;id&#34;: $(&#34;#delid&#34;).val()}, complete: function (data) { alert(data.responseJSON[&#34;Data&#34;]); document.location.href = &#34;/User/Index&#34;; } }); } 後端自行建立Attribute驗證
+public class MyValidateAntiForgeryToken : AuthorizeAttribute { public override void OnAuthorization(AuthorizationContext filterContext) { var request = filterContext.HttpContext.Request; if (request.HttpMethod == WebRequestMethods.Http.Post) { if (request.IsAjaxRequest()) { var antiForgeryCookie = request.Cookies[AntiForgeryConfig.CookieName]; var cookieValue = antiForgeryCookie != null ? antiForgeryCookie.Value : null; //從cookies 和 Headers 中 驗證防偽標記 //這裡可以加try-catch AntiForgery.Validate(cookieValue, request.Headers[&#34;__RequestVerificationToken&#34;]); } else { new ValidateAntiForgeryTokenAttribute() .OnAuthorization(filterContext); } } } } [MyValidateAntiForgeryToken] public ActionResult Delete(string id){} 參考連結 url1 '>
 <meta property='og:url' content='https://hushuuu.github.io/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='CSRF' /><meta property='article:published_time' content='2021-03-29T15:56:17&#43;08:00'/><meta property='article:modified_time' content='2021-03-29T15:56:17&#43;08:00'/>
@@ -26,7 +28,8 @@
 如果要在Ajax使用可以自行建立驗證
 內建的AntiForgeryToken @using (Html.BeginForm()) { @Html.AntiForgeryToken() } 後端掛在動作上驗證
 [ValidateAntiForgeryToken] public ActionResult Create(){ } Ajax套用自行建立驗證 產生AntiForgeryToken
-@functions{ public static string GetAntiForgery() { string cookieToken, formToken; AntiForgery.GetTokens(null, out cookieToken, out formToken); return String.Concat(cookieToken, &amp;#34;@.@&amp;#34;, formToken); } } function deleteUser() { var token = $(&amp;#39;@Html.AntiForgeryToken()&amp;#39;).val(); //防偽標記放入headers  //也可以將防偽標記放入data  $.ajax({ type: &amp;#39;POST&amp;#39;, url: &amp;#34;/User/Delete&amp;#34;, headers: { &amp;#39;__RequestVerificationToken&amp;#39;: token }, cache: false, data: { &amp;#34;id&amp;#34;: $(&amp;#34;#delid&amp;#34;).val()}, complete: function (data) { alert(data.">
+@functions{ public static string GetAntiForgery() { string cookieToken, formToken; AntiForgery.GetTokens(null, out cookieToken, out formToken); return String.Concat(cookieToken, &#34;@.@&#34;, formToken); } } function deleteUser() { var token = $(&#39;@Html.AntiForgeryToken()&#39;).val(); //防偽標記放入headers //也可以將防偽標記放入data $.ajax({ type: &#39;POST&#39;, url: &#34;/User/Delete&#34;, headers: { &#39;__RequestVerificationToken&#39;: token }, cache: false, data: { &#34;id&#34;: $(&#34;#delid&#34;).val()}, complete: function (data) { alert(data.responseJSON[&#34;Data&#34;]); document.location.href = &#34;/User/Index&#34;; } }); } 後端自行建立Attribute驗證
+public class MyValidateAntiForgeryToken : AuthorizeAttribute { public override void OnAuthorization(AuthorizationContext filterContext) { var request = filterContext.HttpContext.Request; if (request.HttpMethod == WebRequestMethods.Http.Post) { if (request.IsAjaxRequest()) { var antiForgeryCookie = request.Cookies[AntiForgeryConfig.CookieName]; var cookieValue = antiForgeryCookie != null ? antiForgeryCookie.Value : null; //從cookies 和 Headers 中 驗證防偽標記 //這裡可以加try-catch AntiForgery.Validate(cookieValue, request.Headers[&#34;__RequestVerificationToken&#34;]); } else { new ValidateAntiForgeryTokenAttribute() .OnAuthorization(filterContext); } } } } [MyValidateAntiForgeryToken] public ActionResult Delete(string id){} 參考連結 url1 ">
     </head>
     <body class="">
     <script>
@@ -66,7 +69,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -231,75 +234,74 @@
 在<code>Action</code>上掛上<code>[ValidateAntiForgeryToken]</code>來檢查驗證<br>
 如果要在<code>Ajax</code>使用可以自行建立驗證</p>
 <h2 id="內建的antiforgerytoken">內建的AntiForgeryToken</h2>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">@using</span> <span class="p">(</span><span class="n">Html</span><span class="p">.</span><span class="n">BeginForm</span><span class="p">())</span>
-<span class="p">{</span>
-    <span class="n">@Html</span><span class="p">.</span><span class="n">AntiForgeryToken</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></div><p>後端掛在動作上驗證</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="na">[ValidateAntiForgeryToken]</span>
-<span class="k">public</span> <span class="n">ActionResult</span> <span class="n">Create</span><span class="p">(){</span> 
-<span class="p">}</span>
-</code></pre></div><h2 id="ajax套用自行建立驗證">Ajax套用自行建立驗證</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">@using</span> <span class="p">(</span><span class="n">Html</span><span class="p">.</span><span class="n">BeginForm</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">@Html</span><span class="p">.</span><span class="n">AntiForgeryToken</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>後端掛在動作上驗證</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="na">[ValidateAntiForgeryToken]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">ActionResult</span> <span class="n">Create</span><span class="p">(){</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="ajax套用自行建立驗證">Ajax套用自行建立驗證</h2>
 <p>產生AntiForgeryToken</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">@functions</span><span class="p">{</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="kt">string</span> <span class="n">GetAntiForgery</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="kt">string</span> <span class="n">cookieToken</span><span class="p">,</span> <span class="n">formToken</span><span class="p">;</span>
-        <span class="n">AntiForgery</span><span class="p">.</span><span class="n">GetTokens</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="k">out</span> <span class="n">cookieToken</span><span class="p">,</span> <span class="k">out</span> <span class="n">formToken</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="n">Concat</span><span class="p">(</span><span class="n">cookieToken</span><span class="p">,</span> <span class="s">&#34;@.@&#34;</span><span class="p">,</span> <span class="n">formToken</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">deleteUser</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;@Html.AntiForgeryToken()&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
-    <span class="c1">//防偽標記放入headers
-</span><span class="c1"></span>    <span class="c1">//也可以將防偽標記放入data
-</span><span class="c1"></span>    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-        <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
-        <span class="nx">url</span><span class="o">:</span> <span class="s2">&#34;/User/Delete&#34;</span><span class="p">,</span>
-        <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;__RequestVerificationToken&#39;</span><span class="o">:</span> <span class="nx">token</span> <span class="p">},</span>
-        <span class="nx">cache</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="nx">data</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&#34;id&#34;</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#delid&#34;</span><span class="p">).</span><span class="nx">val</span><span class="p">()},</span>
-        <span class="nx">complete</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">alert</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">responseJSON</span><span class="p">[</span><span class="s2">&#34;Data&#34;</span><span class="p">]);</span>
-            <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="s2">&#34;/User/Index&#34;</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">});</span>
-<span class="p">}</span>
-</code></pre></div><p>後端自行建立<code>Attribute</code>驗證</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">class</span> <span class="nc">MyValidateAntiForgeryToken</span> <span class="p">:</span> <span class="n">AuthorizeAttribute</span>
-    <span class="p">{</span>
-        <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">OnAuthorization</span><span class="p">(</span><span class="n">AuthorizationContext</span> <span class="n">filterContext</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="kt">var</span> <span class="n">request</span> <span class="p">=</span> <span class="n">filterContext</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">Request</span><span class="p">;</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">HttpMethod</span> <span class="p">==</span> <span class="n">WebRequestMethods</span><span class="p">.</span><span class="n">Http</span><span class="p">.</span><span class="n">Post</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">IsAjaxRequest</span><span class="p">())</span>
-                <span class="p">{</span>
-                    <span class="kt">var</span> <span class="n">antiForgeryCookie</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="n">Cookies</span><span class="p">[</span><span class="n">AntiForgeryConfig</span><span class="p">.</span><span class="n">CookieName</span><span class="p">];</span>
-                    <span class="kt">var</span> <span class="n">cookieValue</span> <span class="p">=</span> <span class="n">antiForgeryCookie</span> <span class="p">!=</span> <span class="k">null</span>
-                    <span class="p">?</span> <span class="n">antiForgeryCookie</span><span class="p">.</span><span class="n">Value</span>
-                    <span class="p">:</span> <span class="k">null</span><span class="p">;</span>
-                    <span class="c1">//從cookies 和 Headers 中 驗證防偽標記
-</span><span class="c1"></span>                    <span class="c1">//這裡可以加try-catch
-</span><span class="c1"></span>                    <span class="n">AntiForgery</span><span class="p">.</span><span class="n">Validate</span><span class="p">(</span><span class="n">cookieValue</span><span class="p">,</span> <span class="n">request</span><span class="p">.</span><span class="n">Headers</span><span class="p">[</span><span class="s">&#34;__RequestVerificationToken&#34;</span><span class="p">]);</span>
-                <span class="p">}</span>
-                <span class="k">else</span>
-                <span class="p">{</span>
-                    <span class="k">new</span> <span class="n">ValidateAntiForgeryTokenAttribute</span><span class="p">()</span>
-                    <span class="p">.</span><span class="n">OnAuthorization</span><span class="p">(</span><span class="n">filterContext</span><span class="p">);</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="na">[MyValidateAntiForgeryToken]</span>
-    <span class="k">public</span> <span class="n">ActionResult</span> <span class="n">Delete</span><span class="p">(</span><span class="kt">string</span> <span class="n">id</span><span class="p">){}</span>
-</code></pre></div><h2 id="參考連結">參考連結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">@functions</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">string</span> <span class="n">GetAntiForgery</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">string</span> <span class="n">cookieToken</span><span class="p">,</span> <span class="n">formToken</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AntiForgery</span><span class="p">.</span><span class="n">GetTokens</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="k">out</span> <span class="n">cookieToken</span><span class="p">,</span> <span class="k">out</span> <span class="n">formToken</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="n">Concat</span><span class="p">(</span><span class="n">cookieToken</span><span class="p">,</span> <span class="s">&#34;@.@&#34;</span><span class="p">,</span> <span class="n">formToken</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">deleteUser</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;@Html.AntiForgeryToken()&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//防偽標記放入headers
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//也可以將防偽標記放入data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">url</span><span class="o">:</span> <span class="s2">&#34;/User/Delete&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;__RequestVerificationToken&#39;</span><span class="o">:</span> <span class="nx">token</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">cache</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&#34;id&#34;</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#delid&#34;</span><span class="p">).</span><span class="nx">val</span><span class="p">()},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">complete</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">alert</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">responseJSON</span><span class="p">[</span><span class="s2">&#34;Data&#34;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="s2">&#34;/User/Index&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>後端自行建立<code>Attribute</code>驗證</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">MyValidateAntiForgeryToken</span> <span class="p">:</span> <span class="n">AuthorizeAttribute</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kd">override</span> <span class="k">void</span> <span class="n">OnAuthorization</span><span class="p">(</span><span class="n">AuthorizationContext</span> <span class="n">filterContext</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">var</span> <span class="n">request</span> <span class="p">=</span> <span class="n">filterContext</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">Request</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">HttpMethod</span> <span class="p">==</span> <span class="n">WebRequestMethods</span><span class="p">.</span><span class="n">Http</span><span class="p">.</span><span class="n">Post</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">IsAjaxRequest</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="kt">var</span> <span class="n">antiForgeryCookie</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="n">Cookies</span><span class="p">[</span><span class="n">AntiForgeryConfig</span><span class="p">.</span><span class="n">CookieName</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                    <span class="kt">var</span> <span class="n">cookieValue</span> <span class="p">=</span> <span class="n">antiForgeryCookie</span> <span class="p">!=</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">?</span> <span class="n">antiForgeryCookie</span><span class="p">.</span><span class="n">Value</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">:</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">//從cookies 和 Headers 中 驗證防偽標記</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">//這裡可以加try-catch</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">AntiForgery</span><span class="p">.</span><span class="n">Validate</span><span class="p">(</span><span class="n">cookieValue</span><span class="p">,</span> <span class="n">request</span><span class="p">.</span><span class="n">Headers</span><span class="p">[</span><span class="s">&#34;__RequestVerificationToken&#34;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">new</span> <span class="n">ValidateAntiForgeryTokenAttribute</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">.</span><span class="n">OnAuthorization</span><span class="p">(</span><span class="n">filterContext</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="na">[MyValidateAntiForgeryToken]</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">ActionResult</span> <span class="n">Delete</span><span class="p">(</span><span class="kt">string</span> <span class="n">id</span><span class="p">){}</span>
+</span></span></code></pre></div><h2 id="參考連結">參考連結</h2>
 <blockquote>
 <ul>
 <li><a class="link" href="https://codertw.com/%E5%89%8D%E7%AB%AF%E9%96%8B%E7%99%BC/386205/"  target="_blank" rel="noopener"
     >url1</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -411,12 +413,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

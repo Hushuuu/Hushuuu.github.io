@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -222,47 +222,46 @@
 <p>1.在專案底下新增資料夾<code>ViewComponents</code><br>
 2.新增一個<code>XXXXViewComponent.cs</code>檔案<br>
 3.檔案內容須符合相關規則(可只擇一規則)才會被辨認為<code>ViewComponent</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">//規則:檔名為XXXXViewComponent
-</span><span class="c1"></span><span class="na">[Microsoft.AspNetCore.Mvc.ViewComponent]</span> <span class="c1">//規則: 類別掛上[ViewComponent] Attribute
-</span><span class="c1"></span><span class="k">public</span> <span class="k">class</span> <span class="nc">PkindViewComponent</span> <span class="p">:</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">AspNetCore</span><span class="p">.</span><span class="n">Mvc</span><span class="p">.</span><span class="n">ViewComponent</span> <span class="c1">//規則: 類別繼承ViewComponent
-</span><span class="c1"></span><span class="p">{</span>
-    <span class="k">public</span> <span class="n">PkindViewComponent</span><span class="p">()</span>
-    <span class="p">{</span>
-    <span class="p">}</span>
-    <span class="k">public</span> <span class="n">IViewComponentResult</span> <span class="n">Invoke</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="n">View</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p><code>View</code>模板預設路徑要放在
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="c1">//規則:檔名為XXXXViewComponent</span>
+</span></span><span class="line"><span class="cl"><span class="na">[Microsoft.AspNetCore.Mvc.ViewComponent]</span> <span class="c1">//規則: 類別掛上[ViewComponent] Attribute</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">PkindViewComponent</span> <span class="p">:</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">AspNetCore</span><span class="p">.</span><span class="n">Mvc</span><span class="p">.</span><span class="n">ViewComponent</span> <span class="c1">//規則: 類別繼承ViewComponent</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">PkindViewComponent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">IViewComponentResult</span> <span class="n">Invoke</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">View</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>View</code>模板預設路徑要放在
 <code>Views/Shared/Components/XXXX/Default.cshtml</code><br>
 就可以開始設計<code>View</code></p>
 <h3 id="如何使用">如何使用</h3>
 <p>在需要呼叫<code>ViewComponent</code> 的檢視下加上</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html">@addTagHelper *, 專案名稱
-再打上vc 就會自動跑出選項代表成功了
-<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">vc:XXXX</span><span class="p">&gt;&lt;/</span><span class="nt">vc:XXXX</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-</code></pre></div><h3 id="應用">應用</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">@addTagHelper *, 專案名稱
+</span></span><span class="line"><span class="cl">再打上vc 就會自動跑出選項代表成功了
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vc:XXXX</span><span class="p">&gt;&lt;/</span><span class="nt">vc:XXXX</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h3 id="應用">應用</h3>
 <p>也有非同步調用方法<code>InvokeAsync</code> 和含有參數往資料庫撈資料的變化</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="na">    [Microsoft.AspNetCore.Mvc.ViewComponent]</span>
-    <span class="k">public</span> <span class="k">class</span> <span class="nc">HotSaleComponent</span> <span class="p">:</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">AspNetCore</span><span class="p">.</span><span class="n">Mvc</span><span class="p">.</span><span class="n">ViewComponent</span>
-    <span class="p">{</span>
-        <span class="k">private</span> <span class="n">Test2021Context</span> <span class="n">_context</span><span class="p">;</span>
-        <span class="k">public</span> <span class="n">HotSaleComponent</span><span class="p">(</span><span class="n">Test2021Context</span> <span class="n">context</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">_context</span> <span class="p">=</span> <span class="n">context</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">IViewComponentResult</span><span class="p">&gt;</span> <span class="n">InvokeAsync</span><span class="p">(</span><span class="kt">string</span> <span class="n">ddd</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="kt">var</span> <span class="n">list</span> <span class="p">=</span> <span class="k">await</span> <span class="n">_context</span><span class="p">.</span><span class="n">PRODUCT</span> <span class="c1">//向資料庫拿資料並將list或模型傳回檢視
-</span><span class="c1"></span>                <span class="p">.</span><span class="n">ToListAsync</span><span class="p">();</span>
-            <span class="k">return</span> <span class="n">View</span><span class="p">(</span><span class="n">list</span><span class="p">));</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre></div><h2 id="參考連結">參考連結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="na">    [Microsoft.AspNetCore.Mvc.ViewComponent]</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">class</span> <span class="nc">HotSaleComponent</span> <span class="p">:</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">AspNetCore</span><span class="p">.</span><span class="n">Mvc</span><span class="p">.</span><span class="n">ViewComponent</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="n">Test2021Context</span> <span class="n">_context</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">HotSaleComponent</span><span class="p">(</span><span class="n">Test2021Context</span> <span class="n">context</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_context</span> <span class="p">=</span> <span class="n">context</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kd">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">IViewComponentResult</span><span class="p">&gt;</span> <span class="n">InvokeAsync</span><span class="p">(</span><span class="kt">string</span> <span class="n">ddd</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">var</span> <span class="n">list</span> <span class="p">=</span> <span class="k">await</span> <span class="n">_context</span><span class="p">.</span><span class="n">PRODUCT</span> <span class="c1">//向資料庫拿資料並將list或模型傳回檢視</span>
+</span></span><span class="line"><span class="cl">                <span class="p">.</span><span class="n">ToListAsync</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">View</span><span class="p">(</span><span class="n">list</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><h2 id="參考連結">參考連結</h2>
 <blockquote>
 <ul>
 <li><a class="link" href="https://ithelp.ithome.com.tw/articles/10205881"  target="_blank" rel="noopener"
@@ -271,8 +270,7 @@
     >url2</a></li>
 <li><a class="link" href="https://blog.darkthread.net/blog/aspnetcore-view-component/"  target="_blank" rel="noopener"
     >url3</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -384,12 +382,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

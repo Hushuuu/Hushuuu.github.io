@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -219,163 +219,163 @@
 <p>找出每個Input元素並串好值可以拿來提交表單或是ajax post</p>
 <h2 id="主要內容">主要內容</h2>
 <h3 id="常用input-tag">常用input tag</h3>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;queryForm&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>
-    @Html.AntiForgeryToken()
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;color&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;color&#34;</span> <span class="p">/&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;1&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;chks[0]&#34;</span> <span class="p">/&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;2&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;chks[1]&#34;</span> <span class="p">/&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;range&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;rng&#34;</span> <span class="p">/&gt;</span>
-    <span class="p">&lt;</span><span class="nt">select</span> <span class="na">multiple</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;selects&#34;</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;1&#34;</span><span class="p">&gt;</span>A<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;2&#34;</span><span class="p">&gt;</span>B<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;3&#34;</span><span class="p">&gt;</span>C<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;rdo&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;10&#34;</span> <span class="p">/&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;rdo&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;20&#34;</span> <span class="p">/&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;rdo&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;30&#34;</span> <span class="p">/&gt;</span>
-    <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;textarea&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;ppTobk();&#34;</span><span class="p">&gt;</span>submit<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-</code></pre></div><h3 id="共用method">共用method</h3>
-<div class="highlight"><pre class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="cm">/**
-</span><span class="cm">* 將值集合轉成物件
-</span><span class="cm">* @@param paras 值集合
-</span><span class="cm">*/</span>
-<span class="kd">function</span> <span class="nx">paras_to_object</span><span class="p">(</span><span class="nx">paras</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">paras</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">json_data</span><span class="p">[</span><span class="nx">paras</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">paras</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">val</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="cm">/**
-</span><span class="cm">    * 將input值串好form接的格式
-</span><span class="cm">    * @@param jqselector jq選擇器字串
-</span><span class="cm">    */</span>
-<span class="kd">function</span> <span class="nx">form_get_paras</span><span class="p">(</span><span class="nx">jqselector</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">paras</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="nx">$</span><span class="p">(</span><span class="nx">jqselector</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input,textarea&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-            <span class="kd">let</span> <span class="nx">typ</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">typ</span> <span class="o">==</span> <span class="s2">&#34;checkbox&#34;</span> <span class="o">||</span> <span class="nx">typ</span> <span class="o">==</span> <span class="s2">&#34;radio&#34;</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">prop</span><span class="p">(</span><span class="s1">&#39;checked&#39;</span><span class="p">))</span> <span class="p">{</span>
-                    <span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="p">{</span>
-                        <span class="nx">name</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">),</span>
-                        <span class="nx">val</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
-                    <span class="p">};</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-                        <span class="nx">paras</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">p</span><span class="p">);</span>
-                    <span class="p">}</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">typ</span> <span class="o">==</span> <span class="s2">&#34;file&#34;</span> <span class="o">||</span> <span class="nx">typ</span> <span class="o">==</span> <span class="s2">&#34;image&#34;</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
-            <span class="k">else</span> <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">))</span> <span class="p">{</span>
-                    <span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="p">{</span>
-                        <span class="nx">name</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">),</span>
-                        <span class="nx">val</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
-                    <span class="p">};</span>
-                    <span class="nx">paras</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">p</span><span class="p">);</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-        <span class="p">});</span>
-        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;multiple&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&#34;multiple&#34;</span><span class="p">)</span> <span class="p">{</span>
-                <span class="kd">let</span> <span class="nx">valarr</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
-                <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">valarr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="p">{</span>
-                        <span class="nx">name</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;[&#34;</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="s2">&#34;]&#34;</span><span class="p">,</span>
-                        <span class="nx">val</span><span class="o">:</span> <span class="nx">valarr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
-                    <span class="p">};</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-                        <span class="nx">paras</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">p</span><span class="p">);</span>
-                    <span class="p">}</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-            <span class="k">else</span> <span class="p">{</span>
-                <span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="p">{</span>
-                    <span class="nx">name</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">),</span>
-                    <span class="nx">val</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
-                <span class="p">};</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="nx">paras</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">p</span><span class="p">);</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-        <span class="p">})</span>
-    <span class="p">});</span>
-    <span class="k">return</span> <span class="nx">paras</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="cm">/**
-</span><span class="cm">* insert hidden inputs to form
-</span><span class="cm">* @@param tmpform 傳入Form
-</span><span class="cm">* @@param paras 參數array
-</span><span class="cm">*/</span>
-<span class="kd">function</span> <span class="nx">form_ins_inputs</span><span class="p">(</span><span class="nx">tmpform</span><span class="p">,</span> <span class="nx">paras</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">paras</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">hideInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;input&#34;</span><span class="p">);</span>
-        <span class="nx">hideInput</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&#34;hidden&#34;</span><span class="p">;</span>
-        <span class="nx">hideInput</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">paras</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span><span class="c1">//傳入引數名
-</span><span class="c1"></span>        <span class="nx">hideInput</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">paras</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">val</span><span class="p">;</span><span class="c1">//傳入資料
-</span><span class="c1"></span>        <span class="nx">tmpform</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">hideInput</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="cm">/**
-</span><span class="cm">* 開新窗POST
-</span><span class="cm">* @@param url 網址
-</span><span class="cm">* @@param name 自定義一個name
-</span><span class="cm">* @@param jqselector 抓參數的jq選擇
-</span><span class="cm">*/</span>
-<span class="kd">function</span> <span class="nx">openPostWindow</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">jqselector</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">tempForm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;form&#34;</span><span class="p">);</span>
-    <span class="nx">tempForm</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&#34;tempForm1&#34;</span><span class="p">;</span>
-    <span class="nx">tempForm</span><span class="p">.</span><span class="nx">method</span> <span class="o">=</span> <span class="s2">&#34;post&#34;</span><span class="p">;</span>
-    <span class="nx">tempForm</span><span class="p">.</span><span class="nx">action</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span> <span class="c1">//url
-</span><span class="c1"></span>    <span class="nx">tempForm</span><span class="p">.</span><span class="nx">target</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
-
-    <span class="kd">let</span> <span class="nx">paras</span> <span class="o">=</span> <span class="nx">form_get_paras</span><span class="p">(</span><span class="nx">jqselector</span><span class="p">);</span>
-    <span class="nx">form_ins_inputs</span><span class="p">(</span><span class="nx">tempForm</span><span class="p">,</span> <span class="nx">paras</span><span class="p">);</span>
-
-    <span class="nx">tempForm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;onsubmit&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">openWindow</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span> <span class="p">})</span>
-    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">tempForm</span><span class="p">);</span>
-
-    <span class="c1">//手動submit form
-</span><span class="c1"></span>    <span class="nx">tempForm</span><span class="p">.</span><span class="nx">submit</span><span class="p">();</span>
-    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">tempForm</span><span class="p">);</span>
-
-    <span class="kd">function</span> <span class="nx">openWindow</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;about:blank&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><h3 id="提交">提交</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;queryForm&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    @Html.AntiForgeryToken()
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;color&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;color&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;1&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;chks[0]&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;2&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;chks[1]&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;range&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;rng&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">select</span> <span class="na">multiple</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;selects&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;1&#34;</span><span class="p">&gt;</span>A<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;2&#34;</span><span class="p">&gt;</span>B<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;3&#34;</span><span class="p">&gt;</span>C<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;rdo&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;10&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;rdo&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;20&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;rdo&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;30&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;textarea&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;ppTobk();&#34;</span><span class="p">&gt;</span>submit<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h3 id="共用method">共用method</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">* 將值集合轉成物件
+</span></span></span><span class="line"><span class="cl"><span class="cm">* @@param paras 值集合
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">paras_to_object</span><span class="p">(</span><span class="nx">paras</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">paras</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">json_data</span><span class="p">[</span><span class="nx">paras</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">paras</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">    * 將input值串好form接的格式
+</span></span></span><span class="line"><span class="cl"><span class="cm">    * @@param jqselector jq選擇器字串
+</span></span></span><span class="line"><span class="cl"><span class="cm">    */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">form_get_paras</span><span class="p">(</span><span class="nx">jqselector</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">paras</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">$</span><span class="p">(</span><span class="nx">jqselector</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input,textarea&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">let</span> <span class="nx">typ</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">typ</span> <span class="o">==</span> <span class="s2">&#34;checkbox&#34;</span> <span class="o">||</span> <span class="nx">typ</span> <span class="o">==</span> <span class="s2">&#34;radio&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">prop</span><span class="p">(</span><span class="s1">&#39;checked&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">name</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">val</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">paras</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">typ</span> <span class="o">==</span> <span class="s2">&#34;file&#34;</span> <span class="o">||</span> <span class="nx">typ</span> <span class="o">==</span> <span class="s2">&#34;image&#34;</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">name</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">val</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">paras</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;multiple&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&#34;multiple&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">let</span> <span class="nx">valarr</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">valarr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">name</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;[&#34;</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="s2">&#34;]&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">val</span><span class="o">:</span> <span class="nx">valarr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">paras</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">name</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">val</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                <span class="p">};</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">paras</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">paras</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">* insert hidden inputs to form
+</span></span></span><span class="line"><span class="cl"><span class="cm">* @@param tmpform 傳入Form
+</span></span></span><span class="line"><span class="cl"><span class="cm">* @@param paras 參數array
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">form_ins_inputs</span><span class="p">(</span><span class="nx">tmpform</span><span class="p">,</span> <span class="nx">paras</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">paras</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">hideInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;input&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">hideInput</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&#34;hidden&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">hideInput</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">paras</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span><span class="c1">//傳入引數名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">hideInput</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">paras</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">val</span><span class="p">;</span><span class="c1">//傳入資料
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">tmpform</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">hideInput</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">* 開新窗POST
+</span></span></span><span class="line"><span class="cl"><span class="cm">* @@param url 網址
+</span></span></span><span class="line"><span class="cl"><span class="cm">* @@param name 自定義一個name
+</span></span></span><span class="line"><span class="cl"><span class="cm">* @@param jqselector 抓參數的jq選擇
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">openPostWindow</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">jqselector</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">tempForm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;form&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">tempForm</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&#34;tempForm1&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">tempForm</span><span class="p">.</span><span class="nx">method</span> <span class="o">=</span> <span class="s2">&#34;post&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">tempForm</span><span class="p">.</span><span class="nx">action</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span> <span class="c1">//url
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">tempForm</span><span class="p">.</span><span class="nx">target</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">paras</span> <span class="o">=</span> <span class="nx">form_get_paras</span><span class="p">(</span><span class="nx">jqselector</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">form_ins_inputs</span><span class="p">(</span><span class="nx">tempForm</span><span class="p">,</span> <span class="nx">paras</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">tempForm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;onsubmit&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">openWindow</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">tempForm</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//手動submit form
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">tempForm</span><span class="p">.</span><span class="nx">submit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">tempForm</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">openWindow</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;about:blank&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="提交">提交</h3>
 <p><code>Sumbit</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">$form</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#queryForm&#39;</span><span class="p">);</span>
-<span class="nx">$form</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">);</span>
-<span class="c1">//$form.attr(&#39;action&#39;, url).attr(&#39;target&#39;, &#39;_blank&#39;); //new window
-</span><span class="c1"></span><span class="nx">$form</span><span class="p">.</span><span class="nx">submit</span><span class="p">();</span>
-</code></pre></div><p><code>Open Window Submit</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">ppTobk</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">openPostWindow</span><span class="p">(</span><span class="s1">&#39;@Url.Action(&#34;TestPost&#34;)&#39;</span><span class="p">,</span> <span class="s1">&#39;pppp&#39;</span><span class="p">,</span> <span class="s1">&#39;#queryForm&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p><code>Ajax Post</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">form</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;__AjaxAntiForgeryForm&#34;</span> <span class="nx">action</span><span class="o">=</span><span class="s2">&#34;#&#34;</span> <span class="nx">method</span><span class="o">=</span><span class="s2">&#34;post&#34;</span><span class="o">&gt;</span><span class="err">@</span><span class="nx">Html</span><span class="p">.</span><span class="nx">AntiForgeryToken</span><span class="p">()</span><span class="o">&lt;</span><span class="err">/form&gt;</span>
-
-<span class="kd">var</span> <span class="nx">AddAntiForgeryToken</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">data</span><span class="p">.</span><span class="nx">__RequestVerificationToken</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#__AjaxAntiForgeryForm input[name=__RequestVerificationToken]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
-    <span class="k">return</span> <span class="nx">data</span><span class="p">;</span> <span class="c1">//CSRF
-</span><span class="c1"></span><span class="p">};</span>
-<span class="kd">function</span> <span class="nx">ppTobk</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">paras_data</span> <span class="o">=</span> <span class="nx">paras_to_object</span><span class="p">(</span><span class="nx">form_get_paras</span><span class="p">(</span><span class="s2">&#34;#queryForm&#34;</span><span class="p">));</span>
-    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-        <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;post&#34;</span><span class="p">,</span>
-        <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-        <span class="nx">data</span><span class="o">:</span> <span class="nx">AddAntiForgeryToken</span><span class="p">(</span><span class="nx">paras_data</span><span class="p">),</span>
-        <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-            <span class="c1">// ....
-</span><span class="c1"></span>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;OK&#34;</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">});</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">$form</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#queryForm&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">$form</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//$form.attr(&#39;action&#39;, url).attr(&#39;target&#39;, &#39;_blank&#39;); //new window
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">$form</span><span class="p">.</span><span class="nx">submit</span><span class="p">();</span>
+</span></span></code></pre></div><p><code>Open Window Submit</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">ppTobk</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">openPostWindow</span><span class="p">(</span><span class="s1">&#39;@Url.Action(&#34;TestPost&#34;)&#39;</span><span class="p">,</span> <span class="s1">&#39;pppp&#39;</span><span class="p">,</span> <span class="s1">&#39;#queryForm&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>Ajax Post</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">form</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;__AjaxAntiForgeryForm&#34;</span> <span class="nx">action</span><span class="o">=</span><span class="s2">&#34;#&#34;</span> <span class="nx">method</span><span class="o">=</span><span class="s2">&#34;post&#34;</span><span class="o">&gt;</span><span class="err">@</span><span class="nx">Html</span><span class="p">.</span><span class="nx">AntiForgeryToken</span><span class="p">()</span><span class="o">&lt;</span><span class="err">/form&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">AddAntiForgeryToken</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="p">.</span><span class="nx">__RequestVerificationToken</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#__AjaxAntiForgeryForm input[name=__RequestVerificationToken]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">data</span><span class="p">;</span> <span class="c1">//CSRF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">ppTobk</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">paras_data</span> <span class="o">=</span> <span class="nx">paras_to_object</span><span class="p">(</span><span class="nx">form_get_paras</span><span class="p">(</span><span class="s2">&#34;#queryForm&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;post&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">:</span> <span class="nx">AddAntiForgeryToken</span><span class="p">(</span><span class="nx">paras_data</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// ....
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;OK&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 
 </section>
 
@@ -465,12 +465,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

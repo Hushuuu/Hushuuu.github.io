@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -221,21 +221,21 @@
 故需要在POST前加上token來通過檢查</p>
 <h2 id="主要內容">主要內容</h2>
 <h3 id="可利用htmlhelper直接產生出token">可利用HtmlHelper直接產生出token</h3>
-<div class="highlight"><pre class="chroma"><code class="language-c#" data-lang="c#"><span class="n">@Html</span><span class="p">.</span><span class="n">AntiForgeryToken</span><span class="p">()</span>
-</code></pre></div><h3 id="在ajax中加入token">在ajax中加入token</h3>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"> <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-        <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>
-        <span class="nx">url</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
-        <span class="nx">data</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
-        <span class="nx">dataType</span><span class="o">:</span> <span class="s2">&#34;json&#34;</span><span class="p">,</span>
-        <span class="nx">beforeSend</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&#34;requestverificationtoken&#34;</span><span class="p">,</span>
-                <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;input:hidden[name=&#34;__RequestVerificationToken&#34;]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span>
-        <span class="p">},</span>
-        <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="p">}</span>
-    <span class="p">});</span>    
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">@Html</span><span class="p">.</span><span class="n">AntiForgeryToken</span><span class="p">()</span>
+</span></span></code></pre></div><h3 id="在ajax中加入token">在ajax中加入token</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"> <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">url</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">dataType</span><span class="o">:</span> <span class="s2">&#34;json&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">beforeSend</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&#34;requestverificationtoken&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;input:hidden[name=&#34;__RequestVerificationToken&#34;]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>    
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p>另外<code>Razor Pages</code> 是透過 <code>?handler</code> 決定呼叫哪一段程式<br>
 只要在 <code>AJAX URL</code> 加上 <code>?handler=MethodName</code><br>
 <code>Razor Page cs</code>檔寫 <code>OnGetMethodName()</code> 或 <code>OnPostMethodName()</code> 即可辨識要進哪個方法</p>
@@ -246,8 +246,7 @@
     >url1</a></li>
 <li><a class="link" href="https://blog.darkthread.net/blog/razor-pages-ajax-call/"  target="_blank" rel="noopener"
     >url2</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -361,12 +360,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

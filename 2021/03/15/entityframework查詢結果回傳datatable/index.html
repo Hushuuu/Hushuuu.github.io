@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -191,7 +191,7 @@
             </a>
         
             <a href="/categories/sql/" >
-                SQL
+                Sql
             </a>
         
     </header>
@@ -225,36 +225,36 @@
 <h2 id="主要內容">主要內容</h2>
 <p>查詢結果回傳DataSet方法<br>
 傳入<code>sql CommandText</code> 以及數組<code>KeyValuePair</code>參數</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="n">DataSet</span> <span class="n">EF_SQL_DS</span><span class="p">(</span><span class="kt">string</span> <span class="n">sql</span><span class="p">,</span><span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="kt">object</span><span class="p">&gt;</span> <span class="n">parameters</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">XXXXEntities</span> <span class="n">Db</span> <span class="p">=</span> <span class="k">new</span> <span class="n">XXXXEntities</span><span class="p">();</span><span class="c1">//更改為自己的Entities
-</span><span class="c1"></span>    <span class="n">DataSet</span> <span class="n">ds</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DataSet</span><span class="p">();</span>
-    <span class="n">DbCommand</span> <span class="n">cmd</span> <span class="p">=</span> <span class="n">Db</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">CreateCommand</span><span class="p">();</span>
-    <span class="n">cmd</span><span class="p">.</span><span class="n">CommandText</span> <span class="p">=</span> <span class="n">sql</span><span class="p">;</span>
-    <span class="k">foreach</span><span class="p">(</span><span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="kt">object</span><span class="p">&gt;</span> <span class="n">p</span> <span class="k">in</span> <span class="n">parameters</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">DbParameter</span> <span class="n">dbp</span> <span class="p">=</span> <span class="n">cmd</span><span class="p">.</span><span class="n">CreateParameter</span><span class="p">();</span>
-        <span class="n">dbp</span><span class="p">.</span><span class="n">ParameterName</span> <span class="p">=</span> <span class="n">p</span><span class="p">.</span><span class="n">Key</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">Value</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">dbp</span><span class="p">.</span><span class="n">Value</span> <span class="p">=</span> <span class="n">p</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">else</span>
-        <span class="p">{</span>
-            <span class="n">dbp</span><span class="p">.</span><span class="n">Value</span> <span class="p">=</span> <span class="n">DBNull</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">cmd</span><span class="p">.</span><span class="n">Parameters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">dbp</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="n">Db</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">Open</span><span class="p">();</span>
-    <span class="kt">var</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">cmd</span><span class="p">.</span><span class="n">ExecuteReader</span><span class="p">();</span>
-    <span class="kt">var</span> <span class="n">tb</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DataTable</span><span class="p">();</span>
-    <span class="n">tb</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">reader</span><span class="p">);</span>
-    <span class="n">ds</span><span class="p">.</span><span class="n">Tables</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">tb</span><span class="p">);</span>
-    <span class="n">reader</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
-    <span class="n">Db</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
-    <span class="k">return</span> <span class="n">ds</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">DataSet</span> <span class="n">EF_SQL_DS</span><span class="p">(</span><span class="kt">string</span> <span class="n">sql</span><span class="p">,</span><span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="kt">object</span><span class="p">&gt;</span> <span class="n">parameters</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">XXXXEntities</span> <span class="n">Db</span> <span class="p">=</span> <span class="k">new</span> <span class="n">XXXXEntities</span><span class="p">();</span><span class="c1">//更改為自己的Entities</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DataSet</span> <span class="n">ds</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DataSet</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DbCommand</span> <span class="n">cmd</span> <span class="p">=</span> <span class="n">Db</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">CreateCommand</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cmd</span><span class="p">.</span><span class="n">CommandText</span> <span class="p">=</span> <span class="n">sql</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">foreach</span><span class="p">(</span><span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="kt">object</span><span class="p">&gt;</span> <span class="n">p</span> <span class="k">in</span> <span class="n">parameters</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">DbParameter</span> <span class="n">dbp</span> <span class="p">=</span> <span class="n">cmd</span><span class="p">.</span><span class="n">CreateParameter</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dbp</span><span class="p">.</span><span class="n">ParameterName</span> <span class="p">=</span> <span class="n">p</span><span class="p">.</span><span class="n">Key</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">Value</span> <span class="p">!=</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">dbp</span><span class="p">.</span><span class="n">Value</span> <span class="p">=</span> <span class="n">p</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">dbp</span><span class="p">.</span><span class="n">Value</span> <span class="p">=</span> <span class="n">DBNull</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cmd</span><span class="p">.</span><span class="n">Parameters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">dbp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Db</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">Open</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">cmd</span><span class="p">.</span><span class="n">ExecuteReader</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">tb</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DataTable</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tb</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">reader</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ds</span><span class="p">.</span><span class="n">Tables</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">tb</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">reader</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Db</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">ds</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p>利用<code>LinQ Select</code>出自訂類別應較為方便泛用。<br>
 若利用EF的Command須注意是否會和Entities的方式混用導致非預期的資料不正確或錯誤。</p>
 
@@ -267,7 +267,7 @@
         
             <a href="/tags/entityframework/">EntityFramework</a>
         
-            <a href="/tags/sql/">SQL</a>
+            <a href="/tags/sql/">Sql</a>
         
     </section>
 
@@ -303,12 +303,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -224,38 +224,38 @@
 <code>RegularExpression()</code> 利用正則式<br>
 <code>Required</code> 必要欄位<br>
 <code>CheckAccount</code> 則為自訂的驗證</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="na">[Display(Name = &#34;帳號&#34;)]</span>
-<span class="na">[StringLength(20)]</span>
-<span class="na">[RegularExpression(@&#34;[a-zA-Z0-9]</span><span class="p">*</span><span class="s">$&#34;, ErrorMessage = &#34;</span><span class="err">帳號僅能有英文或數字</span><span class="s">&#34;)]
-</span><span class="s"></span><span class="na">[Required]</span>
-<span class="na">[CheckAccount(ErrorMessage = &#34;重複&#34;)]</span>
-<span class="k">public</span> <span class="kt">string</span> <span class="n">account</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-</code></pre></div><p>自訂驗證部分可以建立一個類別繼承<code>ValidationAttribute</code>，再複寫 `IsValid方法</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">class</span> <span class="nc">CheckAccountAttribute</span> <span class="p">:</span> <span class="n">ValidationAttribute</span>
-<span class="p">{</span>
-    <span class="k">protected</span> <span class="k">override</span> <span class="n">ValidationResult</span> <span class="n">IsValid</span><span class="p">(</span><span class="kt">object</span> <span class="k">value</span><span class="p">,</span> <span class="n">ValidationContext</span> <span class="n">validationContext</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">//return base.IsValid(value, validationContext);
-</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="k">value</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
-        <span class="p">{</span>            
-            <span class="k">if</span> <span class="p">(</span><span class="cm">/*條件式*/</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="k">return</span> <span class="k">new</span> <span class="n">ValidationResult</span><span class="p">(</span><span class="n">FormatErrorMessage</span><span class="p">(</span><span class="n">validationContext</span><span class="p">.</span><span class="n">DisplayName</span><span class="p">));</span>
-            <span class="p">}</span>
-            <span class="k">else</span>
-            <span class="p">{</span>
-                <span class="k">return</span> <span class="n">ValidationResult</span><span class="p">.</span><span class="n">Success</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="驗證結果">驗證結果</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="na">[Display(Name = &#34;帳號&#34;)]</span>
+</span></span><span class="line"><span class="cl"><span class="na">[StringLength(20)]</span>
+</span></span><span class="line"><span class="cl"><span class="na">[RegularExpression(@&#34;[a-zA-Z0-9]</span><span class="p">*</span><span class="s">$&#34;, ErrorMessage = &#34;</span><span class="err">帳號僅能有英文或數字</span><span class="s">&#34;)]
+</span></span></span><span class="line"><span class="cl"><span class="s"></span><span class="na">[Required]</span>
+</span></span><span class="line"><span class="cl"><span class="na">[CheckAccount(ErrorMessage = &#34;重複&#34;)]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">string</span> <span class="n">account</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span></code></pre></div><p>自訂驗證部分可以建立一個類別繼承<code>ValidationAttribute</code>，再複寫 `IsValid方法</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">CheckAccountAttribute</span> <span class="p">:</span> <span class="n">ValidationAttribute</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">protected</span> <span class="kd">override</span> <span class="n">ValidationResult</span> <span class="n">IsValid</span><span class="p">(</span><span class="kt">object</span> <span class="k">value</span><span class="p">,</span> <span class="n">ValidationContext</span> <span class="n">validationContext</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//return base.IsValid(value, validationContext);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="k">value</span> <span class="p">!=</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>            
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="cm">/*條件式*/</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="k">new</span> <span class="n">ValidationResult</span><span class="p">(</span><span class="n">FormatErrorMessage</span><span class="p">(</span><span class="n">validationContext</span><span class="p">.</span><span class="n">DisplayName</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">ValidationResult</span><span class="p">.</span><span class="n">Success</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="驗證結果">驗證結果</h2>
 <p>在後端接收到資料後可使用<code>Model.State</code>來判斷Model欄位驗證是否通過。</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"> <span class="k">if</span><span class="p">(</span><span class="n">ModelState</span><span class="p">.</span><span class="n">IsValid</span><span class="p">){</span>
-    <span class="c1">//驗證通過
-</span><span class="c1"></span> <span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"> <span class="k">if</span><span class="p">(</span><span class="n">ModelState</span><span class="p">.</span><span class="n">IsValid</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//驗證通過</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span></code></pre></div>
 </section>
 
 
@@ -368,12 +368,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

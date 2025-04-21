@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -217,33 +217,33 @@
     <section class="article-content">
     <h2 id="前言">前言</h2>
 <p>如果部屬使用網站的方式，網站路徑不會帶有應用程式別名</p>
-<div class="highlight"><pre class="chroma"><code class="language-markdown" data-lang="markdown">localhost:0000/
-</code></pre></div><p>但如果要掛在網站下的應用程式部屬，網站根路徑就會帶有應用程式名稱</p>
-<div class="highlight"><pre class="chroma"><code class="language-markdown" data-lang="markdown">localhost:7128/MyBlazorApp
-</code></pre></div><p>部屬後，原先開發時的導向亂掉了，連靜態檔案/js/css載入也失敗<br>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">localhost:0000/
+</span></span></code></pre></div><p>但如果要掛在網站下的應用程式部屬，網站根路徑就會帶有應用程式名稱</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">localhost:7128/MyBlazorApp
+</span></span></code></pre></div><p>部屬後，原先開發時的導向亂掉了，連靜態檔案/js/css載入也失敗<br>
 因為部屬環境與開發環境差了一層應用程式名的關係</p>
 <h2 id="專案設定">專案設定</h2>
 <p>步驟1 : <code>_Layout.cshtml</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-markdown" data-lang="markdown">找到 <span class="p">&lt;</span><span class="nt">base</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;~/&#34;</span><span class="p">/&gt;</span>
-改為 <span class="p">&lt;</span><span class="nt">base</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/MyBlazorApp/&#34;</span><span class="p">/&gt;</span>
-</code></pre></div><p>步驟2 : <code>Program.cs</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">app</span><span class="p">.</span><span class="n">UsePathBase</span><span class="p">(</span><span class="s">&#34;/MyBlazorApp&#34;</span><span class="p">);</span>
-<span class="c1">//UseStaticFiles在上面加上
-</span><span class="c1"></span><span class="n">UseStaticFiles</span><span class="p">()</span>
-</code></pre></div><p>步驟3 : <code>開發環境預設啟動URL Properties/launchSettings.json</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;profiles&#34;</span><span class="err">:</span> <span class="p">{</span>
-    <span class="nt">&#34;MyBlazorApp&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;commandName&#34;</span><span class="p">:</span> <span class="s2">&#34;Project&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;dotnetRunMessages&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="nt">&#34;launchBrowser&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="nt">&#34;applicationUrl&#34;</span><span class="p">:</span> <span class="s2">&#34;https://localhost:7128;http://localhost:5258&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;launchUrl&#34;</span><span class="p">:</span> <span class="s2">&#34;https://localhost:7128/MyBlazorApp&#34;</span><span class="p">,</span> <span class="err">//加上這行</span>
-      <span class="nt">&#34;environmentVariables&#34;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;ASPNETCORE_ENVIRONMENT&#34;</span><span class="p">:</span> <span class="s2">&#34;Development&#34;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-</code></pre></div><h2 id="iis部屬設定">IIS部屬設定</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">找到 <span class="p">&lt;</span><span class="nt">base</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;~/&#34;</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">改為 <span class="p">&lt;</span><span class="nt">base</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/MyBlazorApp/&#34;</span><span class="p">/&gt;</span>
+</span></span></code></pre></div><p>步驟2 : <code>Program.cs</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">app</span><span class="p">.</span><span class="n">UsePathBase</span><span class="p">(</span><span class="s">&#34;/MyBlazorApp&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//UseStaticFiles在上面加上</span>
+</span></span><span class="line"><span class="cl"><span class="n">UseStaticFiles</span><span class="p">()</span>
+</span></span></code></pre></div><p>步驟3 : <code>開發環境預設啟動URL Properties/launchSettings.json</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="s2">&#34;profiles&#34;</span><span class="err">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;MyBlazorApp&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;commandName&#34;</span><span class="p">:</span> <span class="s2">&#34;Project&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;dotnetRunMessages&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;launchBrowser&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;applicationUrl&#34;</span><span class="p">:</span> <span class="s2">&#34;https://localhost:7128;http://localhost:5258&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;launchUrl&#34;</span><span class="p">:</span> <span class="s2">&#34;https://localhost:7128/MyBlazorApp&#34;</span><span class="p">,</span> <span class="c1">//加上這行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nt">&#34;environmentVariables&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;ASPNETCORE_ENVIRONMENT&#34;</span><span class="p">:</span> <span class="s2">&#34;Development&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></div><h2 id="iis部屬設定">IIS部屬設定</h2>
 <p>IIS部屬的名稱大小寫要一致，否則也會請求失敗</p>
 <h2 id="其他">其他</h2>
 <ol>
@@ -265,8 +265,7 @@ ex: <code>return LocalRedirect(&quot;~/Login&quot;);</code></li>
 <ul>
 <li><a class="link" href="https://www.c-sharpcorner.com/article/routing-101-in-blazor/"  target="_blank" rel="noopener"
     >url1</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -332,12 +331,12 @@ ex: <code>return LocalRedirect(&quot;~/Login&quot;);</code></li>
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

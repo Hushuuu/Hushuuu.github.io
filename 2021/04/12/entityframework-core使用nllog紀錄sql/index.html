@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -218,105 +218,105 @@
     <h2 id="前言">前言</h2>
 <p><code>EF Core5.0之後增加</code> <code>LogTo</code> 可使用<code>StramWriter</code>的方式寫在<code>DBContext.cs</code>裡<br>
 但沒試出寫在<code>Startup.cs ConfigureServices</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">private</span> <span class="k">readonly</span> <span class="n">StreamWriter</span> <span class="n">_logStream</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamWriter</span><span class="p">(</span><span class="s">&#34;mylog.txt&#34;</span><span class="p">,</span> <span class="n">append</span><span class="p">:</span> <span class="k">true</span><span class="p">);</span>
-
-<span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="n">OnConfiguring</span><span class="p">(</span><span class="n">DbContextOptionsBuilder</span> <span class="n">optionsBuilder</span><span class="p">)</span>
-    <span class="p">=&gt;</span> <span class="n">optionsBuilder</span><span class="p">.</span><span class="n">LogTo</span><span class="p">(</span><span class="n">_logStream</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">);</span>
-
-<span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">Dispose</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">base</span><span class="p">.</span><span class="n">Dispose</span><span class="p">();</span>
-    <span class="n">_logStream</span><span class="p">.</span><span class="n">Dispose</span><span class="p">();</span>
-<span class="p">}</span>
-
-<span class="k">public</span> <span class="k">override</span> <span class="k">async</span> <span class="n">ValueTask</span> <span class="n">DisposeAsync</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">await</span> <span class="k">base</span><span class="p">.</span><span class="n">DisposeAsync</span><span class="p">();</span>
-    <span class="k">await</span> <span class="n">_logStream</span><span class="p">.</span><span class="n">DisposeAsync</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div><p>普通的<code>Console.Write</code>方法</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">services</span><span class="p">.</span><span class="n">AddDbContext</span><span class="p">&lt;</span><span class="n">YourContext</span><span class="p">&gt;(</span><span class="n">options</span> <span class="p">=&gt;</span>
-<span class="p">{</span>
-    <span class="n">options</span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="n">Configuration</span><span class="p">.</span><span class="n">GetConnectionString</span><span class="p">(</span><span class="s">&#34;DefaultConnection&#34;</span><span class="p">))</span>
-                <span class="p">.</span><span class="n">EnableSensitiveDataLogging</span><span class="p">();</span> <span class="c1">//顯示敏感資料(參數)
-</span><span class="c1"></span>    <span class="n">options</span><span class="p">.</span><span class="n">LogTo</span><span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">,</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="n">DbLoggerCategory</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">Name</span> <span class="p">},</span> <span class="n">LogLevel</span><span class="p">.</span><span class="n">Information</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div><h2 id="nlog來記錄">NLog來記錄</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">private</span> <span class="k">readonly</span> <span class="n">StreamWriter</span> <span class="n">_logStream</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamWriter</span><span class="p">(</span><span class="s">&#34;mylog.txt&#34;</span><span class="p">,</span> <span class="n">append</span><span class="p">:</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">protected</span> <span class="kd">override</span> <span class="k">void</span> <span class="n">OnConfiguring</span><span class="p">(</span><span class="n">DbContextOptionsBuilder</span> <span class="n">optionsBuilder</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">=&gt;</span> <span class="n">optionsBuilder</span><span class="p">.</span><span class="n">LogTo</span><span class="p">(</span><span class="n">_logStream</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">override</span> <span class="k">void</span> <span class="n">Dispose</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">base</span><span class="p">.</span><span class="n">Dispose</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_logStream</span><span class="p">.</span><span class="n">Dispose</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">override</span> <span class="kd">async</span> <span class="n">ValueTask</span> <span class="n">DisposeAsync</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">await</span> <span class="k">base</span><span class="p">.</span><span class="n">DisposeAsync</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">await</span> <span class="n">_logStream</span><span class="p">.</span><span class="n">DisposeAsync</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>普通的<code>Console.Write</code>方法</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">services</span><span class="p">.</span><span class="n">AddDbContext</span><span class="p">&lt;</span><span class="n">YourContext</span><span class="p">&gt;(</span><span class="n">options</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">options</span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="n">Configuration</span><span class="p">.</span><span class="n">GetConnectionString</span><span class="p">(</span><span class="s">&#34;DefaultConnection&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="p">.</span><span class="n">EnableSensitiveDataLogging</span><span class="p">();</span> <span class="c1">//顯示敏感資料(參數)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">options</span><span class="p">.</span><span class="n">LogTo</span><span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">,</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="n">DbLoggerCategory</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">Name</span> <span class="p">},</span> <span class="n">LogLevel</span><span class="p">.</span><span class="n">Information</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><h2 id="nlog來記錄">NLog來記錄</h2>
 <p>先打開<code>Nuget</code>安裝
 <code>NLog</code>
 <code>NLog.Web.AspNetCore</code></p>
 <p><code>Program.cs</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kt">var</span> <span class="n">logger</span> <span class="p">=</span> <span class="n">NLogBuilder</span><span class="p">.</span><span class="n">ConfigureNLog</span><span class="p">(</span><span class="s">&#34;NLog.config&#34;</span><span class="p">).</span><span class="n">GetCurrentClassLogger</span><span class="p">();</span>
-        <span class="k">try</span>
-        <span class="p">{</span>
-            <span class="n">CreateHostBuilder</span><span class="p">(</span><span class="n">args</span><span class="p">).</span><span class="n">Build</span><span class="p">().</span><span class="n">Run</span><span class="p">();</span>
-        <span class="p">}</span>
-        <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">logger</span><span class="p">.</span><span class="n">Error</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="s">&#34;Get Error.&#34;</span><span class="p">);</span>
-            <span class="k">throw</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">finally</span>
-        <span class="p">{</span>
-            <span class="n">NLog</span><span class="p">.</span><span class="n">LogManager</span><span class="p">.</span><span class="n">Shutdown</span><span class="p">();</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">static</span> <span class="n">IHostBuilder</span> <span class="n">CreateHostBuilder</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">=&gt;</span>
-        <span class="n">Host</span><span class="p">.</span><span class="n">CreateDefaultBuilder</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
-            <span class="p">.</span><span class="n">ConfigureWebHostDefaults</span><span class="p">(</span><span class="n">webBuilder</span> <span class="p">=&gt;</span>
-    <span class="p">{</span>
-        <span class="n">webBuilder</span><span class="p">.</span><span class="n">UseStartup</span><span class="p">&lt;</span><span class="n">Startup</span><span class="p">&gt;()</span>
-                    <span class="p">.</span><span class="n">UseNLog</span><span class="p">();</span>
-    <span class="p">});</span>
-        
-</code></pre></div><p>設定<code>appsettings.Development.json</code>的<code>LogLevel</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="p">{</span>
-  <span class="s">&#34;Logging&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s">&#34;LogLevel&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="s">&#34;Microsoft.EntityFrameworkCore.Database.Command&#34;</span><span class="p">:</span> <span class="s">&#34;Debug&#34;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>產生<code>NLog.config</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="p">&lt;?</span><span class="n">xml</span> <span class="n">version</span><span class="p">=</span><span class="s">&#34;1.0&#34;</span> <span class="n">encoding</span><span class="p">=</span><span class="s">&#34;utf-8&#34;</span> <span class="p">?&gt;</span>
-<span class="p">&lt;</span><span class="n">nlog</span> <span class="n">xmlns</span><span class="p">=</span><span class="s">&#34;http://www.nlog-project.org/schemas/NLog.xsd&#34;</span>
-      <span class="n">xmlns</span><span class="p">:</span><span class="n">xsi</span><span class="p">=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
-      <span class="n">autoReload</span><span class="p">=</span><span class="s">&#34;true&#34;</span>
-      <span class="n">internalLogLevel</span><span class="p">=</span><span class="s">&#34;Info&#34;</span>
-      <span class="n">internalLogFile</span><span class="p">=</span><span class="s">&#34;c:\temp\internal-nlog.txt&#34;</span><span class="p">&gt;</span>
-
-	<span class="p">&lt;!--</span> <span class="n">enable</span> <span class="n">asp</span><span class="p">.</span><span class="n">net</span> <span class="n">core</span> <span class="n">layout</span> <span class="n">renderers</span> <span class="p">--&gt;</span>
-	<span class="p">&lt;</span><span class="n">extensions</span><span class="p">&gt;</span>
-		<span class="p">&lt;</span><span class="k">add</span> <span class="n">assembly</span><span class="p">=</span><span class="s">&#34;NLog.Web.AspNetCore&#34;</span><span class="p">/&gt;</span>
-	<span class="p">&lt;/</span><span class="n">extensions</span><span class="p">&gt;</span>
-
-	<span class="p">&lt;!--</span> <span class="n">the</span> <span class="n">targets</span> <span class="n">to</span> <span class="n">write</span> <span class="n">to</span> <span class="p">--&gt;</span>
-	<span class="p">&lt;</span><span class="n">targets</span><span class="p">&gt;</span>
-		<span class="p">&lt;!--</span> <span class="n">write</span> <span class="n">logs</span> <span class="n">to</span> <span class="n">file</span>  <span class="p">--&gt;</span>
-		<span class="p">&lt;</span><span class="n">target</span> <span class="n">xsi</span><span class="p">:</span><span class="n">type</span><span class="p">=</span><span class="s">&#34;File&#34;</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;allfile&#34;</span> <span class="n">fileName</span><span class="p">=</span><span class="s">&#34;D:\nlog-all-${shortdate}.log&#34;</span>
-				<span class="n">layout</span><span class="p">=</span><span class="s">&#34;${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}&#34;</span> <span class="p">/&gt;</span>
-
-		<span class="p">&lt;!--</span> <span class="n">another</span> <span class="n">file</span> <span class="n">log</span><span class="p">,</span> <span class="n">only</span> <span class="n">own</span> <span class="n">logs</span><span class="p">.</span> <span class="n">Uses</span> <span class="n">some</span> <span class="n">ASP</span><span class="p">.</span><span class="n">NET</span> <span class="n">core</span> <span class="n">renderers</span> <span class="p">--&gt;</span>
-		<span class="p">&lt;</span><span class="n">target</span> <span class="n">xsi</span><span class="p">:</span><span class="n">type</span><span class="p">=</span><span class="s">&#34;File&#34;</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;sql-file&#34;</span> <span class="n">fileName</span><span class="p">=</span><span class="s">&#34;D:\nlog-Sql-${shortdate}.log&#34;</span>
-				<span class="n">layout</span><span class="p">=</span><span class="s">&#34;${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}|url: ${aspnet-request-url}|action: ${aspnet-mvc-action}&#34;</span> <span class="p">/&gt;</span>
-	<span class="p">&lt;/</span><span class="n">targets</span><span class="p">&gt;</span>
-
-	<span class="p">&lt;!--</span> <span class="n">rules</span> <span class="n">to</span> <span class="n">map</span> <span class="k">from</span> <span class="n">logger</span> <span class="n">name</span> <span class="n">to</span> <span class="n">target</span> <span class="p">--&gt;</span>
-	<span class="p">&lt;</span><span class="n">rules</span><span class="p">&gt;</span>
-		<span class="p">&lt;!--</span><span class="n">All</span> <span class="n">logs</span><span class="p">,</span> <span class="n">including</span> <span class="k">from</span> <span class="n">Microsoft</span><span class="p">--&gt;</span>
-		<span class="p">&lt;</span><span class="n">logger</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;*&#34;</span> <span class="n">minlevel</span><span class="p">=</span><span class="s">&#34;Trace&#34;</span> <span class="n">writeTo</span><span class="p">=</span><span class="s">&#34;allfile&#34;</span> <span class="p">/&gt;</span>
-
-		<span class="p">&lt;!--</span> <span class="n">BlackHole</span> <span class="n">without</span> <span class="n">writeTo</span> <span class="p">--&gt;</span>
-		<span class="p">&lt;</span><span class="n">logger</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;*&#34;</span> <span class="n">maxlevel</span><span class="p">=</span><span class="s">&#34;Debug&#34;</span> <span class="n">minlevel</span><span class="p">=</span><span class="s">&#34;Debug&#34;</span> <span class="n">writeTo</span><span class="p">=</span><span class="s">&#34;sql-file&#34;</span> <span class="p">/&gt;</span>
-
-		<span class="p">&lt;!--</span><span class="n">Skip</span> <span class="n">non</span><span class="p">-</span><span class="n">critical</span> <span class="n">Microsoft</span> <span class="n">logs</span> <span class="n">and</span> <span class="n">so</span> <span class="n">log</span> <span class="n">only</span> <span class="n">own</span> <span class="n">logs</span><span class="p">--&gt;</span>
-		<span class="p">&lt;</span><span class="n">logger</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;Microsoft.*&#34;</span> <span class="n">maxlevel</span><span class="p">=</span><span class="s">&#34;Info&#34;</span> <span class="n">final</span><span class="p">=</span><span class="s">&#34;true&#34;</span> <span class="p">/&gt;</span>
-	<span class="p">&lt;/</span><span class="n">rules</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="n">nlog</span><span class="p">&gt;</span>
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">logger</span> <span class="p">=</span> <span class="n">NLogBuilder</span><span class="p">.</span><span class="n">ConfigureNLog</span><span class="p">(</span><span class="s">&#34;NLog.config&#34;</span><span class="p">).</span><span class="n">GetCurrentClassLogger</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">CreateHostBuilder</span><span class="p">(</span><span class="n">args</span><span class="p">).</span><span class="n">Build</span><span class="p">().</span><span class="n">Run</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">logger</span><span class="p">.</span><span class="n">Error</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="s">&#34;Get Error.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">finally</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">NLog</span><span class="p">.</span><span class="n">LogManager</span><span class="p">.</span><span class="n">Shutdown</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="n">IHostBuilder</span> <span class="n">CreateHostBuilder</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Host</span><span class="p">.</span><span class="n">CreateDefaultBuilder</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="n">ConfigureWebHostDefaults</span><span class="p">(</span><span class="n">webBuilder</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">webBuilder</span><span class="p">.</span><span class="n">UseStartup</span><span class="p">&lt;</span><span class="n">Startup</span><span class="p">&gt;()</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">.</span><span class="n">UseNLog</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        
+</span></span></code></pre></div><p>設定<code>appsettings.Development.json</code>的<code>LogLevel</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s">&#34;Logging&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;LogLevel&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s">&#34;Microsoft.EntityFrameworkCore.Database.Command&#34;</span><span class="p">:</span> <span class="s">&#34;Debug&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>產生<code>NLog.config</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="p">&lt;?</span><span class="n">xml</span> <span class="n">version</span><span class="p">=</span><span class="s">&#34;1.0&#34;</span> <span class="n">encoding</span><span class="p">=</span><span class="s">&#34;utf-8&#34;</span> <span class="p">?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="n">nlog</span> <span class="n">xmlns</span><span class="p">=</span><span class="s">&#34;http://www.nlog-project.org/schemas/NLog.xsd&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">xmlns</span><span class="p">:</span><span class="n">xsi</span><span class="p">=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">autoReload</span><span class="p">=</span><span class="s">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">internalLogLevel</span><span class="p">=</span><span class="s">&#34;Info&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">internalLogFile</span><span class="p">=</span><span class="s">&#34;c:\temp\internal-nlog.txt&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;!--</span> <span class="n">enable</span> <span class="n">asp</span><span class="p">.</span><span class="n">net</span> <span class="n">core</span> <span class="n">layout</span> <span class="n">renderers</span> <span class="p">--&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;</span><span class="n">extensions</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="k">add</span> <span class="n">assembly</span><span class="p">=</span><span class="s">&#34;NLog.Web.AspNetCore&#34;</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;/</span><span class="n">extensions</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;!--</span> <span class="n">the</span> <span class="n">targets</span> <span class="n">to</span> <span class="n">write</span> <span class="n">to</span> <span class="p">--&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;</span><span class="n">targets</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;!--</span> <span class="n">write</span> <span class="n">logs</span> <span class="n">to</span> <span class="n">file</span>  <span class="p">--&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="n">target</span> <span class="n">xsi</span><span class="p">:</span><span class="n">type</span><span class="p">=</span><span class="s">&#34;File&#34;</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;allfile&#34;</span> <span class="n">fileName</span><span class="p">=</span><span class="s">&#34;D:\nlog-all-${shortdate}.log&#34;</span>
+</span></span><span class="line"><span class="cl">				<span class="n">layout</span><span class="p">=</span><span class="s">&#34;${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;!--</span> <span class="n">another</span> <span class="n">file</span> <span class="n">log</span><span class="p">,</span> <span class="n">only</span> <span class="n">own</span> <span class="n">logs</span><span class="p">.</span> <span class="n">Uses</span> <span class="n">some</span> <span class="n">ASP</span><span class="p">.</span><span class="n">NET</span> <span class="n">core</span> <span class="n">renderers</span> <span class="p">--&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="n">target</span> <span class="n">xsi</span><span class="p">:</span><span class="n">type</span><span class="p">=</span><span class="s">&#34;File&#34;</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;sql-file&#34;</span> <span class="n">fileName</span><span class="p">=</span><span class="s">&#34;D:\nlog-Sql-${shortdate}.log&#34;</span>
+</span></span><span class="line"><span class="cl">				<span class="n">layout</span><span class="p">=</span><span class="s">&#34;${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}|url: ${aspnet-request-url}|action: ${aspnet-mvc-action}&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;/</span><span class="n">targets</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;!--</span> <span class="n">rules</span> <span class="n">to</span> <span class="n">map</span> <span class="k">from</span> <span class="n">logger</span> <span class="n">name</span> <span class="n">to</span> <span class="n">target</span> <span class="p">--&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;</span><span class="n">rules</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;!--</span><span class="n">All</span> <span class="n">logs</span><span class="p">,</span> <span class="n">including</span> <span class="k">from</span> <span class="n">Microsoft</span><span class="p">--&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="n">logger</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;*&#34;</span> <span class="n">minlevel</span><span class="p">=</span><span class="s">&#34;Trace&#34;</span> <span class="n">writeTo</span><span class="p">=</span><span class="s">&#34;allfile&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;!--</span> <span class="n">BlackHole</span> <span class="n">without</span> <span class="n">writeTo</span> <span class="p">--&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="n">logger</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;*&#34;</span> <span class="n">maxlevel</span><span class="p">=</span><span class="s">&#34;Debug&#34;</span> <span class="n">minlevel</span><span class="p">=</span><span class="s">&#34;Debug&#34;</span> <span class="n">writeTo</span><span class="p">=</span><span class="s">&#34;sql-file&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;!--</span><span class="n">Skip</span> <span class="n">non</span><span class="p">-</span><span class="n">critical</span> <span class="n">Microsoft</span> <span class="n">logs</span> <span class="n">and</span> <span class="n">so</span> <span class="n">log</span> <span class="n">only</span> <span class="n">own</span> <span class="n">logs</span><span class="p">--&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="n">logger</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;Microsoft.*&#34;</span> <span class="n">maxlevel</span><span class="p">=</span><span class="s">&#34;Info&#34;</span> <span class="n">final</span><span class="p">=</span><span class="s">&#34;true&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;/</span><span class="n">rules</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="n">nlog</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p>使用<code>NLog</code>要注意的是設定的<code>LogLevel</code>層級<br>
 <code>EFCore LogTo</code>若有試出方法再更新</p>
 <h2 id="參考連結">參考連結</h2>
@@ -328,8 +328,7 @@
     >url2</a></li>
 <li><a class="link" href="https://dotblogs.com.tw/Null/2020/04/14/210320"  target="_blank" rel="noopener"
     >url3</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -376,12 +375,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -220,92 +220,92 @@
 注意將Form的<code>Content-Type </code>設定為<code>enctype=&quot;multipart/form-data&quot;</code><br>
 <code>&lt;input type=&quot;file&quot; accept=&quot;.png, .jpg, .jpeg&quot; name=&quot;Filedata&quot; class=&quot;btn btn-default&quot; /&gt;</code><br>
 <code>FormData</code>Post到後端後可以這樣來接收</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="n">ActionResult</span> <span class="n">Create</span><span class="p">(</span><span class="n">HttpPostedFileBase</span> <span class="n">Filedata</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="c1">//可利用正則式過濾副檔名
-</span><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="n">Filedata</span> <span class="p">!=</span> <span class="k">null</span> <span class="p">&amp;&amp;</span>
-    <span class="n">Regex</span><span class="p">.</span><span class="n">IsMatch</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="n">GetExtension</span><span class="p">(</span><span class="n">Filedata</span><span class="p">.</span><span class="n">FileName</span><span class="p">),</span> <span class="s">&#34;^[.](jpg|png|jpeg|gif|bmp)$&#34;</span><span class="p">,</span> <span class="n">RegexOptions</span><span class="p">.</span><span class="n">IgnoreCase</span><span class="p">))</span>
-    <span class="p">{</span>
-        <span class="c1">//存到資料夾
-</span><span class="c1"></span>        <span class="kt">string</span> <span class="n">tmpPath1</span> <span class="p">=</span> <span class="n">Server</span><span class="p">.</span><span class="n">MapPath</span><span class="p">(</span><span class="s">&#34;~/Images/&#34;</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(!</span><span class="n">Directory</span><span class="p">.</span><span class="n">Exists</span><span class="p">(</span><span class="n">tmpPath1</span><span class="p">))</span>
-            <span class="n">Directory</span><span class="p">.</span><span class="n">CreateDirectory</span><span class="p">(</span><span class="n">tmpPath1</span><span class="p">);</span>
-        <span class="kt">var</span> <span class="n">FileName</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">GetFileName</span><span class="p">(</span><span class="n">Filedata</span><span class="p">.</span><span class="n">FileName</span><span class="p">);</span>
-        <span class="kt">var</span> <span class="n">FilePath</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="n">Server</span><span class="p">.</span><span class="n">MapPath</span><span class="p">(</span><span class="s">&#34;~/Images/&#34;</span><span class="p">),</span> <span class="n">FileName</span><span class="p">);</span>
-        <span class="n">Filedata</span><span class="p">.</span><span class="n">SaveAs</span><span class="p">(</span><span class="n">FilePath</span><span class="p">);</span>
-        <span class="kt">string</span> <span class="n">save_path</span> <span class="p">=</span> <span class="s">&#34;/Images/&#34;</span> <span class="p">+</span> <span class="n">FileName</span><span class="p">;</span>
-        <span class="n">pcm</span><span class="p">.</span><span class="n">pic_path</span> <span class="p">=</span> <span class="n">save_path</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="xmlhttprequest上傳">XMLHttpRequest上傳</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">ActionResult</span> <span class="n">Create</span><span class="p">(</span><span class="n">HttpPostedFileBase</span> <span class="n">Filedata</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//可利用正則式過濾副檔名</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">Filedata</span> <span class="p">!=</span> <span class="kc">null</span> <span class="p">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Regex</span><span class="p">.</span><span class="n">IsMatch</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="n">GetExtension</span><span class="p">(</span><span class="n">Filedata</span><span class="p">.</span><span class="n">FileName</span><span class="p">),</span> <span class="s">&#34;^[.](jpg|png|jpeg|gif|bmp)$&#34;</span><span class="p">,</span> <span class="n">RegexOptions</span><span class="p">.</span><span class="n">IgnoreCase</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//存到資料夾</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">string</span> <span class="n">tmpPath1</span> <span class="p">=</span> <span class="n">Server</span><span class="p">.</span><span class="n">MapPath</span><span class="p">(</span><span class="s">&#34;~/Images/&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(!</span><span class="n">Directory</span><span class="p">.</span><span class="n">Exists</span><span class="p">(</span><span class="n">tmpPath1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Directory</span><span class="p">.</span><span class="n">CreateDirectory</span><span class="p">(</span><span class="n">tmpPath1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">FileName</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">GetFileName</span><span class="p">(</span><span class="n">Filedata</span><span class="p">.</span><span class="n">FileName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">FilePath</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="n">Server</span><span class="p">.</span><span class="n">MapPath</span><span class="p">(</span><span class="s">&#34;~/Images/&#34;</span><span class="p">),</span> <span class="n">FileName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Filedata</span><span class="p">.</span><span class="n">SaveAs</span><span class="p">(</span><span class="n">FilePath</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">string</span> <span class="n">save_path</span> <span class="p">=</span> <span class="s">&#34;/Images/&#34;</span> <span class="p">+</span> <span class="n">FileName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pcm</span><span class="p">.</span><span class="n">pic_path</span> <span class="p">=</span> <span class="n">save_path</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="xmlhttprequest上傳">XMLHttpRequest上傳</h2>
 <p>建立<code>FormData</code>利用<code>XMLHttpRequest</code>發出請求<br>
 監聽上傳事件可顯示出上傳進度</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">//上傳檔案
-</span><span class="c1"></span><span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#Filedata1&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="nx">readFile</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-    <span class="kd">function</span> <span class="nx">readFile</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">file</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-    <span class="p">}</span>
-<span class="kd">function</span> <span class="nx">upload</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
-    <span class="kd">let</span> <span class="nx">fd</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FormData</span><span class="p">();</span>
-    <span class="nx">fd</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;fileName&#34;</span><span class="p">,</span> <span class="nx">file</span><span class="p">);</span>
-    <span class="c1">//監聽事件
-</span><span class="c1"></span>    <span class="nx">xhr</span><span class="p">.</span><span class="nx">upload</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&#34;progress&#34;</span><span class="p">,</span> <span class="nx">uploadProgress</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-    <span class="c1">//傳送檔案和表單自定義引數
-</span><span class="c1"></span>    <span class="nx">xhr</span><span class="p">.</span><span class="nx">overrideMimeType</span><span class="p">(</span><span class="s2">&#34;application/json&#34;</span><span class="p">);</span>
-    <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&#34;POST&#34;</span><span class="p">,</span> <span class="s2">&#34;@Url.Action(&#34;</span><span class="nx">XHR_UPLOAD</span><span class="s2">&#34;,&#34;</span><span class="nx">HOME</span><span class="s2">&#34;)&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-    <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">fd</span><span class="p">);</span>
-    <span class="nx">xhr</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">===</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
-            <span class="kd">let</span> <span class="nx">pic_path</span> <span class="o">=</span> <span class="nx">response</span><span class="p">[</span><span class="s2">&#34;imgSrc&#34;</span><span class="p">];</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#pic_path&#34;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">pic_path</span><span class="p">);</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#uploadModal&#34;</span><span class="p">).</span><span class="nx">modal</span><span class="p">(</span><span class="s2">&#34;hide&#34;</span><span class="p">);</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#img1&#34;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#img1&#34;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span> <span class="nx">pic_path</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">};</span>
-<span class="p">}</span>
-<span class="kd">function</span> <span class="nx">uploadProgress</span><span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">evt</span><span class="p">.</span><span class="nx">lengthComputable</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">//evt.loaded：檔案上傳的大小 evt.total：檔案總的大小
-</span><span class="c1"></span>        <span class="kd">var</span> <span class="nx">percentComplete</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">((</span><span class="nx">evt</span><span class="p">.</span><span class="nx">loaded</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">/</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">total</span><span class="p">);</span>
-        <span class="c1">//載入進度條，同時顯示資訊
-</span><span class="c1"></span>        <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#percent&#34;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">percentComplete</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span><span class="p">);</span>
-        <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#progressNumber&#34;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s2">&#34;width&#34;</span><span class="p">,</span> <span class="nx">percentComplete</span> <span class="o">+</span> <span class="s2">&#34;px&#34;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>進度條顯示</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;background:#848484;width:100px;height:10px;margin-top:5px&#34;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;progressNumber&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;background:#428bca;width:0px;height:10px&#34;</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">font</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;percent&#34;</span><span class="p">&gt;</span>0%<span class="p">&lt;/</span><span class="nt">font</span><span class="p">&gt;</span>
-</code></pre></div><p>後端</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="n">ActionResult</span> <span class="n">XHR_UPLOAD</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="c1">//Request取得上傳的File
-</span><span class="c1"></span>    <span class="c1">//回傳上傳後檔案路徑及資訊JsonString
-</span><span class="c1"></span>    <span class="kt">string</span> <span class="n">str</span> <span class="p">=</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">Request</span><span class="p">.</span><span class="n">Files</span><span class="p">.</span><span class="n">Count</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">str</span> <span class="p">=</span> <span class="s">&#34;{&#34;</span><span class="p">;</span>
-        <span class="c1">//當資料夾不存在時，建立此資料夾
-</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(!</span><span class="n">Directory</span><span class="p">.</span><span class="n">Exists</span><span class="p">(</span><span class="n">Server</span><span class="p">.</span><span class="n">MapPath</span><span class="p">(</span><span class="s">&#34;~/Images/&#34;</span><span class="p">)))</span>
-            <span class="n">Directory</span><span class="p">.</span><span class="n">CreateDirectory</span><span class="p">(</span><span class="n">Server</span><span class="p">.</span><span class="n">MapPath</span><span class="p">(</span><span class="s">&#34;~/Images/&#34;</span><span class="p">));</span>
-        <span class="n">HttpPostedFileBase</span> <span class="n">f</span> <span class="p">=</span> <span class="n">Request</span><span class="p">.</span><span class="n">Files</span><span class="p">[</span><span class="m">0</span><span class="p">];</span>
-        <span class="kt">string</span> <span class="n">file_name</span> <span class="p">=</span> <span class="n">f</span><span class="p">.</span><span class="n">FileName</span><span class="p">;</span>
-        <span class="kt">string</span> <span class="n">file_path</span> <span class="p">=</span> <span class="n">Server</span><span class="p">.</span><span class="n">MapPath</span><span class="p">(</span><span class="s">&#34;~/Images/&#34;</span><span class="p">)</span> <span class="p">+</span> <span class="n">file_name</span><span class="p">;</span>
-        <span class="kt">string</span> <span class="n">save_path</span> <span class="p">=</span> <span class="s">&#34;/Images/&#34;</span> <span class="p">+</span> <span class="n">file_name</span><span class="p">;</span>
-        <span class="n">f</span><span class="p">.</span><span class="n">SaveAs</span><span class="p">(</span><span class="n">file_path</span><span class="p">);</span>
-        <span class="n">str</span> <span class="p">+=</span> <span class="s">&#34;\&#34;imgSrc\&#34;:\&#34;&#34;</span> <span class="p">+</span> <span class="n">save_path</span> <span class="p">+</span> <span class="s">&#34;\&#34;,&#34;</span><span class="p">;</span>
-        <span class="n">str</span> <span class="p">+=</span> <span class="s">&#34;\&#34;imgName\&#34;:\&#34;&#34;</span> <span class="p">+</span> <span class="n">file_name</span> <span class="p">+</span> <span class="s">&#34;\&#34;&#34;</span><span class="p">;</span>
-        <span class="n">str</span> <span class="p">+=</span> <span class="s">&#34;}&#34;</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">Content</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">//上傳檔案
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#Filedata1&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="nx">readFile</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">readFile</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">file</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">upload</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">fd</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FormData</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fd</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;fileName&#34;</span><span class="p">,</span> <span class="nx">file</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//監聽事件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">xhr</span><span class="p">.</span><span class="nx">upload</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&#34;progress&#34;</span><span class="p">,</span> <span class="nx">uploadProgress</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//傳送檔案和表單自定義引數
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">xhr</span><span class="p">.</span><span class="nx">overrideMimeType</span><span class="p">(</span><span class="s2">&#34;application/json&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&#34;POST&#34;</span><span class="p">,</span> <span class="s2">&#34;@Url.Action(&#34;</span><span class="nx">XHR_UPLOAD</span><span class="s2">&#34;,&#34;</span><span class="nx">HOME</span><span class="s2">&#34;)&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">xhr</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">===</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">let</span> <span class="nx">pic_path</span> <span class="o">=</span> <span class="nx">response</span><span class="p">[</span><span class="s2">&#34;imgSrc&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#pic_path&#34;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">pic_path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#uploadModal&#34;</span><span class="p">).</span><span class="nx">modal</span><span class="p">(</span><span class="s2">&#34;hide&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#img1&#34;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#img1&#34;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span> <span class="nx">pic_path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">uploadProgress</span><span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">evt</span><span class="p">.</span><span class="nx">lengthComputable</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//evt.loaded：檔案上傳的大小 evt.total：檔案總的大小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">var</span> <span class="nx">percentComplete</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">((</span><span class="nx">evt</span><span class="p">.</span><span class="nx">loaded</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">/</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">total</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//載入進度條，同時顯示資訊
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#percent&#34;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">percentComplete</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#progressNumber&#34;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s2">&#34;width&#34;</span><span class="p">,</span> <span class="nx">percentComplete</span> <span class="o">+</span> <span class="s2">&#34;px&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>進度條顯示</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;background:#848484;width:100px;height:10px;margin-top:5px&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;progressNumber&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;background:#428bca;width:0px;height:10px&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">font</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;percent&#34;</span><span class="p">&gt;</span>0%<span class="p">&lt;/</span><span class="nt">font</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>後端</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">ActionResult</span> <span class="n">XHR_UPLOAD</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//Request取得上傳的File</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//回傳上傳後檔案路徑及資訊JsonString</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="n">str</span> <span class="p">=</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">Request</span><span class="p">.</span><span class="n">Files</span><span class="p">.</span><span class="n">Count</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">str</span> <span class="p">=</span> <span class="s">&#34;{&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//當資料夾不存在時，建立此資料夾</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(!</span><span class="n">Directory</span><span class="p">.</span><span class="n">Exists</span><span class="p">(</span><span class="n">Server</span><span class="p">.</span><span class="n">MapPath</span><span class="p">(</span><span class="s">&#34;~/Images/&#34;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Directory</span><span class="p">.</span><span class="n">CreateDirectory</span><span class="p">(</span><span class="n">Server</span><span class="p">.</span><span class="n">MapPath</span><span class="p">(</span><span class="s">&#34;~/Images/&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">HttpPostedFileBase</span> <span class="n">f</span> <span class="p">=</span> <span class="n">Request</span><span class="p">.</span><span class="n">Files</span><span class="p">[</span><span class="m">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">string</span> <span class="n">file_name</span> <span class="p">=</span> <span class="n">f</span><span class="p">.</span><span class="n">FileName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">string</span> <span class="n">file_path</span> <span class="p">=</span> <span class="n">Server</span><span class="p">.</span><span class="n">MapPath</span><span class="p">(</span><span class="s">&#34;~/Images/&#34;</span><span class="p">)</span> <span class="p">+</span> <span class="n">file_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">string</span> <span class="n">save_path</span> <span class="p">=</span> <span class="s">&#34;/Images/&#34;</span> <span class="p">+</span> <span class="n">file_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span><span class="p">.</span><span class="n">SaveAs</span><span class="p">(</span><span class="n">file_path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">str</span> <span class="p">+=</span> <span class="s">&#34;\&#34;imgSrc\&#34;:\&#34;&#34;</span> <span class="p">+</span> <span class="n">save_path</span> <span class="p">+</span> <span class="s">&#34;\&#34;,&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">str</span> <span class="p">+=</span> <span class="s">&#34;\&#34;imgName\&#34;:\&#34;&#34;</span> <span class="p">+</span> <span class="n">file_name</span> <span class="p">+</span> <span class="s">&#34;\&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">str</span> <span class="p">+=</span> <span class="s">&#34;}&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Content</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p>也可以試試<code>Ajax</code>的方式上傳檔案<br>
 要注意就是後端能不能接到<code>File</code><br>
 接不到就需調整參數如<code>Post</code>的<code>Content-type</code></p>
@@ -317,7 +317,7 @@
     
     <section class="article-tags">
         
-            <a href="/tags/file/">file</a>
+            <a href="/tags/file/">File</a>
         
             <a href="/tags/javascript/">Javascript</a>
         
@@ -422,12 +422,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

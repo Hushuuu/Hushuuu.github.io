@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -222,240 +222,240 @@
 <p>建立一個新專案，範本選<code>.net core Web</code>空白的專案<br>
 <code>Nuget</code>安裝<code>Line.Messaging</code></p>
 <p>將<code>Linebot</code>的<code>Channel secret</code>和<code>Channel access token</code>放在 <code>appsettings.json</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-c#" data-lang="c#"><span class="s">&#34;LineBot&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s">&#34;channelSecret&#34;</span><span class="p">:</span> <span class="s">&#34;xxx&#34;</span><span class="p">,</span>
-    <span class="s">&#34;accessToken&#34;</span><span class="p">:</span> <span class="s">&#34;xxx&#34;</span>
-  <span class="p">}</span>
-</code></pre></div><p>建立<code>LineBotConfig.cs</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">class</span> <span class="nc">LineBotConfig</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">channelSecret</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">accessToken</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>設定<code>Startup.cs</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="n">Startup</span><span class="p">(</span><span class="n">IConfiguration</span> <span class="n">configuration</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">Configuration</span> <span class="p">=</span> <span class="n">configuration</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">public</span> <span class="n">IConfiguration</span> <span class="n">Configuration</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
-<span class="c1">// This method gets called by the runtime. Use this method to add services to the container.
-</span><span class="c1">// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-</span><span class="c1"></span><span class="k">public</span> <span class="k">void</span> <span class="n">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">LineBotConfig</span><span class="p">,</span> <span class="n">LineBotConfig</span><span class="p">&gt;((</span><span class="n">s</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="n">LineBotConfig</span>
-    <span class="p">{</span>
-        <span class="n">channelSecret</span> <span class="p">=</span> <span class="n">Configuration</span><span class="p">[</span><span class="s">&#34;LineBot:channelSecret&#34;</span><span class="p">],</span>
-        <span class="n">accessToken</span> <span class="p">=</span> <span class="n">Configuration</span><span class="p">[</span><span class="s">&#34;LineBot:accessToken&#34;</span><span class="p">]</span>
-    <span class="p">});</span>
-
-    <span class="n">services</span><span class="p">.</span><span class="n">AddHttpContextAccessor</span><span class="p">();</span>
-    <span class="n">services</span><span class="p">.</span><span class="n">AddRazorPages</span><span class="p">().</span><span class="n">AddRazorRuntimeCompilation</span><span class="p">();</span>
-    <span class="n">services</span><span class="p">.</span><span class="n">AddHttpClient</span><span class="p">();</span>
-<span class="p">}</span>
-
-<span class="c1">// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-</span><span class="c1"></span><span class="k">public</span> <span class="k">void</span> <span class="n">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IWebHostEnvironment</span> <span class="n">env</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">IsDevelopment</span><span class="p">())</span>
-    <span class="p">{</span>
-        <span class="n">app</span><span class="p">.</span><span class="n">UseDeveloperExceptionPage</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="n">app</span><span class="p">.</span><span class="n">UseRouting</span><span class="p">();</span>
-
-    <span class="n">app</span><span class="p">.</span><span class="n">UseEndpoints</span><span class="p">(</span><span class="n">endpoints</span> <span class="p">=&gt;</span>
-    <span class="p">{</span>
-        <span class="n">endpoints</span><span class="p">.</span><span class="n">MapControllerRoute</span><span class="p">(</span>
-            <span class="n">name</span><span class="p">:</span> <span class="s">&#34;api&#34;</span><span class="p">,</span>
-            <span class="n">pattern</span><span class="p">:</span> <span class="s">&#34;api/{controller=Home}/{action=Index}/{id?}&#34;</span><span class="p">);</span>
-        <span class="n">endpoints</span><span class="p">.</span><span class="n">MapRazorPages</span><span class="p">();</span>
-    <span class="p">});</span>
-<span class="p">}</span>
-</code></pre></div><h3 id="建立linebotappcs">建立LineBotApp.cs</h3>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">class</span> <span class="nc">LineBotApp</span> <span class="p">:</span> <span class="n">WebhookApplication</span>
-    <span class="p">{</span>
-        <span class="k">private</span> <span class="k">readonly</span> <span class="n">LineMessagingClient</span> <span class="n">_messagingClient</span><span class="p">;</span>
-        <span class="k">private</span> <span class="k">readonly</span> <span class="n">IHttpClientFactory</span> <span class="n">_clientFactory</span><span class="p">;</span>
-        <span class="k">private</span> <span class="k">readonly</span> <span class="n">ILogger</span> <span class="n">_logger</span><span class="p">;</span>
-        <span class="k">private</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">object</span><span class="p">&gt;</span> <span class="n">userParams</span><span class="p">;</span>
-        <span class="k">private</span> <span class="kt">string</span> <span class="n">conversationId</span><span class="p">;</span> <span class="c1">// DirectLine ConversationId
-</span><span class="c1"></span>        <span class="k">public</span> <span class="n">LineBotApp</span><span class="p">(</span><span class="n">LineMessagingClient</span> <span class="n">lineMessagingClient</span><span class="p">,</span> <span class="n">IHttpClientFactory</span> <span class="n">clientFactory</span><span class="p">,</span> <span class="n">ILogger</span> <span class="n">logger</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">_messagingClient</span> <span class="p">=</span> <span class="n">lineMessagingClient</span><span class="p">;</span>
-            <span class="n">_clientFactory</span> <span class="p">=</span> <span class="n">clientFactory</span><span class="p">;</span>
-            <span class="n">_logger</span> <span class="p">=</span> <span class="n">logger</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">protected</span> <span class="k">override</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">OnMessageAsync</span><span class="p">(</span><span class="n">MessageEvent</span> <span class="n">ev</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">try</span>
-            <span class="p">{</span>
-                <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="k">null</span> <span class="k">as</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ISendMessage</span><span class="p">&gt;;</span>
-                <span class="k">switch</span> <span class="p">(</span><span class="n">ev</span><span class="p">.</span><span class="n">Message</span><span class="p">)</span>
-                <span class="p">{</span>
-                    <span class="c1">//文字訊息
-</span><span class="c1"></span>                    <span class="k">case</span> <span class="n">TextEventMessage</span> <span class="n">textMessage</span><span class="p">:</span>
-                        <span class="p">{</span>
-                            <span class="c1">//頻道Id
-</span><span class="c1"></span>                            <span class="kt">var</span> <span class="n">channelId</span> <span class="p">=</span> <span class="n">ev</span><span class="p">.</span><span class="n">Source</span><span class="p">.</span><span class="n">Id</span><span class="p">;</span>
-                            <span class="c1">//使用者Id
-</span><span class="c1"></span>                            <span class="kt">var</span> <span class="n">userId</span> <span class="p">=</span> <span class="n">ev</span><span class="p">.</span><span class="n">Source</span><span class="p">.</span><span class="n">UserId</span><span class="p">;</span>
-                            <span class="n">result</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ISendMessage</span><span class="p">&gt;</span> <span class="p">{</span> <span class="k">new</span> <span class="n">TextMessage</span><span class="p">(</span><span class="s">$&#34;you said: {ev.Message.Text}&#34;</span><span class="p">)</span> <span class="p">};</span>
-                        <span class="p">}</span>
-                        <span class="k">break</span><span class="p">;</span>
-                                             
-                <span class="p">}</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
-                    <span class="k">await</span> <span class="n">_messagingClient</span><span class="p">.</span><span class="n">ReplyMessageAsync</span><span class="p">(</span><span class="n">ev</span><span class="p">.</span><span class="n">ReplyToken</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
-
-            <span class="p">}</span>
-            <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="n">_logger</span><span class="p">.</span><span class="n">LogError</span><span class="p">(</span><span class="n">JsonConvert</span><span class="p">.</span><span class="n">SerializeObject</span><span class="p">(</span><span class="n">ex</span><span class="p">));</span>
-            <span class="p">}</span>
-        <span class="p">}</span>       
-    <span class="p">}</span>
-</code></pre></div><h3 id="建立controllerlinebotcontrollercs">建立<code>Controller/LineBotController.cs</code></h3>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="na">[Route(&#34;api/linebot&#34;)]</span>
-<span class="k">public</span> <span class="k">class</span> <span class="nc">LineBotController</span> <span class="p">:</span> <span class="n">Controller</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IHttpContextAccessor</span> <span class="n">_httpContextAccessor</span><span class="p">;</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">HttpContext</span> <span class="n">_httpContext</span><span class="p">;</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">LineBotConfig</span> <span class="n">_lineBotConfig</span><span class="p">;</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">ILogger</span> <span class="n">_logger</span><span class="p">;</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IHttpClientFactory</span> <span class="n">_clientFactory</span><span class="p">;</span>
-    <span class="k">public</span> <span class="n">LineBotController</span><span class="p">(</span><span class="n">IServiceProvider</span> <span class="n">serviceProvider</span><span class="p">,</span>
-        <span class="n">LineBotConfig</span> <span class="n">lineBotConfig</span><span class="p">,</span> <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">LineBotController</span><span class="p">&gt;</span> <span class="n">logger</span><span class="p">,</span> <span class="n">IHttpClientFactory</span> <span class="n">clientFactory</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">_httpContextAccessor</span> <span class="p">=</span> <span class="n">serviceProvider</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">IHttpContextAccessor</span><span class="p">&gt;();</span>
-        <span class="n">_httpContext</span> <span class="p">=</span> <span class="n">_httpContextAccessor</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">;</span>
-        <span class="n">_lineBotConfig</span> <span class="p">=</span> <span class="n">lineBotConfig</span><span class="p">;</span>
-        <span class="n">_logger</span> <span class="p">=</span> <span class="n">logger</span><span class="p">;</span>
-        <span class="n">_clientFactory</span> <span class="p">=</span> <span class="n">clientFactory</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="c1">//完整的路由網址就是 https://xxx/api/linebot/run
-</span><span class="c1"></span><span class="na">    [HttpPost(&#34;run&#34;)]</span>
-    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">IActionResult</span><span class="p">&gt;</span> <span class="n">Post</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">try</span>
-        <span class="p">{</span>
-            <span class="kt">var</span> <span class="n">events</span> <span class="p">=</span> <span class="k">await</span> <span class="n">_httpContext</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">GetWebhookEventsAsync</span><span class="p">(</span><span class="n">_lineBotConfig</span><span class="p">.</span><span class="n">channelSecret</span><span class="p">);</span>
-            <span class="kt">var</span> <span class="n">lineMessagingClient</span> <span class="p">=</span> <span class="k">new</span> <span class="n">LineMessagingClient</span><span class="p">(</span><span class="n">_lineBotConfig</span><span class="p">.</span><span class="n">accessToken</span><span class="p">);</span>
-            <span class="kt">var</span> <span class="n">lineBotApp</span> <span class="p">=</span> <span class="k">new</span> <span class="n">LineBotApp</span><span class="p">(</span><span class="n">lineMessagingClient</span><span class="p">,</span> <span class="n">_clientFactory</span><span class="p">,</span> <span class="n">_logger</span><span class="p">);</span>
-            <span class="k">await</span> <span class="n">lineBotApp</span><span class="p">.</span><span class="n">RunAsync</span><span class="p">(</span><span class="n">events</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="c1">//需要 Log 可自行加入
-</span><span class="c1"></span>            <span class="c1">//_logger.LogError(JsonConvert.SerializeObject(ex));
-</span><span class="c1"></span>        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">Ok</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p><code>GetWebhookEventsAsync</code>方法因為<code>NetCore</code>似乎不使用<code>HttpRequestMessage</code>了所以需要根據<code>request</code>型別擴充方法<br>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="s">&#34;LineBot&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;channelSecret&#34;</span><span class="p">:</span> <span class="s">&#34;xxx&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;accessToken&#34;</span><span class="p">:</span> <span class="s">&#34;xxx&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></div><p>建立<code>LineBotConfig.cs</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">LineBotConfig</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">channelSecret</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">accessToken</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>設定<code>Startup.cs</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Startup</span><span class="p">(</span><span class="n">IConfiguration</span> <span class="n">configuration</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Configuration</span> <span class="p">=</span> <span class="n">configuration</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">IConfiguration</span> <span class="n">Configuration</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// This method gets called by the runtime. Use this method to add services to the container.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">LineBotConfig</span><span class="p">,</span> <span class="n">LineBotConfig</span><span class="p">&gt;((</span><span class="n">s</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="n">LineBotConfig</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">channelSecret</span> <span class="p">=</span> <span class="n">Configuration</span><span class="p">[</span><span class="s">&#34;LineBot:channelSecret&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="n">accessToken</span> <span class="p">=</span> <span class="n">Configuration</span><span class="p">[</span><span class="s">&#34;LineBot:accessToken&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">services</span><span class="p">.</span><span class="n">AddHttpContextAccessor</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">services</span><span class="p">.</span><span class="n">AddRazorPages</span><span class="p">().</span><span class="n">AddRazorRuntimeCompilation</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">services</span><span class="p">.</span><span class="n">AddHttpClient</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IWebHostEnvironment</span> <span class="n">env</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">IsDevelopment</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">app</span><span class="p">.</span><span class="n">UseDeveloperExceptionPage</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="p">.</span><span class="n">UseRouting</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="p">.</span><span class="n">UseEndpoints</span><span class="p">(</span><span class="n">endpoints</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">endpoints</span><span class="p">.</span><span class="n">MapControllerRoute</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">name</span><span class="p">:</span> <span class="s">&#34;api&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">pattern</span><span class="p">:</span> <span class="s">&#34;api/{controller=Home}/{action=Index}/{id?}&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">endpoints</span><span class="p">.</span><span class="n">MapRazorPages</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="建立linebotappcs">建立LineBotApp.cs</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">LineBotApp</span> <span class="p">:</span> <span class="n">WebhookApplication</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="k">readonly</span> <span class="n">LineMessagingClient</span> <span class="n">_messagingClient</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="k">readonly</span> <span class="n">IHttpClientFactory</span> <span class="n">_clientFactory</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="k">readonly</span> <span class="n">ILogger</span> <span class="n">_logger</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">object</span><span class="p">&gt;</span> <span class="n">userParams</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="kt">string</span> <span class="n">conversationId</span><span class="p">;</span> <span class="c1">// DirectLine ConversationId</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">LineBotApp</span><span class="p">(</span><span class="n">LineMessagingClient</span> <span class="n">lineMessagingClient</span><span class="p">,</span> <span class="n">IHttpClientFactory</span> <span class="n">clientFactory</span><span class="p">,</span> <span class="n">ILogger</span> <span class="n">logger</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_messagingClient</span> <span class="p">=</span> <span class="n">lineMessagingClient</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_clientFactory</span> <span class="p">=</span> <span class="n">clientFactory</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_logger</span> <span class="p">=</span> <span class="n">logger</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">protected</span> <span class="kd">override</span> <span class="kd">async</span> <span class="n">Task</span> <span class="n">OnMessageAsync</span><span class="p">(</span><span class="n">MessageEvent</span> <span class="n">ev</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="kc">null</span> <span class="k">as</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ISendMessage</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">switch</span> <span class="p">(</span><span class="n">ev</span><span class="p">.</span><span class="n">Message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">//文字訊息</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">case</span> <span class="n">TextEventMessage</span> <span class="n">textMessage</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                            <span class="c1">//頻道Id</span>
+</span></span><span class="line"><span class="cl">                            <span class="kt">var</span> <span class="n">channelId</span> <span class="p">=</span> <span class="n">ev</span><span class="p">.</span><span class="n">Source</span><span class="p">.</span><span class="n">Id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                            <span class="c1">//使用者Id</span>
+</span></span><span class="line"><span class="cl">                            <span class="kt">var</span> <span class="n">userId</span> <span class="p">=</span> <span class="n">ev</span><span class="p">.</span><span class="n">Source</span><span class="p">.</span><span class="n">UserId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">result</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ISendMessage</span><span class="p">&gt;</span> <span class="p">{</span> <span class="k">new</span> <span class="n">TextMessage</span><span class="p">(</span><span class="s">$&#34;you said: {ev.Message.Text}&#34;</span><span class="p">)</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                                             
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="p">!=</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">await</span> <span class="n">_messagingClient</span><span class="p">.</span><span class="n">ReplyMessageAsync</span><span class="p">(</span><span class="n">ev</span><span class="p">.</span><span class="n">ReplyToken</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">_logger</span><span class="p">.</span><span class="n">LogError</span><span class="p">(</span><span class="n">JsonConvert</span><span class="p">.</span><span class="n">SerializeObject</span><span class="p">(</span><span class="n">ex</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>       
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><h3 id="建立controllerlinebotcontrollercs">建立<code>Controller/LineBotController.cs</code></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="na">[Route(&#34;api/linebot&#34;)]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">LineBotController</span> <span class="p">:</span> <span class="n">Controller</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="k">readonly</span> <span class="n">IHttpContextAccessor</span> <span class="n">_httpContextAccessor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="k">readonly</span> <span class="n">HttpContext</span> <span class="n">_httpContext</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="k">readonly</span> <span class="n">LineBotConfig</span> <span class="n">_lineBotConfig</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="k">readonly</span> <span class="n">ILogger</span> <span class="n">_logger</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="k">readonly</span> <span class="n">IHttpClientFactory</span> <span class="n">_clientFactory</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">LineBotController</span><span class="p">(</span><span class="n">IServiceProvider</span> <span class="n">serviceProvider</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">LineBotConfig</span> <span class="n">lineBotConfig</span><span class="p">,</span> <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">LineBotController</span><span class="p">&gt;</span> <span class="n">logger</span><span class="p">,</span> <span class="n">IHttpClientFactory</span> <span class="n">clientFactory</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_httpContextAccessor</span> <span class="p">=</span> <span class="n">serviceProvider</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">IHttpContextAccessor</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_httpContext</span> <span class="p">=</span> <span class="n">_httpContextAccessor</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_lineBotConfig</span> <span class="p">=</span> <span class="n">lineBotConfig</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_logger</span> <span class="p">=</span> <span class="n">logger</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_clientFactory</span> <span class="p">=</span> <span class="n">clientFactory</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//完整的路由網址就是 https://xxx/api/linebot/run</span>
+</span></span><span class="line"><span class="cl"><span class="na">    [HttpPost(&#34;run&#34;)]</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">IActionResult</span><span class="p">&gt;</span> <span class="n">Post</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">var</span> <span class="n">events</span> <span class="p">=</span> <span class="k">await</span> <span class="n">_httpContext</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">GetWebhookEventsAsync</span><span class="p">(</span><span class="n">_lineBotConfig</span><span class="p">.</span><span class="n">channelSecret</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">var</span> <span class="n">lineMessagingClient</span> <span class="p">=</span> <span class="k">new</span> <span class="n">LineMessagingClient</span><span class="p">(</span><span class="n">_lineBotConfig</span><span class="p">.</span><span class="n">accessToken</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">var</span> <span class="n">lineBotApp</span> <span class="p">=</span> <span class="k">new</span> <span class="n">LineBotApp</span><span class="p">(</span><span class="n">lineMessagingClient</span><span class="p">,</span> <span class="n">_clientFactory</span><span class="p">,</span> <span class="n">_logger</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">await</span> <span class="n">lineBotApp</span><span class="p">.</span><span class="n">RunAsync</span><span class="p">(</span><span class="n">events</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//需要 Log 可自行加入</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//_logger.LogError(JsonConvert.SerializeObject(ex));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Ok</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>GetWebhookEventsAsync</code>方法因為<code>NetCore</code>似乎不使用<code>HttpRequestMessage</code>了所以需要根據<code>request</code>型別擴充方法<br>
 使用<code>參考文章作者Mir</code>調整後的方法</p>
-<div class="highlight"><pre class="chroma"><code class="language-c#" data-lang="c#">  <span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">WebhookRequestMessageHelper</span>
-    <span class="p">{</span>
-        <span class="k">public</span> <span class="k">static</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">WebhookEvent</span><span class="p">&gt;&gt;</span> <span class="n">GetWebhookEventsAsync</span><span class="p">(</span><span class="k">this</span> <span class="n">HttpRequest</span> <span class="n">request</span><span class="p">,</span> <span class="kt">string</span> <span class="n">channelSecret</span><span class="p">,</span> <span class="kt">string</span> <span class="n">botUserId</span> <span class="p">=</span> <span class="k">null</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">request</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">ArgumentNullException</span><span class="p">(</span><span class="n">nameof</span><span class="p">(</span><span class="n">request</span><span class="p">));</span> <span class="p">}</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">channelSecret</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">ArgumentNullException</span><span class="p">(</span><span class="n">nameof</span><span class="p">(</span><span class="n">channelSecret</span><span class="p">));</span> <span class="p">}</span>
-
-            <span class="kt">var</span> <span class="n">content</span> <span class="p">=</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
-            <span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">reader</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamReader</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">Body</span><span class="p">))</span>
-            <span class="p">{</span>
-                <span class="n">content</span> <span class="p">=</span> <span class="k">await</span> <span class="n">reader</span><span class="p">.</span><span class="n">ReadToEndAsync</span><span class="p">();</span>
-            <span class="p">}</span>
-
-            <span class="kt">var</span> <span class="n">xLineSignature</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="n">Headers</span><span class="p">[</span><span class="s">&#34;X-Line-Signature&#34;</span><span class="p">].</span><span class="n">ToString</span><span class="p">();</span>
-            <span class="k">if</span> <span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="n">xLineSignature</span><span class="p">)</span> <span class="p">||</span> <span class="p">!</span><span class="n">VerifySignature</span><span class="p">(</span><span class="n">channelSecret</span><span class="p">,</span> <span class="n">xLineSignature</span><span class="p">,</span> <span class="n">content</span><span class="p">))</span>
-            <span class="p">{</span>
-                <span class="k">throw</span> <span class="k">new</span> <span class="n">InvalidSignatureException</span><span class="p">(</span><span class="s">&#34;Signature validation faild.&#34;</span><span class="p">);</span>
-            <span class="p">}</span>
-
-            <span class="kt">dynamic</span> <span class="n">json</span> <span class="p">=</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">DeserializeObject</span><span class="p">(</span><span class="n">content</span><span class="p">);</span>
-
-            <span class="k">if</span> <span class="p">(!</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="n">botUserId</span><span class="p">))</span>
-            <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">botUserId</span> <span class="p">!=</span> <span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="n">json</span><span class="p">.</span><span class="n">destination</span><span class="p">)</span>
-                <span class="p">{</span>
-                    <span class="k">throw</span> <span class="k">new</span> <span class="n">UserIdMismatchException</span><span class="p">(</span><span class="s">&#34;Bot user ID does not match.&#34;</span><span class="p">);</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-            <span class="k">return</span> <span class="n">WebhookEventParser</span><span class="p">.</span><span class="n">ParseEvents</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">events</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">internal</span> <span class="k">static</span> <span class="kt">bool</span> <span class="n">VerifySignature</span><span class="p">(</span><span class="kt">string</span> <span class="n">channelSecret</span><span class="p">,</span> <span class="kt">string</span> <span class="n">xLineSignature</span><span class="p">,</span> <span class="kt">string</span> <span class="n">requestBody</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">try</span>
-            <span class="p">{</span>
-                <span class="kt">var</span> <span class="n">key</span> <span class="p">=</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">channelSecret</span><span class="p">);</span>
-                <span class="kt">var</span> <span class="n">body</span> <span class="p">=</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">requestBody</span><span class="p">);</span>
-
-                <span class="k">using</span> <span class="p">(</span><span class="n">HMACSHA256</span> <span class="n">hmac</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HMACSHA256</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
-                <span class="p">{</span>
-                    <span class="kt">var</span> <span class="n">hash</span> <span class="p">=</span> <span class="n">hmac</span><span class="p">.</span><span class="n">ComputeHash</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">body</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
-                    <span class="kt">var</span> <span class="n">xLineBytes</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">FromBase64String</span><span class="p">(</span><span class="n">xLineSignature</span><span class="p">);</span>
-                    <span class="k">return</span> <span class="n">SlowEquals</span><span class="p">(</span><span class="n">xLineBytes</span><span class="p">,</span> <span class="n">hash</span><span class="p">);</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-            <span class="k">catch</span>
-            <span class="p">{</span>
-                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-
-        <span class="k">private</span> <span class="k">static</span> <span class="kt">bool</span> <span class="n">SlowEquals</span><span class="p">(</span><span class="kt">byte</span><span class="p">[]</span> <span class="n">a</span><span class="p">,</span> <span class="kt">byte</span><span class="p">[]</span> <span class="n">b</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="kt">uint</span> <span class="n">diff</span> <span class="p">=</span> <span class="p">(</span><span class="kt">uint</span><span class="p">)</span><span class="n">a</span><span class="p">.</span><span class="n">Length</span> <span class="p">^</span> <span class="p">(</span><span class="kt">uint</span><span class="p">)</span><span class="n">b</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
-            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">Length</span> <span class="p">&amp;&amp;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
-                <span class="n">diff</span> <span class="p">|=</span> <span class="p">(</span><span class="kt">uint</span><span class="p">)(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">^</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-            <span class="k">return</span> <span class="n">diff</span> <span class="p">==</span> <span class="m">0</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre></div><h3 id="nlog">Nlog</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="k">class</span> <span class="nc">WebhookRequestMessageHelper</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">WebhookEvent</span><span class="p">&gt;&gt;</span> <span class="n">GetWebhookEventsAsync</span><span class="p">(</span><span class="k">this</span> <span class="n">HttpRequest</span> <span class="n">request</span><span class="p">,</span> <span class="kt">string</span> <span class="n">channelSecret</span><span class="p">,</span> <span class="kt">string</span> <span class="n">botUserId</span> <span class="p">=</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">request</span> <span class="p">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">ArgumentNullException</span><span class="p">(</span><span class="n">nameof</span><span class="p">(</span><span class="n">request</span><span class="p">));</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">channelSecret</span> <span class="p">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">ArgumentNullException</span><span class="p">(</span><span class="n">nameof</span><span class="p">(</span><span class="n">channelSecret</span><span class="p">));</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kt">var</span> <span class="n">content</span> <span class="p">=</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">reader</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamReader</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">Body</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">content</span> <span class="p">=</span> <span class="k">await</span> <span class="n">reader</span><span class="p">.</span><span class="n">ReadToEndAsync</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kt">var</span> <span class="n">xLineSignature</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="n">Headers</span><span class="p">[</span><span class="s">&#34;X-Line-Signature&#34;</span><span class="p">].</span><span class="n">ToString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="n">xLineSignature</span><span class="p">)</span> <span class="p">||</span> <span class="p">!</span><span class="n">VerifySignature</span><span class="p">(</span><span class="n">channelSecret</span><span class="p">,</span> <span class="n">xLineSignature</span><span class="p">,</span> <span class="n">content</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">throw</span> <span class="k">new</span> <span class="n">InvalidSignatureException</span><span class="p">(</span><span class="s">&#34;Signature validation faild.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kt">dynamic</span> <span class="n">json</span> <span class="p">=</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">DeserializeObject</span><span class="p">(</span><span class="n">content</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(!</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="n">botUserId</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">botUserId</span> <span class="p">!=</span> <span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="n">json</span><span class="p">.</span><span class="n">destination</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">throw</span> <span class="k">new</span> <span class="n">UserIdMismatchException</span><span class="p">(</span><span class="s">&#34;Bot user ID does not match.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">WebhookEventParser</span><span class="p">.</span><span class="n">ParseEvents</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">events</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">internal</span> <span class="kd">static</span> <span class="kt">bool</span> <span class="n">VerifySignature</span><span class="p">(</span><span class="kt">string</span> <span class="n">channelSecret</span><span class="p">,</span> <span class="kt">string</span> <span class="n">xLineSignature</span><span class="p">,</span> <span class="kt">string</span> <span class="n">requestBody</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">var</span> <span class="n">key</span> <span class="p">=</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">channelSecret</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">var</span> <span class="n">body</span> <span class="p">=</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">requestBody</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">using</span> <span class="p">(</span><span class="n">HMACSHA256</span> <span class="n">hmac</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HMACSHA256</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="kt">var</span> <span class="n">hash</span> <span class="p">=</span> <span class="n">hmac</span><span class="p">.</span><span class="n">ComputeHash</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">body</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="kt">var</span> <span class="n">xLineBytes</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">FromBase64String</span><span class="p">(</span><span class="n">xLineSignature</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="n">SlowEquals</span><span class="p">(</span><span class="n">xLineBytes</span><span class="p">,</span> <span class="n">hash</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">catch</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="kd">static</span> <span class="kt">bool</span> <span class="n">SlowEquals</span><span class="p">(</span><span class="kt">byte</span><span class="p">[]</span> <span class="n">a</span><span class="p">,</span> <span class="kt">byte</span><span class="p">[]</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">uint</span> <span class="n">diff</span> <span class="p">=</span> <span class="p">(</span><span class="kt">uint</span><span class="p">)</span><span class="n">a</span><span class="p">.</span><span class="n">Length</span> <span class="p">^</span> <span class="p">(</span><span class="kt">uint</span><span class="p">)</span><span class="n">b</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">Length</span> <span class="p">&amp;&amp;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">diff</span> <span class="p">|=</span> <span class="p">(</span><span class="kt">uint</span><span class="p">)(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">^</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">diff</span> <span class="p">==</span> <span class="m">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><h3 id="nlog">Nlog</h3>
 <p>順勢加入<code>Nlog</code>來記錄錯誤及可以<code>debug</code><br>
 路徑設定為方便部屬至<code>Azure</code>時查閱</p>
-<div class="highlight"><pre class="chroma"><code class="language-c#" data-lang="c#"><span class="c1">//nlog.config
-</span><span class="c1"></span><span class="p">&lt;?</span><span class="n">xml</span> <span class="n">version</span><span class="p">=</span><span class="s">&#34;1.0&#34;</span> <span class="n">encoding</span><span class="p">=</span><span class="s">&#34;utf-8&#34;</span> <span class="p">?&gt;</span>
-<span class="p">&lt;</span><span class="n">nlog</span> <span class="n">xmlns</span><span class="p">=</span><span class="s">&#34;http://www.nlog-project.org/schemas/NLog.xsd&#34;</span>
-      <span class="n">xmlns</span><span class="p">:</span><span class="n">xsi</span><span class="p">=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
-      <span class="n">autoReload</span><span class="p">=</span><span class="s">&#34;true&#34;</span>
-      <span class="n">internalLogLevel</span><span class="p">=</span><span class="s">&#34;Info&#34;</span>
-      <span class="n">internalLogFile</span><span class="p">=</span><span class="s">&#34;D:\home\site\AspNetCoreNlog\Logs\internal-nlog.txt&#34;</span><span class="p">&gt;</span>
-
-	<span class="p">&lt;</span><span class="n">extensions</span><span class="p">&gt;</span>
-		<span class="p">&lt;</span><span class="k">add</span> <span class="n">assembly</span><span class="p">=</span><span class="s">&#34;NLog.Web.AspNetCore&#34;</span><span class="p">/&gt;</span>
-	<span class="p">&lt;/</span><span class="n">extensions</span><span class="p">&gt;</span>
-
-	<span class="p">&lt;</span><span class="n">targets</span><span class="p">&gt;</span>
-		<span class="p">&lt;</span><span class="n">target</span> <span class="n">xsi</span><span class="p">:</span><span class="n">type</span><span class="p">=</span><span class="s">&#34;File&#34;</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;allfile&#34;</span> <span class="n">fileName</span><span class="p">=</span><span class="s">&#34;D:\home\site\AspNetCoreNlog\Logs\all\nlog-all-${shortdate}.log&#34;</span>
-				<span class="n">layout</span><span class="p">=</span><span class="s">&#34;${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}&#34;</span> <span class="p">/&gt;</span>
-
-		<span class="p">&lt;</span><span class="n">target</span> <span class="n">xsi</span><span class="p">:</span><span class="n">type</span><span class="p">=</span><span class="s">&#34;File&#34;</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;ownFile-web&#34;</span> <span class="n">fileName</span><span class="p">=</span><span class="s">&#34;D:\home\site\AspNetCoreNlog\Logs\own\nlog-own-${shortdate}.log&#34;</span>
-				<span class="n">layout</span><span class="p">=</span><span class="s">&#34;${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}|url: ${aspnet-request-url}|action: ${aspnet-mvc-action}&#34;</span> <span class="p">/&gt;</span>
-	<span class="p">&lt;/</span><span class="n">targets</span><span class="p">&gt;</span>
-
-	<span class="p">&lt;</span><span class="n">rules</span><span class="p">&gt;</span>
-		<span class="p">&lt;</span><span class="n">logger</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;*&#34;</span> <span class="n">minlevel</span><span class="p">=</span><span class="s">&#34;Trace&#34;</span> <span class="n">writeTo</span><span class="p">=</span><span class="s">&#34;allfile&#34;</span> <span class="p">/&gt;</span>
-		<span class="p">&lt;</span><span class="n">logger</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;*&#34;</span> <span class="n">minlevel</span><span class="p">=</span><span class="s">&#34;Trace&#34;</span> <span class="n">writeTo</span><span class="p">=</span><span class="s">&#34;ownFile-web&#34;</span> <span class="p">/&gt;</span>
-	<span class="p">&lt;/</span><span class="n">rules</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="n">nlog</span><span class="p">&gt;</span>
-</code></pre></div><p><code>Program.cs</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-c#" data-lang="c#"><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">CreateHostBuilder</span><span class="p">(</span><span class="n">args</span><span class="p">).</span><span class="n">Build</span><span class="p">().</span><span class="n">Run</span><span class="p">();</span>
-<span class="p">}</span>
-
-<span class="k">public</span> <span class="k">static</span> <span class="n">IHostBuilder</span> <span class="n">CreateHostBuilder</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">=&gt;</span>
-    <span class="n">Host</span><span class="p">.</span><span class="n">CreateDefaultBuilder</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">UseNLog</span><span class="p">()</span><span class="c1">//加入NLOG
-</span><span class="c1"></span>        <span class="p">.</span><span class="n">ConfigureWebHostDefaults</span><span class="p">(</span><span class="n">webBuilder</span> <span class="p">=&gt;</span>
-        <span class="p">{</span>
-            <span class="n">webBuilder</span><span class="p">.</span><span class="n">UseStartup</span><span class="p">&lt;</span><span class="n">Startup</span><span class="p">&gt;();</span>
-        <span class="p">});</span>
-</code></pre></div><h3 id="部屬至azure">部屬至Azure</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="c1">//nlog.config</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;?</span><span class="n">xml</span> <span class="n">version</span><span class="p">=</span><span class="s">&#34;1.0&#34;</span> <span class="n">encoding</span><span class="p">=</span><span class="s">&#34;utf-8&#34;</span> <span class="p">?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="n">nlog</span> <span class="n">xmlns</span><span class="p">=</span><span class="s">&#34;http://www.nlog-project.org/schemas/NLog.xsd&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">xmlns</span><span class="p">:</span><span class="n">xsi</span><span class="p">=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">autoReload</span><span class="p">=</span><span class="s">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">internalLogLevel</span><span class="p">=</span><span class="s">&#34;Info&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">internalLogFile</span><span class="p">=</span><span class="s">&#34;D:\home\site\AspNetCoreNlog\Logs\internal-nlog.txt&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;</span><span class="n">extensions</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="k">add</span> <span class="n">assembly</span><span class="p">=</span><span class="s">&#34;NLog.Web.AspNetCore&#34;</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;/</span><span class="n">extensions</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;</span><span class="n">targets</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="n">target</span> <span class="n">xsi</span><span class="p">:</span><span class="n">type</span><span class="p">=</span><span class="s">&#34;File&#34;</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;allfile&#34;</span> <span class="n">fileName</span><span class="p">=</span><span class="s">&#34;D:\home\site\AspNetCoreNlog\Logs\all\nlog-all-${shortdate}.log&#34;</span>
+</span></span><span class="line"><span class="cl">				<span class="n">layout</span><span class="p">=</span><span class="s">&#34;${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="n">target</span> <span class="n">xsi</span><span class="p">:</span><span class="n">type</span><span class="p">=</span><span class="s">&#34;File&#34;</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;ownFile-web&#34;</span> <span class="n">fileName</span><span class="p">=</span><span class="s">&#34;D:\home\site\AspNetCoreNlog\Logs\own\nlog-own-${shortdate}.log&#34;</span>
+</span></span><span class="line"><span class="cl">				<span class="n">layout</span><span class="p">=</span><span class="s">&#34;${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}|url: ${aspnet-request-url}|action: ${aspnet-mvc-action}&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;/</span><span class="n">targets</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;</span><span class="n">rules</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="n">logger</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;*&#34;</span> <span class="n">minlevel</span><span class="p">=</span><span class="s">&#34;Trace&#34;</span> <span class="n">writeTo</span><span class="p">=</span><span class="s">&#34;allfile&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="n">logger</span> <span class="n">name</span><span class="p">=</span><span class="s">&#34;*&#34;</span> <span class="n">minlevel</span><span class="p">=</span><span class="s">&#34;Trace&#34;</span> <span class="n">writeTo</span><span class="p">=</span><span class="s">&#34;ownFile-web&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;/</span><span class="n">rules</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="n">nlog</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p><code>Program.cs</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">CreateHostBuilder</span><span class="p">(</span><span class="n">args</span><span class="p">).</span><span class="n">Build</span><span class="p">().</span><span class="n">Run</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="n">IHostBuilder</span> <span class="n">CreateHostBuilder</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Host</span><span class="p">.</span><span class="n">CreateDefaultBuilder</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">UseNLog</span><span class="p">()</span><span class="c1">//加入NLOG</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">ConfigureWebHostDefaults</span><span class="p">(</span><span class="n">webBuilder</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">webBuilder</span><span class="p">.</span><span class="n">UseStartup</span><span class="p">&lt;</span><span class="n">Startup</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span></code></pre></div><h3 id="部屬至azure">部屬至Azure</h3>
 <p>建立新的<code>App service</code>選擇免費方案<br>
 建立好之後回專案視窗-&gt;建置-&gt;發行<br>
 發行至<code>Azure</code>-&gt;選建立的<code>app service</code><br>
@@ -469,8 +469,7 @@
 <ul>
 <li><a class="link" href="https://ithelp.ithome.com.tw/articles/10217452"  target="_blank" rel="noopener"
     >url1</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -582,12 +581,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

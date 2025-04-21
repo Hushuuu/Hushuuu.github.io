@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -219,86 +219,86 @@
 <p>介紹NPOI及EPPlus套件來將資料產出成Excel。</p>
 <h2 id="主要內容">主要內容</h2>
 <p>NPOI的方式產出報表，XSSFWorkbook為.xlsx格式HSSF則為較舊的.xls</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="n">ActionResult</span> <span class="n">getExcel</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Data</span><span class="p">&gt;;</span><span class="c1">//資料
-</span><span class="c1"></span>    <span class="c1">//建立Excel
-</span><span class="c1"></span>    <span class="n">XSSFWorkbook</span> <span class="n">xssfworkbook</span> <span class="p">=</span> <span class="k">new</span> <span class="n">XSSFWorkbook</span><span class="p">();</span> <span class="c1">//建立活頁簿
-</span><span class="c1"></span>    <span class="n">ISheet</span> <span class="n">sheet</span> <span class="p">=</span> <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">CreateSheet</span><span class="p">(</span><span class="s">&#34;sheet&#34;</span><span class="p">);</span> <span class="c1">//建立sheet
-</span><span class="c1"></span>
-    <span class="c1">//設定樣式
-</span><span class="c1"></span>    <span class="n">ICellStyle</span> <span class="n">headerStyle</span> <span class="p">=</span> <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">CreateCellStyle</span><span class="p">();</span>
-    <span class="n">IFont</span> <span class="n">headerfont</span> <span class="p">=</span> <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">CreateFont</span><span class="p">();</span>
-    <span class="n">headerStyle</span><span class="p">.</span><span class="n">Alignment</span> <span class="p">=</span> <span class="n">HorizontalAlignment</span><span class="p">.</span><span class="n">Center</span><span class="p">;</span> <span class="c1">//水平置中
-</span><span class="c1"></span>    <span class="n">headerStyle</span><span class="p">.</span><span class="n">VerticalAlignment</span> <span class="p">=</span> <span class="n">VerticalAlignment</span><span class="p">.</span><span class="n">Center</span><span class="p">;</span> <span class="c1">//垂直置中
-</span><span class="c1"></span>    <span class="n">headerfont</span><span class="p">.</span><span class="n">FontName</span> <span class="p">=</span> <span class="s">&#34;微軟正黑體&#34;</span><span class="p">;</span>
-    <span class="n">headerfont</span><span class="p">.</span><span class="n">FontHeightInPoints</span> <span class="p">=</span> <span class="m">20</span><span class="p">;</span>
-    <span class="n">headerStyle</span><span class="p">.</span><span class="n">SetFont</span><span class="p">(</span><span class="n">headerfont</span><span class="p">);</span>
-
-    <span class="c1">//新增標題列
-</span><span class="c1"></span>    <span class="n">sheet</span><span class="p">.</span><span class="n">CreateRow</span><span class="p">(</span><span class="m">0</span><span class="p">);</span> <span class="c1">//需先用CreateRow建立,才可通过GetRow取得該欄位
-</span><span class="c1"></span>    <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;商品清單&#34;</span><span class="p">);</span>
-    <span class="n">sheet</span><span class="p">.</span><span class="n">AddMergedRegion</span><span class="p">(</span><span class="k">new</span> <span class="n">CellRangeAddress</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="p">));</span> <span class="c1">//合併A~C欄儲存格
-</span><span class="c1"></span>    <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">GetCell</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">CellStyle</span> <span class="p">=</span> <span class="n">headerStyle</span><span class="p">;</span> <span class="c1">//套用樣式
-</span><span class="c1"></span>    <span class="n">sheet</span><span class="p">.</span><span class="n">CreateRow</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;商品編號&#34;</span><span class="p">);</span>
-    <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;商品名&#34;</span><span class="p">);</span>
-    <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">2</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;單價&#34;</span><span class="p">);</span>
-    <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">3</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;庫存&#34;</span><span class="p">);</span>
-    <span class="c1">//填入資料
-</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">rowIndex</span> <span class="p">=</span> <span class="m">2</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">row</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">row</span> <span class="p">&lt;</span> <span class="n">result</span><span class="p">.</span><span class="n">Count</span><span class="p">();</span> <span class="n">row</span><span class="p">++)</span>
-    <span class="p">{</span>
-        <span class="n">sheet</span><span class="p">.</span><span class="n">CreateRow</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">row</span><span class="p">].</span><span class="n">pro_id</span><span class="p">);</span>
-        <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">row</span><span class="p">].</span><span class="n">pro_name</span><span class="p">);</span>
-        <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">2</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="n">Convert</span><span class="p">.</span><span class="n">ToDouble</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">row</span><span class="p">].</span><span class="n">price</span><span class="p">));</span>
-        <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">3</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="n">Convert</span><span class="p">.</span><span class="n">ToDouble</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">row</span><span class="p">].</span><span class="n">qty</span><span class="p">));</span>
-        <span class="n">rowIndex</span><span class="p">++;</span>
-    <span class="p">}</span>
-
-    <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">MemoryStream</span> <span class="n">ms</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">MemoryStream</span><span class="p">();</span>
-    <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">ms</span><span class="p">);</span>
-    <span class="kt">string</span> <span class="n">handle</span> <span class="p">=</span> <span class="n">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="p">().</span><span class="n">ToString</span><span class="p">();</span>
-    <span class="n">TempData</span><span class="p">[</span><span class="n">handle</span><span class="p">]</span> <span class="p">=</span> <span class="n">ms</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
-    <span class="k">return</span> <span class="n">Json</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="k">new</span> <span class="p">{</span> <span class="n">FileGuid</span> <span class="p">=</span> <span class="n">handle</span><span class="p">,</span> <span class="n">FileName</span> <span class="p">=</span> <span class="s">&#34;商品清單.xlsx&#34;</span> <span class="p">})</span> <span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>因為是透過AJAX方式進後端，回傳這部分將檔案的<code>MemoryStream Array</code>利用<code>TempData</code>傳回<br>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">ActionResult</span> <span class="n">getExcel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Data</span><span class="p">&gt;;</span><span class="c1">//資料</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//建立Excel</span>
+</span></span><span class="line"><span class="cl">    <span class="n">XSSFWorkbook</span> <span class="n">xssfworkbook</span> <span class="p">=</span> <span class="k">new</span> <span class="n">XSSFWorkbook</span><span class="p">();</span> <span class="c1">//建立活頁簿</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ISheet</span> <span class="n">sheet</span> <span class="p">=</span> <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">CreateSheet</span><span class="p">(</span><span class="s">&#34;sheet&#34;</span><span class="p">);</span> <span class="c1">//建立sheet</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//設定樣式</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ICellStyle</span> <span class="n">headerStyle</span> <span class="p">=</span> <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">CreateCellStyle</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IFont</span> <span class="n">headerfont</span> <span class="p">=</span> <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">CreateFont</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">headerStyle</span><span class="p">.</span><span class="n">Alignment</span> <span class="p">=</span> <span class="n">HorizontalAlignment</span><span class="p">.</span><span class="n">Center</span><span class="p">;</span> <span class="c1">//水平置中</span>
+</span></span><span class="line"><span class="cl">    <span class="n">headerStyle</span><span class="p">.</span><span class="n">VerticalAlignment</span> <span class="p">=</span> <span class="n">VerticalAlignment</span><span class="p">.</span><span class="n">Center</span><span class="p">;</span> <span class="c1">//垂直置中</span>
+</span></span><span class="line"><span class="cl">    <span class="n">headerfont</span><span class="p">.</span><span class="n">FontName</span> <span class="p">=</span> <span class="s">&#34;微軟正黑體&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">headerfont</span><span class="p">.</span><span class="n">FontHeightInPoints</span> <span class="p">=</span> <span class="m">20</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">headerStyle</span><span class="p">.</span><span class="n">SetFont</span><span class="p">(</span><span class="n">headerfont</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//新增標題列</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sheet</span><span class="p">.</span><span class="n">CreateRow</span><span class="p">(</span><span class="m">0</span><span class="p">);</span> <span class="c1">//需先用CreateRow建立,才可通过GetRow取得該欄位</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;商品清單&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sheet</span><span class="p">.</span><span class="n">AddMergedRegion</span><span class="p">(</span><span class="k">new</span> <span class="n">CellRangeAddress</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="p">));</span> <span class="c1">//合併A~C欄儲存格</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">GetCell</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">CellStyle</span> <span class="p">=</span> <span class="n">headerStyle</span><span class="p">;</span> <span class="c1">//套用樣式</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sheet</span><span class="p">.</span><span class="n">CreateRow</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;商品編號&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;商品名&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">2</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;單價&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">3</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="s">&#34;庫存&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//填入資料</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">rowIndex</span> <span class="p">=</span> <span class="m">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">row</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">row</span> <span class="p">&lt;</span> <span class="n">result</span><span class="p">.</span><span class="n">Count</span><span class="p">();</span> <span class="n">row</span><span class="p">++)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sheet</span><span class="p">.</span><span class="n">CreateRow</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">0</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">row</span><span class="p">].</span><span class="n">pro_id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">row</span><span class="p">].</span><span class="n">pro_name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">2</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="n">Convert</span><span class="p">.</span><span class="n">ToDouble</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">row</span><span class="p">].</span><span class="n">price</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sheet</span><span class="p">.</span><span class="n">GetRow</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">).</span><span class="n">CreateCell</span><span class="p">(</span><span class="m">3</span><span class="p">).</span><span class="n">SetCellValue</span><span class="p">(</span><span class="n">Convert</span><span class="p">.</span><span class="n">ToDouble</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">row</span><span class="p">].</span><span class="n">qty</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rowIndex</span><span class="p">++;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">MemoryStream</span> <span class="n">ms</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">MemoryStream</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xssfworkbook</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">ms</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="n">handle</span> <span class="p">=</span> <span class="n">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="p">().</span><span class="n">ToString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TempData</span><span class="p">[</span><span class="n">handle</span><span class="p">]</span> <span class="p">=</span> <span class="n">ms</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Json</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="k">new</span> <span class="p">{</span> <span class="n">FileGuid</span> <span class="p">=</span> <span class="n">handle</span><span class="p">,</span> <span class="n">FileName</span> <span class="p">=</span> <span class="s">&#34;商品清單.xlsx&#34;</span> <span class="p">})</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>因為是透過AJAX方式進後端，回傳這部分將檔案的<code>MemoryStream Array</code>利用<code>TempData</code>傳回<br>
 並取得一個Guid來當這資料的KEY，回傳KEY和檔案名稱回View。<br>
 Ajax回傳至前端後，利用iframe的方式實現下載(打下載的Action)</p>
 <h3 id="ajax完成回傳的ata">Ajax完成回傳的ata</h3>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript">    <span class="kd">var</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
-    <span class="c1">//iframe
-</span><span class="c1"></span>    <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#ifrm&#34;</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
-    <span class="kd">var</span> <span class="nx">ifrm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;iframe&#34;</span><span class="p">);</span>
-    <span class="nx">ifrm</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&#34;src&#34;</span><span class="p">,</span> <span class="s1">&#39;/Product/Download?fileGuid=&#39;</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">FileGuid</span>
-        <span class="o">+</span> <span class="s1">&#39;&amp;filename=&#39;</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">FileName</span><span class="p">);</span>
-    <span class="nx">ifrm</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&#34;none&#34;</span><span class="p">;</span>
-    <span class="nx">ifrm</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&#34;ifrm&#34;</span><span class="p">;</span>
-    <span class="kd">let</span> <span class="nx">dv</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;&lt;div&gt;&lt;/div&gt;&#34;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">ifrm</span><span class="p">);</span>
-    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">dv</span><span class="p">);</span>
-</code></pre></div><h3 id="下載部分">下載部分</h3>
-<div class="highlight"><pre class="chroma"><code class="language-c#" data-lang="c#"><span class="na">    [HttpGet]</span>
-    <span class="k">public</span> <span class="k">virtual</span> <span class="n">ActionResult</span> <span class="n">Download</span><span class="p">(</span><span class="kt">string</span> <span class="n">fileGuid</span><span class="p">,</span> <span class="kt">string</span> <span class="n">fileName</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">TempData</span><span class="p">[</span><span class="n">fileGuid</span><span class="p">]</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="kt">byte</span><span class="p">[]</span> <span class="n">data</span> <span class="p">=</span> <span class="n">TempData</span><span class="p">[</span><span class="n">fileGuid</span><span class="p">]</span> <span class="k">as</span> <span class="kt">byte</span><span class="p">[];</span>
-            <span class="k">return</span> <span class="n">File</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s">&#34;application/vnd.ms-excel&#34;</span><span class="p">,</span> <span class="n">fileName</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">else</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="k">new</span> <span class="n">EmptyResult</span><span class="p">();</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre></div><p>不過有另一種更簡明易懂的方式<br>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//iframe
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#ifrm&#34;</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">ifrm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;iframe&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ifrm</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&#34;src&#34;</span><span class="p">,</span> <span class="s1">&#39;/Product/Download?fileGuid=&#39;</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">FileGuid</span>
+</span></span><span class="line"><span class="cl">        <span class="o">+</span> <span class="s1">&#39;&amp;filename=&#39;</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">FileName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ifrm</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&#34;none&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ifrm</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&#34;ifrm&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">dv</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;&lt;div&gt;&lt;/div&gt;&#34;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">ifrm</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">dv</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="下載部分">下載部分</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="na">    [HttpGet]</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">virtual</span> <span class="n">ActionResult</span> <span class="n">Download</span><span class="p">(</span><span class="kt">string</span> <span class="n">fileGuid</span><span class="p">,</span> <span class="kt">string</span> <span class="n">fileName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">TempData</span><span class="p">[</span><span class="n">fileGuid</span><span class="p">]</span> <span class="p">!=</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">byte</span><span class="p">[]</span> <span class="n">data</span> <span class="p">=</span> <span class="n">TempData</span><span class="p">[</span><span class="n">fileGuid</span><span class="p">]</span> <span class="k">as</span> <span class="kt">byte</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">File</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s">&#34;application/vnd.ms-excel&#34;</span><span class="p">,</span> <span class="n">fileName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">new</span> <span class="n">EmptyResult</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>不過有另一種更簡明易懂的方式<br>
 <code>Action</code>可以直接回傳<code>File Result</code>就可以實現下載<br>
 使用<code>Form Post</code>的方法並開新頁<code>target=&quot;_blank&quot;</code> 直接回傳檔案型別</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#">    <span class="k">public</span> <span class="n">ActionResult</span> <span class="n">getExcel2</span><span class="p">(</span><span class="n">IWorkbook</span> <span class="n">workbook</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">MemoryStream</span> <span class="n">ms</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">MemoryStream</span><span class="p">();</span>
-        <span class="n">workbook</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">ms</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">File</span><span class="p">(</span><span class="n">ms</span><span class="p">.</span><span class="n">ToArray</span><span class="p">(),</span> <span class="s">&#34;application/vnd.ms-excel&#34;</span><span class="p">,</span> <span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">$&#34;商品清單.xlsx&#34;</span><span class="p">));</span>
-    <span class="p">}</span>       
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">ActionResult</span> <span class="n">getExcel2</span><span class="p">(</span><span class="n">IWorkbook</span> <span class="n">workbook</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">MemoryStream</span> <span class="n">ms</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">MemoryStream</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">workbook</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">ms</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">File</span><span class="p">(</span><span class="n">ms</span><span class="p">.</span><span class="n">ToArray</span><span class="p">(),</span> <span class="s">&#34;application/vnd.ms-excel&#34;</span><span class="p">,</span> <span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">$&#34;商品清單.xlsx&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>       
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p>產生Excel之後，也可以選擇先產生存在Server端，Client端再去取得Server端檔案路徑進行下載。<br>
 本文的方式都不會在Server端產生檔案。可以節省Server端空間也不用有清除歷史檔案的需求。<br>
 不過也有需在Server端產檔的可能，再另外做調整。</p>
@@ -309,8 +309,7 @@ Ajax回傳至前端後，利用iframe的方式實現下載(打下載的Action)</
     >url1</a></li>
 <li><a class="link" href="https://www.tpisoftware.com/tpu/articleDetails/1654"  target="_blank" rel="noopener"
     >url2</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -422,12 +421,12 @@ Ajax回傳至前端後，利用iframe的方式實現下載(打下載的Action)</
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

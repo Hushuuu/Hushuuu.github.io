@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -221,48 +221,48 @@
 可以使用自訂義類別實作 <code>IValidationMetadataProvider</code>介面來實現更改預設訊息</p>
 <h2 id="主要內容">主要內容</h2>
 <p>建立cs檔</p>
-<div class="highlight"><pre class="chroma"><code class="language-c#" data-lang="c#"><span class="k">public</span> <span class="k">void</span> <span class="n">CreateValidationMetadata</span><span class="p">(</span><span class="n">ValidationMetadataProviderContext</span> <span class="n">context</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">context</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">ArgumentNullException</span><span class="p">();</span>
-        <span class="p">}</span>
-        <span class="kt">var</span> <span class="n">validators</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">ValidationMetadata</span><span class="p">.</span><span class="n">ValidatorMetadata</span><span class="p">;</span>
-
-        <span class="c1">// add [Required] for value-types (int/DateTime etc)
-</span><span class="c1"></span>        <span class="c1">// to set ErrorMessage before asp.net does it
-</span><span class="c1"></span>        <span class="kt">var</span> <span class="n">theType</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Key</span><span class="p">.</span><span class="n">ModelType</span><span class="p">;</span>
-        <span class="kt">var</span> <span class="n">underlyingType</span> <span class="p">=</span> <span class="n">Nullable</span><span class="p">.</span><span class="n">GetUnderlyingType</span><span class="p">(</span><span class="n">theType</span><span class="p">);</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="n">theType</span><span class="p">.</span><span class="n">IsValueType</span> <span class="p">&amp;&amp;</span>
-            <span class="n">underlyingType</span> <span class="p">==</span> <span class="k">null</span> <span class="p">&amp;&amp;</span> <span class="c1">// not nullable type
-</span><span class="c1"></span>            <span class="n">validators</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">m</span> <span class="p">=&gt;</span> <span class="n">m</span><span class="p">.</span><span class="n">GetType</span><span class="p">()</span> <span class="p">==</span> <span class="k">typeof</span><span class="p">(</span><span class="n">RequiredAttribute</span><span class="p">)).</span><span class="n">Count</span><span class="p">()</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">validators</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">RequiredAttribute</span><span class="p">());</span>
-        <span class="p">}</span>
-        <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">obj</span> <span class="k">in</span> <span class="n">validators</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(!(</span><span class="n">obj</span> <span class="k">is</span> <span class="n">ValidationAttribute</span> <span class="n">attribute</span><span class="p">))</span>
-            <span class="p">{</span>
-                <span class="k">continue</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="n">fillErrorMessage</span><span class="p">&lt;</span><span class="n">RequiredAttribute</span><span class="p">&gt;(</span><span class="n">attribute</span><span class="p">,</span>
-                <span class="s">&#34;&#39;{0}&#39;是必填欄位.&#34;</span><span class="p">);</span>
-            <span class="n">fillErrorMessage</span><span class="p">&lt;</span><span class="n">MinLengthAttribute</span><span class="p">&gt;(</span><span class="n">attribute</span><span class="p">,</span>
-                <span class="s">&#34;&#39;{0}&#39; 的最小長度是 {1}.&#34;</span><span class="p">);</span>
-            <span class="n">fillErrorMessage</span><span class="p">&lt;</span><span class="n">MaxLengthAttribute</span><span class="p">&gt;(</span><span class="n">attribute</span><span class="p">,</span>
-                <span class="s">&#34;&#39;{0}&#39; 的最大長度是 {1}.&#34;</span><span class="p">);</span>
-            <span class="n">fillErrorMessage</span><span class="p">&lt;</span><span class="n">EmailAddressAttribute</span><span class="p">&gt;(</span><span class="n">attribute</span><span class="p">,</span>
-                <span class="s">&#34;非合法格式的電子信箱.&#34;</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
-            <span class="c1">// other attributes like RangeAttribute, CompareAttribute, etc
-</span><span class="c1"></span>        <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre></div><p>在<code>Startup.cs</code>中的<code>ConfigureServices</code>裡加上</p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">services</span><span class="p">.</span><span class="n">AddControllersWithViews</span><span class="p">()</span>
-            <span class="p">.</span><span class="n">AddMvcOptions</span><span class="p">(</span><span class="n">m</span> <span class="p">=&gt;</span> <span class="p">{</span>
-                <span class="n">m</span><span class="p">.</span><span class="n">ModelMetadataDetailsProviders</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">MyModelMetadataProvider</span><span class="p">());</span>
-            <span class="p">});</span>
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">CreateValidationMetadata</span><span class="p">(</span><span class="n">ValidationMetadataProviderContext</span> <span class="n">context</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">context</span> <span class="p">==</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">ArgumentNullException</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">validators</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">ValidationMetadata</span><span class="p">.</span><span class="n">ValidatorMetadata</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// add [Required] for value-types (int/DateTime etc)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// to set ErrorMessage before asp.net does it</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">theType</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Key</span><span class="p">.</span><span class="n">ModelType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">underlyingType</span> <span class="p">=</span> <span class="n">Nullable</span><span class="p">.</span><span class="n">GetUnderlyingType</span><span class="p">(</span><span class="n">theType</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">theType</span><span class="p">.</span><span class="n">IsValueType</span> <span class="p">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">underlyingType</span> <span class="p">==</span> <span class="kc">null</span> <span class="p">&amp;&amp;</span> <span class="c1">// not nullable type</span>
+</span></span><span class="line"><span class="cl">            <span class="n">validators</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">m</span> <span class="p">=&gt;</span> <span class="n">m</span><span class="p">.</span><span class="n">GetType</span><span class="p">()</span> <span class="p">==</span> <span class="k">typeof</span><span class="p">(</span><span class="n">RequiredAttribute</span><span class="p">)).</span><span class="n">Count</span><span class="p">()</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">validators</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">RequiredAttribute</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">obj</span> <span class="k">in</span> <span class="n">validators</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(!(</span><span class="n">obj</span> <span class="k">is</span> <span class="n">ValidationAttribute</span> <span class="n">attribute</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">fillErrorMessage</span><span class="p">&lt;</span><span class="n">RequiredAttribute</span><span class="p">&gt;(</span><span class="n">attribute</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s">&#34;&#39;{0}&#39;是必填欄位.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">fillErrorMessage</span><span class="p">&lt;</span><span class="n">MinLengthAttribute</span><span class="p">&gt;(</span><span class="n">attribute</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s">&#34;&#39;{0}&#39; 的最小長度是 {1}.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">fillErrorMessage</span><span class="p">&lt;</span><span class="n">MaxLengthAttribute</span><span class="p">&gt;(</span><span class="n">attribute</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s">&#34;&#39;{0}&#39; 的最大長度是 {1}.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">fillErrorMessage</span><span class="p">&lt;</span><span class="n">EmailAddressAttribute</span><span class="p">&gt;(</span><span class="n">attribute</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s">&#34;非合法格式的電子信箱.&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// other attributes like RangeAttribute, CompareAttribute, etc</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>在<code>Startup.cs</code>中的<code>ConfigureServices</code>裡加上</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="n">services</span><span class="p">.</span><span class="n">AddControllersWithViews</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="n">AddMvcOptions</span><span class="p">(</span><span class="n">m</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m</span><span class="p">.</span><span class="n">ModelMetadataDetailsProviders</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">MyModelMetadataProvider</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="p">});</span>
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p>若要將<code>ErrorMessage</code>顯示多種語言的話。就需要用資源檔來做<code>localization</code><br>
 只有需要顯示中文的話此篇方法比較簡潔。</p>
 <h2 id="參考連結">參考連結</h2>
@@ -272,8 +272,7 @@
     >url1</a></li>
 <li><a class="link" href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/localization?view=aspnetcore-3.1#dataannotations-localization"  target="_blank" rel="noopener"
     >url2</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -385,12 +384,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

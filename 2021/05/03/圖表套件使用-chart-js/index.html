@@ -51,7 +51,7 @@
                     
                     
                         
-                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                        <img src="/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -219,271 +219,271 @@
 <p>在使用套件時，根據環境跟使用，引入的<code>script</code>版本非常重要<br>
 版本不同有些使用的方式也會改變或是增減造成效果不一。<br>
 <code>CDN</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</code></pre></div><h2 id="主要內容">主要內容</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h2 id="主要內容">主要內容</h2>
 <p>資料固定且簡單的範例只需引入後直接使用產生</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;myChart&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
- <span class="kd">var</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;myChart&#34;</span><span class="p">);</span>
-    <span class="kd">var</span> <span class="nx">chart</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="p">{</span>
-        <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span>
-        <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-            <span class="nx">labels</span><span class="o">:</span><span class="p">{</span><span class="s2">&#34;A&#34;</span><span class="p">,</span><span class="s2">&#34;B&#34;</span><span class="p">,</span><span class="s2">&#34;C&#34;</span><span class="p">},</span>
-            <span class="nx">datasets</span><span class="o">:</span> <span class="p">[{</span>
-                <span class="nx">label</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;銷售量&#34;</span><span class="p">],</span>
-                <span class="nx">data</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&#34;A&#34;</span><span class="o">:</span> <span class="s2">&#34;100&#34;</span><span class="p">,</span> <span class="s2">&#34;B&#34;</span><span class="o">:</span> <span class="s2">&#34;200&#34;</span><span class="p">,</span> <span class="s2">&#34;C&#34;</span><span class="o">:</span> <span class="s2">&#34;140&#34;</span> <span class="p">}</span>
-            <span class="p">}],</span>
-       <span class="p">}</span>
-    <span class="p">})</span>
-<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</code></pre></div><h3 id="非固定資料">非固定資料</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;myChart&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="kd">var</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;myChart&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">chart</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">labels</span><span class="o">:</span><span class="p">{</span><span class="s2">&#34;A&#34;</span><span class="p">,</span><span class="s2">&#34;B&#34;</span><span class="p">,</span><span class="s2">&#34;C&#34;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">datasets</span><span class="o">:</span> <span class="p">[{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">label</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;銷售量&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">data</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&#34;A&#34;</span><span class="o">:</span> <span class="s2">&#34;100&#34;</span><span class="p">,</span> <span class="s2">&#34;B&#34;</span><span class="o">:</span> <span class="s2">&#34;200&#34;</span><span class="p">,</span> <span class="s2">&#34;C&#34;</span><span class="o">:</span> <span class="s2">&#34;140&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}],</span>
+</span></span><span class="line"><span class="cl">       <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h3 id="非固定資料">非固定資料</h3>
 <p>可用<code>Ajax</code>撈回或使用<code>PartialView</code>的概念</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="s1">&#39;#show_board&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-         <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-            <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>
-            <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;@Url.Action(&#34;ShowBoard&#34;, &#34;Product&#34;)&#39;</span>
-                <span class="p">})</span>
-             <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
-                 <span class="c1">//後端傳回為json物件包含圖表所需的資料跟設定
-</span><span class="c1"></span>                 <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">;</span>
-                 <span class="nx">chart</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">datasets</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">chartDatasets</span><span class="p">;</span>
-                 <span class="nx">chart</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">labels</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">xaxisLabels</span><span class="p">;</span>
-                 <span class="c1">//重繪
-</span><span class="c1"></span>                 <span class="nx">chart</span><span class="p">.</span><span class="nx">update</span><span class="p">();</span>
-        <span class="p">});</span>
-    <span class="p">});</span>
-<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</code></pre></div><p><code>設計圖表所需的Model</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#">    <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>    <span class="c1">/// 線資料只含值的model
-</span><span class="c1"></span>    <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>    <span class="c1">/// &lt;typeparam name=&#34;T&#34;&gt;&lt;/typeparam&gt;
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">class</span> <span class="nc">ChartLineModel</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
-    <span class="c1">//where T : struct
-</span><span class="c1"></span>    <span class="p">{</span>
-        <span class="k">public</span> <span class="n">ChartLineModel</span><span class="p">()</span>
-        <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="n">fill</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// 資料TAG
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="kt">string</span> <span class="n">label</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// 是否填滿
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="kt">bool</span> <span class="n">fill</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// 折線顏色
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="kt">string</span> <span class="n">borderColor</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// 點內顏色
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="kt">string</span> <span class="n">pointBackgroundColor</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// 資料值清單
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">data</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>    <span class="c1">/// 線資料包含X與Y的值的model
-</span><span class="c1"></span>    <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>    <span class="c1">/// &lt;typeparam name=&#34;X&#34;&gt;&lt;/typeparam&gt;
-</span><span class="c1"></span>    <span class="c1">/// &lt;typeparam name=&#34;Y&#34;&gt;&lt;/typeparam&gt;
-</span><span class="c1"></span>    <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>    <span class="c1">/// XY軸的值
-</span><span class="c1"></span>    <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">class</span> <span class="nc">ChartPointData</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">&gt;</span>
-    <span class="c1">//where X : struct
-</span><span class="c1"></span>    <span class="c1">//where Y : struct
-</span><span class="c1"></span>    <span class="p">{</span>
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// x value
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="n">X</span> <span class="n">x</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// y value
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="n">Y</span> <span class="n">y</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>    <span class="c1">/// 圖表設定
-</span><span class="c1"></span>    <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">class</span> <span class="nc">ChartSetting</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">&gt;</span>
-    <span class="c1">//where X :struct
-</span><span class="c1"></span>    <span class="p">{</span>
-        <span class="k">public</span> <span class="n">ChartSetting</span><span class="p">()</span>
-        <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="n">type</span> <span class="p">=</span> <span class="s">&#34;line&#34;</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">public</span> <span class="kt">string</span> <span class="n">type</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-        <span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">XaxisLabels</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-        <span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartDatasets</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">&gt;&gt;</span> <span class="n">chartDatasets</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>    <span class="c1">/// 圖表設定=&gt;datasets
-</span><span class="c1"></span>    <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">class</span> <span class="nc">ChartDatasets</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">&gt;</span>
-    <span class="c1">//where X : struct
-</span><span class="c1"></span>    <span class="p">{</span>
-        <span class="k">public</span> <span class="n">ChartDatasets</span><span class="p">()</span>
-        <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="p">=</span> <span class="n">RandomColor</span><span class="p">();</span>
-            <span class="k">this</span><span class="p">.</span><span class="n">borderColor</span> <span class="p">=</span> <span class="n">backgroundColor</span><span class="p">;</span>
-            <span class="k">this</span><span class="p">.</span><span class="n">showLine</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
-            <span class="k">this</span><span class="p">.</span><span class="n">fill</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
-            <span class="k">this</span><span class="p">.</span><span class="n">pointBackgroundColor</span> <span class="p">=</span> <span class="n">backgroundColor</span><span class="p">;</span>
-            <span class="k">this</span><span class="p">.</span><span class="n">cubicInterpolationMode</span> <span class="p">=</span> <span class="s">&#34;monotone&#34;</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// 資料
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartPointData</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">&gt;&gt;</span> <span class="n">data</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-        <span class="k">private</span> <span class="kt">string</span> <span class="n">RandomColor</span><span class="p">()</span>
-        <span class="p">{</span>
-            <span class="kt">string</span> <span class="n">color</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
-            <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">();</span>
-            <span class="kt">int</span> <span class="n">temp</span><span class="p">;</span>
-            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">6</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
-            <span class="p">{</span>
-                <span class="n">Random</span> <span class="n">r</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Random</span><span class="p">(</span><span class="n">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="p">().</span><span class="n">GetHashCode</span><span class="p">());</span>
-                <span class="n">temp</span> <span class="p">=</span> <span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">16</span><span class="p">);</span>
-                <span class="n">sb</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="n">Convert</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="m">16</span><span class="p">));</span>
-            <span class="p">}</span>
-            <span class="n">color</span> <span class="p">=</span> <span class="s">$&#34;#{sb.ToString()}&#34;</span><span class="p">;</span>
-            <span class="k">return</span> <span class="n">color</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// 資料TAG
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="kt">string</span> <span class="n">label</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// 是否填滿
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="kt">bool</span> <span class="n">fill</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-        <span class="c1">///// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">///// 填滿顏色
-</span><span class="c1"></span>        <span class="c1">///// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="kt">string</span> <span class="n">backgroundColor</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// 是否顯示
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="kt">bool</span> <span class="n">showLine</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// 折線顏色
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="kt">string</span> <span class="n">borderColor</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// 點內顏色
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="kt">string</span> <span class="n">pointBackgroundColor</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-        <span class="c1">/// &lt;summary&gt;
-</span><span class="c1"></span>        <span class="c1">/// 線的弧度
-</span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>        <span class="k">public</span> <span class="kt">string</span> <span class="n">cubicInterpolationMode</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre></div><p><code>Action 以日期區間的銷售圖</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">IActionResult</span><span class="p">&gt;</span> <span class="n">ShowBoard</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="n">ChartSetting</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;</span> <span class="n">chartSetting</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ChartSetting</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;();</span>
-    <span class="c1">//圖表樣式
-</span><span class="c1"></span>    <span class="n">chartSetting</span><span class="p">.</span><span class="n">type</span> <span class="p">=</span> <span class="s">&#34;line&#34;</span><span class="p">;</span>
-    <span class="c1">//x座標日期區間
-</span><span class="c1"></span>    <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">xAxisLabels</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
-    <span class="n">DateTime</span> <span class="n">backhunday</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">AddDays</span><span class="p">(-</span><span class="m">100</span><span class="p">);</span>
-    <span class="kt">var</span> <span class="n">maxdate</span> <span class="p">=</span> <span class="n">_context</span><span class="p">.</span><span class="n">ORDER_M</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">DOC_DATE</span> <span class="p">&gt;</span> <span class="n">backhunday</span><span class="p">).</span><span class="n">Max</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">DOC_DATE</span><span class="p">).</span><span class="n">ToString</span><span class="p">(</span><span class="s">&#34;yyyy-MM-dd&#34;</span><span class="p">);</span>
-    <span class="kt">var</span> <span class="n">mindate</span> <span class="p">=</span> <span class="n">_context</span><span class="p">.</span><span class="n">ORDER_M</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">DOC_DATE</span> <span class="p">&gt;</span> <span class="n">backhunday</span><span class="p">).</span><span class="n">Min</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">DOC_DATE</span><span class="p">).</span><span class="n">ToString</span><span class="p">(</span><span class="s">&#34;yyyy-MM-dd&#34;</span><span class="p">);</span>
-    <span class="n">xAxisLabels</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">mindate</span><span class="p">);</span>
-    <span class="n">xAxisLabels</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">maxdate</span><span class="p">);</span>
-    <span class="c1">//XY資料
-</span><span class="c1"></span>    <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartDatasets</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;&gt;</span> <span class="n">chartDatasets</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartDatasets</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;&gt;();</span>
-    <span class="c1">//從資料庫撈出訂單日期銷售情況的LIST
-</span><span class="c1"></span>    <span class="n">List</span><span class="p">&lt;</span><span class="n">LeaderBoardBase</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">await</span> <span class="n">_ProductDB</span><span class="p">.</span><span class="n">LeaderBoard</span><span class="p">(</span><span class="n">EnumKind</span><span class="p">.</span><span class="n">LeaderBoardKind</span><span class="p">.</span><span class="n">ByDate</span><span class="p">,</span> <span class="n">pKind</span><span class="p">,</span> <span class="n">qDate</span><span class="p">);</span>
-
-    <span class="c1">//將LIST做GROUP BY商品FOREACH=&gt;商品數=圖表線(datasets)的數量
-</span><span class="c1"></span>    <span class="n">list</span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">z</span> <span class="p">=&gt;</span> <span class="n">z</span><span class="p">.</span><span class="n">PRO_ID</span><span class="p">).</span><span class="n">Select</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">Key</span><span class="p">).</span><span class="n">ToList</span><span class="p">()</span>
-        <span class="p">.</span><span class="n">ForEach</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span>
-    <span class="p">{</span>
-        <span class="c1">//線
-</span><span class="c1"></span>        <span class="n">ChartDatasets</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;</span> <span class="n">chartds</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ChartDatasets</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;();</span>
-        <span class="c1">//線裡的xy值list
-</span><span class="c1"></span>        <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartPointData</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;&gt;</span> <span class="n">cpd_list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartPointData</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;&gt;();</span>
-        <span class="n">list</span>
-        <span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">z</span><span class="p">=&gt;</span><span class="n">z</span><span class="p">.</span><span class="n">PRO_ID</span><span class="p">==</span><span class="n">x</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">z</span><span class="p">=&gt;</span> <span class="k">new</span> <span class="p">{</span> <span class="n">PRO_ID</span><span class="p">=</span><span class="n">z</span><span class="p">.</span><span class="n">PRO_ID</span><span class="p">,</span><span class="n">SALE_DATE</span><span class="p">=</span><span class="n">z</span><span class="p">.</span><span class="n">SALE_DATE</span><span class="p">})</span>
-        <span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">z</span><span class="p">=&gt;</span> <span class="k">new</span> <span class="p">{</span> <span class="n">SALE_DATE</span><span class="p">=</span><span class="n">z</span><span class="p">.</span><span class="n">Key</span><span class="p">.</span><span class="n">SALE_DATE</span><span class="p">,</span><span class="n">SALE_MONEY</span><span class="p">=</span><span class="n">z</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">c</span><span class="p">=&gt;</span><span class="n">c</span><span class="p">.</span><span class="n">SALE_MONEY</span><span class="p">)})</span>
-        <span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">z</span><span class="p">=&gt;</span><span class="n">z</span><span class="p">.</span><span class="n">SALE_DATE</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">ToList</span><span class="p">()</span>
-        <span class="p">.</span><span class="n">ForEach</span><span class="p">(</span><span class="n">z</span> <span class="p">=&gt;</span>
-        <span class="p">{</span>
-            <span class="n">ChartPointData</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;</span> <span class="n">cpd</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ChartPointData</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;</span>
-            <span class="p">{</span>
-                <span class="n">x</span> <span class="p">=</span> <span class="n">z</span><span class="p">.</span><span class="n">SALE_DATE</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">Date</span><span class="p">,</span>
-                <span class="n">y</span> <span class="p">=</span> <span class="n">z</span><span class="p">.</span><span class="n">SALE_MONEY</span>
-            <span class="p">};</span>
-            <span class="n">cpd_list</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">cpd</span><span class="p">);</span>
-        <span class="p">});</span>
-        <span class="n">chartds</span><span class="p">.</span><span class="n">data</span> <span class="p">=</span> <span class="n">cpd_list</span><span class="p">;</span>
-        <span class="c1">//線label
-</span><span class="c1"></span>        <span class="n">chartds</span><span class="p">.</span><span class="n">label</span> <span class="p">=</span> <span class="n">_context</span><span class="p">.</span><span class="n">PRODUCT</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="n">c</span><span class="p">.</span><span class="n">PRO_ID</span><span class="p">.</span><span class="n">ToString</span><span class="p">()</span> <span class="p">==</span> <span class="n">x</span><span class="p">).</span><span class="n">Select</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="n">c</span><span class="p">.</span><span class="n">PRO_NAME</span><span class="p">).</span><span class="n">FirstOrDefault</span><span class="p">();</span>
-        <span class="c1">//將線加進圖表datasets裡
-</span><span class="c1"></span>        <span class="n">chartDatasets</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">chartds</span><span class="p">);</span>
-    <span class="p">});</span>
-    <span class="c1">//圖表設定x軸標籤
-</span><span class="c1"></span>    <span class="n">chartSetting</span><span class="p">.</span><span class="n">XaxisLabels</span> <span class="p">=</span> <span class="n">xAxisLabels</span><span class="p">;</span>
-    <span class="c1">//圖表設定資料
-</span><span class="c1"></span>    <span class="n">chartSetting</span><span class="p">.</span><span class="n">chartDatasets</span> <span class="p">=</span> <span class="n">chartDatasets</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">Json</span><span class="p">(</span><span class="n">chartSetting</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>設定圖表時間格式</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="kd">var</span> <span class="nx">chart</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="p">{</span>
-        <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span>
-        <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-            <span class="nx">labels</span> <span class="o">:</span> <span class="p">{},</span>
-            <span class="nx">datasets</span> <span class="o">:</span> <span class="p">{}</span>
-        <span class="p">},</span>
-        <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
-            <span class="nx">responsive</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-            <span class="nx">title</span><span class="o">:</span> <span class="p">{</span>
-                <span class="nx">display</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-            <span class="p">},</span>
-            <span class="nx">animation</span><span class="o">:</span> <span class="p">{</span>
-                <span class="nx">duration</span><span class="o">:</span> <span class="mi">2000</span>
-            <span class="p">},</span>
-            <span class="nx">scales</span><span class="o">:</span> <span class="p">{</span>
-                <span class="nx">xAxes</span><span class="o">:</span> <span class="p">[{</span>
-                    <span class="nx">scaleLabel</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="nx">display</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                        <span class="nx">labelString</span><span class="o">:</span> <span class="s1">&#39;日期&#39;</span><span class="p">,</span>
-                    <span class="p">},</span>
-                    <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span>
-                    <span class="nx">time</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="nx">unit</span><span class="o">:</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span>
-                        <span class="nx">tooltipFormat</span><span class="o">:</span> <span class="s1">&#39;YYYY-MM-DD&#39;</span><span class="p">,</span>
-                        <span class="nx">displayFormats</span><span class="o">:</span> <span class="p">{</span>
-                            <span class="s1">&#39;day&#39;</span><span class="o">:</span> <span class="s1">&#39;YY-MM-DD&#39;</span>
-                        <span class="p">}</span>
-                    <span class="p">}</span>
-                <span class="p">}],</span>
-                <span class="nx">yAxes</span><span class="o">:</span> <span class="p">[{</span>
-                    <span class="nx">scaleLabel</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="nx">display</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                        <span class="nx">labelString</span><span class="o">:</span> <span class="s1">&#39;金額&#39;</span><span class="p">,</span>
-                    <span class="p">},</span>
-                    <span class="nx">ticks</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="nx">beginAtZero</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                    <span class="p">}</span>
-                <span class="p">}]</span>
-            <span class="p">},</span>
-        <span class="p">}</span>
-    <span class="p">});</span>
-<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</code></pre></div><h2 id="小結">小結</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="s1">&#39;#show_board&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">         <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;@Url.Action(&#34;ShowBoard&#34;, &#34;Product&#34;)&#39;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">})</span>
+</span></span><span class="line"><span class="cl">             <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                 <span class="c1">//後端傳回為json物件包含圖表所需的資料跟設定
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                 <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                 <span class="nx">chart</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">datasets</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">chartDatasets</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                 <span class="nx">chart</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">labels</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">xaxisLabels</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                 <span class="c1">//重繪
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                 <span class="nx">chart</span><span class="p">.</span><span class="nx">update</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p><code>設計圖表所需的Model</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl">    <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// 線資料只含值的model</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// &lt;typeparam name=&#34;T&#34;&gt;&lt;/typeparam&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">class</span> <span class="nc">ChartLineModel</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//where T : struct</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">ChartLineModel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="n">fill</span> <span class="p">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// 資料TAG</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">string</span> <span class="n">label</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// 是否填滿</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">bool</span> <span class="n">fill</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// 折線顏色</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">string</span> <span class="n">borderColor</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// 點內顏色</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">string</span> <span class="n">pointBackgroundColor</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// 資料值清單</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">data</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// 線資料包含X與Y的值的model</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// &lt;typeparam name=&#34;X&#34;&gt;&lt;/typeparam&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// &lt;typeparam name=&#34;Y&#34;&gt;&lt;/typeparam&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// XY軸的值</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">class</span> <span class="nc">ChartPointData</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//where X : struct</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//where Y : struct</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// x value</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">X</span> <span class="n">x</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// y value</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">Y</span> <span class="n">y</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// 圖表設定</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">class</span> <span class="nc">ChartSetting</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//where X :struct</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">ChartSetting</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="n">type</span> <span class="p">=</span> <span class="s">&#34;line&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">string</span> <span class="n">type</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">XaxisLabels</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartDatasets</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">&gt;&gt;</span> <span class="n">chartDatasets</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// 圖表設定=&gt;datasets</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">class</span> <span class="nc">ChartDatasets</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//where X : struct</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">ChartDatasets</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="p">=</span> <span class="n">RandomColor</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="n">borderColor</span> <span class="p">=</span> <span class="n">backgroundColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="n">showLine</span> <span class="p">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="n">fill</span> <span class="p">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="n">pointBackgroundColor</span> <span class="p">=</span> <span class="n">backgroundColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="n">cubicInterpolationMode</span> <span class="p">=</span> <span class="s">&#34;monotone&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// 資料</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartPointData</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">&gt;&gt;</span> <span class="n">data</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="kt">string</span> <span class="n">RandomColor</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">string</span> <span class="n">color</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">6</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Random</span> <span class="n">r</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Random</span><span class="p">(</span><span class="n">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="p">().</span><span class="n">GetHashCode</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">                <span class="n">temp</span> <span class="p">=</span> <span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">16</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">sb</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="n">Convert</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="m">16</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">color</span> <span class="p">=</span> <span class="s">$&#34;#{sb.ToString()}&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">color</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// 資料TAG</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">string</span> <span class="n">label</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// 是否填滿</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">bool</span> <span class="n">fill</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">///// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">///// 填滿顏色</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">///// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">string</span> <span class="n">backgroundColor</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// 是否顯示</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">bool</span> <span class="n">showLine</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// 折線顏色</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">string</span> <span class="n">borderColor</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// 點內顏色</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">string</span> <span class="n">pointBackgroundColor</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// 線的弧度</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">string</span> <span class="n">cubicInterpolationMode</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p><code>Action 以日期區間的銷售圖</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">IActionResult</span><span class="p">&gt;</span> <span class="n">ShowBoard</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ChartSetting</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;</span> <span class="n">chartSetting</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ChartSetting</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//圖表樣式</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chartSetting</span><span class="p">.</span><span class="n">type</span> <span class="p">=</span> <span class="s">&#34;line&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//x座標日期區間</span>
+</span></span><span class="line"><span class="cl">    <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">xAxisLabels</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DateTime</span> <span class="n">backhunday</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">AddDays</span><span class="p">(-</span><span class="m">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">maxdate</span> <span class="p">=</span> <span class="n">_context</span><span class="p">.</span><span class="n">ORDER_M</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">DOC_DATE</span> <span class="p">&gt;</span> <span class="n">backhunday</span><span class="p">).</span><span class="n">Max</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">DOC_DATE</span><span class="p">).</span><span class="n">ToString</span><span class="p">(</span><span class="s">&#34;yyyy-MM-dd&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">mindate</span> <span class="p">=</span> <span class="n">_context</span><span class="p">.</span><span class="n">ORDER_M</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">DOC_DATE</span> <span class="p">&gt;</span> <span class="n">backhunday</span><span class="p">).</span><span class="n">Min</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">DOC_DATE</span><span class="p">).</span><span class="n">ToString</span><span class="p">(</span><span class="s">&#34;yyyy-MM-dd&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xAxisLabels</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">mindate</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xAxisLabels</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">maxdate</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//XY資料</span>
+</span></span><span class="line"><span class="cl">    <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartDatasets</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;&gt;</span> <span class="n">chartDatasets</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartDatasets</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//從資料庫撈出訂單日期銷售情況的LIST</span>
+</span></span><span class="line"><span class="cl">    <span class="n">List</span><span class="p">&lt;</span><span class="n">LeaderBoardBase</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">await</span> <span class="n">_ProductDB</span><span class="p">.</span><span class="n">LeaderBoard</span><span class="p">(</span><span class="n">EnumKind</span><span class="p">.</span><span class="n">LeaderBoardKind</span><span class="p">.</span><span class="n">ByDate</span><span class="p">,</span> <span class="n">pKind</span><span class="p">,</span> <span class="n">qDate</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//將LIST做GROUP BY商品FOREACH=&gt;商品數=圖表線(datasets)的數量</span>
+</span></span><span class="line"><span class="cl">    <span class="n">list</span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">z</span> <span class="p">=&gt;</span> <span class="n">z</span><span class="p">.</span><span class="n">PRO_ID</span><span class="p">).</span><span class="n">Select</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">Key</span><span class="p">).</span><span class="n">ToList</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">ForEach</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//線</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ChartDatasets</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;</span> <span class="n">chartds</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ChartDatasets</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//線裡的xy值list</span>
+</span></span><span class="line"><span class="cl">        <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartPointData</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;&gt;</span> <span class="n">cpd_list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ChartPointData</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;&gt;();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">list</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">z</span><span class="p">=&gt;</span><span class="n">z</span><span class="p">.</span><span class="n">PRO_ID</span><span class="p">==</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">z</span><span class="p">=&gt;</span> <span class="k">new</span> <span class="p">{</span> <span class="n">PRO_ID</span><span class="p">=</span><span class="n">z</span><span class="p">.</span><span class="n">PRO_ID</span><span class="p">,</span><span class="n">SALE_DATE</span><span class="p">=</span><span class="n">z</span><span class="p">.</span><span class="n">SALE_DATE</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">z</span><span class="p">=&gt;</span> <span class="k">new</span> <span class="p">{</span> <span class="n">SALE_DATE</span><span class="p">=</span><span class="n">z</span><span class="p">.</span><span class="n">Key</span><span class="p">.</span><span class="n">SALE_DATE</span><span class="p">,</span><span class="n">SALE_MONEY</span><span class="p">=</span><span class="n">z</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">c</span><span class="p">=&gt;</span><span class="n">c</span><span class="p">.</span><span class="n">SALE_MONEY</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">z</span><span class="p">=&gt;</span><span class="n">z</span><span class="p">.</span><span class="n">SALE_DATE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">ToList</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">ForEach</span><span class="p">(</span><span class="n">z</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ChartPointData</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;</span> <span class="n">cpd</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ChartPointData</span><span class="p">&lt;</span><span class="n">DateTime</span><span class="p">,</span> <span class="kt">decimal?</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">x</span> <span class="p">=</span> <span class="n">z</span><span class="p">.</span><span class="n">SALE_DATE</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">Date</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">y</span> <span class="p">=</span> <span class="n">z</span><span class="p">.</span><span class="n">SALE_MONEY</span>
+</span></span><span class="line"><span class="cl">            <span class="p">};</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cpd_list</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">cpd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        <span class="n">chartds</span><span class="p">.</span><span class="n">data</span> <span class="p">=</span> <span class="n">cpd_list</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//線label</span>
+</span></span><span class="line"><span class="cl">        <span class="n">chartds</span><span class="p">.</span><span class="n">label</span> <span class="p">=</span> <span class="n">_context</span><span class="p">.</span><span class="n">PRODUCT</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="n">c</span><span class="p">.</span><span class="n">PRO_ID</span><span class="p">.</span><span class="n">ToString</span><span class="p">()</span> <span class="p">==</span> <span class="n">x</span><span class="p">).</span><span class="n">Select</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="n">c</span><span class="p">.</span><span class="n">PRO_NAME</span><span class="p">).</span><span class="n">FirstOrDefault</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//將線加進圖表datasets裡</span>
+</span></span><span class="line"><span class="cl">        <span class="n">chartDatasets</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">chartds</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//圖表設定x軸標籤</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chartSetting</span><span class="p">.</span><span class="n">XaxisLabels</span> <span class="p">=</span> <span class="n">xAxisLabels</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//圖表設定資料</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chartSetting</span><span class="p">.</span><span class="n">chartDatasets</span> <span class="p">=</span> <span class="n">chartDatasets</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Json</span><span class="p">(</span><span class="n">chartSetting</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>設定圖表時間格式</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">chart</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">labels</span> <span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">datasets</span> <span class="o">:</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">responsive</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">title</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">display</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">animation</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">duration</span><span class="o">:</span> <span class="mi">2000</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">scales</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">xAxes</span><span class="o">:</span> <span class="p">[{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">scaleLabel</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">display</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">labelString</span><span class="o">:</span> <span class="s1">&#39;日期&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">time</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">unit</span><span class="o">:</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">tooltipFormat</span><span class="o">:</span> <span class="s1">&#39;YYYY-MM-DD&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">displayFormats</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                            <span class="s1">&#39;day&#39;</span><span class="o">:</span> <span class="s1">&#39;YY-MM-DD&#39;</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}],</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">yAxes</span><span class="o">:</span> <span class="p">[{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">scaleLabel</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">display</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">labelString</span><span class="o">:</span> <span class="s1">&#39;金額&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">ticks</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">beginAtZero</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}]</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h2 id="小結">小結</h2>
 <p><code>ChartJs</code>在官網的介紹跟範例中有更多樣式和設定的方法<br>
 要注意設定參數、資料的順序、格式是否傳入正確<br>
 否則可能畫出來會不符預期或是圖表顯示不出來<br>
@@ -493,8 +493,7 @@
 <ul>
 <li><a class="link" href="https://www.chartjs.org/"  target="_blank" rel="noopener"
     >url1</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 
 </section>
 
@@ -582,12 +581,12 @@
         
             2020 - 
         
-        2023 The Site
+        2025 The Site
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+         <br />
+        
     </section>
 </footer>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
