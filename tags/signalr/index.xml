@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>SignalR on The Site</title>
-        <link>http://localhost:1313/tags/signalr/</link>
+        <link>https://hushuuu.github.io/tags/signalr/</link>
         <description>Recent content in SignalR on The Site</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 29 Apr 2021 14:15:05 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/signalr/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 29 Apr 2021 14:15:05 +0800</lastBuildDate><atom:link href="https://hushuuu.github.io/tags/signalr/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Git差異檔案複製</title>
-        <link>http://localhost:1313/2025/05/06/git%E5%B7%AE%E7%95%B0%E6%AA%94%E6%A1%88%E8%A4%87%E8%A3%BD/</link>
+        <link>https://hushuuu.github.io/2025/05/06/git%E5%B7%AE%E7%95%B0%E6%AA%94%E6%A1%88%E8%A4%87%E8%A3%BD/</link>
         <pubDate>Tue, 06 May 2025 11:51:53 +0800</pubDate>
         
-        <guid>http://localhost:1313/2025/05/06/git%E5%B7%AE%E7%95%B0%E6%AA%94%E6%A1%88%E8%A4%87%E8%A3%BD/</guid>
+        <guid>https://hushuuu.github.io/2025/05/06/git%E5%B7%AE%E7%95%B0%E6%AA%94%E6%A1%88%E8%A4%87%E8%A3%BD/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;要提交給客戶原始碼，有時候只需異動之檔案&lt;br&gt;
 一個一個提交作比對太花時間了，可以用&lt;code&gt;git command&lt;/code&gt; 來列出差異並下指令複製&lt;/p&gt;
@@ -64,10 +64,10 @@
         </item>
         <item>
         <title>EF Core Tool反向工程</title>
-        <link>http://localhost:1313/2025/04/21/ef-core-tool%E5%8F%8D%E5%90%91%E5%B7%A5%E7%A8%8B/</link>
+        <link>https://hushuuu.github.io/2025/04/21/ef-core-tool%E5%8F%8D%E5%90%91%E5%B7%A5%E7%A8%8B/</link>
         <pubDate>Mon, 21 Apr 2025 09:15:27 +0800</pubDate>
         
-        <guid>http://localhost:1313/2025/04/21/ef-core-tool%E5%8F%8D%E5%90%91%E5%B7%A5%E7%A8%8B/</guid>
+        <guid>https://hushuuu.github.io/2025/04/21/ef-core-tool%E5%8F%8D%E5%90%91%E5%B7%A5%E7%A8%8B/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;h2 id=&#34;主要內容&#34;&gt;主要內容&lt;/h2&gt;
 &lt;p&gt;建立一個&lt;code&gt;NET8 Console&lt;/code&gt;專案，安裝這兩個套件&lt;/p&gt;
@@ -94,10 +94,10 @@ oracle 11.2c =&amp;gt; &lt;code&gt;Microsoft.EntityFrameworkCore.Design 5.0.17&l
         </item>
         <item>
         <title>Table跨行sticky</title>
-        <link>http://localhost:1313/2023/09/11/table%E8%B7%A8%E8%A1%8Csticky/</link>
+        <link>https://hushuuu.github.io/2023/09/11/table%E8%B7%A8%E8%A1%8Csticky/</link>
         <pubDate>Mon, 11 Sep 2023 08:51:28 +0800</pubDate>
         
-        <guid>http://localhost:1313/2023/09/11/table%E8%B7%A8%E8%A1%8Csticky/</guid>
+        <guid>https://hushuuu.github.io/2023/09/11/table%E8%B7%A8%E8%A1%8Csticky/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;一般table標頭固定上方使用sticky方式&lt;br&gt;
 但遇到有跨行合併儲存格的情況&lt;br&gt;
@@ -120,10 +120,10 @@ oracle 11.2c =&amp;gt; &lt;code&gt;Microsoft.EntityFrameworkCore.Design 5.0.17&l
         </item>
         <item>
         <title>Html之命名規則使用</title>
-        <link>http://localhost:1313/2023/08/17/html%E4%B9%8B%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%BD%BF%E7%94%A8/</link>
+        <link>https://hushuuu.github.io/2023/08/17/html%E4%B9%8B%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%BD%BF%E7%94%A8/</link>
         <pubDate>Thu, 17 Aug 2023 10:38:45 +0800</pubDate>
         
-        <guid>http://localhost:1313/2023/08/17/html%E4%B9%8B%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%BD%BF%E7%94%A8/</guid>
+        <guid>https://hushuuu.github.io/2023/08/17/html%E4%B9%8B%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%BD%BF%E7%94%A8/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;HTML裡在變數或屬性的命名因人而異有不同習慣&lt;br&gt;
 如駝峰式&lt;code&gt;camelCase&lt;/code&gt;=&amp;gt;&lt;code&gt;userId&lt;/code&gt;&lt;br&gt;
@@ -163,10 +163,10 @@ oracle 11.2c =&amp;gt; &lt;code&gt;Microsoft.EntityFrameworkCore.Design 5.0.17&l
         </item>
         <item>
         <title>Net6Api資料綁定整理</title>
-        <link>http://localhost:1313/2023/08/07/net6api%E8%B3%87%E6%96%99%E7%B6%81%E5%AE%9A%E6%95%B4%E7%90%86/</link>
+        <link>https://hushuuu.github.io/2023/08/07/net6api%E8%B3%87%E6%96%99%E7%B6%81%E5%AE%9A%E6%95%B4%E7%90%86/</link>
         <pubDate>Mon, 07 Aug 2023 15:27:57 +0800</pubDate>
         
-        <guid>http://localhost:1313/2023/08/07/net6api%E8%B3%87%E6%96%99%E7%B6%81%E5%AE%9A%E6%95%B4%E7%90%86/</guid>
+        <guid>https://hushuuu.github.io/2023/08/07/net6api%E8%B3%87%E6%96%99%E7%B6%81%E5%AE%9A%E6%95%B4%E7%90%86/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;Net6在開發web api時，有時候會遇到後端沒接到值的情況&lt;br&gt;
 整理幾個常用的使用方法&lt;/p&gt;
@@ -214,10 +214,10 @@ oracle 11.2c =&amp;gt; &lt;code&gt;Microsoft.EntityFrameworkCore.Design 5.0.17&l
         </item>
         <item>
         <title>Ajax非同步接收blob結果下載檔案</title>
-        <link>http://localhost:1313/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/</link>
+        <link>https://hushuuu.github.io/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/</link>
         <pubDate>Tue, 01 Aug 2023 15:22:07 +0800</pubDate>
         
-        <guid>http://localhost:1313/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/</guid>
+        <guid>https://hushuuu.github.io/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;一般下載檔案常見使用開新頁面請求回傳檔案的方式&lt;br&gt;
 非同步的請求也可以正確接收檔案觸發瀏覽器下載&lt;br&gt;
@@ -283,10 +283,10 @@ oracle 11.2c =&amp;gt; &lt;code&gt;Microsoft.EntityFrameworkCore.Design 5.0.17&l
         </item>
         <item>
         <title>Nginx開始使用</title>
-        <link>http://localhost:1313/2023/07/11/nginx%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/</link>
+        <link>https://hushuuu.github.io/2023/07/11/nginx%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/</link>
         <pubDate>Tue, 11 Jul 2023 08:42:15 +0800</pubDate>
         
-        <guid>http://localhost:1313/2023/07/11/nginx%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/</guid>
+        <guid>https://hushuuu.github.io/2023/07/11/nginx%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/</guid>
         <description>&lt;h2 id=&#34;指令&#34;&gt;指令&lt;/h2&gt;
 &lt;p&gt;開啟程式點擊&lt;code&gt;nginx.exe&lt;/code&gt;&lt;br&gt;
 或&lt;code&gt;$ start nginx&lt;/code&gt;&lt;/p&gt;
@@ -343,10 +343,10 @@ oracle 11.2c =&amp;gt; &lt;code&gt;Microsoft.EntityFrameworkCore.Design 5.0.17&l
         </item>
         <item>
         <title>Blazor正確使用EFContext</title>
-        <link>http://localhost:1313/2023/06/20/blazor%E6%AD%A3%E7%A2%BA%E4%BD%BF%E7%94%A8efcontext/</link>
+        <link>https://hushuuu.github.io/2023/06/20/blazor%E6%AD%A3%E7%A2%BA%E4%BD%BF%E7%94%A8efcontext/</link>
         <pubDate>Tue, 20 Jun 2023 16:21:12 +0800</pubDate>
         
-        <guid>http://localhost:1313/2023/06/20/blazor%E6%AD%A3%E7%A2%BA%E4%BD%BF%E7%94%A8efcontext/</guid>
+        <guid>https://hushuuu.github.io/2023/06/20/blazor%E6%AD%A3%E7%A2%BA%E4%BD%BF%E7%94%A8efcontext/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;Blazor&lt;/code&gt;在使用&lt;code&gt;EF Context&lt;/code&gt;要特別注意生命週期&lt;/p&gt;
 &lt;p&gt;一般的注入方式&lt;code&gt;services.AddDbContext&lt;/code&gt;&lt;br&gt;
@@ -395,10 +395,10 @@ oracle 11.2c =&amp;gt; &lt;code&gt;Microsoft.EntityFrameworkCore.Design 5.0.17&l
         </item>
         <item>
         <title>Oracle使用impdp/expdp來備份</title>
-        <link>http://localhost:1313/2023/06/20/oracle%E4%BD%BF%E7%94%A8impdp/expdp%E4%BE%86%E5%82%99%E4%BB%BD/</link>
+        <link>https://hushuuu.github.io/2023/06/20/oracle%E4%BD%BF%E7%94%A8impdp/expdp%E4%BE%86%E5%82%99%E4%BB%BD/</link>
         <pubDate>Tue, 20 Jun 2023 15:47:46 +0800</pubDate>
         
-        <guid>http://localhost:1313/2023/06/20/oracle%E4%BD%BF%E7%94%A8impdp/expdp%E4%BE%86%E5%82%99%E4%BB%BD/</guid>
+        <guid>https://hushuuu.github.io/2023/06/20/oracle%E4%BD%BF%E7%94%A8impdp/expdp%E4%BE%86%E5%82%99%E4%BB%BD/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;使用Oracle Data Pump來匯入匯出資料庫&lt;br&gt;
 impdp/expdp只能在Server端執行，Client端不可用&lt;/p&gt;
@@ -432,10 +432,10 @@ impdp/expdp只能在Server端執行，Client端不可用&lt;/p&gt;
         </item>
         <item>
         <title>Blazor Server Iis部屬</title>
-        <link>http://localhost:1313/2023/04/20/blazor-server-iis%E9%83%A8%E5%B1%AC/</link>
+        <link>https://hushuuu.github.io/2023/04/20/blazor-server-iis%E9%83%A8%E5%B1%AC/</link>
         <pubDate>Thu, 20 Apr 2023 15:19:02 +0800</pubDate>
         
-        <guid>http://localhost:1313/2023/04/20/blazor-server-iis%E9%83%A8%E5%B1%AC/</guid>
+        <guid>https://hushuuu.github.io/2023/04/20/blazor-server-iis%E9%83%A8%E5%B1%AC/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;如果部屬使用網站的方式，網站路徑不會帶有應用程式別名&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;localhost:0000/
@@ -491,10 +491,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Hugo發文</title>
-        <link>http://localhost:1313/2023/04/19/hugo%E7%99%BC%E6%96%87/</link>
+        <link>https://hushuuu.github.io/2023/04/19/hugo%E7%99%BC%E6%96%87/</link>
         <pubDate>Wed, 19 Apr 2023 16:01:04 +0800</pubDate>
         
-        <guid>http://localhost:1313/2023/04/19/hugo%E7%99%BC%E6%96%87/</guid>
+        <guid>https://hushuuu.github.io/2023/04/19/hugo%E7%99%BC%E6%96%87/</guid>
         <description>&lt;h2 id=&#34;主要內容&#34;&gt;主要內容&lt;/h2&gt;
 &lt;p&gt;建立文章範本指令&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hugo new post/XXX/XXX.md
@@ -512,10 +512,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Jquery Datepicker日期選單沒出現或沒反應</title>
-        <link>http://localhost:1313/2022/12/28/jquery-datepicker%E6%97%A5%E6%9C%9F%E9%81%B8%E5%96%AE%E6%B2%92%E5%87%BA%E7%8F%BE%E6%88%96%E6%B2%92%E5%8F%8D%E6%87%89/</link>
+        <link>https://hushuuu.github.io/2022/12/28/jquery-datepicker%E6%97%A5%E6%9C%9F%E9%81%B8%E5%96%AE%E6%B2%92%E5%87%BA%E7%8F%BE%E6%88%96%E6%B2%92%E5%8F%8D%E6%87%89/</link>
         <pubDate>Wed, 28 Dec 2022 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/2022/12/28/jquery-datepicker%E6%97%A5%E6%9C%9F%E9%81%B8%E5%96%AE%E6%B2%92%E5%87%BA%E7%8F%BE%E6%88%96%E6%B2%92%E5%8F%8D%E6%87%89/</guid>
+        <guid>https://hushuuu.github.io/2022/12/28/jquery-datepicker%E6%97%A5%E6%9C%9F%E9%81%B8%E5%96%AE%E6%B2%92%E5%87%BA%E7%8F%BE%E6%88%96%E6%B2%92%E5%8F%8D%E6%87%89/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;在使用&lt;code&gt;jquery datepicker&lt;/code&gt;的時候遇到了日期選單沒出現沒反應的問題&lt;br&gt;
 原本以為是瀏覽器的關係。後來找到原因是選單產生的位置不對&lt;br&gt;
@@ -551,10 +551,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>IIS Allow Download Apk</title>
-        <link>http://localhost:1313/2022/12/19/iis-allow-download-apk/</link>
+        <link>https://hushuuu.github.io/2022/12/19/iis-allow-download-apk/</link>
         <pubDate>Mon, 19 Dec 2022 16:01:15 +0800</pubDate>
         
-        <guid>http://localhost:1313/2022/12/19/iis-allow-download-apk/</guid>
+        <guid>https://hushuuu.github.io/2022/12/19/iis-allow-download-apk/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;設定&lt;code&gt;web.config&lt;/code&gt;允許站台訪問靜態檔案類型&lt;code&gt;apk&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;主要內容&#34;&gt;主要內容&lt;/h2&gt;
@@ -574,10 +574,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Oracle function select效能</title>
-        <link>http://localhost:1313/2022/12/18/oracle-function-select%E6%95%88%E8%83%BD/</link>
+        <link>https://hushuuu.github.io/2022/12/18/oracle-function-select%E6%95%88%E8%83%BD/</link>
         <pubDate>Sun, 18 Dec 2022 17:50:19 +0800</pubDate>
         
-        <guid>http://localhost:1313/2022/12/18/oracle-function-select%E6%95%88%E8%83%BD/</guid>
+        <guid>https://hushuuu.github.io/2022/12/18/oracle-function-select%E6%95%88%E8%83%BD/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;使用Oracle function的時候，使用的方式的效能差異，先說結論是&lt;code&gt;子查詢&lt;/code&gt;會快上許多。&lt;/p&gt;
 &lt;h4 id=&#34;直接call-function&#34;&gt;直接call function&lt;/h4&gt;
@@ -597,10 +597,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>WinForm列印PrintDocument</title>
-        <link>http://localhost:1313/2022/04/12/winform%E5%88%97%E5%8D%B0printdocument/</link>
+        <link>https://hushuuu.github.io/2022/04/12/winform%E5%88%97%E5%8D%B0printdocument/</link>
         <pubDate>Tue, 12 Apr 2022 08:42:19 +0800</pubDate>
         
-        <guid>http://localhost:1313/2022/04/12/winform%E5%88%97%E5%8D%B0printdocument/</guid>
+        <guid>https://hushuuu.github.io/2022/04/12/winform%E5%88%97%E5%8D%B0printdocument/</guid>
         <description>&lt;h2 id=&#34;主要內容&#34;&gt;主要內容&lt;/h2&gt;
 &lt;p&gt;可將欲列印之內容，使用&lt;code&gt;PrintDocument&lt;/code&gt;類別來列印出來&lt;br&gt;
 需用繪圖的方式來繪製出結果&lt;/p&gt;
@@ -635,10 +635,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>NetCore-專案檔設定</title>
-        <link>http://localhost:1313/2022/03/03/netcore-%E5%B0%88%E6%A1%88%E6%AA%94%E8%A8%AD%E5%AE%9A/</link>
+        <link>https://hushuuu.github.io/2022/03/03/netcore-%E5%B0%88%E6%A1%88%E6%AA%94%E8%A8%AD%E5%AE%9A/</link>
         <pubDate>Thu, 03 Mar 2022 10:38:39 +0800</pubDate>
         
-        <guid>http://localhost:1313/2022/03/03/netcore-%E5%B0%88%E6%A1%88%E6%AA%94%E8%A8%AD%E5%AE%9A/</guid>
+        <guid>https://hushuuu.github.io/2022/03/03/netcore-%E5%B0%88%E6%A1%88%E6%AA%94%E8%A8%AD%E5%AE%9A/</guid>
         <description>&lt;h2 id=&#34;主要內容&#34;&gt;主要內容&lt;/h2&gt;
 &lt;p&gt;專案下右鍵=&amp;gt;編輯專案檔&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//不重新編譯webconfig&lt;/span&gt;
@@ -658,10 +658,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Netcore處理跨域請求</title>
-        <link>http://localhost:1313/2022/03/01/netcore%E8%99%95%E7%90%86%E8%B7%A8%E5%9F%9F%E8%AB%8B%E6%B1%82/</link>
+        <link>https://hushuuu.github.io/2022/03/01/netcore%E8%99%95%E7%90%86%E8%B7%A8%E5%9F%9F%E8%AB%8B%E6%B1%82/</link>
         <pubDate>Tue, 01 Mar 2022 08:40:41 +0800</pubDate>
         
-        <guid>http://localhost:1313/2022/03/01/netcore%E8%99%95%E7%90%86%E8%B7%A8%E5%9F%9F%E8%AB%8B%E6%B1%82/</guid>
+        <guid>https://hushuuu.github.io/2022/03/01/netcore%E8%99%95%E7%90%86%E8%B7%A8%E5%9F%9F%E8%AB%8B%E6%B1%82/</guid>
         <description>&lt;h2 id=&#34;主要內容&#34;&gt;主要內容&lt;/h2&gt;
 &lt;p&gt;一般不允許跨域的請求，若有前後端放在不同網域或特殊用途可用&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//startup.cs&lt;/span&gt;
@@ -706,10 +706,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Vue Component(datepicker)</title>
-        <link>http://localhost:1313/2022/02/26/vue-componentdatepicker/</link>
+        <link>https://hushuuu.github.io/2022/02/26/vue-componentdatepicker/</link>
         <pubDate>Sat, 26 Feb 2022 14:25:43 +0800</pubDate>
         
-        <guid>http://localhost:1313/2022/02/26/vue-componentdatepicker/</guid>
+        <guid>https://hushuuu.github.io/2022/02/26/vue-componentdatepicker/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;使用Vuejs 2練習模板&lt;code&gt;Component&lt;/code&gt;&lt;br&gt;
 並處理&lt;code&gt;jquery datepicker&lt;/code&gt;無法雙向綁定問題&lt;/p&gt;
@@ -766,10 +766,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Vue Component(modal)</title>
-        <link>http://localhost:1313/2022/02/25/vue-componentmodal/</link>
+        <link>https://hushuuu.github.io/2022/02/25/vue-componentmodal/</link>
         <pubDate>Fri, 25 Feb 2022 14:25:43 +0800</pubDate>
         
-        <guid>http://localhost:1313/2022/02/25/vue-componentmodal/</guid>
+        <guid>https://hushuuu.github.io/2022/02/25/vue-componentmodal/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;使用Vuejs 2練習模板&lt;code&gt;Component&lt;/code&gt;&lt;br&gt;
 假設要設計&lt;code&gt;bootstrap4&lt;/code&gt;彈窗的模板&lt;br&gt;
@@ -933,10 +933,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>NetCore使用Appsetting</title>
-        <link>http://localhost:1313/2022/02/17/netcore%E4%BD%BF%E7%94%A8appsetting/</link>
+        <link>https://hushuuu.github.io/2022/02/17/netcore%E4%BD%BF%E7%94%A8appsetting/</link>
         <pubDate>Thu, 17 Feb 2022 09:45:19 +0800</pubDate>
         
-        <guid>http://localhost:1313/2022/02/17/netcore%E4%BD%BF%E7%94%A8appsetting/</guid>
+        <guid>https://hushuuu.github.io/2022/02/17/netcore%E4%BD%BF%E7%94%A8appsetting/</guid>
         <description>&lt;h2 id=&#34;主要內容&#34;&gt;主要內容&lt;/h2&gt;
 &lt;p&gt;NetCore在取得&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//預設Startup已有注入Configuration&lt;/span&gt;
@@ -1006,10 +1006,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Text.Json 客製JsonConverter</title>
-        <link>http://localhost:1313/2022/02/17/text.json-%E5%AE%A2%E8%A3%BDjsonconverter/</link>
+        <link>https://hushuuu.github.io/2022/02/17/text.json-%E5%AE%A2%E8%A3%BDjsonconverter/</link>
         <pubDate>Thu, 17 Feb 2022 08:40:41 +0800</pubDate>
         
-        <guid>http://localhost:1313/2022/02/17/text.json-%E5%AE%A2%E8%A3%BDjsonconverter/</guid>
+        <guid>https://hushuuu.github.io/2022/02/17/text.json-%E5%AE%A2%E8%A3%BDjsonconverter/</guid>
         <description>&lt;h2 id=&#34;主要內容&#34;&gt;主要內容&lt;/h2&gt;
 &lt;p&gt;建立類別繼承JsonConverter來掛在要轉換的屬性上&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;OnlyDateConverter&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;JsonConverter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DateTime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
@@ -1087,10 +1087,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Linebot Api 設定圖文選單</title>
-        <link>http://localhost:1313/2022/02/11/linebot-api-%E8%A8%AD%E5%AE%9A%E5%9C%96%E6%96%87%E9%81%B8%E5%96%AE/</link>
+        <link>https://hushuuu.github.io/2022/02/11/linebot-api-%E8%A8%AD%E5%AE%9A%E5%9C%96%E6%96%87%E9%81%B8%E5%96%AE/</link>
         <pubDate>Fri, 11 Feb 2022 16:49:51 +0800</pubDate>
         
-        <guid>http://localhost:1313/2022/02/11/linebot-api-%E8%A8%AD%E5%AE%9A%E5%9C%96%E6%96%87%E9%81%B8%E5%96%AE/</guid>
+        <guid>https://hushuuu.github.io/2022/02/11/linebot-api-%E8%A8%AD%E5%AE%9A%E5%9C%96%E6%96%87%E9%81%B8%E5%96%AE/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;設定&lt;code&gt;Richmenu&lt;/code&gt;的API網址有換過。紀錄一下操作流程&lt;/p&gt;
 &lt;h3 id=&#34;增加圖文選單&#34;&gt;增加圖文選單&lt;/h3&gt;
@@ -1167,10 +1167,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>找出form input元素並處理值集合</title>
-        <link>http://localhost:1313/2022/01/26/%E6%89%BE%E5%87%BAform-input%E5%85%83%E7%B4%A0%E4%B8%A6%E8%99%95%E7%90%86%E5%80%BC%E9%9B%86%E5%90%88/</link>
+        <link>https://hushuuu.github.io/2022/01/26/%E6%89%BE%E5%87%BAform-input%E5%85%83%E7%B4%A0%E4%B8%A6%E8%99%95%E7%90%86%E5%80%BC%E9%9B%86%E5%90%88/</link>
         <pubDate>Wed, 26 Jan 2022 16:49:44 +0800</pubDate>
         
-        <guid>http://localhost:1313/2022/01/26/%E6%89%BE%E5%87%BAform-input%E5%85%83%E7%B4%A0%E4%B8%A6%E8%99%95%E7%90%86%E5%80%BC%E9%9B%86%E5%90%88/</guid>
+        <guid>https://hushuuu.github.io/2022/01/26/%E6%89%BE%E5%87%BAform-input%E5%85%83%E7%B4%A0%E4%B8%A6%E8%99%95%E7%90%86%E5%80%BC%E9%9B%86%E5%90%88/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;找出每個Input元素並串好值可以拿來提交表單或是ajax post&lt;/p&gt;
 &lt;h2 id=&#34;主要內容&#34;&gt;主要內容&lt;/h2&gt;
@@ -1336,10 +1336,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>CSRF-AntiForgeryToken(ajax)</title>
-        <link>http://localhost:1313/2022/01/26/csrf-antiforgerytokenajax/</link>
+        <link>https://hushuuu.github.io/2022/01/26/csrf-antiforgerytokenajax/</link>
         <pubDate>Wed, 26 Jan 2022 16:39:45 +0800</pubDate>
         
-        <guid>http://localhost:1313/2022/01/26/csrf-antiforgerytokenajax/</guid>
+        <guid>https://hushuuu.github.io/2022/01/26/csrf-antiforgerytokenajax/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;為了防止CSRF攻擊，再提交表單時通常會使用&lt;code&gt;AntiForgeryToken&lt;/code&gt;&lt;br&gt;
 但在使用Ajax Post時也要注意&lt;/p&gt;
@@ -1369,10 +1369,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>完整刪除Oracle</title>
-        <link>http://localhost:1313/2021/11/23/%E5%AE%8C%E6%95%B4%E5%88%AA%E9%99%A4oracle/</link>
+        <link>https://hushuuu.github.io/2021/11/23/%E5%AE%8C%E6%95%B4%E5%88%AA%E9%99%A4oracle/</link>
         <pubDate>Tue, 23 Nov 2021 15:07:03 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/11/23/%E5%AE%8C%E6%95%B4%E5%88%AA%E9%99%A4oracle/</guid>
+        <guid>https://hushuuu.github.io/2021/11/23/%E5%AE%8C%E6%95%B4%E5%88%AA%E9%99%A4oracle/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;包含環境參數，Regedit內機碼，一併刪除。&lt;br&gt;
 版本為19c&lt;/p&gt;
@@ -1402,10 +1402,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>產生QR Code</title>
-        <link>http://localhost:1313/2021/10/21/%E7%94%A2%E7%94%9Fqr-code/</link>
+        <link>https://hushuuu.github.io/2021/10/21/%E7%94%A2%E7%94%9Fqr-code/</link>
         <pubDate>Thu, 21 Oct 2021 14:57:01 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/10/21/%E7%94%A2%E7%94%9Fqr-code/</guid>
+        <guid>https://hushuuu.github.io/2021/10/21/%E7%94%A2%E7%94%9Fqr-code/</guid>
         <description>&lt;h2 id=&#34;主要內容&#34;&gt;主要內容&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;System.Drawing&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;System.Drawing.Imaging&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -1438,10 +1438,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>JsonResult JsonConvert與日期Datetime</title>
-        <link>http://localhost:1313/2021/10/13/jsonresult-jsonconvert%E8%88%87%E6%97%A5%E6%9C%9Fdatetime/</link>
+        <link>https://hushuuu.github.io/2021/10/13/jsonresult-jsonconvert%E8%88%87%E6%97%A5%E6%9C%9Fdatetime/</link>
         <pubDate>Wed, 13 Oct 2021 15:56:04 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/10/13/jsonresult-jsonconvert%E8%88%87%E6%97%A5%E6%9C%9Fdatetime/</guid>
+        <guid>https://hushuuu.github.io/2021/10/13/jsonresult-jsonconvert%E8%88%87%E6%97%A5%E6%9C%9Fdatetime/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;MVC&lt;/code&gt;回傳的&lt;code&gt;ActionResult&lt;/code&gt;&lt;br&gt;
 可以用繼承他的&lt;code&gt;JsonResult&lt;/code&gt;來回傳&lt;br&gt;
@@ -1547,10 +1547,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Js Note</title>
-        <link>http://localhost:1313/2021/10/13/js-note/</link>
+        <link>https://hushuuu.github.io/2021/10/13/js-note/</link>
         <pubDate>Wed, 13 Oct 2021 14:53:29 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/10/13/js-note/</guid>
+        <guid>https://hushuuu.github.io/2021/10/13/js-note/</guid>
         <description>&lt;h2 id=&#34;closure-閉包&#34;&gt;Closure 閉包&lt;/h2&gt;
 &lt;p&gt;和作用域有關係，可用來避免變數汙染&lt;br&gt;
 或讓變數不被隨意存取改變&lt;br&gt;
@@ -1588,10 +1588,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Bootstrap Navbar Menu</title>
-        <link>http://localhost:1313/2021/10/13/bootstrap-navbar-menu/</link>
+        <link>https://hushuuu.github.io/2021/10/13/bootstrap-navbar-menu/</link>
         <pubDate>Wed, 13 Oct 2021 09:32:14 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/10/13/bootstrap-navbar-menu/</guid>
+        <guid>https://hushuuu.github.io/2021/10/13/bootstrap-navbar-menu/</guid>
         <description>&lt;h2 id=&#34;v3版本&#34;&gt;v3版本&lt;/h2&gt;
 &lt;p&gt;增加一個&lt;code&gt;li&lt;/code&gt;後&lt;code&gt;a&lt;/code&gt;tag觸發子選單&lt;code&gt;ul&lt;/code&gt; &lt;code&gt;submenu&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;navbar-collapse collapse&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
@@ -1708,10 +1708,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>WebService 建立和呼叫</title>
-        <link>http://localhost:1313/2021/10/04/webservice-%E5%BB%BA%E7%AB%8B%E5%92%8C%E5%91%BC%E5%8F%AB/</link>
+        <link>https://hushuuu.github.io/2021/10/04/webservice-%E5%BB%BA%E7%AB%8B%E5%92%8C%E5%91%BC%E5%8F%AB/</link>
         <pubDate>Mon, 04 Oct 2021 17:09:11 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/10/04/webservice-%E5%BB%BA%E7%AB%8B%E5%92%8C%E5%91%BC%E5%8F%AB/</guid>
+        <guid>https://hushuuu.github.io/2021/10/04/webservice-%E5%BB%BA%E7%AB%8B%E5%92%8C%E5%91%BC%E5%8F%AB/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;Webservice&lt;/code&gt;有點像是&lt;code&gt;Web API&lt;/code&gt;的前身&lt;br&gt;
 如果了解&lt;code&gt;Web API&lt;/code&gt;的原理很快就能上手&lt;/p&gt;
@@ -1772,10 +1772,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>動態調用Webservice</title>
-        <link>http://localhost:1313/2021/10/04/%E5%8B%95%E6%85%8B%E8%AA%BF%E7%94%A8webservice/</link>
+        <link>https://hushuuu.github.io/2021/10/04/%E5%8B%95%E6%85%8B%E8%AA%BF%E7%94%A8webservice/</link>
         <pubDate>Mon, 04 Oct 2021 14:38:32 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/10/04/%E5%8B%95%E6%85%8B%E8%AA%BF%E7%94%A8webservice/</guid>
+        <guid>https://hushuuu.github.io/2021/10/04/%E5%8B%95%E6%85%8B%E8%AA%BF%E7%94%A8webservice/</guid>
         <description>&lt;h2 id=&#34;主要內容&#34;&gt;主要內容&lt;/h2&gt;
 &lt;p&gt;建立&lt;code&gt;DynamicInvokeWebservice.cs&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;DynamicInvokeWebservice&lt;/span&gt;
@@ -1954,10 +1954,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Windowopen開新視窗並Post資料</title>
-        <link>http://localhost:1313/2021/10/04/windowopen%E9%96%8B%E6%96%B0%E8%A6%96%E7%AA%97%E4%B8%A6post%E8%B3%87%E6%96%99/</link>
+        <link>https://hushuuu.github.io/2021/10/04/windowopen%E9%96%8B%E6%96%B0%E8%A6%96%E7%AA%97%E4%B8%A6post%E8%B3%87%E6%96%99/</link>
         <pubDate>Mon, 04 Oct 2021 14:19:59 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/10/04/windowopen%E9%96%8B%E6%96%B0%E8%A6%96%E7%AA%97%E4%B8%A6post%E8%B3%87%E6%96%99/</guid>
+        <guid>https://hushuuu.github.io/2021/10/04/windowopen%E9%96%8B%E6%96%B0%E8%A6%96%E7%AA%97%E4%B8%A6post%E8%B3%87%E6%96%99/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;一般用&lt;code&gt;window.open&lt;/code&gt;開窗傳遞參數常用&lt;code&gt;get&lt;/code&gt;方式在&lt;code&gt;url&lt;/code&gt;後方串接參數&lt;br&gt;
 若想用&lt;code&gt;post&lt;/code&gt;方式，則在開窗前模擬&lt;code&gt;form submit post&lt;/code&gt;&lt;br&gt;
@@ -2006,10 +2006,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Notification - IOS篇</title>
-        <link>http://localhost:1313/2021/09/09/notification-ios%E7%AF%87/</link>
+        <link>https://hushuuu.github.io/2021/09/09/notification-ios%E7%AF%87/</link>
         <pubDate>Thu, 09 Sep 2021 10:51:04 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/09/09/notification-ios%E7%AF%87/</guid>
+        <guid>https://hushuuu.github.io/2021/09/09/notification-ios%E7%AF%87/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;IOS&lt;/code&gt;使用&lt;code&gt;APNS server&lt;/code&gt;要額外使用組件&lt;code&gt;HttpTwo&lt;/code&gt; &lt;code&gt;HttpTwo.HPack&lt;/code&gt; &lt;code&gt;jose-jwt&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;主要內容&#34;&gt;主要內容&lt;/h2&gt;
@@ -2193,10 +2193,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Notification - Android篇</title>
-        <link>http://localhost:1313/2021/09/07/notification-android%E7%AF%87/</link>
+        <link>https://hushuuu.github.io/2021/09/07/notification-android%E7%AF%87/</link>
         <pubDate>Tue, 07 Sep 2021 09:45:46 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/09/07/notification-android%E7%AF%87/</guid>
+        <guid>https://hushuuu.github.io/2021/09/07/notification-android%E7%AF%87/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;Android&lt;/code&gt;用&lt;code&gt;FCM&lt;/code&gt;傳送通知步驟較&lt;code&gt;IOS Apns&lt;/code&gt;為簡易。&lt;br&gt;
 &lt;code&gt;Request&lt;/code&gt;加&lt;code&gt;ApiKey&lt;/code&gt;驗證傳給FCM Server即可&lt;/p&gt;
@@ -2332,10 +2332,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Notification - Service Worker篇</title>
-        <link>http://localhost:1313/2021/09/06/notification-service-worker%E7%AF%87/</link>
+        <link>https://hushuuu.github.io/2021/09/06/notification-service-worker%E7%AF%87/</link>
         <pubDate>Mon, 06 Sep 2021 16:49:16 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/09/06/notification-service-worker%E7%AF%87/</guid>
+        <guid>https://hushuuu.github.io/2021/09/06/notification-service-worker%E7%AF%87/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;Service Worker&lt;/code&gt;目前&lt;code&gt;Apple&lt;/code&gt;體系似乎還未完全支援&lt;code&gt;(IOS,Safari...)&lt;/code&gt;&lt;br&gt;
 這次使用&lt;code&gt;Notification API&lt;/code&gt;&lt;br&gt;
@@ -2676,10 +2676,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Notification - 判斷WebView</title>
-        <link>http://localhost:1313/2021/09/06/notification-%E5%88%A4%E6%96%B7webview/</link>
+        <link>https://hushuuu.github.io/2021/09/06/notification-%E5%88%A4%E6%96%B7webview/</link>
         <pubDate>Mon, 06 Sep 2021 16:36:44 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/09/06/notification-%E5%88%A4%E6%96%B7webview/</guid>
+        <guid>https://hushuuu.github.io/2021/09/06/notification-%E5%88%A4%E6%96%B7webview/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;透過用戶代理&lt;code&gt;useragent&lt;/code&gt;偵測瀏覽器&lt;br&gt;
 來判斷是否當下為&lt;code&gt;WebView&lt;/code&gt;&lt;/p&gt;
@@ -2710,10 +2710,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>VueJs 處理Json格式下日期Date</title>
-        <link>http://localhost:1313/2021/08/26/vuejs-%E8%99%95%E7%90%86json%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%97%A5%E6%9C%9Fdate/</link>
+        <link>https://hushuuu.github.io/2021/08/26/vuejs-%E8%99%95%E7%90%86json%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%97%A5%E6%9C%9Fdate/</link>
         <pubDate>Thu, 26 Aug 2021 16:37:23 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/08/26/vuejs-%E8%99%95%E7%90%86json%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%97%A5%E6%9C%9Fdate/</guid>
+        <guid>https://hushuuu.github.io/2021/08/26/vuejs-%E8%99%95%E7%90%86json%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%97%A5%E6%9C%9Fdate/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;Json Serilize&lt;/code&gt;後&lt;code&gt;Datetime&lt;/code&gt;格式被轉為&lt;code&gt;/Date(1373950800000)/&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;轉換處理&#34;&gt;轉換處理&lt;/h2&gt;
@@ -2763,10 +2763,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>.Net MVC ViewModel 套上VueJs</title>
-        <link>http://localhost:1313/2021/08/26/.net-mvc-viewmodel-%E5%A5%97%E4%B8%8Avuejs/</link>
+        <link>https://hushuuu.github.io/2021/08/26/.net-mvc-viewmodel-%E5%A5%97%E4%B8%8Avuejs/</link>
         <pubDate>Thu, 26 Aug 2021 14:48:29 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/08/26/.net-mvc-viewmodel-%E5%A5%97%E4%B8%8Avuejs/</guid>
+        <guid>https://hushuuu.github.io/2021/08/26/.net-mvc-viewmodel-%E5%A5%97%E4%B8%8Avuejs/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;版本&lt;code&gt;vue2.x&lt;/code&gt;&lt;br&gt;
 將&lt;code&gt;ViewModel&lt;/code&gt;序列化後也可綁定到&lt;code&gt;Vue&lt;/code&gt;物件上&lt;/p&gt;
@@ -2805,10 +2805,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>NPOI - CellStyle篇</title>
-        <link>http://localhost:1313/2021/08/26/npoi-cellstyle%E7%AF%87/</link>
+        <link>https://hushuuu.github.io/2021/08/26/npoi-cellstyle%E7%AF%87/</link>
         <pubDate>Thu, 26 Aug 2021 11:52:40 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/08/26/npoi-cellstyle%E7%AF%87/</guid>
+        <guid>https://hushuuu.github.io/2021/08/26/npoi-cellstyle%E7%AF%87/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;NPOI 設定框線、字型、顏色、對齊、換行&amp;hellip;等常用樣式設定&lt;/p&gt;
 &lt;h3 id=&#34;建立表&#34;&gt;建立表&lt;/h3&gt;
@@ -2942,10 +2942,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>NPOI 合併儲存格與框線樣式</title>
-        <link>http://localhost:1313/2021/08/26/npoi-%E5%90%88%E4%BD%B5%E5%84%B2%E5%AD%98%E6%A0%BC%E8%88%87%E6%A1%86%E7%B7%9A%E6%A8%A3%E5%BC%8F/</link>
+        <link>https://hushuuu.github.io/2021/08/26/npoi-%E5%90%88%E4%BD%B5%E5%84%B2%E5%AD%98%E6%A0%BC%E8%88%87%E6%A1%86%E7%B7%9A%E6%A8%A3%E5%BC%8F/</link>
         <pubDate>Thu, 26 Aug 2021 10:41:03 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/08/26/npoi-%E5%90%88%E4%BD%B5%E5%84%B2%E5%AD%98%E6%A0%BC%E8%88%87%E6%A1%86%E7%B7%9A%E6%A8%A3%E5%BC%8F/</guid>
+        <guid>https://hushuuu.github.io/2021/08/26/npoi-%E5%90%88%E4%BD%B5%E5%84%B2%E5%AD%98%E6%A0%BC%E8%88%87%E6%A1%86%E7%B7%9A%E6%A8%A3%E5%BC%8F/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;NPOI 是可讀取及產出Excel的套件。同JAVA的POI&lt;/p&gt;
 &lt;h2 id=&#34;excel概觀&#34;&gt;EXCEL概觀&lt;/h2&gt;
@@ -3004,10 +3004,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>ajax在NetCore Razor Page得到回應bad request</title>
-        <link>http://localhost:1313/2021/05/27/ajax%E5%9C%A8netcore-razor-page%E5%BE%97%E5%88%B0%E5%9B%9E%E6%87%89bad-request/</link>
+        <link>https://hushuuu.github.io/2021/05/27/ajax%E5%9C%A8netcore-razor-page%E5%BE%97%E5%88%B0%E5%9B%9E%E6%87%89bad-request/</link>
         <pubDate>Thu, 27 May 2021 15:52:39 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/05/27/ajax%E5%9C%A8netcore-razor-page%E5%BE%97%E5%88%B0%E5%9B%9E%E6%87%89bad-request/</guid>
+        <guid>https://hushuuu.github.io/2021/05/27/ajax%E5%9C%A8netcore-razor-page%E5%BE%97%E5%88%B0%E5%9B%9E%E6%87%89bad-request/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;在使用Razor Page時，想傳入post請求卻得到&lt;code&gt;bad request&lt;/code&gt;&lt;br&gt;
 應該是在net core下有預設檢查&lt;code&gt;ValidateAntiForgeryToken&lt;/code&gt;來防止跨站攻擊&lt;br&gt;
@@ -3044,10 +3044,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>NetCore上建立LINE BOT</title>
-        <link>http://localhost:1313/2021/05/27/netcore%E4%B8%8A%E5%BB%BA%E7%AB%8Bline-bot/</link>
+        <link>https://hushuuu.github.io/2021/05/27/netcore%E4%B8%8A%E5%BB%BA%E7%AB%8Bline-bot/</link>
         <pubDate>Thu, 27 May 2021 10:09:55 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/05/27/netcore%E4%B8%8A%E5%BB%BA%E7%AB%8Bline-bot/</guid>
+        <guid>https://hushuuu.github.io/2021/05/27/netcore%E4%B8%8A%E5%BB%BA%E7%AB%8Bline-bot/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;LINE官方有不同語言的API套件，C#的話則有社群提供。主要為&lt;code&gt;pierre3&lt;/code&gt;提供的&lt;code&gt;LineMessaging Api&lt;/code&gt;和&lt;code&gt;twdeveloper&lt;/code&gt;提供的&lt;code&gt;LineBotSDK&lt;/code&gt;可選用&lt;br&gt;
 本篇使用&lt;code&gt;LineMessaging Api&lt;/code&gt;&lt;/p&gt;
@@ -3307,10 +3307,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>圖表套件使用-Chart js</title>
-        <link>http://localhost:1313/2021/05/03/%E5%9C%96%E8%A1%A8%E5%A5%97%E4%BB%B6%E4%BD%BF%E7%94%A8-chart-js/</link>
+        <link>https://hushuuu.github.io/2021/05/03/%E5%9C%96%E8%A1%A8%E5%A5%97%E4%BB%B6%E4%BD%BF%E7%94%A8-chart-js/</link>
         <pubDate>Mon, 03 May 2021 13:59:47 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/05/03/%E5%9C%96%E8%A1%A8%E5%A5%97%E4%BB%B6%E4%BD%BF%E7%94%A8-chart-js/</guid>
+        <guid>https://hushuuu.github.io/2021/05/03/%E5%9C%96%E8%A1%A8%E5%A5%97%E4%BB%B6%E4%BD%BF%E7%94%A8-chart-js/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;在使用套件時，根據環境跟使用，引入的&lt;code&gt;script&lt;/code&gt;版本非常重要&lt;br&gt;
 版本不同有些使用的方式也會改變或是增減造成效果不一。&lt;br&gt;
@@ -3594,10 +3594,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>Net Core 使用 SignalR實現即時通訊</title>
-        <link>http://localhost:1313/2021/04/29/net-core-%E4%BD%BF%E7%94%A8-signalr%E5%AF%A6%E7%8F%BE%E5%8D%B3%E6%99%82%E9%80%9A%E8%A8%8A/</link>
+        <link>https://hushuuu.github.io/2021/04/29/net-core-%E4%BD%BF%E7%94%A8-signalr%E5%AF%A6%E7%8F%BE%E5%8D%B3%E6%99%82%E9%80%9A%E8%A8%8A/</link>
         <pubDate>Thu, 29 Apr 2021 14:15:05 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/04/29/net-core-%E4%BD%BF%E7%94%A8-signalr%E5%AF%A6%E7%8F%BE%E5%8D%B3%E6%99%82%E9%80%9A%E8%A8%8A/</guid>
+        <guid>https://hushuuu.github.io/2021/04/29/net-core-%E4%BD%BF%E7%94%A8-signalr%E5%AF%A6%E7%8F%BE%E5%8D%B3%E6%99%82%E9%80%9A%E8%A8%8A/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;在使用&lt;code&gt;SignalR&lt;/code&gt;之前可以先行了解&lt;code&gt;WebSocket&lt;/code&gt;的原理&lt;br&gt;
 &lt;code&gt;Websocket&lt;/code&gt;是一個持久化的協議，長期保持連線&lt;br&gt;
@@ -3725,10 +3725,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>NetCore 啟用Session</title>
-        <link>http://localhost:1313/2021/04/23/netcore-%E5%95%9F%E7%94%A8session/</link>
+        <link>https://hushuuu.github.io/2021/04/23/netcore-%E5%95%9F%E7%94%A8session/</link>
         <pubDate>Fri, 23 Apr 2021 10:39:28 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/04/23/netcore-%E5%95%9F%E7%94%A8session/</guid>
+        <guid>https://hushuuu.github.io/2021/04/23/netcore-%E5%95%9F%E7%94%A8session/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;安裝套件&lt;code&gt; Microsoft.AspNetCore.Session&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Startup.cs &amp;gt; ConfigureServices&lt;/code&gt;中加入&lt;/p&gt;
@@ -3783,10 +3783,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>NetCore 更改預設ModelBinding ErrorMessage</title>
-        <link>http://localhost:1313/2021/04/23/netcore-%E6%9B%B4%E6%94%B9%E9%A0%90%E8%A8%ADmodelbinding-errormessage/</link>
+        <link>https://hushuuu.github.io/2021/04/23/netcore-%E6%9B%B4%E6%94%B9%E9%A0%90%E8%A8%ADmodelbinding-errormessage/</link>
         <pubDate>Fri, 23 Apr 2021 10:04:41 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/04/23/netcore-%E6%9B%B4%E6%94%B9%E9%A0%90%E8%A8%ADmodelbinding-errormessage/</guid>
+        <guid>https://hushuuu.github.io/2021/04/23/netcore-%E6%9B%B4%E6%94%B9%E9%A0%90%E8%A8%ADmodelbinding-errormessage/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;NetCore&lt;/code&gt;就算更改了&lt;code&gt;Local Language&lt;/code&gt;若沒做多國語言資源，似乎沒有預設中文的樣板&lt;br&gt;
 除了可以在Attribue裡面自定義錯誤訊息來改成中文但共用屬性每個都改太麻煩了
@@ -3849,10 +3849,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>在Net Core 使用 ViewComponent</title>
-        <link>http://localhost:1313/2021/04/21/%E5%9C%A8net-core-%E4%BD%BF%E7%94%A8-viewcomponent/</link>
+        <link>https://hushuuu.github.io/2021/04/21/%E5%9C%A8net-core-%E4%BD%BF%E7%94%A8-viewcomponent/</link>
         <pubDate>Wed, 21 Apr 2021 17:50:19 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/04/21/%E5%9C%A8net-core-%E4%BD%BF%E7%94%A8-viewcomponent/</guid>
+        <guid>https://hushuuu.github.io/2021/04/21/%E5%9C%A8net-core-%E4%BD%BF%E7%94%A8-viewcomponent/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;NetCore&lt;/code&gt;也可以使用原本&lt;code&gt;HtmlHelper&lt;/code&gt;的&lt;code&gt;PartialView&lt;/code&gt;的方式或用&lt;code&gt;TagHelper&lt;/code&gt;來呼叫&lt;br&gt;
 本篇介紹如何使用更豐富的&lt;code&gt;ViewComponent&lt;/code&gt;&lt;/p&gt;
@@ -3913,10 +3913,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>EntityFramework Core使用NLlog紀錄Sql</title>
-        <link>http://localhost:1313/2021/04/12/entityframework-core%E4%BD%BF%E7%94%A8nllog%E7%B4%80%E9%8C%84sql/</link>
+        <link>https://hushuuu.github.io/2021/04/12/entityframework-core%E4%BD%BF%E7%94%A8nllog%E7%B4%80%E9%8C%84sql/</link>
         <pubDate>Mon, 12 Apr 2021 15:00:25 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/04/12/entityframework-core%E4%BD%BF%E7%94%A8nllog%E7%B4%80%E9%8C%84sql/</guid>
+        <guid>https://hushuuu.github.io/2021/04/12/entityframework-core%E4%BD%BF%E7%94%A8nllog%E7%B4%80%E9%8C%84sql/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;EF Core5.0之後增加&lt;/code&gt; &lt;code&gt;LogTo&lt;/code&gt; 可使用&lt;code&gt;StramWriter&lt;/code&gt;的方式寫在&lt;code&gt;DBContext.cs&lt;/code&gt;裡&lt;br&gt;
 但沒試出寫在&lt;code&gt;Startup.cs ConfigureServices&lt;/code&gt;&lt;/p&gt;
@@ -4035,10 +4035,10 @@ ex: &lt;code&gt;return LocalRedirect(&amp;quot;~/Login&amp;quot;);&lt;/code&gt;&
         </item>
         <item>
         <title>EntityFramework Core開始使用</title>
-        <link>http://localhost:1313/2021/04/09/entityframework-core%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/</link>
+        <link>https://hushuuu.github.io/2021/04/09/entityframework-core%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/</link>
         <pubDate>Fri, 09 Apr 2021 10:17:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/04/09/entityframework-core%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/</guid>
+        <guid>https://hushuuu.github.io/2021/04/09/entityframework-core%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;.NetCore(net5)&lt;br&gt;
 Entity Framework Core&lt;br&gt;
@@ -4152,10 +4152,10 @@ Entity Framework Core&lt;br&gt;
         </item>
         <item>
         <title>MVC-使用AntiForgery Token防止跨網站(XSRF/CSRF)攻擊</title>
-        <link>http://localhost:1313/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/</link>
+        <link>https://hushuuu.github.io/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/</link>
         <pubDate>Mon, 29 Mar 2021 15:56:17 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/</guid>
+        <guid>https://hushuuu.github.io/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;MVC本身可在&lt;code&gt;Form Post&lt;/code&gt;前使用&lt;code&gt;AntiForgeryToken&lt;/code&gt;&lt;br&gt;
 在&lt;code&gt;Action&lt;/code&gt;上掛上&lt;code&gt;[ValidateAntiForgeryToken]&lt;/code&gt;來檢查驗證&lt;br&gt;
@@ -4233,10 +4233,10 @@ Entity Framework Core&lt;br&gt;
         </item>
         <item>
         <title>MVC-上傳檔案轉為Base64String</title>
-        <link>http://localhost:1313/2021/03/25/mvc-%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E8%BD%89%E7%82%BAbase64string/</link>
+        <link>https://hushuuu.github.io/2021/03/25/mvc-%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E8%BD%89%E7%82%BAbase64string/</link>
         <pubDate>Thu, 25 Mar 2021 11:15:44 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/03/25/mvc-%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E8%BD%89%E7%82%BAbase64string/</guid>
+        <guid>https://hushuuu.github.io/2021/03/25/mvc-%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E8%BD%89%E7%82%BAbase64string/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;Html&lt;/code&gt;的&lt;code&gt;Img&lt;/code&gt;標籤可以將&lt;code&gt;src&lt;/code&gt;設為轉換後的&lt;code&gt;Base64 String&lt;/code&gt;也可以顯示出圖片&lt;br&gt;
 若&lt;code&gt;WebApi&lt;/code&gt;需要交流檔案也可以將檔案轉換為&lt;code&gt;Base64&lt;/code&gt;進行溝通&lt;/p&gt;
@@ -4309,10 +4309,10 @@ Entity Framework Core&lt;br&gt;
         </item>
         <item>
         <title>MVC-檔案上傳Post</title>
-        <link>http://localhost:1313/2021/03/25/mvc-%E6%AA%94%E6%A1%88%E4%B8%8A%E5%82%B3post/</link>
+        <link>https://hushuuu.github.io/2021/03/25/mvc-%E6%AA%94%E6%A1%88%E4%B8%8A%E5%82%B3post/</link>
         <pubDate>Thu, 25 Mar 2021 10:44:23 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/03/25/mvc-%E6%AA%94%E6%A1%88%E4%B8%8A%E5%82%B3post/</guid>
+        <guid>https://hushuuu.github.io/2021/03/25/mvc-%E6%AA%94%E6%A1%88%E4%B8%8A%E5%82%B3post/</guid>
         <description>&lt;h2 id=&#34;formpost&#34;&gt;FormPost&lt;/h2&gt;
 &lt;p&gt;如果要用FormPost的方式上傳檔案&lt;br&gt;
 注意將Form的&lt;code&gt;Content-Type &lt;/code&gt;設定為&lt;code&gt;enctype=&amp;quot;multipart/form-data&amp;quot;&lt;/code&gt;&lt;br&gt;
@@ -4411,10 +4411,10 @@ Entity Framework Core&lt;br&gt;
         </item>
         <item>
         <title>Linq常用的語法與基本介紹</title>
-        <link>http://localhost:1313/2021/03/16/linq%E5%B8%B8%E7%94%A8%E7%9A%84%E8%AA%9E%E6%B3%95%E8%88%87%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/</link>
+        <link>https://hushuuu.github.io/2021/03/16/linq%E5%B8%B8%E7%94%A8%E7%9A%84%E8%AA%9E%E6%B3%95%E8%88%87%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/</link>
         <pubDate>Tue, 16 Mar 2021 16:46:20 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/03/16/linq%E5%B8%B8%E7%94%A8%E7%9A%84%E8%AA%9E%E6%B3%95%E8%88%87%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/</guid>
+        <guid>https://hushuuu.github.io/2021/03/16/linq%E5%B8%B8%E7%94%A8%E7%9A%84%E8%AA%9E%E6%B3%95%E8%88%87%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;LINQ在資料的過濾以及查詢方面非常方便，不只可以在EF中轉為SQL語句&lt;br&gt;
 也能對平常的List型別進行過濾查詢。&lt;/p&gt;
@@ -4505,10 +4505,10 @@ Entity Framework Core&lt;br&gt;
         </item>
         <item>
         <title>MVC-包含明細的儲存</title>
-        <link>http://localhost:1313/2021/03/16/mvc-%E5%8C%85%E5%90%AB%E6%98%8E%E7%B4%B0%E7%9A%84%E5%84%B2%E5%AD%98/</link>
+        <link>https://hushuuu.github.io/2021/03/16/mvc-%E5%8C%85%E5%90%AB%E6%98%8E%E7%B4%B0%E7%9A%84%E5%84%B2%E5%AD%98/</link>
         <pubDate>Tue, 16 Mar 2021 15:50:53 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/03/16/mvc-%E5%8C%85%E5%90%AB%E6%98%8E%E7%B4%B0%E7%9A%84%E5%84%B2%E5%AD%98/</guid>
+        <guid>https://hushuuu.github.io/2021/03/16/mvc-%E5%8C%85%E5%90%AB%E6%98%8E%E7%B4%B0%E7%9A%84%E5%84%B2%E5%AD%98/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;在一對多的資料表下，一個表頭會對應好幾筆的明細&lt;br&gt;
 開發儲存明細時，該如何實現。&lt;/p&gt;
@@ -4586,10 +4586,10 @@ Entity Framework Core&lt;br&gt;
         </item>
         <item>
         <title>MVC-Table排序與分頁</title>
-        <link>http://localhost:1313/2021/03/16/mvc-table%E6%8E%92%E5%BA%8F%E8%88%87%E5%88%86%E9%A0%81/</link>
+        <link>https://hushuuu.github.io/2021/03/16/mvc-table%E6%8E%92%E5%BA%8F%E8%88%87%E5%88%86%E9%A0%81/</link>
         <pubDate>Tue, 16 Mar 2021 14:43:46 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/03/16/mvc-table%E6%8E%92%E5%BA%8F%E8%88%87%E5%88%86%E9%A0%81/</guid>
+        <guid>https://hushuuu.github.io/2021/03/16/mvc-table%E6%8E%92%E5%BA%8F%E8%88%87%E5%88%86%E9%A0%81/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;前端有很多實用的table套件如DataTable.js可以直接實現排序換頁搜尋&lt;br&gt;
 本篇主要練習如何手動刻出類似的功能。&lt;/p&gt;
@@ -4680,10 +4680,10 @@ Session可以記住排序的欄位順序甚至查詢條件&lt;br&gt;
         </item>
         <item>
         <title>MVC-頁面及權限管理</title>
-        <link>http://localhost:1313/2021/03/16/mvc-%E9%A0%81%E9%9D%A2%E5%8F%8A%E6%AC%8A%E9%99%90%E7%AE%A1%E7%90%86/</link>
+        <link>https://hushuuu.github.io/2021/03/16/mvc-%E9%A0%81%E9%9D%A2%E5%8F%8A%E6%AC%8A%E9%99%90%E7%AE%A1%E7%90%86/</link>
         <pubDate>Tue, 16 Mar 2021 08:49:37 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/03/16/mvc-%E9%A0%81%E9%9D%A2%E5%8F%8A%E6%AC%8A%E9%99%90%E7%AE%A1%E7%90%86/</guid>
+        <guid>https://hushuuu.github.io/2021/03/16/mvc-%E9%A0%81%E9%9D%A2%E5%8F%8A%E6%AC%8A%E9%99%90%E7%AE%A1%E7%90%86/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;此篇根據頁面資料表間的父子關係，利用遞迴來產生Menu的選單&lt;br&gt;
 並透過群組來進行頁面權限的管控&lt;/p&gt;
@@ -4869,10 +4869,10 @@ Session可以記住排序的欄位順序甚至查詢條件&lt;br&gt;
         </item>
         <item>
         <title>MVC-產出Excel</title>
-        <link>http://localhost:1313/2021/03/15/mvc-%E7%94%A2%E5%87%BAexcel/</link>
+        <link>https://hushuuu.github.io/2021/03/15/mvc-%E7%94%A2%E5%87%BAexcel/</link>
         <pubDate>Mon, 15 Mar 2021 17:15:18 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/03/15/mvc-%E7%94%A2%E5%87%BAexcel/</guid>
+        <guid>https://hushuuu.github.io/2021/03/15/mvc-%E7%94%A2%E5%87%BAexcel/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;介紹NPOI及EPPlus套件來將資料產出成Excel。&lt;/p&gt;
 &lt;h2 id=&#34;主要內容&#34;&gt;主要內容&lt;/h2&gt;
@@ -4972,10 +4972,10 @@ Ajax回傳至前端後，利用iframe的方式實現下載(打下載的Action)&l
         </item>
         <item>
         <title>MVC-資料存取(DataAccess)</title>
-        <link>http://localhost:1313/2021/03/15/mvc-%E8%B3%87%E6%96%99%E5%AD%98%E5%8F%96dataaccess/</link>
+        <link>https://hushuuu.github.io/2021/03/15/mvc-%E8%B3%87%E6%96%99%E5%AD%98%E5%8F%96dataaccess/</link>
         <pubDate>Mon, 15 Mar 2021 11:32:53 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/03/15/mvc-%E8%B3%87%E6%96%99%E5%AD%98%E5%8F%96dataaccess/</guid>
+        <guid>https://hushuuu.github.io/2021/03/15/mvc-%E8%B3%87%E6%96%99%E5%AD%98%E5%8F%96dataaccess/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;在開發時與資料庫間的連線橋梁，較常見的為ADO.NET或是EF的方式，此篇只介紹ADO.NET&lt;br&gt;
 使用ADO.NET最基本就是開啟SqlConnection連線建立SqlCommand操作&lt;/p&gt;
@@ -5187,10 +5187,10 @@ Ajax回傳至前端後，利用iframe的方式實現下載(打下載的Action)&l
         </item>
         <item>
         <title>無法轉換類型為CrystalDecisions.ReportAppServer.Controllers.ReportSourceClass</title>
-        <link>http://localhost:1313/2021/03/15/%E7%84%A1%E6%B3%95%E8%BD%89%E6%8F%9B%E9%A1%9E%E5%9E%8B%E7%82%BAcrystaldecisions.reportappserver.controllers.reportsourceclass/</link>
+        <link>https://hushuuu.github.io/2021/03/15/%E7%84%A1%E6%B3%95%E8%BD%89%E6%8F%9B%E9%A1%9E%E5%9E%8B%E7%82%BAcrystaldecisions.reportappserver.controllers.reportsourceclass/</link>
         <pubDate>Mon, 15 Mar 2021 10:58:27 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/03/15/%E7%84%A1%E6%B3%95%E8%BD%89%E6%8F%9B%E9%A1%9E%E5%9E%8B%E7%82%BAcrystaldecisions.reportappserver.controllers.reportsourceclass/</guid>
+        <guid>https://hushuuu.github.io/2021/03/15/%E7%84%A1%E6%B3%95%E8%BD%89%E6%8F%9B%E9%A1%9E%E5%9E%8B%E7%82%BAcrystaldecisions.reportappserver.controllers.reportsourceclass/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;較舊之Winfrom專案，有些報表是用SAP的CrystalReport來產生報表。&lt;br&gt;
 若使用VS2019的環境必須先至SAP下載安裝相關之Runtime或是專門給開發人員的CRforVisualStudio&lt;br&gt;
@@ -5280,10 +5280,10 @@ Ajax回傳至前端後，利用iframe的方式實現下載(打下載的Action)&l
         </item>
         <item>
         <title>EntityFramework查詢結果回傳DataTable</title>
-        <link>http://localhost:1313/2021/03/15/entityframework%E6%9F%A5%E8%A9%A2%E7%B5%90%E6%9E%9C%E5%9B%9E%E5%82%B3datatable/</link>
+        <link>https://hushuuu.github.io/2021/03/15/entityframework%E6%9F%A5%E8%A9%A2%E7%B5%90%E6%9E%9C%E5%9B%9E%E5%82%B3datatable/</link>
         <pubDate>Mon, 15 Mar 2021 09:55:01 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/03/15/entityframework%E6%9F%A5%E8%A9%A2%E7%B5%90%E6%9E%9C%E5%9B%9E%E5%82%B3datatable/</guid>
+        <guid>https://hushuuu.github.io/2021/03/15/entityframework%E6%9F%A5%E8%A9%A2%E7%B5%90%E6%9E%9C%E5%9B%9E%E5%82%B3datatable/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;以DatabaseFirst來說不管是查詢還是更改的動作都是和資料庫綁定的實體資料模型Model進行交流&lt;br&gt;
 查詢的結果會是模型的類別，如果結果要為DataTable，EF也可以使用Command的方式。&lt;/p&gt;
@@ -5326,10 +5326,10 @@ Ajax回傳至前端後，利用iframe的方式實現下載(打下載的Action)&l
         </item>
         <item>
         <title>MVC 登入驗證</title>
-        <link>http://localhost:1313/2021/03/15/mvc-%E7%99%BB%E5%85%A5%E9%A9%97%E8%AD%89/</link>
+        <link>https://hushuuu.github.io/2021/03/15/mvc-%E7%99%BB%E5%85%A5%E9%A9%97%E8%AD%89/</link>
         <pubDate>Mon, 15 Mar 2021 09:26:53 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/03/15/mvc-%E7%99%BB%E5%85%A5%E9%A9%97%E8%AD%89/</guid>
+        <guid>https://hushuuu.github.io/2021/03/15/mvc-%E7%99%BB%E5%85%A5%E9%A9%97%E8%AD%89/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;關於過濾器，可以提前了解一下Asp.net MVC的生命週期。&lt;br&gt;
 可透過放在不同週期階段的過濾器來達成不同的需求。&lt;br&gt;
@@ -5364,10 +5364,10 @@ Ajax回傳至前端後，利用iframe的方式實現下載(打下載的Action)&l
         </item>
         <item>
         <title>asp.net MVC 後端Model欄位驗證</title>
-        <link>http://localhost:1313/2021/03/15/asp.net-mvc-%E5%BE%8C%E7%AB%AFmodel%E6%AC%84%E4%BD%8D%E9%A9%97%E8%AD%89/</link>
+        <link>https://hushuuu.github.io/2021/03/15/asp.net-mvc-%E5%BE%8C%E7%AB%AFmodel%E6%AC%84%E4%BD%8D%E9%A9%97%E8%AD%89/</link>
         <pubDate>Mon, 15 Mar 2021 09:03:12 +0800</pubDate>
         
-        <guid>http://localhost:1313/2021/03/15/asp.net-mvc-%E5%BE%8C%E7%AB%AFmodel%E6%AC%84%E4%BD%8D%E9%A9%97%E8%AD%89/</guid>
+        <guid>https://hushuuu.github.io/2021/03/15/asp.net-mvc-%E5%BE%8C%E7%AB%AFmodel%E6%AC%84%E4%BD%8D%E9%A9%97%E8%AD%89/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;說明幾種&lt;code&gt;Model Binding&lt;/code&gt;驗證欄位的方法。&lt;br&gt;
 包含正則式，長度限制，必填，自訂驗證。&lt;/p&gt;
@@ -5412,11 +5412,11 @@ Ajax回傳至前端後，利用iframe的方式實現下載(打下載的Action)&l
         </item>
         <item>
         <title>Markdown Syntax Guide</title>
-        <link>http://localhost:1313/2019/03/11/markdown-syntax-guide/</link>
+        <link>https://hushuuu.github.io/2019/03/11/markdown-syntax-guide/</link>
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/2019/03/11/markdown-syntax-guide/</guid>
-        <description>&lt;img src="http://localhost:1313/2019/03/11/markdown-syntax-guide/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown Syntax Guide" /&gt;&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;
+        <guid>https://hushuuu.github.io/2019/03/11/markdown-syntax-guide/</guid>
+        <description>&lt;img src="https://hushuuu.github.io/2019/03/11/markdown-syntax-guide/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown Syntax Guide" /&gt;&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;
 &lt;h2 id=&#34;headings&#34;&gt;Headings&lt;/h2&gt;
 &lt;p&gt;The following HTML &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt;—&lt;code&gt;&amp;lt;h6&amp;gt;&lt;/code&gt; elements represent six levels of section headings. &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt; is the highest section level while &lt;code&gt;&amp;lt;h6&amp;gt;&lt;/code&gt; is the lowest.&lt;/p&gt;
 &lt;h1 id=&#34;h1&#34;&gt;H1&lt;/h1&gt;
@@ -5557,10 +5557,10 @@ Ajax回傳至前端後，利用iframe的方式實現下載(打下載的Action)&l
         </item>
         <item>
         <title>Math Typesetting</title>
-        <link>http://localhost:1313/2019/03/08/math-typesetting/</link>
+        <link>https://hushuuu.github.io/2019/03/08/math-typesetting/</link>
         <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/2019/03/08/math-typesetting/</guid>
+        <guid>https://hushuuu.github.io/2019/03/08/math-typesetting/</guid>
         <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;
 &lt;p&gt;In this example we will be using &lt;a class=&#34;link&#34; href=&#34;https://katex.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;KaTeX&lt;/a&gt;&lt;/p&gt;

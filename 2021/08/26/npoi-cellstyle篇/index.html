@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 NPOI 設定框線、字型、顏色、對齊、換行&hellip;等常用樣式設定
 建立表 XSSFWorkbook xssfworkbook = new XSSFWorkbook(); //建立Workbook ISheet sheet = xssfworkbook.CreateSheet(sheetName); //建立sheet sheet.CreateRow(0).CreateCell(0).SetCellValue(&#34;標題&#34;); //第一次一定要先建立NewRow NewCell 框線 BorderStyle框線樣式
 BorderColor框線顏色
@@ -17,7 +17,7 @@ public static class ExcelStyleHelper { public static void SetRegionStyle(this IS
 但處理上可能較為不彈性。適合較單調簡易的讀檔填值。
 '><title>NPOI - CellStyle篇</title>
 
-<link rel='canonical' href='http://localhost:1313/2021/08/26/npoi-cellstyle%E7%AF%87/'>
+<link rel='canonical' href='https://hushuuu.github.io/2021/08/26/npoi-cellstyle%E7%AF%87/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='NPOI - CellStyle篇'>
 <meta property='og:description' content='前言 NPOI 設定框線、字型、顏色、對齊、換行&hellip;等常用樣式設定
@@ -35,7 +35,7 @@ IFont cFont = workboook.CreateFont(); cFont.FontName = &#34;微軟正黑體&#34;
 public static class ExcelStyleHelper { public static void SetRegionStyle(this ISheet sheet, CellRangeAddress region, ICellStyle style) { for (int i = region.FirstRow; i &lt;= region.LastRow; i&#43;&#43;) { IRow row = sheet.GetRow(i) ?? sheet.CreateRow(i); for (int j = region.FirstColumn; j &lt;= region.LastColumn; j&#43;&#43;) { ICell cell = row.GetCell(j) ?? row.CreateCell(j); cell.CellStyle = style; } } } /// &lt;summary&gt; /// XSSFCellStyle較多參數可設定 /// &lt;/summary&gt; /// &lt;param name=&#34;workboook&#34;&gt;XSSFWorkbook&lt;/param&gt; /// &lt;param name=&#34;hAlignment&#34;&gt;水平對齊&lt;/param&gt; /// &lt;param name=&#34;vAlignment&#34;&gt;垂直對齊&lt;/param&gt; /// &lt;param name=&#34;fontSize&#34;&gt;字體大小&lt;/param&gt; /// &lt;param name=&#34;fontName&#34;&gt;字體名稱&lt;/param&gt; /// &lt;param name=&#34;Btop&#34;&gt;上框線&lt;/param&gt; /// &lt;param name=&#34;Bright&#34;&gt;右框線&lt;/param&gt; /// &lt;param name=&#34;Bdown&#34;&gt;下框線&lt;/param&gt; /// &lt;param name=&#34;Bleft&#34;&gt;左框線&lt;/param&gt; /// &lt;param name=&#34;CanWrapText&#34;&gt;可換行&lt;/param&gt; /// &lt;param name=&#34;isLocked&#34;&gt;鎖定&lt;/param&gt; /// &lt;param name=&#34;isFontBold&#34;&gt;粗體&lt;/param&gt; /// &lt;param name=&#34;xssffontColor&#34;&gt;字體顏色byte[rgb]&lt;/param&gt; /// &lt;param name=&#34;xssffgColor&#34;&gt;前景顏色byte[rgb]&lt;/param&gt; /// &lt;param name=&#34;dataFormat&#34;&gt;格式文字是@ 數字是0 千分位#,##0&lt;/param&gt; /// &lt;returns&gt;&lt;/returns&gt; public static XSSFCellStyle genXSSFCellStyle(XSSFWorkbook workboook , HorizontalAlignment hAlignment = HorizontalAlignment.Center, VerticalAlignment vAlignment = VerticalAlignment.Center , double fontSize = 14, string fontName = &#34;微軟正黑體&#34; , BorderStyle Btop = 0, BorderStyle Bright = 0, BorderStyle Bdown = 0, BorderStyle Bleft = 0 , bool CanWrapText = false, bool isLocked = false, bool isFontBold = false , byte[] xssffontColor = null, byte[] xssffgColor = null, string dataFormat = &#34;@&#34;) { XSSFCellStyle cStyle = (XSSFCellStyle)workboook.CreateCellStyle(); ////設定樣式 cStyle.Alignment = hAlignment; //水平置中 cStyle.VerticalAlignment = vAlignment; //垂直置中 XSSFFont cFont = (XSSFFont)workboook.CreateFont(); cFont.FontName = fontName; cFont.FontHeightInPoints = fontSize; cFont.IsBold = isFontBold; if (xssffontColor != null) { cFont.SetColor(new XSSFColor(xssffontColor)); } cStyle.SetFont(cFont); cStyle.BorderTop = Btop; cStyle.BorderRight = Bright; cStyle.BorderBottom = Bdown; cStyle.BorderLeft = Bleft; cStyle.WrapText = CanWrapText; cStyle.IsLocked = isLocked; if (xssffgColor != null) { cStyle.FillPattern = FillPattern.SolidForeground; cStyle.SetFillForegroundColor(new XSSFColor(xssffgColor)); } cStyle.DataFormat = workboook.CreateDataFormat().GetFormat(dataFormat); //設定格式 return cStyle; } //set region merge public static CellRangeAddress SetRegionMerge(this ISheet sheet, int firstRow, int lastRow, int firstCol, int lastCol) { var region = new CellRangeAddress(firstRow, lastRow, firstCol, lastCol); sheet.AddMergedRegion(region); return region; } } 小結 設定樣式也可以透過讀取設計好的 Excel 檔之Sheet來產出
 但處理上可能較為不彈性。適合較單調簡易的讀檔填值。
 '>
-<meta property='og:url' content='http://localhost:1313/2021/08/26/npoi-cellstyle%E7%AF%87/'>
+<meta property='og:url' content='https://hushuuu.github.io/2021/08/26/npoi-cellstyle%E7%AF%87/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='NPOI' /><meta property='article:published_time' content='2021-08-26T11:52:40&#43;08:00'/><meta property='article:modified_time' content='2021-08-26T11:52:40&#43;08:00'/>
 <meta name="twitter:title" content="NPOI - CellStyle篇">
@@ -101,7 +101,7 @@ public static class ExcelStyleHelper { public static void SetRegionStyle(this IS
                 
             </figure>
         
-        <h1 class="site-name"><a href="http://localhost:1313/">The Site</a></h1>
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
         <h2 class="site-description">紀錄一些筆記。</h2>
     </header>
 
@@ -209,7 +209,7 @@ public static class ExcelStyleHelper { public static void SetRegionStyle(this IS
 
             <main class="main full-width">
     <div id="article-toolbar">
-        <a href="http://localhost:1313/" class="back-home">
+        <a href="https://hushuuu.github.io/" class="back-home">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="15 6 9 12 15 18" />

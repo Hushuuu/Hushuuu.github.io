@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 MVC本身可在Form Post前使用AntiForgeryToken
 在Action上掛上[ValidateAntiForgeryToken]來檢查驗證
 如果要在Ajax使用可以自行建立驗證
@@ -9,7 +9,7 @@
 @functions{ public static string GetAntiForgery() { string cookieToken, formToken; AntiForgery.GetTokens(null, out cookieToken, out formToken); return String.Concat(cookieToken, &#34;@.@&#34;, formToken); } } function deleteUser() { var token = $(&#39;@Html.AntiForgeryToken()&#39;).val(); //防偽標記放入headers //也可以將防偽標記放入data $.ajax({ type: &#39;POST&#39;, url: &#34;/User/Delete&#34;, headers: { &#39;__RequestVerificationToken&#39;: token }, cache: false, data: { &#34;id&#34;: $(&#34;#delid&#34;).val()}, complete: function (data) { alert(data.responseJSON[&#34;Data&#34;]); document.location.href = &#34;/User/Index&#34;; } }); } 後端自行建立Attribute驗證
 public class MyValidateAntiForgeryToken : AuthorizeAttribute { public override void OnAuthorization(AuthorizationContext filterContext) { var request = filterContext.HttpContext.Request; if (request.HttpMethod == WebRequestMethods.Http.Post) { if (request.IsAjaxRequest()) { var antiForgeryCookie = request.Cookies[AntiForgeryConfig.CookieName]; var cookieValue = antiForgeryCookie != null ? antiForgeryCookie.Value : null; //從cookies 和 Headers 中 驗證防偽標記 //這裡可以加try-catch AntiForgery.Validate(cookieValue, request.Headers[&#34;__RequestVerificationToken&#34;]); } else { new ValidateAntiForgeryTokenAttribute() .OnAuthorization(filterContext); } } } } [MyValidateAntiForgeryToken] public ActionResult Delete(string id){} 參考連結 url1 '><title>MVC-使用AntiForgery Token防止跨網站(XSRF/CSRF)攻擊</title>
 
-<link rel='canonical' href='http://localhost:1313/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/'>
+<link rel='canonical' href='https://hushuuu.github.io/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='MVC-使用AntiForgery Token防止跨網站(XSRF/CSRF)攻擊'>
 <meta property='og:description' content='前言 MVC本身可在Form Post前使用AntiForgeryToken
@@ -19,7 +19,7 @@ public class MyValidateAntiForgeryToken : AuthorizeAttribute { public override v
 [ValidateAntiForgeryToken] public ActionResult Create(){ } Ajax套用自行建立驗證 產生AntiForgeryToken
 @functions{ public static string GetAntiForgery() { string cookieToken, formToken; AntiForgery.GetTokens(null, out cookieToken, out formToken); return String.Concat(cookieToken, &#34;@.@&#34;, formToken); } } function deleteUser() { var token = $(&#39;@Html.AntiForgeryToken()&#39;).val(); //防偽標記放入headers //也可以將防偽標記放入data $.ajax({ type: &#39;POST&#39;, url: &#34;/User/Delete&#34;, headers: { &#39;__RequestVerificationToken&#39;: token }, cache: false, data: { &#34;id&#34;: $(&#34;#delid&#34;).val()}, complete: function (data) { alert(data.responseJSON[&#34;Data&#34;]); document.location.href = &#34;/User/Index&#34;; } }); } 後端自行建立Attribute驗證
 public class MyValidateAntiForgeryToken : AuthorizeAttribute { public override void OnAuthorization(AuthorizationContext filterContext) { var request = filterContext.HttpContext.Request; if (request.HttpMethod == WebRequestMethods.Http.Post) { if (request.IsAjaxRequest()) { var antiForgeryCookie = request.Cookies[AntiForgeryConfig.CookieName]; var cookieValue = antiForgeryCookie != null ? antiForgeryCookie.Value : null; //從cookies 和 Headers 中 驗證防偽標記 //這裡可以加try-catch AntiForgery.Validate(cookieValue, request.Headers[&#34;__RequestVerificationToken&#34;]); } else { new ValidateAntiForgeryTokenAttribute() .OnAuthorization(filterContext); } } } } [MyValidateAntiForgeryToken] public ActionResult Delete(string id){} 參考連結 url1 '>
-<meta property='og:url' content='http://localhost:1313/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/'>
+<meta property='og:url' content='https://hushuuu.github.io/2021/03/29/mvc-%E4%BD%BF%E7%94%A8antiforgery-token%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%B6%B2%E7%AB%99xsrf/csrf%E6%94%BB%E6%93%8A/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='CSRF' /><meta property='article:published_time' content='2021-03-29T15:56:17&#43;08:00'/><meta property='article:modified_time' content='2021-03-29T15:56:17&#43;08:00'/>
 <meta name="twitter:title" content="MVC-使用AntiForgery Token防止跨網站(XSRF/CSRF)攻擊">
@@ -77,7 +77,7 @@ public class MyValidateAntiForgeryToken : AuthorizeAttribute { public override v
                 
             </figure>
         
-        <h1 class="site-name"><a href="http://localhost:1313/">The Site</a></h1>
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
         <h2 class="site-description">紀錄一些筆記。</h2>
     </header>
 
@@ -185,7 +185,7 @@ public class MyValidateAntiForgeryToken : AuthorizeAttribute { public override v
 
             <main class="main full-width">
     <div id="article-toolbar">
-        <a href="http://localhost:1313/" class="back-home">
+        <a href="https://hushuuu.github.io/" class="back-home">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="15 6 9 12 15 18" />

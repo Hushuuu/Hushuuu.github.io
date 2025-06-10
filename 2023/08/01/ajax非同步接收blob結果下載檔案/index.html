@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 一般下載檔案常見使用開新頁面請求回傳檔案的方式
 非同步的請求也可以正確接收檔案觸發瀏覽器下載
 透過接收Blob型別的response來解析
@@ -9,7 +9,7 @@ axios.get(&#39;url&#39;,{responseType: &#39;blob&#39; }) .then(res =&gt; { const
 fetch(&#39;url&#39;) .then(resp =&gt; resp.blob()) .then(blob =&gt; { const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結 const a = document.createElement(&#39;a&#39;); a.style.display = &#39;none&#39;; a.href = url; a.download = &#39;samp.txt&#39;; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }) .catch(() =&gt; alert(&#39;oh no!&#39;)); 若要取得回傳的檔案名稱
 //取得回傳的結果header並解析content-disposition區塊 let filename = getFileName(headers[&#34;content-disposition&#34;]); function getFileName(disposition) { console.log(disposition) const utf8FilenameRegex = /filename\*=UTF-8&#39;&#39;([\w%.-]&#43;)(?:; ?|$)/i; const asciiFilenameRegex = /^filename=([&#34;&#39;]?)(.*?[^\\])\1(?:; ?|$)/i; let fileName = null; if (utf8FilenameRegex.test(disposition)) { fileName = decodeURIComponent(utf8FilenameRegex.exec(disposition)[1]); } else { // prevent ReDos attacks by anchoring the ascii regex to string start and // slicing off everything before &#39;filename=&#39; const filenameStart = disposition.toLowerCase().indexOf(&#39;filename=&#39;); if (filenameStart &gt;= 0) { const partialDisposition = disposition.slice(filenameStart); const matches = asciiFilenameRegex.exec(partialDisposition); if (matches != null &amp;&amp; matches[2]) { fileName = matches[2]; } } } return fileName; } '><title>Ajax非同步接收blob結果下載檔案</title>
 
-<link rel='canonical' href='http://localhost:1313/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/'>
+<link rel='canonical' href='https://hushuuu.github.io/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Ajax非同步接收blob結果下載檔案'>
 <meta property='og:description' content='前言 一般下載檔案常見使用開新頁面請求回傳檔案的方式
@@ -19,7 +19,7 @@ fetch(&#39;url&#39;) .then(resp =&gt; resp.blob()) .then(blob =&gt; { const url 
 axios.get(&#39;url&#39;,{responseType: &#39;blob&#39; }) .then(res =&gt; { const { headers, data } = res, blob = new Blob([data]) ; let fname = &#39;samp.txt&#39; const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結 const a = document.createElement(&#39;a&#39;); a.style.display = &#39;none&#39;; a.href = url; a.download = fname; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }); fetch
 fetch(&#39;url&#39;) .then(resp =&gt; resp.blob()) .then(blob =&gt; { const url = window.URL.createObjectURL(blob); //可以接收一個File 或 Blob objet，並回傳一段URL。瀏覽器建立關聯到本地端檔案的連結 const a = document.createElement(&#39;a&#39;); a.style.display = &#39;none&#39;; a.href = url; a.download = &#39;samp.txt&#39;; document.body.appendChild(a); a.click(); window.URL.revokeObjectURL(url); //釋放 }) .catch(() =&gt; alert(&#39;oh no!&#39;)); 若要取得回傳的檔案名稱
 //取得回傳的結果header並解析content-disposition區塊 let filename = getFileName(headers[&#34;content-disposition&#34;]); function getFileName(disposition) { console.log(disposition) const utf8FilenameRegex = /filename\*=UTF-8&#39;&#39;([\w%.-]&#43;)(?:; ?|$)/i; const asciiFilenameRegex = /^filename=([&#34;&#39;]?)(.*?[^\\])\1(?:; ?|$)/i; let fileName = null; if (utf8FilenameRegex.test(disposition)) { fileName = decodeURIComponent(utf8FilenameRegex.exec(disposition)[1]); } else { // prevent ReDos attacks by anchoring the ascii regex to string start and // slicing off everything before &#39;filename=&#39; const filenameStart = disposition.toLowerCase().indexOf(&#39;filename=&#39;); if (filenameStart &gt;= 0) { const partialDisposition = disposition.slice(filenameStart); const matches = asciiFilenameRegex.exec(partialDisposition); if (matches != null &amp;&amp; matches[2]) { fileName = matches[2]; } } } return fileName; } '>
-<meta property='og:url' content='http://localhost:1313/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/'>
+<meta property='og:url' content='https://hushuuu.github.io/2023/08/01/ajax%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%8E%A5%E6%94%B6blob%E7%B5%90%E6%9E%9C%E4%B8%8B%E8%BC%89%E6%AA%94%E6%A1%88/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Ajax' /><meta property='article:tag' content='JavaScript' /><meta property='article:published_time' content='2023-08-01T15:22:07&#43;08:00'/><meta property='article:modified_time' content='2023-08-01T15:22:07&#43;08:00'/>
 <meta name="twitter:title" content="Ajax非同步接收blob結果下載檔案">
@@ -77,7 +77,7 @@ fetch(&#39;url&#39;) .then(resp =&gt; resp.blob()) .then(blob =&gt; { const url 
                 
             </figure>
         
-        <h1 class="site-name"><a href="http://localhost:1313/">The Site</a></h1>
+        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
         <h2 class="site-description">紀錄一些筆記。</h2>
     </header>
 
@@ -185,7 +185,7 @@ fetch(&#39;url&#39;) .then(resp =&gt; resp.blob()) .then(blob =&gt; { const url 
 
             <main class="main full-width">
     <div id="article-toolbar">
-        <a href="http://localhost:1313/" class="back-home">
+        <a href="https://hushuuu.github.io/" class="back-home">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="15 6 9 12 15 18" />
