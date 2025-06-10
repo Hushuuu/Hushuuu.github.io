@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
-    <head><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 使用Oracle Data Pump來匯入匯出資料庫
 impdp/expdp只能在Server端執行，Client端不可用
 匯出Impdp 登入sqlplus建立目錄並授權
@@ -8,7 +8,7 @@ SQL: sqlplus /nolog : connect sys/password@localhost/xxx as sysdba : create dire
 本次只嘗試data_only的方式，把資料匯進不同db
 參考連結 url1 '><title>Oracle使用impdp/expdp來備份</title>
 
-<link rel='canonical' href='https://hushuuu.github.io/2023/06/20/oracle%E4%BD%BF%E7%94%A8impdp/expdp%E4%BE%86%E5%82%99%E4%BB%BD/'>
+<link rel='canonical' href='http://localhost:1313/2023/06/20/oracle%E4%BD%BF%E7%94%A8impdp/expdp%E4%BE%86%E5%82%99%E4%BB%BD/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Oracle使用impdp/expdp來備份'>
 <meta property='og:description' content='前言 使用Oracle Data Pump來匯入匯出資料庫
@@ -17,7 +17,7 @@ impdp/expdp只能在Server端執行，Client端不可用
 SQL: sqlplus /nolog : connect sys/password@localhost/xxx as sysdba : create directory 資料夾定義名稱 as &#39;資料夾路徑&#39; &gt;&gt;&gt;建立目錄 &gt;&gt;&gt;查詢目錄 : select * from dba_directories &gt;&gt;&gt;授權 : GRANT READ,WRITE ON DIRECTORY 資料夾定義名稱 TO 使用者; &gt;&gt;&gt;匯出 : expdp sys/password SCHEMAS=使用者 DIRECTORY=資料夾定義名稱 DUMPFILE=oooooo.dmp : : : LOGFILE=oooo.log 匯入impdp SQL: impdp 帳號/密碼 DIRECTORY=資料夾定義名稱 DUMPFILE=dmp檔案 : content=data_only只匯資料 : remap_schema=A:B 從A schema改到B : table_exists_action=table存在的處置 小結 實際在操作中會有不同情況需要調整指令
 本次只嘗試data_only的方式，把資料匯進不同db
 參考連結 url1 '>
-<meta property='og:url' content='https://hushuuu.github.io/2023/06/20/oracle%E4%BD%BF%E7%94%A8impdp/expdp%E4%BE%86%E5%82%99%E4%BB%BD/'>
+<meta property='og:url' content='http://localhost:1313/2023/06/20/oracle%E4%BD%BF%E7%94%A8impdp/expdp%E4%BE%86%E5%82%99%E4%BB%BD/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Oracle' /><meta property='article:published_time' content='2023-06-20T15:47:46&#43;08:00'/><meta property='article:modified_time' content='2023-06-20T15:47:46&#43;08:00'/>
 <meta name="twitter:title" content="Oracle使用impdp/expdp來備份">
@@ -74,7 +74,7 @@ SQL: sqlplus /nolog : connect sys/password@localhost/xxx as sysdba : create dire
                 
             </figure>
         
-        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h1 class="site-name"><a href="http://localhost:1313/">The Site</a></h1>
         <h2 class="site-description">紀錄一些筆記。</h2>
     </header>
 
@@ -182,7 +182,7 @@ SQL: sqlplus /nolog : connect sys/password@localhost/xxx as sysdba : create dire
 
             <main class="main full-width">
     <div id="article-toolbar">
-        <a href="https://hushuuu.github.io/" class="back-home">
+        <a href="http://localhost:1313/" class="back-home">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="15 6 9 12 15 18" />

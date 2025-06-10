@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
-    <head><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='指令 開啟程式點擊nginx.exe
 或$ start nginx
 重載 Nginx 設定檔&amp;啟動
@@ -14,7 +14,7 @@ server{listen	8100; #監聽portserver_name	localhost; #server網址location /
 upstream ServiceInstance{ #透過upstream 節點定義多個server來使用，實現平衡負載#可設定權重weight/ip_hash等參數server localhost:9529; server localhost:9530; } server{listen	8099; #監聽portserver_name	localhost; #server網址location / { #網址判讀 / or xxx/proxy_pass http://ServiceInstance/ ; #proxy代理轉處理}} 常見錯誤 啟動錯誤An attempt was made to access a socket in a way forbidden by its access permissions
 '><title>Nginx開始使用</title>
 
-<link rel='canonical' href='https://hushuuu.github.io/2023/07/11/nginx%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/'>
+<link rel='canonical' href='http://localhost:1313/2023/07/11/nginx%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Nginx開始使用'>
 <meta property='og:description' content='指令 開啟程式點擊nginx.exe
@@ -29,7 +29,7 @@ $ nginx -t
 server{listen	8100; #監聽portserver_name	localhost; #server網址location / { #網址判讀 / or xxx/root D:\MVC\2023\MyVueTest1\vueapp\dist; #根目錄位址index index.html index.htm; #頁面try_files $uri $uri/ /index.html; #vue spa使用這行來處理頁面導回index}} 平衡附載 在config設定
 upstream ServiceInstance{ #透過upstream 節點定義多個server來使用，實現平衡負載#可設定權重weight/ip_hash等參數server localhost:9529; server localhost:9530; } server{listen	8099; #監聽portserver_name	localhost; #server網址location / { #網址判讀 / or xxx/proxy_pass http://ServiceInstance/ ; #proxy代理轉處理}} 常見錯誤 啟動錯誤An attempt was made to access a socket in a way forbidden by its access permissions
 '>
-<meta property='og:url' content='https://hushuuu.github.io/2023/07/11/nginx%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/'>
+<meta property='og:url' content='http://localhost:1313/2023/07/11/nginx%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Nginx' /><meta property='article:tag' content='publish' /><meta property='article:published_time' content='2023-07-11T08:42:15&#43;08:00'/><meta property='article:modified_time' content='2023-07-11T08:42:15&#43;08:00'/>
 <meta name="twitter:title" content="Nginx開始使用">
@@ -92,7 +92,7 @@ upstream ServiceInstance{ #透過upstream 節點定義多個server來使用，�
                 
             </figure>
         
-        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h1 class="site-name"><a href="http://localhost:1313/">The Site</a></h1>
         <h2 class="site-description">紀錄一些筆記。</h2>
     </header>
 
@@ -200,7 +200,7 @@ upstream ServiceInstance{ #透過upstream 節點定義多個server來使用，�
 
             <main class="main full-width">
     <div id="article-toolbar">
-        <a href="https://hushuuu.github.io/" class="back-home">
+        <a href="http://localhost:1313/" class="back-home">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="15 6 9 12 15 18" />

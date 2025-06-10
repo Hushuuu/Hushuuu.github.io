@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en-us">
-    <head><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 設定Richmenu的API網址有換過。紀錄一下操作流程
 增加圖文選單 POST https://api.line.me/v2/bot/richmenu Authorization: Bearer {channel access token} Content-Type: application/json 成功結果回傳&#34;richMenuId&#34;: &#34;{rich menu id}&#34; Json Content Example
 { &#34;size&#34;: { &#34;width&#34;: 2500, &#34;height&#34;: 843 }, &#34;selected&#34;: false, &#34;name&#34;: &#34;richmenu-tsai&#34;, &#34;chatBarText&#34;: &#34;選單1&#34;, &#34;areas&#34;: [ { &#34;bounds&#34;: { &#34;x&#34;: 0, &#34;y&#34;: 0, &#34;width&#34;: 833, &#34;height&#34;: 843 }, &#34;action&#34;: { &#34;type&#34;: &#34;message&#34;, &#34;label&#34;: &#34;指令&#34;, &#34;text&#34;: &#34;指令&#34; } }, { &#34;bounds&#34;: { &#34;x&#34;: 833, &#34;y&#34;: 0, &#34;width&#34;: 833, &#34;height&#34;: 843 }, &#34;action&#34;: { &#34;type&#34;: &#34;uri&#34;, &#34;label&#34;: &#34;google&#34;, &#34;uri&#34;: &#34;www.google.com&#34; } }, { &#34;bounds&#34;: { &#34;x&#34;: 1666, &#34;y&#34;: 0, &#34;width&#34;: 833, &#34;height&#34;: 843 }, &#34;action&#34;: { &#34;type&#34;: &#34;uri&#34;, &#34;label&#34;: &#34;yahoo&#34;, &#34;uri&#34;: &#34;www.yahoo.com.tw&#34; } } ] } 設定圖文選單的圖片 POST https://api-data.line.me/v2/bot/richmenu/{rich menu id}/content Authorization: Bearer {channel access token} 設定預設的圖文選單 POST https://api.line.me/v2/bot/user/all/richmenu/{rich menu id}
 '><title>Linebot Api 設定圖文選單</title>
 
-<link rel='canonical' href='https://hushuuu.github.io/2022/02/11/linebot-api-%E8%A8%AD%E5%AE%9A%E5%9C%96%E6%96%87%E9%81%B8%E5%96%AE/'>
+<link rel='canonical' href='http://localhost:1313/2022/02/11/linebot-api-%E8%A8%AD%E5%AE%9A%E5%9C%96%E6%96%87%E9%81%B8%E5%96%AE/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Linebot Api 設定圖文選單'>
 <meta property='og:description' content='前言 設定Richmenu的API網址有換過。紀錄一下操作流程
 增加圖文選單 POST https://api.line.me/v2/bot/richmenu Authorization: Bearer {channel access token} Content-Type: application/json 成功結果回傳&#34;richMenuId&#34;: &#34;{rich menu id}&#34; Json Content Example
 { &#34;size&#34;: { &#34;width&#34;: 2500, &#34;height&#34;: 843 }, &#34;selected&#34;: false, &#34;name&#34;: &#34;richmenu-tsai&#34;, &#34;chatBarText&#34;: &#34;選單1&#34;, &#34;areas&#34;: [ { &#34;bounds&#34;: { &#34;x&#34;: 0, &#34;y&#34;: 0, &#34;width&#34;: 833, &#34;height&#34;: 843 }, &#34;action&#34;: { &#34;type&#34;: &#34;message&#34;, &#34;label&#34;: &#34;指令&#34;, &#34;text&#34;: &#34;指令&#34; } }, { &#34;bounds&#34;: { &#34;x&#34;: 833, &#34;y&#34;: 0, &#34;width&#34;: 833, &#34;height&#34;: 843 }, &#34;action&#34;: { &#34;type&#34;: &#34;uri&#34;, &#34;label&#34;: &#34;google&#34;, &#34;uri&#34;: &#34;www.google.com&#34; } }, { &#34;bounds&#34;: { &#34;x&#34;: 1666, &#34;y&#34;: 0, &#34;width&#34;: 833, &#34;height&#34;: 843 }, &#34;action&#34;: { &#34;type&#34;: &#34;uri&#34;, &#34;label&#34;: &#34;yahoo&#34;, &#34;uri&#34;: &#34;www.yahoo.com.tw&#34; } } ] } 設定圖文選單的圖片 POST https://api-data.line.me/v2/bot/richmenu/{rich menu id}/content Authorization: Bearer {channel access token} 設定預設的圖文選單 POST https://api.line.me/v2/bot/user/all/richmenu/{rich menu id}
 '>
-<meta property='og:url' content='https://hushuuu.github.io/2022/02/11/linebot-api-%E8%A8%AD%E5%AE%9A%E5%9C%96%E6%96%87%E9%81%B8%E5%96%AE/'>
+<meta property='og:url' content='http://localhost:1313/2022/02/11/linebot-api-%E8%A8%AD%E5%AE%9A%E5%9C%96%E6%96%87%E9%81%B8%E5%96%AE/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Line' /><meta property='article:tag' content='NetCore' /><meta property='article:published_time' content='2022-02-11T16:49:51&#43;08:00'/><meta property='article:modified_time' content='2022-02-11T16:49:51&#43;08:00'/>
 <meta name="twitter:title" content="Linebot Api 設定圖文選單">
@@ -68,7 +68,7 @@
                 
             </figure>
         
-        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h1 class="site-name"><a href="http://localhost:1313/">The Site</a></h1>
         <h2 class="site-description">紀錄一些筆記。</h2>
     </header>
 
@@ -176,7 +176,7 @@
 
             <main class="main full-width">
     <div id="article-toolbar">
-        <a href="https://hushuuu.github.io/" class="back-home">
+        <a href="http://localhost:1313/" class="back-home">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="15 6 9 12 15 18" />

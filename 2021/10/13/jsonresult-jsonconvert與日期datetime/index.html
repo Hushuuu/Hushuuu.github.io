@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
-    <head><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 MVC回傳的ActionResult
 可以用繼承他的JsonResult來回傳
 使用return Json(obj) 會將物件序列化後回傳至前端。
@@ -11,7 +11,7 @@ function FormatDate (str, withTime) {//格式化後端傳回的date資料 var d 
 可自定義轉換格式。
 '><title>JsonResult JsonConvert與日期Datetime</title>
 
-<link rel='canonical' href='https://hushuuu.github.io/2021/10/13/jsonresult-jsonconvert%E8%88%87%E6%97%A5%E6%9C%9Fdatetime/'>
+<link rel='canonical' href='http://localhost:1313/2021/10/13/jsonresult-jsonconvert%E8%88%87%E6%97%A5%E6%9C%9Fdatetime/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='JsonResult JsonConvert與日期Datetime'>
 <meta property='og:description' content='前言 MVC回傳的ActionResult
@@ -23,7 +23,7 @@ JS處理轉回日期格式 自訂回傳的JsonResult 用JsonConvert並套上轉�
 function FormatDate (str, withTime) {//格式化後端傳回的date資料 var d = eval(`new ` &#43; str.substr(1, str.length - 2)); var ar_date = [d.getFullYear(), d.getMonth() &#43; 1, d.getDate()]; var ar_time = [d.getHours(), d.getMinutes(), d.getSeconds()]; for (var i = 0; i &lt; ar_date.length; i&#43;&#43;) ar_date[i] = dFormat(ar_date[i]); for (var i = 0; i &lt; ar_time.length; i&#43;&#43;) ar_time[i] = dFormat(ar_time[i]); return withTime == true ? ar_date.join(`-`) &#43; &#34; &#34; &#43; ar_time.join(`: `) : ar_date.join(`-`); function dFormat(i) { return i &lt; 10 ? &#34;0&#34; &#43; i.toString() : i; } } 自訂JsonResult public class CustomJsonResult : JsonResult { public CustomJsonResult(bool hasTime=false) { _hasTime = hasTime; if (_hasTime) { _dateFormat = &#34;yyyy-MM-dd HH:mm:ss&#34;; } else { _dateFormat = &#34;yyyy-MM-dd&#34;; } } private bool _hasTime; private string _dateFormat; public override void ExecuteResult(ControllerContext context) { if (context == null) { throw new ArgumentNullException(&#34;context&#34;); } HttpResponseBase response = context.HttpContext.Response; if (!String.IsNullOrEmpty(ContentType)) { response.ContentType = ContentType; } else { response.ContentType = &#34;application/json&#34;; } if (ContentEncoding != null) { response.ContentEncoding = ContentEncoding; } if (Data != null) { // Using Json.NET serializer var isoConvert = new IsoDateTimeConverter(); isoConvert.DateTimeFormat = _dateFormat; response.Write(JsonConvert.SerializeObject(Data, isoConvert)); } } } //使用時傳入true則表示顯示時間 return new CustomJsonResult(false)) { Data = list }; 定義模型中套上JsonConvert轉換 若用JsonConvert來序列化日期原本是會得到2009-02-15T00:00:00Z之格式
 可自定義轉換格式。
 '>
-<meta property='og:url' content='https://hushuuu.github.io/2021/10/13/jsonresult-jsonconvert%E8%88%87%E6%97%A5%E6%9C%9Fdatetime/'>
+<meta property='og:url' content='http://localhost:1313/2021/10/13/jsonresult-jsonconvert%E8%88%87%E6%97%A5%E6%9C%9Fdatetime/'>
 <meta property='og:site_name' content='The Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C#' /><meta property='article:tag' content='Json' /><meta property='article:published_time' content='2021-10-13T15:56:04&#43;08:00'/><meta property='article:modified_time' content='2021-10-13T15:56:04&#43;08:00'/>
 <meta name="twitter:title" content="JsonResult JsonConvert與日期Datetime">
@@ -83,7 +83,7 @@ function FormatDate (str, withTime) {//格式化後端傳回的date資料 var d 
                 
             </figure>
         
-        <h1 class="site-name"><a href="https://hushuuu.github.io/">The Site</a></h1>
+        <h1 class="site-name"><a href="http://localhost:1313/">The Site</a></h1>
         <h2 class="site-description">紀錄一些筆記。</h2>
     </header>
 
@@ -191,7 +191,7 @@ function FormatDate (str, withTime) {//格式化後端傳回的date資料 var d 
 
             <main class="main full-width">
     <div id="article-toolbar">
-        <a href="https://hushuuu.github.io/" class="back-home">
+        <a href="http://localhost:1313/" class="back-home">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="15 6 9 12 15 18" />
